@@ -1,0 +1,29 @@
+{
+  "name": "s10p31s109",
+  "version": "1.0.0",
+  "description": "- 파트너 : 삼성전자 생산기술연구소",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz",
+    "prepare": "husky"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
+    "commitizen": "^4.3.0",
+    "husky": "^9.0.11",
+    "inquirer": "^9.2.18"
+  },
+  "dependencies": {
+    "patch-package": "^8.0.0"
+  }
+}

@@ -1,0 +1,21 @@
+diff --git a/node_modules/@commitlint/cz-commitlint/lib/SectionHeader.js b/node_modules/@commitlint/cz-commitlint/lib/SectionHeader.js
+index 3000bce..3643e97 100644
+--- a/node_modules/@commitlint/cz-commitlint/lib/SectionHeader.js
++++ b/node_modules/@commitlint/cz-commitlint/lib/SectionHeader.js
+@@ -1,6 +1,6 @@
+ import Question from './Question.js';
+ import getRuleQuestionConfig from './services/getRuleQuestionConfig.js';
+-import { getPromptSettings } from './store/prompts.js';
++import { getPromptQuestions, getPromptSettings } from './store/prompts.js';
+ export class HeaderQuestion extends Question {
+     headerMaxLength;
+     headerMinLength;
+@@ -33,7 +33,7 @@ export function getQuestions() {
+     if (!headerRuleQuestionConfig) {
+         return [];
+     }
+-    headerRuleFields.forEach((name) => {
++    headerRuleFields.filter(name => name in getPromptQuestions()).forEach((name) => {
+         const questionConfig = getQuestionConfig(name);
+         if (questionConfig) {
+             const instance = new HeaderQuestion(name, questionConfig, headerRuleQuestionConfig.maxLength, headerRuleQuestionConfig.minLength);
