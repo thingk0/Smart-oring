@@ -1,5 +1,11 @@
+import Renderer from './bases/Renderer';
+
 function App() {
-  return <>hello vite</>;
+  return (
+    <>
+      <Renderer />
+    </>
+  );
 }
 
 export default App;
