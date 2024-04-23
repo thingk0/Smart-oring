@@ -1,3 +1,21 @@
 spring:
   application:
-    name: smartfacotry
+    name: smartfactory
+  profiles:
+    include:
+      - db
+      - kafka
+      - redis
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+
