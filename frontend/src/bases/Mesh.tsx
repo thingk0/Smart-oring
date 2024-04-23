@@ -1,11 +1,11 @@
+import Boxes from '../components/Boxes';
 import Floor from '../components/Floor';
-import TestMesh from '../components/TestMesh';
 
 // update mesh in this function
 function Mesh() {
   return (
     <>
-      <TestMesh />
+      <Boxes />
       <Floor />
     </>
   );
