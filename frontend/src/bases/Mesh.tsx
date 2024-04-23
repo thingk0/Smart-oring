@@ -5,18 +5,40 @@ import Map from '../components/Map';
 import axios from 'axios';
 
 function LoadMapData() {
+  let map: null | Number[][] = null;
   const suspender = axios.get('http://localhost:3001/map').then(({ data }) => {
-    console.log(data);
-    return data;
+    map = data;
   });
-  return suspender;
+
+  return {
+    read() {
+      if (map === null) {
+        throw suspender;
+      }
+      return map;
+    },
+  };
 }
+
+// function LoadMap() {
+//   return {
+//     map: LoadMapData(),
+//   };
+// }
+
 // update mesh in this function
 function Mesh() {
   return (
     <>
-      <Suspense>
-        <Map resource={LoadMapData} />
+      <Suspense
+        fallback={
+          <mesh>
+            <boxGeometry />
+            <meshStandardMaterial color={'red'} />
+          </mesh>
+        }
+      >
+        <Map resource={LoadMapData()} />
       </Suspense>
 
       <Floor />

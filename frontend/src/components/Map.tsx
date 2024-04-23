@@ -1,8 +1,8 @@
-import { Suspense, useEffect } from 'react';
+function Map({ resource }) {
+  const tmp = resource.read();
+  console.log(tmp);
 
-function Map({ resource }: { resource: unknown }) {
-  const tmp = resource();
-  return <>{tmp}</>;
+  return <>{}</>;
 }
 
 export default Map;
