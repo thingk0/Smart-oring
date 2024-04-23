@@ -1,12 +1,12 @@
-import algorithm
-from point import Point
+from path.algorithm import a_star
+from path.point import Point
 import numpy as np
 
 
 def find_path(points, array):
     final_path = []
     for i in range(len(points) - 1):
-        path = algorithm.a_star(array=array, start=points[i], dest=points[i + 1], path=[0])
+        path = a_star(array=array, start=points[i], dest=points[i + 1], path=[0])
         path.pop()
         final_path.extend(path)
     final_path.append(points[-1])
