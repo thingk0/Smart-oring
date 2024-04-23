@@ -1,4 +1,4 @@
-package samsung.smart.factory;
+package info.smartfactory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

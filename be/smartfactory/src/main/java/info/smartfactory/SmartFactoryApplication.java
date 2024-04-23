@@ -1,4 +1,4 @@
-package samsung.smart.factory;
+package info.smartfactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
