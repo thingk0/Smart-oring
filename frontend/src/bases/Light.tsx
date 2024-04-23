@@ -2,7 +2,7 @@
 const lightColor = 'white';
 
 function Light() {
-  return <directionalLight color={lightColor} />;
+  return <ambientLight color={lightColor} />;
 }
 
 export default Light;

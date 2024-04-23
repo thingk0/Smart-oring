@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import Camera from './Camera';
 import Scene from './Scene';
-import { OrbitControls } from '@react-three/drei';
+import Helpers from './Helper';
 
 function Renderer() {
   // axesHelper
@@ -9,10 +9,7 @@ function Renderer() {
 
   return (
     <Canvas>
-      <OrbitControls />
-      <gridHelper args={[100, 100]} />
-      <axesHelper args={[5]} />
-
+      <Helpers />
       <Scene />
       <Camera />
     </Canvas>
