@@ -1,6 +1,8 @@
 // set light at this function
+const lightColor = 'white';
+
 function Light() {
-  return <></>;
+  return <ambientLight color={lightColor} />;
 }
 
 export default Light;
