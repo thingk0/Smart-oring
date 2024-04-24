@@ -3,14 +3,14 @@ import math
 import heapq
 import collections
 
-from path.point import Point
+from robot.mission.path.node import Node
 
 # 방향 벡터
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 
 
-def get_euclidean_distance(p1: Point, p2: Point):
+def get_euclidean_distance(p1: Node, p2: Node):
     """
     유클리디안 거리를 구하는 함수
     :param p1:
@@ -22,7 +22,7 @@ def get_euclidean_distance(p1: Point, p2: Point):
     return math.sqrt((a - c) ** 2 + (b - d) ** 2)
 
 
-def a_star(array, start: Point, dest: Point, path):
+def a_star(array, start: Node, dest: Node, path):
     n = len(array)
     m = len(array[0])
 
@@ -32,21 +32,21 @@ def a_star(array, start: Point, dest: Point, path):
     for i in range(n):
         for j in range(m):
             if array[i][j] in path:
-                heuristic_cost[i][j] = round(get_euclidean_distance(Point(i, j), dest))
+                heuristic_cost[i][j] = round(get_euclidean_distance(Node(i, j), dest))
 
     distance = [[float("inf")] * m for _ in range(n)]
     distance[start.x][start.y] = 0
 
     heap = []
-    heapq.heappush(heap, (heuristic_cost[start.x][start.y], 0, Point(start.x, start.y), Point(-1, -1)))
+    heapq.heappush(heap, (heuristic_cost[start.x][start.y], 0, Node(start.x, start.y), Node(-1, -1)))
 
     estimated_cost = 0
-    parent = [[Point(-1, -1)] * m for _ in range(n)]
+    parent = [[Node(-1, -1)] * m for _ in range(n)]
 
     while heap:
 
         estimated_cost, current_distance, point, parent_point = heapq.heappop(heap)
-        point: Point
+        point: Node
 
         x, y = point.x, point.y
         if current_distance != distance[x][y]:
@@ -66,17 +66,17 @@ def a_star(array, start: Point, dest: Point, path):
             if array[nx][ny] not in path:
                 continue
             distance[nx][ny] = current_distance + 1
-            heapq.heappush(heap, (heuristic_cost[nx][ny], current_distance + 1, Point(nx, ny), Point(x, y)))
+            heapq.heappush(heap, (heuristic_cost[nx][ny], current_distance + 1, Node(nx, ny), Node(x, y)))
 
     path = find_path(parent=parent, start=dest)
     return path
 
 
-def find_path(parent, start: Point):
-    current = Point(start.x, start.y)
+def find_path(parent, start: Node):
+    current = Node(start.x, start.y)
     dq = collections.deque()
     while True:
-        if parent[current.x][current.y] == Point(-1, -1):
+        if parent[current.x][current.y] == Node(-1, -1):
             dq.appendleft(current)
             break
         dq.appendleft(current)
@@ -90,4 +90,4 @@ if __name__ == '__main__':
     factory_map[2:4, 2:4] = 1
     print(factory_map)
 
-    a_star(array=factory_map, start=Point(1, 1), dest=Point(5, 5), path=[0])
+    a_star(array=factory_map, start=Node(1, 1), dest=Node(5, 5), path=[0])

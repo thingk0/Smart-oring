@@ -2,7 +2,7 @@ from dataclasses import dataclass, astuple
 
 
 @dataclass
-class Point:
+class Node:
     x: int
     y: int
 
@@ -14,3 +14,9 @@ class Point:
 
     def __lt__(self, other):
         return self.x < other.x or self.y < other.y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __hash__(self):
+        return hash((self.x, self.y))
