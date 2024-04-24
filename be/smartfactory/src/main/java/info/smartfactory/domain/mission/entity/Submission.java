@@ -1,26 +1,27 @@
-package info.smartfactory;
+package info.smartfactory.domain.mission.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.node.entity.Node;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "submission", schema = "smart-factory")
+@Table(name = "submission")
 public class Submission {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "mission_id", nullable = false)
-    private Long missionId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mission_id", nullable = false)
+    private Mission mission;
 
-    @Column(name = "arrive_node_id", nullable = false)
-    private Long arriveNodeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "arrive_node_id", nullable = false)
+    private Node arriveNode;
 
     @Column(name = "submission_order")
     private Integer submissionOrder;

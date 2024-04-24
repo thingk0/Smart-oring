@@ -1,23 +1,22 @@
 package info.smartfactory.domain.node.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import info.smartfactory.domain.node.entity.Node;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "storage", schema = "smart-factory")
+@Table(name = "storage")
 public class Storage {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "node_id", nullable = false)
-    private Long nodeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "node_id", nullable = false)
+    private Node node;
 
     @Column(name = "entrance_direction")
     private Integer entranceDirection;

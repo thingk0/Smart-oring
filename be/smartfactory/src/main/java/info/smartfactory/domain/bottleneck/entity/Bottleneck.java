@@ -12,14 +12,11 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "bottleneck", schema = "smart-factory")
+@Table(name = "bottleneck")
 public class Bottleneck {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "mission_id", nullable = false)
-    private Long missionId;
 
     @Column(name = "x_coordinate")
     private Integer xCoordinate;
@@ -27,7 +24,7 @@ public class Bottleneck {
     @Column(name = "y_coordinate")
     private Integer yCoordinate;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Column(name = "bottleneck_created_at")
+    private Instant bottleneckCreatedAt;
 
 }

@@ -10,13 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "charger", schema = "smart-factory")
+@Table(name = "charger")
 public class Charger {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "node_id", nullable = false)
-    private Long nodeId;
-
+    //TODO [JPA Buddy] generate columns from DB
 }

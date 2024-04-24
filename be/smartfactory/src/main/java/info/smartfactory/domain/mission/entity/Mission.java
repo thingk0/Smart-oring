@@ -1,4 +1,4 @@
-package info.smartfactory;
+package info.smartfactory.domain.mission.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "mission", schema = "smart-factory")
+@Table(name = "mission")
 public class Mission {
     @Id
     @Column(name = "id", nullable = false)

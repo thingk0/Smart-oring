@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "node", schema = "smart-factory")
+@Table(name = "node")
 public class Node {
     @Id
     @Column(name = "id", nullable = false)
