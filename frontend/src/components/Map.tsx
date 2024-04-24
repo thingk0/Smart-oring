@@ -1,5 +1,11 @@
 import Charger from './Charger';
 import Destination from './Destination';
+import Logistic from './Logistic';
+interface MapProps {
+  resource: {
+    read(): MapData;
+  };
+}
 
 type MapData = {
   charger: PositionData[];
@@ -13,7 +19,7 @@ type PositionData = {
   direction: number;
 };
 
-function Map({ resource }) {
+function Map({ resource }: MapProps) {
   const data: MapData = resource.read();
   console.log(data);
 
@@ -24,6 +30,9 @@ function Map({ resource }) {
       })}
       {data.destination.map((d, index) => {
         return <Destination start={d.start} end={d.end} key={index} />;
+      })}
+      {data.logistic.map((l, index) => {
+        return <Logistic start={l.start} end={l.end} key={index} />;
       })}
     </>
   );

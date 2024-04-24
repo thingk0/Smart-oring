@@ -3,28 +3,28 @@
     "logistic": [
       {
         "direction": 1,
-        "start": [26, 4],
-        "end": [29, 14]
+        "start": [16, 4],
+        "end": [26, 7]
       },
       {
         "direction": 1,
-        "start": [34, 4],
-        "end": [37, 10]
+        "start": [28, 4],
+        "end": [34, 7]
       },
       {
         "direction": 1,
-        "start": [20, 10],
-        "end": [23, 14]
+        "start": [16, 10],
+        "end": [20, 13]
       },
       {
         "direction": 1,
-        "start": [26, 10],
-        "end": [29, 14]
+        "start": [22, 10],
+        "end": [26, 13]
       },
       {
         "direction": 1,
-        "start": [34, 10],
-        "end": [37, 16]
+        "start": [28, 10],
+        "end": [34, 13]
       },
       {
         "direction": 2,
@@ -44,12 +44,17 @@
       {
         "direction": 2,
         "start": [30, 19],
-        "end": [37, 29]
+        "end": [33, 29]
       },
       {
         "direction": 2,
         "start": [37, 32],
         "end": [40, 42]
+      },
+      {
+        "direction": 2,
+        "start": [37, 19],
+        "end": [40, 29]
       },
       {
         "direction": 2,
@@ -87,28 +92,28 @@
         "end": [19, 55]
       },
       {
-        "start": [20, 92],
-        "end": [23, 96],
+        "start": [16, 92],
+        "end": [20, 95],
         "direction": 1
       },
       {
-        "start": [26, 92],
-        "end": [29, 96],
+        "start": [22, 92],
+        "end": [26, 95],
         "direction": 1
       },
       {
-        "start": [34, 92],
-        "end": [37, 98],
+        "start": [28, 92],
+        "end": [34, 95],
         "direction": 1
       },
       {
-        "start": [26, 86],
-        "end": [29, 96],
+        "start": [16, 86],
+        "end": [26, 89],
         "direction": 1
       },
       {
-        "start": [34, 86],
-        "end": [37, 92],
+        "start": [28, 86],
+        "end": [34, 89],
         "direction": 1
       },
       {

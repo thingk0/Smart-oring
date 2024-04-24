@@ -3,9 +3,21 @@ import Boxes from '../components/Boxes';
 import Floor from '../components/Floor';
 import Map from '../components/Map';
 import axios from 'axios';
+type MapData = {
+  charger: PositionData[];
+  destination: PositionData[];
+  logistic: PositionData[];
+};
 
-function LoadMapData() {
-  let map: null | Number[][] = null;
+type PositionData = {
+  start: [number, number];
+  end: [number, number];
+  direction: number;
+};
+function LoadMapData(): {
+  read(): MapData;
+} {
+  let map: MapData | null = null;
   const suspender = axios.get('http://localhost:3001/map').then(({ data }) => {
     map = data;
   });
