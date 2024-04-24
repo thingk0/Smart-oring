@@ -1,4 +1,5 @@
 import Charger from './Charger';
+import Destination from './Destination';
 
 type MapData = {
   charger: PositionData[];
@@ -7,8 +8,8 @@ type MapData = {
 };
 
 type PositionData = {
-  start: number[];
-  end: number[];
+  start: [number, number];
+  end: [number, number];
   direction: number;
 };
 
@@ -20,6 +21,9 @@ function Map({ resource }) {
     <>
       {data.charger.map((c, index: number) => {
         return <Charger start={c.start} end={c.end} key={index} />;
+      })}
+      {data.destination.map((d, index) => {
+        return <Destination start={d.start} end={d.end} key={index} />;
       })}
     </>
   );

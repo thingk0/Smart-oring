@@ -40,8 +40,6 @@ function Mesh() {
       >
         <Map resource={LoadMapData()} />
       </Suspense>
-
-      <Floor />
     </>
   );
 }
