@@ -34,7 +34,6 @@ function Logistic({ start, end }: DestinationProps) {
             ></BigShelves04_4>
           </>
         )}
-        <Instance />
       </Merged>
     </>
   );
