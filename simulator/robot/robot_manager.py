@@ -1,7 +1,6 @@
-from enum import Enum
 from typing import List
+
 import numpy as np
-from collections import deque
 
 from robot.mission import mission_processor
 from robot.mission.entity.robot import RobotStatus, Robot
@@ -41,6 +40,10 @@ class RobotManager:
         robot.assign_mission(mission, route)
         self.working_robots.append(robot)
         return True
+
+    def set_map(self, factory_map):
+        self.factory_map = factory_map
+        self.lock_map = np.zeros((len(factory_map), len(factory_map[0])))
 
     def get_all_robots(self):
         return self.idle_robots + self.working_robots
