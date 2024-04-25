@@ -1,0 +1,330 @@
+{
+  "map": {
+    "logistic": [
+      {
+        "direction": 1,
+        "start": [16, 4],
+        "end": [26, 7]
+      },
+      {
+        "direction": 1,
+        "start": [28, 4],
+        "end": [34, 7]
+      },
+      {
+        "direction": 1,
+        "start": [16, 10],
+        "end": [20, 13]
+      },
+      {
+        "direction": 1,
+        "start": [22, 10],
+        "end": [26, 13]
+      },
+      {
+        "direction": 1,
+        "start": [28, 10],
+        "end": [34, 13]
+      },
+      {
+        "direction": 2,
+        "start": [9, 19],
+        "end": [12, 29]
+      },
+      {
+        "direction": 2,
+        "start": [16, 19],
+        "end": [19, 29]
+      },
+      {
+        "direction": 2,
+        "start": [23, 19],
+        "end": [26, 29]
+      },
+      {
+        "direction": 2,
+        "start": [30, 19],
+        "end": [33, 29]
+      },
+      {
+        "direction": 2,
+        "start": [37, 32],
+        "end": [40, 42]
+      },
+      {
+        "direction": 2,
+        "start": [37, 19],
+        "end": [40, 29]
+      },
+      {
+        "direction": 2,
+        "start": [9, 32],
+        "end": [12, 42]
+      },
+      {
+        "direction": 2,
+        "start": [16, 32],
+        "end": [19, 42]
+      },
+      {
+        "direction": 2,
+        "start": [23, 32],
+        "end": [26, 42]
+      },
+      {
+        "direction": 2,
+        "start": [30, 32],
+        "end": [33, 42]
+      },
+      {
+        "direction": 2,
+        "start": [37, 32],
+        "end": [40, 42]
+      },
+      {
+        "direction": 2,
+        "start": [9, 45],
+        "end": [12, 55]
+      },
+      {
+        "direction": 2,
+        "start": [16, 45],
+        "end": [19, 55]
+      },
+      {
+        "start": [16, 92],
+        "end": [20, 95],
+        "direction": 1
+      },
+      {
+        "start": [22, 92],
+        "end": [26, 95],
+        "direction": 1
+      },
+      {
+        "start": [28, 92],
+        "end": [34, 95],
+        "direction": 1
+      },
+      {
+        "start": [16, 86],
+        "end": [26, 89],
+        "direction": 1
+      },
+      {
+        "start": [28, 86],
+        "end": [34, 89],
+        "direction": 1
+      },
+      {
+        "start": [9, 71],
+        "end": [12, 81],
+        "direction": 2
+      },
+      {
+        "start": [16, 71],
+        "end": [19, 81],
+        "direction": 2
+      },
+      {
+        "start": [23, 71],
+        "end": [26, 81],
+        "direction": 2
+      },
+      {
+        "start": [30, 71],
+        "end": [33, 81],
+        "direction": 2
+      },
+      {
+        "start": [37, 71],
+        "end": [40, 81],
+        "direction": 2
+      },
+      {
+        "start": [9, 58],
+        "end": [12, 68],
+        "direction": 2
+      },
+      {
+        "start": [16, 58],
+        "end": [19, 68],
+        "direction": 2
+      },
+      {
+        "start": [23, 58],
+        "end": [26, 68],
+        "direction": 2
+      },
+      {
+        "start": [30, 58],
+        "end": [33, 68],
+        "direction": 2
+      },
+      {
+        "start": [37, 58],
+        "end": [40, 68],
+        "direction": 2
+      },
+      {
+        "start": [23, 45],
+        "end": [26, 55],
+        "direction": 2
+      },
+      {
+        "start": [30, 45],
+        "end": [33, 55],
+        "direction": 2
+      },
+      {
+        "start": [37, 45],
+        "end": [40, 55],
+        "direction": 2
+      }
+    ],
+    "charger": [
+      {
+        "direction": 1,
+        "start": [2, 6],
+        "end": [12, 11]
+      },
+      {
+        "direction": 1,
+        "start": [38, 6],
+        "end": [48, 11]
+      },
+      {
+        "start": [2, 88],
+        "end": [12, 93],
+        "direction": 3
+      },
+      {
+        "start": [38, 88],
+        "end": [48, 93],
+        "direction": 3
+      }
+    ],
+    "destination": [
+      {
+        "direction": 2,
+        "start": [3, 21],
+        "end": [6, 24]
+      },
+      {
+        "direction": 2,
+        "start": [3, 26],
+        "end": [6, 29]
+      },
+      {
+        "direction": 2,
+        "start": [3, 31],
+        "end": [6, 34]
+      },
+      {
+        "direction": 2,
+        "start": [3, 36],
+        "end": [6, 39]
+      },
+      {
+        "direction": 2,
+        "start": [3, 41],
+        "end": [6, 44]
+      },
+      {
+        "direction": 2,
+        "start": [3, 46],
+        "end": [6, 49]
+      },
+      {
+        "direction": 0,
+        "start": [44, 21],
+        "end": [47, 24]
+      },
+      {
+        "direction": 0,
+        "start": [44, 26],
+        "end": [47, 29]
+      },
+      {
+        "direction": 0,
+        "start": [44, 31],
+        "end": [47, 34]
+      },
+      {
+        "direction": 0,
+        "start": [44, 36],
+        "end": [47, 39]
+      },
+      {
+        "direction": 0,
+        "start": [44, 41],
+        "end": [47, 44]
+      },
+      {
+        "direction": 0,
+        "start": [44, 46],
+        "end": [47, 49]
+      },
+      {
+        "start": [3, 76],
+        "end": [6, 79],
+        "direction": 2
+      },
+      {
+        "start": [3, 71],
+        "end": [6, 74],
+        "direction": 2
+      },
+      {
+        "start": [3, 66],
+        "end": [6, 69],
+        "direction": 2
+      },
+      {
+        "start": [3, 61],
+        "end": [6, 64],
+        "direction": 2
+      },
+      {
+        "start": [3, 56],
+        "end": [6, 59],
+        "direction": 2
+      },
+      {
+        "start": [3, 51],
+        "end": [6, 54],
+        "direction": 2
+      },
+      {
+        "start": [44, 76],
+        "end": [47, 79],
+        "direction": 0
+      },
+      {
+        "start": [44, 71],
+        "end": [47, 74],
+        "direction": 0
+      },
+      {
+        "start": [44, 66],
+        "end": [47, 69],
+        "direction": 0
+      },
+      {
+        "start": [44, 61],
+        "end": [47, 64],
+        "direction": 0
+      },
+      {
+        "start": [44, 56],
+        "end": [47, 59],
+        "direction": 0
+      },
+      {
+        "start": [44, 51],
+        "end": [47, 54],
+        "direction": 0
+      }
+    ]
+  }
+}
