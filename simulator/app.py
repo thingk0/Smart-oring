@@ -2,8 +2,8 @@ import time
 from collections import deque
 
 from robot.mission import mission_util
-from robot.mission.entity.structure import Structure
 from robot.mission.entity.mission import Mission
+from robot.mission.entity.structure import Structure
 from robot.robot_manager import RobotManager
 
 missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
@@ -33,11 +33,12 @@ def start():
         rm.print_factory_map()
         rm.process_robots()
 
-        if not missions:
-            continue
-        mission_assigned: bool = rm.assign_mission(missions[0])
-        if mission_assigned:
-            missions.popleft()
+        while missions:
+            mission_assigned: bool = rm.assign_mission(missions[0])
+            if mission_assigned:
+                missions.popleft()
+            else:
+                break
 
 
 def send_robot_stat():
