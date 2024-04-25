@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Boxes from '../components/Boxes';
 import Floor from '../components/Floor';
-import Map from '../components/Map';
+import Map from '../entities/3D/ui/Map';
 import axios from 'axios';
 type MapData = {
   charger: PositionData[];

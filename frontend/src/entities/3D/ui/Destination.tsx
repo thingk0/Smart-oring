@@ -1,7 +1,8 @@
-import { calculateScale, convertPosition } from './shared/lib/utils';
+import { calculateScale, convertPosition } from '../../../shared/lib/index.ts';
+import { Point2D } from '../../../shared/types/index.ts';
 type DestinationProps = {
-  start: [number, number];
-  end: [number, number];
+  start: Point2D;
+  end: Point2D;
 };
 function Destination({ start, end }: DestinationProps) {
   return (

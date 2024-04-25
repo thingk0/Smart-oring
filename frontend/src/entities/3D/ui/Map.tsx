@@ -1,6 +1,7 @@
 import Charger from './Charger';
 import Destination from './Destination';
 import Logistic from './Logistic';
+import { Point2D } from '../../../shared/types';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -14,8 +15,8 @@ type MapData = {
 };
 
 type PositionData = {
-  start: [number, number];
-  end: [number, number];
+  start: Point2D;
+  end: Point2D;
   direction: number;
 };
 

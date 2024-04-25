@@ -1,3 +1,5 @@
+import { Point2D } from '../../../shared/types';
+
 const getPosition = (start: number[], end: number[]) => {
   return {
     width: end[1] - start[1],
@@ -7,7 +9,12 @@ const getPosition = (start: number[], end: number[]) => {
   };
 };
 
-function Charger({ start, end }) {
+type ChargerProps = {
+  start: Point2D;
+  end: Point2D;
+};
+
+function Charger({ start, end }: ChargerProps) {
   const { width, height, startX, startY } = getPosition(start, end);
 
   return (
