@@ -21,29 +21,3 @@ instanceAPI.interceptors.response.use(res => {
 
 export const getRobotPosition = () =>
   instanceAPI.get(`http://localhost:3001/robot`).then(res => res.data);
-
-//   {
-//     "status": "success",
-//     "fetchStatus": "fetching",
-//     "isPending": false,
-//     "isSuccess": true,
-//     "isError": false,
-//     "isInitialLoading": false,
-//     "isLoading": false,
-//     "data": [],
-//     "dataUpdatedAt": 1714096041610,
-//     "error": null,
-//     "errorUpdatedAt": 0,
-//     "failureCount": 0,
-//     "failureReason": null,
-//     "errorUpdateCount": 0,
-//     "isFetched": true,
-//     "isFetchedAfterMount": true,
-//     "isFetching": true,
-//     "isRefetching": true,
-//     "isLoadingError": false,
-//     "isPaused": false,
-//     "isPlaceholderData": false,
-//     "isRefetchError": false,
-//     "isStale": true
-// }

@@ -4,6 +4,7 @@ import Logistic from './Logistic';
 import { Point2D } from '../../../shared/types';
 import Robot from './Robot';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import InstancedRobot from './InstancedRobot';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -30,7 +31,7 @@ function Map({ resource }: MapProps) {
 
   return (
     <>
-      {data.charger.map((c, index: number) => {
+      {/* {data.charger.map((c, index: number) => {
         return <Charger start={c.start} end={c.end} key={index} />;
       })}
       {data.destination.map((d, index) => {
@@ -38,9 +39,10 @@ function Map({ resource }: MapProps) {
       })}
       {data.logistic.map((l, index) => {
         return <Logistic start={l.start} end={l.end} key={index} />;
-      })}
+      })} */}
       <QueryClientProvider client={queryClient}>
-        <Robot />
+        {/* <Robot /> */}
+        <InstancedRobot />
       </QueryClientProvider>
     </>
   );
