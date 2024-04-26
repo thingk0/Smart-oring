@@ -2,6 +2,8 @@ import Charger from './Charger';
 import Destination from './Destination';
 import Logistic from './Logistic';
 import { Point2D } from '../../../shared/types';
+import Robot from './Robot';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -20,9 +22,11 @@ type PositionData = {
   direction: number;
 };
 
+const queryClient = new QueryClient();
+
 function Map({ resource }: MapProps) {
   const data: MapData = resource.read();
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
@@ -35,6 +39,9 @@ function Map({ resource }: MapProps) {
       {data.logistic.map((l, index) => {
         return <Logistic start={l.start} end={l.end} key={index} />;
       })}
+      <QueryClientProvider client={queryClient}>
+        <Robot />
+      </QueryClientProvider>
     </>
   );
 }
