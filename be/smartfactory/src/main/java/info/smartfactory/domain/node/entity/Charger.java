@@ -1,9 +1,6 @@
 package info.smartfactory.domain.node.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +13,7 @@ public class Charger {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    //TODO [JPA Buddy] generate columns from DB
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "node_id", nullable = false)
+    private Node node;
 }
