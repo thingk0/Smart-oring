@@ -21,14 +21,19 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
 public class NodeService {
     private final NodeRepository nodeRepository;
 
-    static boolean [][] v;
     static final int CHARGER = -1;
     static final int DESTINATION = -2;
 
+    static List<StorageDto> storageList;
+    static List<ChargerDto> chargerList;
+    static List<DestinationDto> destinationList;
+
     public MapDto getMapData() {
+        storageList = new ArrayList<>();
+        chargerList = new ArrayList<>();
+        destinationList = new ArrayList<>();
+
         int[][] map = new int[100][50];
-
-
 
         // DB에서 노드 가져오기
         List<Storage> storage = nodeRepository.getStorage();
@@ -36,7 +41,6 @@ public class NodeService {
         List<Destination> destination = nodeRepository.getDestination();
 
         // map 채우기
-
         for (Storage s : storage) {
             Node node = s.getNode();
             map[node.getXCoordinate()][node.getYCoordinate()] = s.getEntranceDirection();
@@ -55,21 +59,14 @@ public class NodeService {
         // BFS로 창고, 충전소, 도착지 찾기
         // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 창고는 방향까지
 
-        List<StorageDto> storageList = new ArrayList<>();
-        List<ChargerDto> chargerList = new ArrayList<>();
-        List<DestinationDto> destinationList = new ArrayList<>();
+        boolean [][] v = new boolean[100][50];
 
-        v = new boolean[100][50];
-
-        bfs(map);
+        bfs(v, map);
 
         return new MapDto(storageList, chargerList, destinationList);
     }
 
-    // 한 노드씩 보면서 0이면 그냥 큐에 넣고 지나가기
-    // 창고가 있으면 네모찾기 알고리즘?
-    //
-    static void bfs(int[][] map) {
+    static void bfs(boolean [][] v, int[][] map) {
         int[] dx = new int[]{0, 1, 0, -1};
         int[] dy = new int[]{-1, 0, 1, 0};
 
@@ -91,20 +88,16 @@ public class NodeService {
                 if (map[nx][ny] == 0) {
                     v[nx][ny] = true;
                     q.add(new Integer[]{nx, ny});
-                }else if(map[nx][ny] == CHARGER){
-
-                }else if(map[nx][ny] == DESTINATION){
-
-                }else if(1 <= map[nx][ny] && map[nx][ny] <=4){
+                }else{
                     v[nx][ny] = true;
                     q.add(new Integer[]{nx, ny});
-                    search(map, nx, ny);
+                    search(map, v, nx, ny);
                 }
             }
         }
     }
 
-    static void search(int[][] map, int x, int y) {
+    static void search(int[][] map, boolean [][] v, int x, int y) {
         // x축 이동
         int nx = x;
         while(true){
@@ -112,9 +105,25 @@ public class NodeService {
             if(map[nx][y] != map[x][y]) break;
         }
 
+        int ny = y;
         // y축 이동
         while(true){
+            v[x][ny] = true;
+            if(map[x][ny] != map[x][y]) break;
+        }
 
+        if(map[x][y] == CHARGER){
+            chargerList.add(
+                    new ChargerDto(new int[]{x, y}, new int[]{nx-1, ny-1})
+            );
+        }else if(map[x][y] == DESTINATION){
+            destinationList.add(
+                    new DestinationDto(new int[]{x, y}, new int[]{nx-1, ny-1})
+            );
+        }else{ // STORAGE
+            storageList.add(
+                    new StorageDto(map[x][y],new int[]{x, y}, new int[]{nx-1, ny-1})
+            );
         }
     }
 
