@@ -13,7 +13,7 @@ public class Destination {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "node_id", nullable = false)
     private Node node;
 }
