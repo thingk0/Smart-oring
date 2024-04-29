@@ -1,4 +1,4 @@
-package info.smartfactory.global.entity;
+package info.smartfactory.domain.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -13,14 +13,12 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseTimeEntity{
+public abstract class BaseTimeEntity {
 
-    // Entity가 생성되어 저장될 때 시간이 자동 저장됨
     @CreatedDate
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    // 조회한 Entity 값을 변경할 때 시간이 자동 저장됨
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
