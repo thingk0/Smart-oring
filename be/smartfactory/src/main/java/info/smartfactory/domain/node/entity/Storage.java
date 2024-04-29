@@ -1,21 +1,31 @@
 package info.smartfactory.domain.node.entity;
 
-import info.smartfactory.domain.node.entity.Node;
-import jakarta.persistence.*;
+import info.smartfactory.domain.common.BaseTimeEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "storage")
-public class Storage {
+public class Storage extends BaseTimeEntity {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "node_id", nullable = false)
     private Node node;
 
     @Column(name = "entrance_direction")

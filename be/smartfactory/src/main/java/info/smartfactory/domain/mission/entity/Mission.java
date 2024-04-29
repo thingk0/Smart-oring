@@ -1,27 +1,33 @@
 package info.smartfactory.domain.mission.entity;
 
+import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.time.Instant;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "mission")
-public class Mission {
+public class Mission extends BaseTimeEntity {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "mission_created_at")
-    private Instant missionCreatedAt;
+    @Column(name = "mission_created_at", updatable = false)
+    private LocalDateTime missionCreatedAt;
 
-    @Column(name = "mission_finished_at")
-    private Instant missionFinishedAt;
+    @Column(name = "mission_finished_at", updatable = false)
+    private LocalDateTime missionFinishedAt;
 
 }
