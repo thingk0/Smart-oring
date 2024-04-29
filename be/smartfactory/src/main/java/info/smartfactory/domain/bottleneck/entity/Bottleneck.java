@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,19 +19,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "bottleneck")
 public class Bottleneck extends BaseTimeEntity {
 
     @Id
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "x_coordinate")
+    @Column(name = "x_coordinate", nullable = false)
     private Integer xCoordinate;
 
-    @Column(name = "y_coordinate")
+    @Column(name = "y_coordinate", nullable = false)
     private Integer yCoordinate;
 
-    @Column(name = "bottleneck_created_at")
+    @Column(name = "bottleneck_created_at", nullable = false)
     private LocalDateTime bottleneckCreatedAt;
 
 }
