@@ -2,14 +2,14 @@ package info.smartfactory.domain.node.controller;
 
 
 import info.smartfactory.domain.node.dto.MapDto;
+import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.service.NodeService;
 import info.smartfactory.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -17,11 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class NodeController {
     private final NodeService nodeService;
 
-    //getMap - DB에서 node 정보 가져와서 bfs로 탐색해서 보내기
     @GetMapping("/map")
     public ResponseEntity<ResultResponse<MapDto>> mapData() {
         MapDto mapData = nodeService.getMapData();
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), mapData));
+    }
+
+    @DeleteMapping("/map/delete")
+    public ResponseEntity<ResultResponse<MapDto>> deleteMapData() {
+        nodeService.deleteMapData();
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString()));
+    }
+
+    @PostMapping("/map/add")
+    public ResponseEntity<ResultResponse<Node>> addMapData(@PathVariable(name = "type") String type) {
+        Node node = nodeService.addMapData(type);
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), node));
     }
 
 }

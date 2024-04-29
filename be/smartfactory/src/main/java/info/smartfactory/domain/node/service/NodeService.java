@@ -28,6 +28,8 @@ public class NodeService {
     static List<ChargerDto> chargerList;
     static List<DestinationDto> destinationList;
 
+
+
     public MapDto getMapData() {
         storageList = new ArrayList<>();
         chargerList = new ArrayList<>();
@@ -127,4 +129,15 @@ public class NodeService {
         }
     }
 
+    public void deleteMapData() {
+        nodeRepository.deleteMap();
+    }
+
+    public Node addMapData(String type){
+        Node node = new Node();
+        node.setXCoordinate(0);
+        node.setYCoordinate(0);
+        nodeRepository.save(node);
+        return node;
+    }
 }
