@@ -12,20 +12,14 @@ import java.util.List;
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Integer>{
     @Query(nativeQuery = true,
-            value = "SELECT s.id, n.*, s.entrance_direction " +
-                    "FROM storage s join node n " +
-                    "ON s.node_id = n.id")
+            value = "SELECT * FROM storage s")
     List<Storage> getStorage();
 
     @Query(nativeQuery = true,
-            value = "SELECT s.id, n.*, s.entrance_direction " +
-                    "FROM storage s join node n " +
-                    "ON s.node_id = n.id")
+            value = "SELECT * FROM charger")
     List<Charger> getCharger();
 
     @Query(nativeQuery = true,
-            value = "SELECT s.id, n.*, s.entrance_direction " +
-                    "FROM storage s join node n " +
-                    "ON s.node_id = n.id")
+            value = "SELECT * FROM destination")
     List<Destination> getDestination();
 }
