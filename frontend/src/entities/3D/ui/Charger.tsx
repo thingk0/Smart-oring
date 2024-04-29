@@ -1,3 +1,4 @@
+import { Instance } from '@react-three/drei';
 import { Point2D } from '../../../shared/types';
 
 const getPosition = (start: number[], end: number[]) => {
@@ -19,14 +20,13 @@ function Charger({ start, end }: ChargerProps) {
 
   return (
     <>
-      <mesh
+      <planeGeometry />
+      <meshStandardMaterial color="green" />
+      <Instance
         position={[startX, 0, startY]}
         scale={[width, height, 1]}
         rotation={[-Math.PI / 2, 0, 0]}
-      >
-        <planeGeometry />
-        <meshStandardMaterial color="green" />
-      </mesh>
+      />
     </>
   );
 }
