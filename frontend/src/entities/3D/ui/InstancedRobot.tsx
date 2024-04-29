@@ -29,15 +29,13 @@ function InstancedRobot() {
     // refetchInterval: 1000,
   });
 
-  const model = useGLTF('./models/Forklift01.glb');
+  const model = useGLTF('./models/AGV.glb');
 
   const [beforePositions, setBeforePositions] = useState([]);
   const forklifts = useRef();
 
   useEffect(() => {
-    forklifts.current?.children.forEach((instance, index) => {
-      console.log(instance);
-    });
+    console.log(forklifts.current);
 
     // calculate direction
     // beforePositions?.forEach((before: robotData, index: number) => {

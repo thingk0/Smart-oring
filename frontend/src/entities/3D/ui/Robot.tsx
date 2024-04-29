@@ -29,7 +29,7 @@ function Robot() {
     refetchInterval: 1000,
   });
 
-  const model = useGLTF('./models/Forklift01.glb');
+  const model = useGLTF('./models/AGV.glb');
 
   const [beforePositions, setBeforePositions] = useState([]);
   const forklifts = useRef([]);
