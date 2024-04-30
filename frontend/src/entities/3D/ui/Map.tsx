@@ -5,6 +5,7 @@ import { Point2D } from '../../../shared/types';
 import { Instances, useGLTF } from '@react-three/drei';
 import Logistics from './Logistics';
 import Path from './Path';
+import Wall from './Wall';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -31,6 +32,7 @@ function Map({ resource }: MapProps) {
   return (
     <>
       <Path />
+      <Wall />
       <Instances>
         {data.charger.map((c, index: number) => {
           return <Charger start={c.start} end={c.end} key={index} />;
