@@ -13,6 +13,7 @@ function Destination({ start, end }: DestinationProps) {
       <Instance
         position={convertPosition(start, end, 0.5)}
         scale={calculateScale(start, end)}
+        castShadow
       />
     </>
   );

@@ -7,6 +7,7 @@ function Floor() {
         scale={[width, height, 1]}
         position={[width / 2, 0, height / 2]}
         rotation={[-Math.PI / 2, 0, 0]}
+        receiveShadow
       >
         <planeGeometry />
         <meshStandardMaterial />

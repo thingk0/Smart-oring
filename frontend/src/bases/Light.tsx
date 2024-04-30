@@ -11,7 +11,17 @@ function Light() {
   return (
     <>
       <ambientLight color={lightColor} intensity={1} />
-      <directionalLight ref={lightRef} position={[50, 30, 25]} intensity={5} />
+      <directionalLight
+        ref={lightRef}
+        position={[50, 15, 25]}
+        intensity={1}
+        target-position={[70, 0, 25]}
+        castShadow
+        shadow-camera-top={100}
+        shadow-camera-bottom={-6}
+        shadow-camera-left={-100}
+        shadow-camera-right={100}
+      />
     </>
   );
 }
