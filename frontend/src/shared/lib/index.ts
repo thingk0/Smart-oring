@@ -2,11 +2,12 @@ import { Vector3 } from 'three';
 
 export const convertPosition = (
   start: [number, number],
-  end: [number, number]
+  end: [number, number],
+  height: number = 0
 ) => {
   return new Vector3(
     start[1] + (end[1] - start[1]) / 2,
-    1,
+    height,
     start[0] + (end[0] - start[0]) / 2
   );
 };

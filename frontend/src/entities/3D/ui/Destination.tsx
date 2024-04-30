@@ -11,7 +11,7 @@ function Destination({ start, end }: DestinationProps) {
       <boxGeometry />
       <meshStandardMaterial color="purple" />
       <Instance
-        position={convertPosition(start, end)}
+        position={convertPosition(start, end, 0.5)}
         scale={calculateScale(start, end)}
       />
     </>

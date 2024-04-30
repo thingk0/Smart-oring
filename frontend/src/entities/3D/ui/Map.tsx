@@ -4,6 +4,7 @@ import Logistic from './Logistic';
 import { Point2D } from '../../../shared/types';
 import { Instances, useGLTF } from '@react-three/drei';
 import Logistics from './Logistics';
+import Path from './Path';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -29,6 +30,7 @@ function Map({ resource }: MapProps) {
 
   return (
     <>
+      <Path />
       <Instances>
         {data.charger.map((c, index: number) => {
           return <Charger start={c.start} end={c.end} key={index} />;
