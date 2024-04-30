@@ -1,4 +1,4 @@
-package info.smartfactory.domain.history;
+package info.smartfactory.domain.history.entity;
 
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.common.BaseTimeEntity;
@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,6 +50,6 @@ public class AmrHistory extends BaseTimeEntity {
     private Integer yCoordinate;
 
     @Column(name = "amr_history_created_at", nullable = false)
-    private Instant amrHistoryCreatedAt;
+    private LocalDateTime amrHistoryCreatedAt;
 
 }
