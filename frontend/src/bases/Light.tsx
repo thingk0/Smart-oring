@@ -10,7 +10,7 @@ function Light() {
   useHelper(lightRef, DirectionalLightHelper, 3, 'red');
   return (
     <>
-      {/* <ambientLight color={lightColor} /> */}
+      <ambientLight color={lightColor} intensity={1} />
       <directionalLight ref={lightRef} position={[50, 30, 25]} intensity={5} />
     </>
   );
