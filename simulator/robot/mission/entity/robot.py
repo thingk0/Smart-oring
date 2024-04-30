@@ -1,6 +1,7 @@
 from collections import deque
 from enum import Enum
 
+from robot.mission.entity.mission import Mission
 from robot.mission.path.node import Node
 
 
@@ -9,10 +10,10 @@ class Robot:
         self.robot_id = robot_id
         self.robot_status: RobotStatus = robot_status
         self.current_node: Node = current_node
-        self.current_mission = None
+        self.current_mission: Mission = None
         self.next_nodes: deque[Node] = deque()
 
-    def assign_mission(self, mission, route:deque):
+    def assign_mission(self, mission, route: deque):
         self.current_mission = mission
         self.next_nodes = route
         self.robot_status = RobotStatus.WORKING

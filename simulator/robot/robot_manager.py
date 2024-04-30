@@ -45,7 +45,7 @@ class RobotManager:
         self.factory_map = factory_map
         self.lock_map = np.zeros((len(factory_map), len(factory_map[0])))
 
-    def get_all_robots(self):
+    def get_all_robots(self) -> List[Robot]:
         return self.idle_robots + self.working_robots
 
     def process_robots(self):
