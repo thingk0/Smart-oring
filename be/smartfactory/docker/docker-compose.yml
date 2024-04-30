@@ -19,7 +19,7 @@ services:
     depends_on:
       - redis
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
 
@@ -99,6 +99,17 @@ services:
       - broker-1
       - broker-2
       - broker-3
+    networks:
+      - backend
+
+  kafka-init-topics:
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      - broker-1
+    command: "bash -c 'echo Waiting for Kafka to be ready... && \
+                 cub kafka-ready -b broker-1:29092 1 30 && \
+                 kafka-topics --create --topic robot-stat --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:29092
+                 '"
     networks:
       - backend
 
