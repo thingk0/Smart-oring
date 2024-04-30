@@ -22,7 +22,14 @@ function Logistics({ data }: { data: MapData }) {
         geometry={nodes.BigShelves04_1.geometry}
       >
         {data.logistic.map((l, index) => {
-          return <Logistic start={l.start} end={l.end} key={index} />;
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
         })}
       </Instances>
 
@@ -31,7 +38,14 @@ function Logistics({ data }: { data: MapData }) {
         geometry={nodes.BigShelves04_2.geometry}
       >
         {data.logistic.map((l, index) => {
-          return <Logistic start={l.start} end={l.end} key={index} />;
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
         })}
       </Instances>
 
@@ -40,7 +54,14 @@ function Logistics({ data }: { data: MapData }) {
         geometry={nodes.BigShelves04_3.geometry}
       >
         {data.logistic.map((l, index) => {
-          return <Logistic start={l.start} end={l.end} key={index} />;
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
         })}
       </Instances>
     </>
