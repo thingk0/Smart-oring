@@ -20,21 +20,20 @@ import java.util.*;
 
 import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
 
-@Service
-@RequiredArgsConstructor
-public class NodeService {
-    private final NodeRepository nodeRepository;
-    private final StorageRepository storageRepository;
-    private final ChargerRepository chargerRepository;
-    private final DestinationRepository destinationRepository;
+    @Service
+    @RequiredArgsConstructor
+    public class NodeService {
+        private final NodeRepository nodeRepository;
+        private final StorageRepository storageRepository;
+        private final ChargerRepository chargerRepository;
+        private final DestinationRepository destinationRepository;
 
-    static final int CHARGER = -1;
-    static final int DESTINATION = -2;
+        static final int CHARGER = -1;
+        static final int DESTINATION = -2;
 
     static List<StorageDto> storageList;
     static List<ChargerDto> chargerList;
     static List<DestinationDto> destinationList;
-
 
 
     public MapDto getMapData() {
