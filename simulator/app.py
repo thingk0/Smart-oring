@@ -3,7 +3,7 @@ import os
 import time
 from collections import deque
 
-from confluent_kafka import Producer
+from confluent_kafka import Producer, Consumer, Message
 from spring_config import ClientConfigurationBuilder
 from spring_config.client import SpringConfigClient
 
@@ -15,6 +15,7 @@ from robot.robot_manager import RobotManager
 missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
 rm: RobotManager = RobotManager.instance()
 producer: Producer
+consumer: Consumer
 env: dict
 
 
@@ -33,13 +34,19 @@ def init_robot():
 
 
 def init_kafka():
-    global producer
+    global producer, consumer
     server = env["kafka"]["server"]
     producer = Producer(
         {
             'bootstrap.servers': server,
         }
     )
+    consumer = Consumer({
+        'bootstrap.servers': env["kafka"]["server"],
+        'group.id': 'simulator',
+        'auto.offset.reset': 'earliest'
+    })
+    consumer.subscribe(['mission'])
 
 
 def init_env():
@@ -57,6 +64,12 @@ def init_env():
     env = c.get_config()
 
 
+def get_mission():
+    msg: Message = consumer.poll(0.1)
+    if msg is None:
+        return
+
+
 def start():
     init_env()
     init_kafka()
@@ -67,8 +80,9 @@ def start():
     while True:
         time.sleep(1)
         send_robot_stat()
-        rm.print_factory_map()
+        # rm.print_factory_map()
         rm.process_robots()
+        get_mission()
 
         while missions:
             mission_assigned: bool = rm.assign_mission(missions[0])
