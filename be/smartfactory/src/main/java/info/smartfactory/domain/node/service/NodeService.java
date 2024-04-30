@@ -1,10 +1,14 @@
 package info.smartfactory.domain.node.service;
 
+import info.smartfactory.domain.node.Repository.ChargerRepository;
+import info.smartfactory.domain.node.Repository.DestinationRepository;
 import info.smartfactory.domain.node.Repository.NodeRepository;
+import info.smartfactory.domain.node.Repository.StorageRepository;
 import info.smartfactory.domain.node.dto.ChargerDto;
 import info.smartfactory.domain.node.dto.DestinationDto;
 import info.smartfactory.domain.node.dto.MapDto;
 import info.smartfactory.domain.node.dto.StorageDto;
+import info.smartfactory.domain.node.dto.request.AddMapRequest;
 import info.smartfactory.domain.node.entity.Charger;
 import info.smartfactory.domain.node.entity.Destination;
 import info.smartfactory.domain.node.entity.Node;
@@ -20,6 +24,9 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
 @RequiredArgsConstructor
 public class NodeService {
     private final NodeRepository nodeRepository;
+    private final StorageRepository storageRepository;
+    private final ChargerRepository chargerRepository;
+    private final DestinationRepository destinationRepository;
 
     static final int CHARGER = -1;
     static final int DESTINATION = -2;
@@ -133,11 +140,28 @@ public class NodeService {
         nodeRepository.deleteMap();
     }
 
-    public Node addMapData(String type){
+    public Node addMapData(AddMapRequest request) {
         Node node = new Node();
-        node.setXCoordinate(0);
-        node.setYCoordinate(0);
+        node.setXCoordinate(request.getX_coordinate());
+        node.setYCoordinate(request.getY_coordinate());
         nodeRepository.save(node);
+
+        String type = request.getType();
+
+        if(type.equals("storage")) {
+            Storage child = new Storage();
+            child.setEntranceDirection(request.getDirection());
+            child.setNode(node);
+            storageRepository.save(child);
+        }else if(type.equals("charger")){
+            Charger child = new Charger();
+            child.setNode(node);
+            chargerRepository.save(child);
+        }else if(type.equals("destination")){
+            Destination child = new Destination();
+            child.setNode(node);
+            destinationRepository.save(child);
+        }
         return node;
     }
 }
