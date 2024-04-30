@@ -21,9 +21,14 @@ function Charger({ start, end }: ChargerProps) {
   return (
     <>
       <planeGeometry />
-      <meshStandardMaterial color="green" />
+      <meshPhysicalMaterial
+        color={0xffffff}
+        emissive={0x00ff00}
+        side={2}
+        emissiveIntensity={5}
+      />
       <Instance
-        position={[startX, 0, startY]}
+        position={[startX, 0.1, startY]}
         scale={[width, height, 1]}
         rotation={[-Math.PI / 2, 0, 0]}
       />
