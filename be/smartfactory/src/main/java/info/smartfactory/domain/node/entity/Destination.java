@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "destination")
-public class Destination{
+public class Destination {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)

@@ -35,7 +35,6 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
     static List<ChargerDto> chargerList;
     static List<DestinationDto> destinationList;
 
-
     public MapDto getMapData() {
         storageList = new ArrayList<>();
         chargerList = new ArrayList<>();
@@ -51,7 +50,7 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         // map 채우기
         for (Storage s : storage) {
             Node node = s.getNode();
-            System.out.println(node.getXCoordinate() + " " + node.getYCoordinate());
+
             map[node.getXCoordinate()][node.getYCoordinate()] = s.getEntranceDirection();
         }
 
@@ -68,7 +67,7 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         // BFS로 창고, 충전소, 도착지 찾기
         // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 창고는 방향까지
 
-        boolean[][] v = new boolean[100][50];
+        boolean [][] v = new boolean[100][50];
 
         bfs(v, map);
 
@@ -105,7 +104,6 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
     }
 
     static void search(int[][] map, boolean [][] v, int x, int y) {
-
         int value = map[x][y];
         int nx = x;
         int ny = y;

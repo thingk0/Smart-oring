@@ -20,5 +20,4 @@ public class Storage{
 
     @Column(name = "entrance_direction")
     private Integer entranceDirection;
-
 }
