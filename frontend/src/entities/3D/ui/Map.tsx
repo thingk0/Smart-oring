@@ -7,6 +7,7 @@ import Logistics from './Logistics';
 import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
+import Destinations from './Destinations';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -40,12 +41,7 @@ function Map({ resource }: MapProps) {
           return <Charger start={c.start} end={c.end} key={index} />;
         })}
       </Instances>
-      <Instances>
-        {data.destination.map((d, index) => {
-          return <Destination start={d.start} end={d.end} key={index} />;
-        })}
-      </Instances>
-
+      <Destinations data={data} />
       <Logistics data={data} />
     </>
   );

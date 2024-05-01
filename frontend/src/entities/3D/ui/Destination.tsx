@@ -4,16 +4,14 @@ import { Point2D } from '../../../shared/types/index.ts';
 type DestinationProps = {
   start: Point2D;
   end: Point2D;
+  direction: number;
 };
 function Destination({ start, end }: DestinationProps) {
   return (
     <>
-      <boxGeometry />
-      <meshStandardMaterial color="purple" />
       <Instance
         position={convertPosition(start, end, 0.5)}
-        scale={calculateScale(start, end)}
-        castShadow
+        rotation={[0, Math.PI / 2, 0]}
       />
     </>
   );
