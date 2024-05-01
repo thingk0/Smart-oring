@@ -2,11 +2,12 @@ package info.smartfactory.domain.node.entity;
 
 
 import info.smartfactory.domain.common.BaseTimeEntity;
-import info.smartfactory.domain.node.entity.Node;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "storage")
 public class Storage extends BaseTimeEntity {

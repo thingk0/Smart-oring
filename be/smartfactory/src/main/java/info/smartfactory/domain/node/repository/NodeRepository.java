@@ -1,8 +1,14 @@
-package info.smartfactory.domain.node.repository;
+package info.smartfactory.domain.node.Repository;
 
+import info.smartfactory.domain.node.entity.Charger;
+import info.smartfactory.domain.node.entity.Destination;
 import info.smartfactory.domain.node.entity.Node;
+import info.smartfactory.domain.node.entity.Storage;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NodeRepository extends JpaRepository<Node, Long> {
-
+import java.util.List;
+@Repository
+public interface NodeRepository extends JpaRepository<Node, Integer>{
 }

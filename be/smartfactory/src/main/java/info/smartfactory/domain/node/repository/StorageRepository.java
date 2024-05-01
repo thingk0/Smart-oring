@@ -1,8 +1,12 @@
-package info.smartfactory.domain.node.repository;
+package info.smartfactory.domain.node.Repository;
 
-import info.smartfactory.domain.node.entity.Storage;
 import org.springframework.data.jpa.repository.JpaRepository;
+import info.smartfactory.domain.node.entity.Storage;
+import org.springframework.data.jpa.repository.Query;
 
-public interface StorageRepository extends JpaRepository<Storage, Long> {
+import java.util.List;
 
+public interface StorageRepository extends JpaRepository<Storage, Integer> {
+    @Query("SELECT s FROM Storage s JOIN FETCH s.node")
+    List<Storage> getStorage();
 }
