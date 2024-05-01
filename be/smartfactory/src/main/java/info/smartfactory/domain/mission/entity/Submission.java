@@ -41,4 +41,24 @@ public class Submission extends BaseTimeEntity {
     @Column(name = "submission_order", nullable = false)
     private Integer submissionOrder;
 
+    public static Submission createSubmission(
+            Node arriveNode,
+            Integer submissionOrder
+    ){
+        Submission submission = new Submission();
+
+        submission.submissionOrder = submissionOrder;
+        submission.arriveNode = arriveNode;
+
+        return submission;
+    }
+
+    public void assignMission(Mission mission) {
+        this.mission = mission;
+    }
+
+
+
+
+
 }
