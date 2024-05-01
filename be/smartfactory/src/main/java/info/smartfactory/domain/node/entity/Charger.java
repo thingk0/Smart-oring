@@ -8,12 +8,15 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "charger")
-public class Charger {
+public class Charger{
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "node_id", nullable = false)
     private Node node;
+
+    @Column(name = "entrance_direction")
+    private Integer entranceDirection;
 }

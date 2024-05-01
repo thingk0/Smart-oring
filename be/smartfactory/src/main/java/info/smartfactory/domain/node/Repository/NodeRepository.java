@@ -11,19 +11,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Integer>{
-    @Query(nativeQuery = true,
-            value = "SELECT * FROM storage s")
-    List<Storage> getStorage();
-
-    @Query(nativeQuery = true,
-            value = "SELECT * FROM charger")
-    List<Charger> getCharger();
-
-    @Query(nativeQuery = true,
-            value = "SELECT * FROM destination")
-    List<Destination> getDestination();
-
-    @Query(nativeQuery = true,
-            value = "DELETE FROM node")
-    void deleteMap();
 }

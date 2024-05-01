@@ -44,13 +44,14 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         int[][] map = new int[100][50];
 
         // DB에서 노드 가져오기
-        List<Storage> storage = nodeRepository.getStorage();
-        List<Charger> charger = nodeRepository.getCharger();
-        List<Destination> destination = nodeRepository.getDestination();
+        List<Storage> storage = storageRepository.getStorage();
+        List<Charger> charger = chargerRepository.getCharger();
+        List<Destination> destination = destinationRepository.getDestination();
 
         // map 채우기
         for (Storage s : storage) {
             Node node = s.getNode();
+            System.out.println(node.getXCoordinate() + " " + node.getYCoordinate());
             map[node.getXCoordinate()][node.getYCoordinate()] = s.getEntranceDirection();
         }
 
@@ -67,7 +68,7 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         // BFS로 창고, 충전소, 도착지 찾기
         // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 창고는 방향까지
 
-        boolean [][] v = new boolean[100][50];
+        boolean[][] v = new boolean[100][50];
 
         bfs(v, map);
 
@@ -75,8 +76,8 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
     }
 
     static void bfs(boolean [][] v, int[][] map) {
-        int[] dx = new int[]{0, 1, 0, -1};
-        int[] dy = new int[]{-1, 0, 1, 0};
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
 
         Deque<Integer[]> q = new ArrayDeque<>();
         q.add(new Integer[]{0, 0});
@@ -93,12 +94,10 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
                 if (nx < 0 || nx >= 100 || ny < 0 || ny >= 50) continue;
                 if (v[nx][ny]) continue;
 
-                if (map[nx][ny] == 0) {
-                    v[nx][ny] = true;
-                    q.add(new Integer[]{nx, ny});
-                }else{
-                    v[nx][ny] = true;
-                    q.add(new Integer[]{nx, ny});
+                v[nx][ny] = true;
+                q.add(new Integer[]{nx, ny});
+
+                if(map[nx][ny] != 0){
                     search(map, v, nx, ny);
                 }
             }
@@ -106,37 +105,53 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
     }
 
     static void search(int[][] map, boolean [][] v, int x, int y) {
-        // x축 이동
+
+        int value = map[x][y];
         int nx = x;
-        while(true){
-            v[nx][y] = true;
-            if(map[nx][y] != map[x][y]) break;
-        }
-
         int ny = y;
-        // y축 이동
-        while(true){
-            v[x][ny] = true;
-            if(map[x][ny] != map[x][y]) break;
+
+        // x축 탐색
+        while(nx < 100 && map[nx][y] == value){
+            v[nx][y] = true;
+            nx++;
         }
 
-        if(map[x][y] == CHARGER){
+
+        // y축 탐색
+        while(ny < 50 && map[x][ny] == value){
+            v[x][ny] = true;
+            ny++;
+        }
+
+        for(int i=x; i<nx; i++){
+            for(int j=y; j<ny; j++){
+                v[i][j] = true;
+            }
+        }
+
+        nx--;
+        ny--;
+
+        if(value == CHARGER){
             chargerList.add(
-                    new ChargerDto(new int[]{x, y}, new int[]{nx-1, ny-1})
+                    new ChargerDto(new int[]{x, y}, new int[]{nx, ny})
             );
-        }else if(map[x][y] == DESTINATION){
+        }else if(value == DESTINATION){
             destinationList.add(
-                    new DestinationDto(new int[]{x, y}, new int[]{nx-1, ny-1})
+                    new DestinationDto(new int[]{x, y}, new int[]{nx, ny})
             );
         }else{ // STORAGE
             storageList.add(
-                    new StorageDto(map[x][y],new int[]{x, y}, new int[]{nx-1, ny-1})
+                    new StorageDto(map[x][y],new int[]{x, y}, new int[]{nx, ny})
             );
         }
     }
 
     public void deleteMapData() {
-        nodeRepository.deleteMap();
+        storageRepository.deleteAll();
+        chargerRepository.deleteAll();
+        destinationRepository.deleteAll();
+        nodeRepository.deleteAll();
     }
 
     public Node addMapData(AddMapRequest request) {
