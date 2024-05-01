@@ -9,7 +9,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableJpaAuditing
 @SpringBootApplication
 public class SmartFactoryApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SmartFactoryApplication.class, args);
     }
