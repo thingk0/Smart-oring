@@ -1,25 +1,30 @@
 package info.smartfactory.domain.node.entity;
 
-
 import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@DiscriminatorValue("Destination")
 @Table(name = "destination")
-public class Destination extends BaseTimeEntity {
+public class Destination extends Node{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static Destination createDestination(
+            Integer xCoordinate,
+            Integer yCoordinate
+    ){
+        Destination destination = new Destination();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "node_id", nullable = false)
-    private Node node;
+        destination.xCoordinate = xCoordinate;
+        destination.yCoordinate = yCoordinate;
 
-    @Column(name = "entrance_direction")
-    private Integer entranceDirection;
+        return destination;
+    }
+
 }
