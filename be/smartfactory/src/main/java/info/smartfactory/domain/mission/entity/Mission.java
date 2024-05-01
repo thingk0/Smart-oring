@@ -1,11 +1,13 @@
 package info.smartfactory.domain.mission.entity;
 
+import info.smartfactory.domain.common.BaseTimeEntity;
+import info.smartfactory.domain.node.entity.Node;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,6 +29,15 @@ public class Mission extends BaseTimeEntity {
     @Column(name = "mission_finished_at", updatable = false)
     private LocalDateTime missionFinishedAt;
 
-    @OneToMany
-    private List<Submission> submissionList;
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
+    private List<Submission> submissionList = new ArrayList<>();
+
+    public static Mission createMission(){
+        return new Mission();
+    }
+
+    public void addSubmission(Submission submission) {
+        submissionList.add(submission);
+        submission.assignMission(this);
+    }
 }
