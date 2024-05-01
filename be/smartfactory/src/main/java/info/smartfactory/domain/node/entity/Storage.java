@@ -1,26 +1,35 @@
 package info.smartfactory.domain.node.entity;
 
-
 import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@DiscriminatorValue("Storage")
 @Table(name = "storage")
-public class Storage extends BaseTimeEntity {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "node_id", nullable = false)
-    private Node node;
-
+public class Storage extends Node{
+    @Enumerated(EnumType.STRING)
     @Column(name = "entrance_direction")
-    private Integer entranceDirection;
+    private StorageDirection entranceDirection;
+
+    public static Storage createStorage(
+            Integer xCoordinate,
+            Integer yCoordinate,
+            StorageDirection entranceDirection
+    ){
+        Storage storage = new Storage();
+
+        storage.xCoordinate = xCoordinate;
+        storage.yCoordinate = yCoordinate;
+        storage.entranceDirection = entranceDirection;
+
+        return storage;
+    }
 
 }
