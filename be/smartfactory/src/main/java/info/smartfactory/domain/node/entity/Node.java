@@ -2,21 +2,28 @@ package info.smartfactory.domain.node.entity;
 
 import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Node extends BaseTimeEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+@Table(name = "node")
+public abstract class Node extends BaseTimeEntity {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "x_coordinate")
-    private Integer xCoordinate;
+    protected Integer xCoordinate;
 
     @Column(name = "y_coordinate")
-    private Integer yCoordinate;
-
+    protected Integer yCoordinate;
 }
