@@ -2,23 +2,25 @@ package info.smartfactory.domain.node.entity;
 
 import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@DiscriminatorValue("Charger")
 @Table(name = "charger")
-public class Charger extends BaseTimeEntity {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Charger extends Node {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "node_id", nullable = false)
-    private Node node;
+    public static Charger createCharger(Integer xCoordinate, Integer yCoordinate) {
+        Charger charger = new Charger();
 
-    @Column(name = "entrance_direction")
-    private Integer entranceDirection;
+        charger.xCoordinate = xCoordinate;
+        charger.yCoordinate = yCoordinate;
+
+        return charger;
+    }
 }
