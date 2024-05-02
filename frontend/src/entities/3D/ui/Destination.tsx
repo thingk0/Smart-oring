@@ -10,6 +10,7 @@ function Destination({ start, end }: DestinationProps) {
   return (
     <>
       <Instance
+        castShadow
         position={convertPosition(start, end, 0.5)}
         rotation={[0, Math.PI / 2, 0]}
       />

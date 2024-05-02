@@ -17,10 +17,10 @@ function Light() {
         intensity={1}
         target-position={[70, 0, 25]}
         castShadow
-        shadow-camera-top={100}
+        shadow-camera-top={1000}
         shadow-camera-bottom={-6}
-        shadow-camera-left={-100}
-        shadow-camera-right={100}
+        shadow-camera-left={-1000}
+        shadow-camera-right={1000}
       />
     </>
   );

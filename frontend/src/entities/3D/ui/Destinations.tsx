@@ -18,6 +18,7 @@ function Destinations({ data }: { data: MapData }) {
   return (
     <>
       <Instances
+        castShadow
         geometry={nodes.Plane001.geometry}
         material={materials['Material.001']}
       >
@@ -33,6 +34,7 @@ function Destinations({ data }: { data: MapData }) {
         })}
       </Instances>
       <Instances
+        castShadow
         geometry={nodes.Plane002.geometry}
         material={materials['Material.002']}
       >
@@ -48,6 +50,7 @@ function Destinations({ data }: { data: MapData }) {
         })}
       </Instances>
       <Instances
+        castShadow
         geometry={nodes.Vert.geometry}
         material={materials['Material.002']}
       >
@@ -63,6 +66,7 @@ function Destinations({ data }: { data: MapData }) {
         })}
       </Instances>
       <Instances
+        castShadow
         geometry={nodes.Circle.geometry}
         material={materials['Material.002']}
       >

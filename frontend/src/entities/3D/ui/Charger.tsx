@@ -27,6 +27,7 @@ function Charger({ start, end }: ChargerProps) {
         side={2}
         emissiveIntensity={5}
       />
+      <pointLight color="#00ff00" intensity={10} />
       <Instance
         position={[startX, 0.1, startY]}
         scale={[width, height, 1]}
