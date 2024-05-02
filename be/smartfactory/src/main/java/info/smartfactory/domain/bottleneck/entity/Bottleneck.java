@@ -5,6 +5,8 @@ import info.smartfactory.domain.mission.entity.Mission;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,14 +42,13 @@ public class Bottleneck extends BaseTimeEntity {
     public static Bottleneck createBottleneck(
             Integer xCoordinate,
             Integer yCoordinate,
-            Mission mission,
             LocalDateTime bottleneckCreatedAt
     ){
         Bottleneck bottleneck = new Bottleneck();
 
         bottleneck.xCoordinate = xCoordinate;
         bottleneck.yCoordinate = yCoordinate;
-        bottleneck.mission = mission;
+        //bottleneck.mission = mission;
         bottleneck.bottleneckCreatedAt = bottleneckCreatedAt;
 
         return bottleneck;
