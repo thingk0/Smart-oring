@@ -1,14 +1,15 @@
 package info.smartfactory.global.util.mission;
 
-import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Storage;
-import info.smartfactory.domain.node.entity.Direction;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.node.entity.Destination;
+import info.smartfactory.domain.node.entity.Direction;
+import info.smartfactory.domain.node.entity.Storage;
 
 //@SpringBootTest
 @Transactional
@@ -38,9 +39,9 @@ class MissionGeneratorImplTest {
 
         List<Destination> destinationList = new ArrayList<>();
 
-        Destination destination1 = Destination.createDestination(6, 6);
-        Destination destination2 = Destination.createDestination(7, 7);
-        Destination destination3 = Destination.createDestination(8, 8);
+        Destination destination1 = Destination.createDestination(6, 6, Direction.East);
+        Destination destination2 = Destination.createDestination(7, 7, Direction.East);
+        Destination destination3 = Destination.createDestination(8, 8, Direction.East);
 
         destinationList.add(destination1);
         destinationList.add(destination2);
