@@ -1,14 +1,17 @@
 package info.smartfactory.domain.node.dto;
 
-import lombok.*;
-
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class MapDto {
-//    {
+
+    //    {
 //        "storage": [
 //        {
 //            "direction": 0, // 방향
@@ -23,6 +26,5 @@ public class MapDto {
     private List<StorageDto> storage;
     private List<ChargerDto> charger;
     private List<DestinationDto> destination;
-
 
 }

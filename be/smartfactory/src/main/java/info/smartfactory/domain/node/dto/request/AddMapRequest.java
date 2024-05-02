@@ -1,14 +1,18 @@
 package info.smartfactory.domain.node.dto.request;
 
-import lombok.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-
 public class AddMapRequest {
+
     @NotNull(message = "x좌표는 필수 항목입니다.")
     int x_coordinate;
 
