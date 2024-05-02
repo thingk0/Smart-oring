@@ -19,7 +19,7 @@ spring:
           time_zone: UTC
     open-in-view: false
   config:
-    import: "configserver:http://localhost:8888"
+    import: "configserver:http://${CLOUD_CONFIG_HOST_NAME:localhost}:8888"
   cloud:
     config:
       label: main, master
