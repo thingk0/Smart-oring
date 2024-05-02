@@ -3,8 +3,7 @@ package info.smartfactory.domain.mission.service;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.mission.repository.MissionRepository;
-import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Storage;
+import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.global.util.mission.MissionGenerator;
@@ -30,7 +29,6 @@ public class MissionService {
 
     @Scheduled(cron = "0/10 * * * * ?")
     public Mission generateMission() {
-
         List<Destination> destinationList = destinationRepository.findAll();
         List<Storage> storageList = storageRepository.findAll();
 
@@ -50,9 +48,5 @@ public class MissionService {
         }
 
         return mission;
-    }
-
-    public Mission findMissionByIdOrThrow(Long missionId) {
-        return missionRepository.findById(missionId).orElseThrow(IllegalArgumentException::new);
     }
 }
