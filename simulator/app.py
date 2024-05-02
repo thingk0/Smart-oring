@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import time
@@ -94,18 +95,17 @@ def start():
 
 def send_robot_stat():
     robots = rm.get_all_robots()
+    current_time = datetime.datetime.now().isoformat()
     for robot in robots:
         current_mission = get_current_mission(robot)
         robot_stat = {
-            "robot_id": robot.robot_id,
-            "robot_status": robot.robot_status.value,
-            "current_node": {
-                "x": robot.current_node.x,
-                "y": robot.current_node.y
-            },
-            "current_mission": current_mission
+            "amrId": robot.robot_id,
+            "xCoordinate": robot.current_node.x,
+            "yCoordinate": robot.current_node.y,
+            "battery": 100,
+            "amrHistoryCreatedAt": current_time
         }
-        producer.produce("robot-stat", key=str(robot.robot_id), value=json.dumps(robot_stat))
+        producer.produce("robot-stat", key=str(robot.robot_id), value=json.dumps(robot_stat).encode('utf-8'))
         producer.flush()
 
 
