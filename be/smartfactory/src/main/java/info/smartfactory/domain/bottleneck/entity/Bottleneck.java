@@ -1,12 +1,9 @@
 package info.smartfactory.domain.bottleneck.entity;
 
 import info.smartfactory.domain.common.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import info.smartfactory.domain.mission.entity.Mission;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -33,7 +30,26 @@ public class Bottleneck extends BaseTimeEntity {
     @Column(name = "y_coordinate", nullable = false)
     private Integer yCoordinate;
 
+    @ManyToOne
+    @JoinColumn(name="mission_id")
+    private Mission mission;
+
     @Column(name = "bottleneck_created_at", nullable = false)
     private LocalDateTime bottleneckCreatedAt;
 
+    public static Bottleneck createBottleneck(
+            Integer xCoordinate,
+            Integer yCoordinate,
+            Mission mission,
+            LocalDateTime bottleneckCreatedAt
+    ){
+        Bottleneck bottleneck = new Bottleneck();
+
+        bottleneck.xCoordinate = xCoordinate;
+        bottleneck.yCoordinate = yCoordinate;
+        bottleneck.mission = mission;
+        bottleneck.bottleneckCreatedAt = bottleneckCreatedAt;
+
+        return bottleneck;
+    }
 }
