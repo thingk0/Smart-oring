@@ -29,6 +29,10 @@ public class Charger extends Node {
                            EntranceDirection.fromValue(addRequest.direction()));
     }
 
+    public static Charger createCharger(int x, int y, EntranceDirection entranceDirection) {
+        return new Charger(x, y, entranceDirection);
+    }
+
     @Override
     public void updateMap(String[][][] map) {
         map[getXCoordinate()][getYCoordinate()][0] = NodeType.CHARGER;
