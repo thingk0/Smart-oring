@@ -18,5 +18,6 @@ public class AddMapRequest {
     @NotNull(message = "노드 타입은 필수 항목입니다.")
     String type;
 
+    @NotNull(message = "방향은 필수 항목입니다.")
     int direction;
 }
