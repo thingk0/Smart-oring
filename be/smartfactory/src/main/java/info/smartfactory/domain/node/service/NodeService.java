@@ -44,7 +44,6 @@ import java.util.*;
         for (Node node : nodes) {
             if (node instanceof Storage) {
                 Storage s = (Storage) node;
-                System.out.println(s.getEntranceDirection().toString());
                 map[s.getXCoordinate()][s.getYCoordinate()][0] = STORAGE;
                 map[s.getXCoordinate()][s.getYCoordinate()][1] = s.getEntranceDirection().toString();
             } else if (node instanceof Charger) {
@@ -57,27 +56,6 @@ import java.util.*;
                 map[d.getXCoordinate()][d.getYCoordinate()][1] = d.getEntranceDirection().toString();
             }
         }
-
-
-//        List<Storage> storage = storageRepository.findAll();
-//        List<Charger> charger = chargerRepository.findAll();
-//        List<Destination> destination = destinationRepository.findAll();
-
-        // map 채우기
-//        for (Storage s : storage) {
-//            map[s.getXCoordinate()][s.getYCoordinate()][0] = STORAGE;
-//            map[s.getXCoordinate()][s.getYCoordinate()][1] = s.getEntranceDirection().toString();
-//        }
-//
-//        for (Charger c : charger) {
-//            map[c.getXCoordinate()][c.getYCoordinate()][0] = CHARGER;
-//            map[c.getXCoordinate()][c.getYCoordinate()][1] = c.getEntranceDirection().toString();
-//        }
-//
-//        for (Destination d : destination) {
-//            map[d.getXCoordinate()][d.getYCoordinate()][0] = DESTINATION;
-//            map[d.getXCoordinate()][d.getYCoordinate()][1] = d.getEntranceDirection().toString();
-//        }
 
         // BFS로 창고, 충전소, 도착지 찾기
         // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 방향까지
@@ -111,9 +89,8 @@ import java.util.*;
                 v[nx][ny] = true;
                 q.add(new Integer[]{nx, ny});
 
-                if(map[nx][ny][0].equals(STORAGE) ||
-                map[nx][ny][0].equals(CHARGER) ||
-                map[nx][ny][0].equals(DESTINATION)){
+                if(map[nx][ny][0] != null &&
+                        (map[nx][ny][0].equals(STORAGE) || map[nx][ny][0].equals(CHARGER) || map[nx][ny][0].equals(DESTINATION))){
                     search(map, v, nx, ny);
                 }
             }
@@ -126,12 +103,12 @@ import java.util.*;
         int ny = y;
 
         // x축 탐색
-        while(nx < 100 && map[nx][y][0].equals(value)){
+        while(nx < 100 && map[nx][y][0] != null && map[nx][y][0].equals(value)){
             nx++;
         }
 
         // y축 탐색
-        while(ny < 50 && map[x][ny][0].equals(value)){
+        while(ny < 50 && map[x][ny][0] != null && map[x][ny][0].equals(value)){
             ny++;
         }
 

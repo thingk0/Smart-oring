@@ -14,10 +14,6 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("Charger")
 @Table(name = "charger")
 public class Charger extends Node {
-    @Enumerated(EnumType.STRING)
-    @Column(name = "entrance_direction")
-    private Direction entranceDirection;
-
     public static Charger createCharger(
             Integer xCoordinate,
             Integer yCoordinate,

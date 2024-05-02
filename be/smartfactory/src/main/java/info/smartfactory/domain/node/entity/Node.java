@@ -26,4 +26,8 @@ public abstract class Node extends BaseTimeEntity {
 
     @Column(name = "y_coordinate")
     protected Integer yCoordinate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "entrance_direction")
+    protected Direction entranceDirection;
 }

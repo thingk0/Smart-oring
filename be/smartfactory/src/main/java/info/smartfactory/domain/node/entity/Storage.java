@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("Storage")
 @Table(name = "storage")
 public class Storage extends Node{
-    @Enumerated(EnumType.STRING)
-    @Column(name = "entrance_direction")
-    private Direction entranceDirection;
-
     public static Storage createStorage(
             Integer xCoordinate,
             Integer yCoordinate,
