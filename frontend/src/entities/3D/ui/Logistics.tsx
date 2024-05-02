@@ -18,7 +18,7 @@ function Logistics({ data }: { data: MapData }) {
   return (
     <>
       <Instances
-        material={materials.BigShelvesMetall02}
+        material={materials.BigShelvesMetall03}
         geometry={nodes.BigShelves04_1.geometry}
       >
         {data.logistic.map((l, index) => {
@@ -52,6 +52,67 @@ function Logistics({ data }: { data: MapData }) {
       <Instances
         material={materials.BigShelvesWood}
         geometry={nodes.BigShelves04_3.geometry}
+      >
+        {data.logistic.map((l, index) => {
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
+        })}
+      </Instances>
+      <Instances
+        material={materials.BigShelvesMetall02}
+        geometry={nodes.BigShelves04_4.geometry}
+      >
+        {data.logistic.map((l, index) => {
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
+        })}
+      </Instances>
+      {/* 상자 */}
+      <Instances
+        material={materials.BigShelvesWoodBox}
+        geometry={nodes.BigShelvesWoodBox.geometry}
+      >
+        {data.logistic.map((l, index) => {
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
+        })}
+      </Instances>
+      <Instances
+        material={materials.Cardboard_box05}
+        geometry={nodes.Cardboard_box01.geometry}
+      >
+        {data.logistic.map((l, index) => {
+          return (
+            <Logistic
+              start={l.start}
+              end={l.end}
+              direction={l.direction}
+              key={index}
+            />
+          );
+        })}
+      </Instances>
+      <Instances
+        material={materials.Cardboard_box06}
+        geometry={nodes.Cardboard_box05.geometry}
       >
         {data.logistic.map((l, index) => {
           return (
