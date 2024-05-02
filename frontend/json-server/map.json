@@ -326,5 +326,13 @@
         "direction": 0
       }
     ]
-  }
+  },
+
+  "robot": [
+    {
+      "position": [0, 0],
+      "mission": "move logistics",
+      "battery": 80
+    }
+  ]
 }
