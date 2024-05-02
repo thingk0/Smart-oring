@@ -3,11 +3,13 @@ package info.smartfactory.global.util.mission;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.Storage;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class MissionGeneratorImpl implements MissionGenerator {
@@ -15,7 +17,6 @@ public class MissionGeneratorImpl implements MissionGenerator {
     @Override
     public Mission generateRandomMission(int submissionNum, List<Destination> destinations, List<Storage> storages) {
         //nodes들 중 랜덤으로 submissionNum 개수만큼 생성해줌
-
 
         HashSet<Integer> set = new HashSet<>();
         for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
@@ -63,6 +64,13 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         //submission list를 mission에 저장해줌
         //mission.addSubmission(submission);
+
+        List<Submission> submissionList = mission.getSubmissionList();
+
+        for (Submission submission : submissionList) {
+            System.out.print("x : " + submission.getArriveNode().getXCoordinate());
+            System.out.println("y : " + submission.getArriveNode().getYCoordinate());
+        }
 
         return mission;
     }
