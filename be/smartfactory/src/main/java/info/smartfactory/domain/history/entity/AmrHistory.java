@@ -1,5 +1,7 @@
 package info.smartfactory.domain.history.entity;
 
+import java.time.LocalDateTime;
+
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.mission.entity.Mission;
@@ -12,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
+@Builder(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -51,5 +52,15 @@ public class AmrHistory extends BaseTimeEntity {
 
     @Column(name = "amr_history_created_at", nullable = false)
     private LocalDateTime amrHistoryCreatedAt;
+
+    public static AmrHistory of(Mission mission, Amr amr, Integer battery, Integer xCoordinate, Integer yCoordinate) {
+        return AmrHistory.builder()
+            .mission(mission)
+            .amr(amr)
+            .battery(battery)
+            .xCoordinate(xCoordinate)
+            .yCoordinate(yCoordinate)
+            .build();
+    }
 
 }

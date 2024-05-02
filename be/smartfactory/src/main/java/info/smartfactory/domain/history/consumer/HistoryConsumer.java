@@ -1,13 +1,16 @@
 package info.smartfactory.domain.history.consumer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import info.smartfactory.domain.history.dto.AmrHistoryLog;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import info.smartfactory.domain.history.dto.AmrHistoryLog;
+import info.smartfactory.domain.history.service.HistoryService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -15,10 +18,12 @@ import org.springframework.stereotype.Component;
 public class HistoryConsumer {
 
     private final ObjectMapper mapper;
+    private final HistoryService historyService;
 
     @KafkaListener(topics = "robot-stat", groupId = "amr-consumer-group")
     public void listen(@Payload String message) throws JsonProcessingException {
         AmrHistoryLog amrHistoryLog = mapper.readValue(message, AmrHistoryLog.class);
         log.info(amrHistoryLog.toString());
+        historyService.saveHistory(amrHistoryLog);
     }
 }
