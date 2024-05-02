@@ -5,7 +5,7 @@ function Floor() {
   return (
     <>
       <mesh
-        position={[width / 2, 0, height / 2]}
+        position={[width / 2, -0.01, height / 2]}
         rotation-x={-Math.PI / 2}
         receiveShadow
       >

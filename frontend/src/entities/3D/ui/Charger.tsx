@@ -29,7 +29,7 @@ function Charger({ start, end }: ChargerProps) {
       />
       <pointLight color="#00ff00" intensity={10} />
       <Instance
-        position={[startX, 0.1, startY]}
+        position={[startX, 0, startY]}
         scale={[width, height, 1]}
         rotation={[-Math.PI / 2, 0, 0]}
       />
