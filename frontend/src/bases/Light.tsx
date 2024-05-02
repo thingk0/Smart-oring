@@ -13,9 +13,9 @@ function Light() {
       <ambientLight color={lightColor} intensity={1} />
       <directionalLight
         ref={lightRef}
-        position={[50, 10, 30]}
+        position={[0, 10, 0]}
         intensity={0.8}
-        target-position={[50, 0, 30]}
+        target-position={[0, 0, 0]}
         castShadow
         shadow-camera-top={100}
         shadow-camera-bottom={-100}
