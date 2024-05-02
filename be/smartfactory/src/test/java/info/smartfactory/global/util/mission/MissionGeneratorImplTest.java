@@ -3,7 +3,7 @@ package info.smartfactory.global.util.mission;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.node.entity.Destination;
 import info.smartfactory.domain.node.entity.Storage;
-import info.smartfactory.domain.node.entity.StorageDirection;
+import info.smartfactory.domain.node.entity.Direction;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +22,12 @@ class MissionGeneratorImplTest {
         // Given
         List<Storage> storageList = new ArrayList<>();
 
-        Storage storage1 = Storage.createStorage(0,0,StorageDirection.East);
-        Storage storage2 = Storage.createStorage(1, 1, StorageDirection.South);
-        Storage storage3 = Storage.createStorage(2, 2, StorageDirection.North);
-        Storage storage4 = Storage.createStorage(3, 3, StorageDirection.North);
-        Storage storage5 = Storage.createStorage(4, 4, StorageDirection.North);
-        Storage storage6 = Storage.createStorage(5, 5, StorageDirection.North);
+        Storage storage1 = Storage.createStorage(0,0, Direction.East);
+        Storage storage2 = Storage.createStorage(1, 1, Direction.South);
+        Storage storage3 = Storage.createStorage(2, 2, Direction.North);
+        Storage storage4 = Storage.createStorage(3, 3, Direction.North);
+        Storage storage5 = Storage.createStorage(4, 4, Direction.North);
+        Storage storage6 = Storage.createStorage(5, 5, Direction.North);
 
         storageList.add(storage1);
         storageList.add(storage2);

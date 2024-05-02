@@ -19,5 +19,5 @@ public class AddMapRequest {
     String type;
 
     @NotNull(message = "방향은 필수 항목입니다.")
-    int direction;
+    String direction;
 }

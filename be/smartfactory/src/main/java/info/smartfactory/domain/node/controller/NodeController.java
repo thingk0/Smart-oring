@@ -32,8 +32,8 @@ public class NodeController {
 
     @PostMapping("/map/add")
     public ResponseEntity<ResultResponse<Node>> addMapData(@RequestBody @Valid AddMapRequest request) {
-        Node node = nodeService.addMapData(request);
-        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), node));
+        nodeService.addMapData(request);
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString()));
     }
 
 }

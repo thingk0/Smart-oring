@@ -1,10 +1,7 @@
 package info.smartfactory.domain.node.entity;
 
-import info.smartfactory.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class Storage extends Node{
     @Enumerated(EnumType.STRING)
     @Column(name = "entrance_direction")
-    private StorageDirection entranceDirection;
+    private Direction entranceDirection;
 
     public static Storage createStorage(
             Integer xCoordinate,
             Integer yCoordinate,
-            StorageDirection entranceDirection
+            Direction entranceDirection
     ){
         Storage storage = new Storage();
 

@@ -14,15 +14,20 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("Destination")
 @Table(name = "destination")
 public class Destination extends Node{
+    @Enumerated(EnumType.STRING)
+    @Column(name = "entrance_direction")
+    private Direction entranceDirection;
 
     public static Destination createDestination(
             Integer xCoordinate,
-            Integer yCoordinate
+            Integer yCoordinate,
+            Direction entranceDirection
     ){
         Destination destination = new Destination();
 
         destination.xCoordinate = xCoordinate;
         destination.yCoordinate = yCoordinate;
+        destination.entranceDirection = entranceDirection;
 
         return destination;
     }

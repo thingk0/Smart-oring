@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChargerDto {
-    private int direction;
+    private String direction;
     private int [] start;
     private int [] end;
 }

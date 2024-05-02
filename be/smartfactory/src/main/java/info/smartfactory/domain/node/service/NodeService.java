@@ -1,24 +1,19 @@
 package info.smartfactory.domain.node.service;
 
-import info.smartfactory.domain.node.Repository.ChargerRepository;
-import info.smartfactory.domain.node.Repository.DestinationRepository;
-import info.smartfactory.domain.node.Repository.NodeRepository;
-import info.smartfactory.domain.node.Repository.StorageRepository;
+import info.smartfactory.domain.node.entity.*;
+import info.smartfactory.domain.node.repository.ChargerRepository;
+import info.smartfactory.domain.node.repository.DestinationRepository;
+import info.smartfactory.domain.node.repository.NodeRepository;
+import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.domain.node.dto.ChargerDto;
 import info.smartfactory.domain.node.dto.DestinationDto;
 import info.smartfactory.domain.node.dto.MapDto;
 import info.smartfactory.domain.node.dto.StorageDto;
 import info.smartfactory.domain.node.dto.request.AddMapRequest;
-import info.smartfactory.domain.node.entity.Charger;
-import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Node;
-import info.smartfactory.domain.node.entity.Storage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
 
     @Service
     @RequiredArgsConstructor
@@ -28,9 +23,9 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         private final ChargerRepository chargerRepository;
         private final DestinationRepository destinationRepository;
 
-        static final int STORAGE = 1;
-        static final int CHARGER = 2;
-        static final int DESTINATION = 3;
+        static final String STORAGE = "STORAGE";
+        static final String CHARGER = "CHARGER";
+        static final String DESTINATION = "DESTINATION";
 
     static List<StorageDto> storageList;
     static List<ChargerDto> chargerList;
@@ -41,34 +36,51 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         chargerList = new ArrayList<>();
         destinationList = new ArrayList<>();
 
-        int [][][] map = new int[100][50][2];
+        String [][][] map = new String[100][50][2];
 
         // DB에서 노드 가져오기
-        List<Storage> storage = storageRepository.getStorage();
-        List<Charger> charger = chargerRepository.getCharger();
-        List<Destination> destination = destinationRepository.getDestination();
+        List<Node> nodes = nodeRepository.findAllNodes();
+
+        for (Node node : nodes) {
+            if (node instanceof Storage) {
+                Storage s = (Storage) node;
+                System.out.println(s.getEntranceDirection().toString());
+                map[s.getXCoordinate()][s.getYCoordinate()][0] = STORAGE;
+                map[s.getXCoordinate()][s.getYCoordinate()][1] = s.getEntranceDirection().toString();
+            } else if (node instanceof Charger) {
+                Charger c = (Charger) node;
+                map[c.getXCoordinate()][c.getYCoordinate()][0] = CHARGER;
+                map[c.getXCoordinate()][c.getYCoordinate()][1] = c.getEntranceDirection().toString();
+            } else if (node instanceof Destination) {
+                Destination d = (Destination) node;
+                map[d.getXCoordinate()][d.getYCoordinate()][0] = DESTINATION;
+                map[d.getXCoordinate()][d.getYCoordinate()][1] = d.getEntranceDirection().toString();
+            }
+        }
+
+
+//        List<Storage> storage = storageRepository.findAll();
+//        List<Charger> charger = chargerRepository.findAll();
+//        List<Destination> destination = destinationRepository.findAll();
 
         // map 채우기
-        for (Storage s : storage) {
-            Node node = s.getNode();
-            map[node.getXCoordinate()][node.getYCoordinate()][0] = STORAGE;
-            map[node.getXCoordinate()][node.getYCoordinate()][1] = s.getEntranceDirection();
-        }
-
-        for (Charger c : charger) {
-            Node node = c.getNode();
-            map[node.getXCoordinate()][node.getYCoordinate()][0] = CHARGER;
-            map[node.getXCoordinate()][node.getYCoordinate()][1] = c.getEntranceDirection();
-        }
-
-        for (Destination d : destination) {
-            Node node = d.getNode();
-            map[node.getXCoordinate()][node.getYCoordinate()][0] = DESTINATION;
-            map[node.getXCoordinate()][node.getYCoordinate()][1] = d.getEntranceDirection();
-        }
+//        for (Storage s : storage) {
+//            map[s.getXCoordinate()][s.getYCoordinate()][0] = STORAGE;
+//            map[s.getXCoordinate()][s.getYCoordinate()][1] = s.getEntranceDirection().toString();
+//        }
+//
+//        for (Charger c : charger) {
+//            map[c.getXCoordinate()][c.getYCoordinate()][0] = CHARGER;
+//            map[c.getXCoordinate()][c.getYCoordinate()][1] = c.getEntranceDirection().toString();
+//        }
+//
+//        for (Destination d : destination) {
+//            map[d.getXCoordinate()][d.getYCoordinate()][0] = DESTINATION;
+//            map[d.getXCoordinate()][d.getYCoordinate()][1] = d.getEntranceDirection().toString();
+//        }
 
         // BFS로 창고, 충전소, 도착지 찾기
-        // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 창고는 방향까지
+        // 시작 위치와 종료 위치 Dto 리스트에 넣기 - 방향까지
 
         boolean [][] v = new boolean[100][50];
 
@@ -77,7 +89,7 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         return new MapDto(storageList, chargerList, destinationList);
     }
 
-    static void bfs(boolean [][] v, int[][][] map) {
+    static void bfs(boolean [][] v, String[][][] map) {
         int[] dx = {0, 1, 0, -1};
         int[] dy = {-1, 0, 1, 0};
 
@@ -99,28 +111,27 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
                 v[nx][ny] = true;
                 q.add(new Integer[]{nx, ny});
 
-                if(map[nx][ny][0] != 0){
+                if(map[nx][ny][0].equals(STORAGE) ||
+                map[nx][ny][0].equals(CHARGER) ||
+                map[nx][ny][0].equals(DESTINATION)){
                     search(map, v, nx, ny);
                 }
             }
         }
     }
 
-    static void search(int[][][] map, boolean [][] v, int x, int y) {
-        int value = map[x][y][0];
+    static void search(String[][][] map, boolean [][] v, int x, int y) {
+        String value = map[x][y][0];
         int nx = x;
         int ny = y;
 
         // x축 탐색
-        while(nx < 100 && map[nx][y][0] == value){
-            v[nx][y] = true;
+        while(nx < 100 && map[nx][y][0].equals(value)){
             nx++;
         }
 
-
         // y축 탐색
-        while(ny < 50 && map[x][ny][0] == value){
-            v[x][ny] = true;
+        while(ny < 50 && map[x][ny][0].equals(value)){
             ny++;
         }
 
@@ -133,11 +144,11 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         nx--;
         ny--;
 
-        if(value == CHARGER){
+        if(value.equals(CHARGER)){
             chargerList.add(
                     new ChargerDto(map[x][y][1], new int[]{x, y}, new int[]{nx, ny})
             );
-        }else if(value == DESTINATION){
+        }else if(value.equals(DESTINATION)){
             destinationList.add(
                     new DestinationDto(map[x][y][1], new int[]{x, y}, new int[]{nx, ny})
             );
@@ -152,33 +163,36 @@ import static org.springframework.messaging.simp.stomp.StompHeaders.DESTINATION;
         storageRepository.deleteAll();
         chargerRepository.deleteAll();
         destinationRepository.deleteAll();
-        nodeRepository.deleteAll();
     }
 
-    public Node addMapData(AddMapRequest request) {
-        Node node = new Node();
-        node.setXCoordinate(request.getX_coordinate());
-        node.setYCoordinate(request.getY_coordinate());
-        nodeRepository.save(node);
-
+    public void addMapData(AddMapRequest request) {
         String type = request.getType();
 
+        Direction direction = Direction.North;
+        switch(request.getDirection()){
+            case "NORTH":
+                direction = Direction.North;
+                break;
+            case "SOUTH":
+                direction = Direction.South;
+                break;
+            case "EAST":
+                direction = Direction.East;
+                break;
+            case "WEST":
+                direction = Direction.West;
+                break;
+        }
+
         if(type.equals("storage")) {
-            Storage child = new Storage();
-            child.setEntranceDirection(request.getDirection());
-            child.setNode(node);
+            Storage child = Storage.createStorage(request.getX_coordinate(), request.getY_coordinate(), direction);
             storageRepository.save(child);
         }else if(type.equals("charger")){
-            Charger child = new Charger();
-            child.setEntranceDirection(request.getDirection());
-            child.setNode(node);
+            Charger child = Charger.createCharger(request.getX_coordinate(), request.getY_coordinate(), direction);
             chargerRepository.save(child);
         }else if(type.equals("destination")){
-            Destination child = new Destination();
-            child.setEntranceDirection(request.getDirection());
-            child.setNode(node);
+            Destination child = Destination.createDestination(request.getX_coordinate(), request.getY_coordinate(), direction);
             destinationRepository.save(child);
         }
-        return node;
     }
 }
