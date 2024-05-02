@@ -1,17 +1,9 @@
 package info.smartfactory.domain.node.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public class ChargerDto extends NodeDto {
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ChargerDto {
-    private String direction;
-    private int [] start;
-    private int [] end;
+    public ChargerDto(String direction, int[] start, int[] end) {
+        super(direction, start, end);
+    }
 }

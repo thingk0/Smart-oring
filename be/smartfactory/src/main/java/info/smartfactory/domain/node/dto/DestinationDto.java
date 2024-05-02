@@ -1,16 +1,8 @@
 package info.smartfactory.domain.node.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public class DestinationDto extends NodeDto {
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class DestinationDto {
-    private String direction;
-    private int [] start;
-    private int [] end;
+    public DestinationDto(String direction, int[] start, int[] end) {
+        super(direction, start, end);
+    }
 }
