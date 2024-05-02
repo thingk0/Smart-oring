@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
 import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Direction;
-import info.smartfactory.domain.node.entity.Storage;
+import info.smartfactory.domain.node.entity.type.Destination;
+import info.smartfactory.domain.node.entity.constant.EntranceDirection;
+import info.smartfactory.domain.node.entity.type.Storage;
 
 //@SpringBootTest
 @Transactional
@@ -23,12 +23,12 @@ class MissionGeneratorImplTest {
         // Given
         List<Storage> storageList = new ArrayList<>();
 
-        Storage storage1 = Storage.createStorage(0,0, Direction.East);
-        Storage storage2 = Storage.createStorage(1, 1, Direction.South);
-        Storage storage3 = Storage.createStorage(2, 2, Direction.North);
-        Storage storage4 = Storage.createStorage(3, 3, Direction.North);
-        Storage storage5 = Storage.createStorage(4, 4, Direction.North);
-        Storage storage6 = Storage.createStorage(5, 5, Direction.North);
+        Storage storage1 = Storage.createStorage(0,0, EntranceDirection.East);
+        Storage storage2 = Storage.createStorage(1, 1, EntranceDirection.South);
+        Storage storage3 = Storage.createStorage(2, 2, EntranceDirection.North);
+        Storage storage4 = Storage.createStorage(3, 3, EntranceDirection.North);
+        Storage storage5 = Storage.createStorage(4, 4, EntranceDirection.North);
+        Storage storage6 = Storage.createStorage(5, 5, EntranceDirection.North);
 
         storageList.add(storage1);
         storageList.add(storage2);
@@ -39,9 +39,9 @@ class MissionGeneratorImplTest {
 
         List<Destination> destinationList = new ArrayList<>();
 
-        Destination destination1 = Destination.createDestination(6, 6, Direction.East);
-        Destination destination2 = Destination.createDestination(7, 7, Direction.East);
-        Destination destination3 = Destination.createDestination(8, 8, Direction.East);
+        Destination destination1 = Destination.createDestination(6, 6, EntranceDirection.East);
+        Destination destination2 = Destination.createDestination(7, 7, EntranceDirection.East);
+        Destination destination3 = Destination.createDestination(8, 8, EntranceDirection.East);
 
         destinationList.add(destination1);
         destinationList.add(destination2);

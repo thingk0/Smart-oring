@@ -1,9 +1,9 @@
 package info.smartfactory.global.util.mission;
 
 import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.node.entity.Destination;
+import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.Node;
-import info.smartfactory.domain.node.entity.Storage;
+import info.smartfactory.domain.node.entity.type.Storage;
 
 import java.util.List;
 
