@@ -13,14 +13,15 @@ function Light() {
       <ambientLight color={lightColor} intensity={1} />
       <directionalLight
         ref={lightRef}
-        position={[50, 15, 25]}
-        intensity={1}
-        target-position={[70, 0, 25]}
+        position={[50, 10, 30]}
+        intensity={0.8}
+        target-position={[50, 0, 30]}
         castShadow
-        shadow-camera-top={1000}
-        shadow-camera-bottom={-6}
-        shadow-camera-left={-1000}
-        shadow-camera-right={1000}
+        shadow-camera-top={100}
+        shadow-camera-bottom={-100}
+        shadow-camera-left={-100}
+        shadow-camera-right={100}
+        shadow-mapSize={[512 * 10, 512 * 10]}
       />
     </>
   );

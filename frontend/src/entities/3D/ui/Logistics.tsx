@@ -19,6 +19,7 @@ function Logistics({ data }: { data: MapData }) {
     <>
       <Instances
         castShadow
+        receiveShadow
         material={materials.BigShelvesMetall03}
         geometry={nodes.BigShelves04_1.geometry}
       >
@@ -36,6 +37,7 @@ function Logistics({ data }: { data: MapData }) {
 
       <Instances
         castShadow
+        receiveShadow
         material={materials.BigShelvesMetall01}
         geometry={nodes.BigShelves04_2.geometry}
       >
@@ -53,6 +55,7 @@ function Logistics({ data }: { data: MapData }) {
 
       <Instances
         castShadow
+        receiveShadow
         material={materials.BigShelvesWood}
         geometry={nodes.BigShelves04_3.geometry}
       >
@@ -69,6 +72,7 @@ function Logistics({ data }: { data: MapData }) {
       </Instances>
       <Instances
         castShadow
+        receiveShadow
         material={materials.BigShelvesMetall02}
         geometry={nodes.BigShelves04_4.geometry}
       >
@@ -86,6 +90,7 @@ function Logistics({ data }: { data: MapData }) {
       {/* 상자 */}
       <Instances
         castShadow
+        receiveShadow
         material={materials.BigShelvesWoodBox}
         geometry={nodes.BigShelvesWoodBox.geometry}
       >
@@ -102,6 +107,7 @@ function Logistics({ data }: { data: MapData }) {
       </Instances>
       <Instances
         castShadow
+        receiveShadow
         material={materials.Cardboard_box05}
         geometry={nodes.Cardboard_box01.geometry}
       >
@@ -118,6 +124,7 @@ function Logistics({ data }: { data: MapData }) {
       </Instances>
       <Instances
         castShadow
+        receiveShadow
         material={materials.Cardboard_box06}
         geometry={nodes.Cardboard_box05.geometry}
       >
