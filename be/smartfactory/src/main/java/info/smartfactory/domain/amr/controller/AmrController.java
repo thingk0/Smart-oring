@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AmrController {
 
-	private final AmrService amrService;
+    private final AmrService amrService;
 
-	@GetMapping
-	public ResultResponse<List<AmrDto>> getAmrs() {
-		List<AmrDto> amrs = amrService.getAmrs();
-		return ResultResponse.res(HttpStatus.OK, "success", amrs);
-	}
+    @GetMapping
+    public ResultResponse<List<AmrDto>> getAmrs() {
+        List<AmrDto> amrs = amrService.getAmrs();
+        return ResultResponse.res(HttpStatus.OK, "success", amrs);
+    }
 
 }

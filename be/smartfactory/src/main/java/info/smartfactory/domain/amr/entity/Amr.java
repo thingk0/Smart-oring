@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "amr", indexes = {
     @Index(name = "idx_amr_amr_code_unq", columnList = "amr_code", unique = true)
