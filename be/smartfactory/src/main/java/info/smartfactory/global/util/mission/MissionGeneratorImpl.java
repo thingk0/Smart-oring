@@ -19,11 +19,13 @@ public class MissionGeneratorImpl implements MissionGenerator {
         //nodes들 중 랜덤으로 submissionNum 개수만큼 생성해줌
 
         HashSet<Integer> set = new HashSet<>();
-        for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
-            while (true) {
-                Random random = new Random();
-                random.setSeed(System.currentTimeMillis());
-                int randomIdx = random.nextInt(storages.size()); // 창고 랜덤 인덱스 생성
+                for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
+                    while (true) {
+                        Random random = new Random();
+                        random.setSeed(System.currentTimeMillis());
+                        int size = storages.size();
+                        if(size <= 0) size = 1;
+                        int randomIdx = random.nextInt(size); // 창고 랜덤 인덱스 생성
 
                 if (set.add(randomIdx)) break; // 저장되어 있지 않은 창고라면 추가
             }

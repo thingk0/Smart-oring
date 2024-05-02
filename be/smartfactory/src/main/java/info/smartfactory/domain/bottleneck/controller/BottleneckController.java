@@ -3,8 +3,6 @@ package info.smartfactory.domain.bottleneck.controller;
 import info.smartfactory.domain.bottleneck.dto.request.AddBottleneckRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
-import info.smartfactory.domain.node.dto.request.AddMapRequest;
-import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +29,7 @@ public class BottleneckController {
     }
 
     @PostMapping("/bottleneck/add")
-    public ResponseEntity<ResultResponse<Node>> addMapData(@RequestBody @Valid AddBottleneckRequest request) {
+    public ResponseEntity<ResultResponse<Bottleneck>> addBottleneckData(@RequestBody @Valid AddBottleneckRequest request) {
         bottleneckService.addBottleneckData(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString()));
     }

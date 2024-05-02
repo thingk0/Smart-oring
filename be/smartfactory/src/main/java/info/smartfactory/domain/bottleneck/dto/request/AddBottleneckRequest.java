@@ -16,7 +16,7 @@ public class AddBottleneckRequest {
     @NotNull(message = "y좌표는 필수 항목입니다.")
     int y_coordinate;
 
-    Long missionId;
+    Long mission_id;
 
-    LocalDateTime bottleneckCreatedAt;
+    LocalDateTime bottleneck_time;
 }

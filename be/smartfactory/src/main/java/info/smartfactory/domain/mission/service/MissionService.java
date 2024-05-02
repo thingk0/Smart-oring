@@ -28,8 +28,7 @@ public class MissionService {
         List<Destination> destinationList = destinationRepository.getDestination();
         List<Storage> storageList = storageRepository.getStorage();
 
-
-        System.out.println("Test Scheduled");
+                System.out.println("Test Scheduled");
 
         int submissionNum = 3;
         return missionGenerator.generateRandomMission(submissionNum, destinationList, storageList);

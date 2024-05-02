@@ -5,7 +5,6 @@ import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.repository.BottleneckRepository;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.repository.MissionRepository;
-import info.smartfactory.domain.mission.service.MissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +23,8 @@ public class BottleneckService {
     }
 
     public void addBottleneckData(AddBottleneckRequest request) {
-        Optional<Mission> mission = missionRepository.findById(request.getMissionId());
-        Bottleneck bottleneck = Bottleneck.createBottleneck(request.getX_coordinate(), request.getY_coordinate(), request.getBottleneckCreatedAt());
+        Optional<Mission> mission = missionRepository.findById(request.getMission_id());
+        Bottleneck bottleneck = Bottleneck.createBottleneck(request.getX_coordinate(), request.getY_coordinate(), request.getBottleneck_time());
         bottleneckRepository.save(bottleneck);
     }
 }
