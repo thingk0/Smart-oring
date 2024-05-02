@@ -52,7 +52,11 @@ function RobotModel({ position, scene }: RobotModelProps) {
     setBeforePosition(position);
   }, [position]);
 
-  return <group ref={robot}></group>;
+  return (
+    <group ref={robot}>
+      <primitive object={scene} />
+    </group>
+  );
 }
 
 export default RobotModel;
