@@ -56,4 +56,7 @@ public class MissionService {
 
         return mission;
     }
+
+    public void getMissionInfo() {
+    }
 }
