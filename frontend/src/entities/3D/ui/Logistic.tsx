@@ -4,37 +4,16 @@ import { Point2D } from '../../../shared/types/index.ts';
 type DestinationProps = {
   start: Point2D;
   end: Point2D;
+  direction: number;
 };
 
-function Logistic({ start, end }: DestinationProps) {
-  const { nodes, materials } = useGLTF('./models/BigShelves04Group3.glb');
-  console.log(nodes);
-  console.log(materials);
+function Logistic({ start, end, direction }: DestinationProps) {
   return (
     <>
-      <Merged meshes={nodes}>
-        {({
-          BigShelves04_1,
-          BigShelves04_2,
-          BigShelves04_3,
-          BigShelves04_4,
-        }) => (
-          <>
-            <BigShelves04_1
-              position={convertPosition(start, end)}
-            ></BigShelves04_1>
-            <BigShelves04_2
-              position={convertPosition(start, end)}
-            ></BigShelves04_2>
-            <BigShelves04_3
-              position={convertPosition(start, end)}
-            ></BigShelves04_3>
-            <BigShelves04_4
-              position={convertPosition(start, end)}
-            ></BigShelves04_4>
-          </>
-        )}
-      </Merged>
+      <Instance
+        position={convertPosition(start, end)}
+        rotation={[0, direction === 1 ? Math.PI / 2 : 0, 0]}
+      />
     </>
   );
 }

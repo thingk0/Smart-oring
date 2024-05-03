@@ -3,6 +3,7 @@ import Boxes from '../components/Boxes';
 import Floor from '../components/Floor';
 import Map from '../entities/3D/ui/Map';
 import axios from 'axios';
+import { Center } from '@react-three/drei';
 type MapData = {
   charger: PositionData[];
   destination: PositionData[];
@@ -50,7 +51,9 @@ function Mesh() {
           </mesh>
         }
       >
-        <Map resource={LoadMapData()} />
+        <Center disableY>
+          <Map resource={LoadMapData()} />
+        </Center>
       </Suspense>
     </>
   );
