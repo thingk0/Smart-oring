@@ -1,4 +1,4 @@
-package info.smartfactory.domain.mission.service;
+package info.smartfactory.domain.mission.kafka;
 
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import lombok.RequiredArgsConstructor;
