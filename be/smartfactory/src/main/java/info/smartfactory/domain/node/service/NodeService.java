@@ -186,13 +186,17 @@ public class NodeService {
         int ny = y;
 
         while (nx < MAP_WIDTH && map[nx][y][0] != null && map[nx][y][0].equals(nodeType)) {
-            visited[nx][y] = true;
             nx++;
         }
 
         while (ny < MAP_HEIGHT && map[x][ny][0] != null && map[x][ny][0].equals(nodeType)) {
-            visited[x][ny] = true;
             ny++;
+        }
+
+        for(int i=x; i<nx; i++) {
+            for(int j=y; j<ny; j++) {
+                visited[i][j] = true;
+            }
         }
 
         return new int[]{nx - 1, ny - 1};
