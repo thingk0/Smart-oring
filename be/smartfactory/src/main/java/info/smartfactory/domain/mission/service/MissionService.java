@@ -2,6 +2,7 @@ package info.smartfactory.domain.mission.service;
 
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.kafka.KafkaProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
