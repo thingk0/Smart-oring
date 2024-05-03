@@ -1,7 +1,7 @@
 package info.smartfactory.domain.node.service.dto;
 
 import info.smartfactory.domain.node.entity.Node;
-import info.smartfactory.domain.node.entity.constant.EntranceDirection;
+import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Storage;
 import lombok.Data;
 
@@ -14,14 +14,13 @@ public class StorageServiceDto extends NodeServiceDto {
 	}
 
 	public static StorageServiceDto from(
-		Integer xCoordinate,
-		Integer yCoordinate,
-		EntranceDirection entranceDirection
+		Storage storage
 	) {
 		StorageServiceDto storageServiceDto = new StorageServiceDto();
-		storageServiceDto.setXCoordinate(xCoordinate);
-		storageServiceDto.setYCoordinate(yCoordinate);
-		storageServiceDto.setEntranceDirection(entranceDirection);
+		storageServiceDto.setXCoordinate(storage.getXCoordinate());
+		storageServiceDto.setYCoordinate(storage.getYCoordinate());
+		storageServiceDto.setEntranceDirection(storage.getEntranceDirection());
+		storageServiceDto.nodeType = NodeType.STORAGE;
 		return storageServiceDto;
 	}
 }

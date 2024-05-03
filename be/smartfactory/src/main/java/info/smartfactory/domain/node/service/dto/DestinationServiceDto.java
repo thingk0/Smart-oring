@@ -1,7 +1,7 @@
 package info.smartfactory.domain.node.service.dto;
 
 import info.smartfactory.domain.node.entity.Node;
-import info.smartfactory.domain.node.entity.constant.EntranceDirection;
+import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Destination;
 import lombok.Data;
 
@@ -14,14 +14,13 @@ public class DestinationServiceDto extends NodeServiceDto {
 	}
 
 	public static DestinationServiceDto from(
-		Integer xCoordinate,
-		Integer yCoordinate,
-		EntranceDirection entranceDirection
+		Destination destination
 	) {
 		DestinationServiceDto destinationServiceDto = new DestinationServiceDto();
-		destinationServiceDto.setXCoordinate(xCoordinate);
-		destinationServiceDto.setYCoordinate(yCoordinate);
-		destinationServiceDto.setEntranceDirection(entranceDirection);
+		destinationServiceDto.setXCoordinate(destination.getXCoordinate());
+		destinationServiceDto.setYCoordinate(destination.getYCoordinate());
+		destinationServiceDto.setEntranceDirection(destination.getEntranceDirection());
+		destinationServiceDto.nodeType = NodeType.DESTINATION;
 		return destinationServiceDto;
 	}
 }

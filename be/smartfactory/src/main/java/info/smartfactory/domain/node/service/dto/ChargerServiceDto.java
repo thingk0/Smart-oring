@@ -1,6 +1,6 @@
 package info.smartfactory.domain.node.service.dto;
 
-import info.smartfactory.domain.node.entity.constant.EntranceDirection;
+import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Charger;
 import lombok.Data;
 
@@ -13,14 +13,14 @@ public class ChargerServiceDto extends NodeServiceDto {
 	}
 
 	public static ChargerServiceDto from(
-		Integer xCoordinate,
-		Integer yCoordinate,
-		EntranceDirection entranceDirection
+		Charger charger
 	) {
 		ChargerServiceDto chargerServiceDto = new ChargerServiceDto();
-		chargerServiceDto.setXCoordinate(xCoordinate);
-		chargerServiceDto.setYCoordinate(yCoordinate);
-		chargerServiceDto.setEntranceDirection(entranceDirection);
+		chargerServiceDto.setXCoordinate(charger.getXCoordinate());
+		chargerServiceDto.setYCoordinate(charger.getYCoordinate());
+		chargerServiceDto.setEntranceDirection(charger.getEntranceDirection());
+		chargerServiceDto.nodeType = NodeType.CHARGER;
+
 		return chargerServiceDto;
 	}
 }

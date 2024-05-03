@@ -9,6 +9,7 @@ public abstract class NodeServiceDto {
 	Integer xCoordinate;
 	Integer yCoordinate;
 	EntranceDirection entranceDirection;
+	String nodeType;
 
 	public abstract Node toEntity();
 }
