@@ -1,5 +1,6 @@
 package info.smartfactory.domain.mission.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.node.entity.Node;
 import jakarta.persistence.Column;
@@ -32,6 +33,7 @@ public class Submission extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mission_id")
+    @JsonBackReference
     private Mission mission;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

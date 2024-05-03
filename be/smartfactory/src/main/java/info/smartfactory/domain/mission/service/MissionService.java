@@ -40,9 +40,9 @@ public class MissionService {
         if(storageList.size() > submissionNum && destinationList.size() > 0){
             mission = missionGenerator.generateRandomMission(submissionNum, destinationList, storageList);
             List<Submission> submissionList = mission.getSubmissionList();
-//            for(Submission submission : submissionList) {
-//                System.out.println(submission.getArriveNode().getXCoordinate()+ " " + submission.getArriveNode().getYCoordinate());
-//            }
+            for(Submission submission : submissionList) {
+                System.out.println(submission.getArriveNode().getXCoordinate()+ " " + submission.getArriveNode().getYCoordinate());
+            }
             System.out.println("==========");
 
             kafkaProducer.create(mission);

@@ -28,8 +28,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    // kafka
+    // Spring Kafka 의존성
     implementation 'org.springframework.kafka:spring-kafka'
+    // Kafka 클라이언트 의존성
+    implementation 'org.apache.kafka:kafka-clients'
+    // Jackson 의존성, 객체를 JSON으로 직렬화하기 위해 필요
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
     // MariaDB
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     // Configuration-Processor
