@@ -1,10 +1,18 @@
 package info.smartfactory.domain.node.service;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import info.smartfactory.domain.node.dto.ChargerDto;
 import info.smartfactory.domain.node.dto.DestinationDto;
 import info.smartfactory.domain.node.dto.MapData;
 import info.smartfactory.domain.node.dto.StorageDto;
 import info.smartfactory.domain.node.dto.request.MapAddRequest;
+import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Charger;
 import info.smartfactory.domain.node.entity.type.Destination;
@@ -13,12 +21,7 @@ import info.smartfactory.domain.node.repository.ChargerRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.NodeRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 /**
  * 노드 정보를 기반으로 맵 데이터를 관리. 맵에 노드(충전소, 목적지, 저장소)를 배치하고 관련 데이터를 DTO로 변환하여 제공합니다.
@@ -222,5 +225,13 @@ public class NodeService {
             case NodeType.DESTINATION -> destinationRepository.save(Destination.from(request));
             case NodeType.STORAGE -> storageRepository.save(Storage.from(request));
         }
+    }
+
+    public void addNodes(ArrayList<info.smartfactory.domain.node.service.command.NodeDto> nodes) {
+        List<Node> nodeEntities = new ArrayList<>();
+        for (var node : nodes) {
+            nodeEntities.add(node.toEntity());
+        }
+        nodeRepository.saveAll(nodeEntities);
     }
 }
