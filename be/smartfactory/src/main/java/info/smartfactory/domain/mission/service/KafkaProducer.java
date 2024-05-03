@@ -13,7 +13,7 @@ public class KafkaProducer {
     private final KafkaTemplate<String, Mission> kafkaTemplate;
 
     public void create(Mission mission) {
-        kafkaTemplate.send("topic", mission);
+        kafkaTemplate.send("mission", mission);
         System.out.println("Mission sent to Kafka: " + mission);
     }
 }
