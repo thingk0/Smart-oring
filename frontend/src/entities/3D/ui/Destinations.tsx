@@ -65,7 +65,7 @@ function Destinations({ data }: { data: MapData }) {
           );
         })}
       </Instances>
-      <Instances
+      {/* <Instances
         castShadow
         geometry={nodes.Circle.geometry}
         material={materials['Material.002']}
@@ -80,7 +80,7 @@ function Destinations({ data }: { data: MapData }) {
             />
           );
         })}
-      </Instances>
+      </Instances> */}
     </>
   );
 }
