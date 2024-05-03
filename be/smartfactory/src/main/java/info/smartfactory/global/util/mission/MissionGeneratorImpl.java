@@ -2,8 +2,11 @@ package info.smartfactory.global.util.mission;
 
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
+import info.smartfactory.domain.mission.repository.MissionRepository;
+import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -12,12 +15,15 @@ import java.util.List;
 import java.util.Random;
 
 @Component
+@RequiredArgsConstructor
 public class MissionGeneratorImpl implements MissionGenerator {
+
+    final MissionRepository missionRepository;
+    final SubmissionRepository submissionRepository;
 
     @Override
     public Mission generateRandomMission(int submissionNum, List<Destination> destinations, List<Storage> storages) {
         //nodes들 중 랜덤으로 submissionNum 개수만큼 생성해줌
-
         HashSet<Integer> set = new HashSet<>();
         for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
             while (true) {
@@ -36,7 +42,8 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         // 위에서 뽑힌 창고 인덱스 순서대로 submission을 만들어줌
         Mission mission = Mission.createMission();
-        //List<Submission> submissionList = new ArrayList<>();
+        missionRepository.save(mission);
+
         int order = 0;
         for (int index : set) {
             // submission 개수만큼 랜덤으로 갈 곳 생성했으니 객체 생성해줌
@@ -45,6 +52,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
                     ++order
             );
             mission.addSubmission(submission);
+            submissionRepository.save(submission);
         }
 
 
@@ -58,18 +66,8 @@ public class MissionGeneratorImpl implements MissionGenerator {
                 destinations.get(randomIdx),
                 submissionNum + 1
         );
-        //submissionList.add(destSubmission); //submission list에 추가해줌
         mission.addSubmission(destSubmission);
-
-        //submission list를 mission에 저장해줌
-        //mission.addSubmission(submission);
-
-        List<Submission> submissionList = mission.getSubmissionList();
-
-        for (Submission submission : submissionList) {
-            System.out.print("x : " + submission.getArriveNode().getXCoordinate());
-            System.out.println("y : " + submission.getArriveNode().getYCoordinate());
-        }
+        submissionRepository.save(destSubmission);
 
         return mission;
     }
