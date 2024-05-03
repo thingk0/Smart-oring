@@ -11,7 +11,7 @@ function Destination({ start, end }: DestinationProps) {
     <>
       <Instance
         castShadow
-        position={convertPosition(start, end, 0.5)}
+        position={convertPosition(start, end, 0.2)}
         rotation={[0, Math.PI / 2, 0]}
       />
     </>
