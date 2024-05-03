@@ -6,6 +6,7 @@ from collections import deque
 from confluent_kafka import Producer, Consumer, Message
 
 from app_env import env
+from domain.factory_map import FactoryMap
 from robot.mission import mission_util
 from robot.mission.entity.mission import Mission
 from robot.robot_manager import RobotManager
@@ -19,8 +20,7 @@ consumer: Consumer
 
 def get_map():
     factory_map = UseCase.get_map()
-
-    return factory_map
+    return FactoryMap(factory_map, 100, 50)
 
 
 def init_robot():

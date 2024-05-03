@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Structure:
 
     def __init__(self, xcoordinate, ycoordinate):
@@ -12,16 +15,23 @@ class Charger(Structure):
 
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
-        self.entranceDirection = entranceDirection
+        self.entranceDirection: EntranceDirection = entranceDirection
 
 
 class Storage(Structure):
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
-        self.entranceDirection = entranceDirection
+        self.entranceDirection: EntranceDirection = entranceDirection
 
 
 class Destination(Structure):
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
-        self.entranceDirection = entranceDirection
+        self.entranceDirection: EntranceDirection = entranceDirection
+
+
+class EntranceDirection(Enum):
+    WEST = "WEST"
+    EAST = "EAST"
+    NORTH = "NORTH"
+    SOUTH = "SOUTH"

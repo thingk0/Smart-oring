@@ -2,7 +2,7 @@ from typing import List
 
 import requests
 
-from domain.structure import Structure, Charger, Storage, Destination
+from domain.structure import Structure, Charger, Storage, Destination, EntranceDirection
 
 
 class UseCase:
@@ -16,14 +16,16 @@ class UseCase:
         for item in json['resultData']:
             print(item)
             if item['nodeType'] == 'CHARGER':
-                nodes.append(Charger(item['xcoordinate'], item['ycoordinate'], item['entranceDirection']))
+                nodes.append(
+                    Charger(item['xcoordinate'], item['ycoordinate'], EntranceDirection(item['entranceDirection'])))
             if item['nodeType'] == 'STORAGE':
-                nodes.append(Storage(item['xcoordinate'], item['ycoordinate'], item['entranceDirection']))
+                nodes.append(
+                    Storage(item['xcoordinate'], item['ycoordinate'], EntranceDirection(item['entranceDirection'])))
             if item['nodeType'] == 'DESTINATION':
-                nodes.append(Destination(item['xcoordinate'], item['ycoordinate'], item['entranceDirection']))
-        print(nodes)
+                nodes.append(
+                    Destination(item['xcoordinate'], item['ycoordinate'], EntranceDirection(item['entranceDirection'])))
 
-        return json
+        return nodes
 
     @staticmethod
     def get(url, params=None):

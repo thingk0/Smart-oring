@@ -2,6 +2,7 @@ from typing import List
 
 import numpy as np
 
+from domain.factory_map import FactoryMap
 from robot.mission import mission_processor
 from robot.mission.entity.robot import RobotStatus, Robot
 from robot.mission.path.node import Node
@@ -17,7 +18,7 @@ class RobotManager:
         return cls.__instance
 
     def __init__(self):
-        self.factory_map = None
+        self.factory_map: FactoryMap | None = None
         self.idle_robots: List[Robot] = []
         self.working_robots: List[Robot] = []
         self.num_robots = 0
@@ -32,7 +33,7 @@ class RobotManager:
             return False
         robot: Robot = self.idle_robots.pop(0)
 
-        new_factory_map = np.array([row[:] for row in self.factory_map])
+        new_factory_map = self.factory_map.to_zero_one_array()
 
         route = mission_processor.process_mission(mission, new_factory_map, robot.current_node, road=[0])
         print(route)
