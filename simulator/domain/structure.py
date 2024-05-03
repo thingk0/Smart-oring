@@ -1,0 +1,27 @@
+class Structure:
+
+    def __init__(self, xcoordinate, ycoordinate):
+        self.x_coordinate = xcoordinate
+        self.y_coordinate = ycoordinate
+
+    def __str__(self):
+        return f"x: {self.x_coordinate}, y: {self.y_coordinate}"
+
+
+class Charger(Structure):
+
+    def __init__(self, xcoordinate, ycoordinate, entranceDirection):
+        super().__init__(xcoordinate, ycoordinate)
+        self.entranceDirection = entranceDirection
+
+
+class Storage(Structure):
+    def __init__(self, xcoordinate, ycoordinate, entranceDirection):
+        super().__init__(xcoordinate, ycoordinate)
+        self.entranceDirection = entranceDirection
+
+
+class Destination(Structure):
+    def __init__(self, xcoordinate, ycoordinate, entranceDirection):
+        super().__init__(xcoordinate, ycoordinate)
+        self.entranceDirection = entranceDirection

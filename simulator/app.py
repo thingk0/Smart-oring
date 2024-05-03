@@ -8,8 +8,8 @@ from confluent_kafka import Producer, Consumer, Message
 from app_env import env
 from robot.mission import mission_util
 from robot.mission.entity.mission import Mission
-from robot.mission.entity.structure import Structure
 from robot.robot_manager import RobotManager
+from usecase import UseCase
 
 missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
 rm: RobotManager = RobotManager.instance()
@@ -18,10 +18,7 @@ consumer: Consumer
 
 
 def get_map():
-    factory_map = [[0] * 5 for _ in range(5)]
-    factory_map[0][0] = Structure.CHARGER.value
-    factory_map[2][0] = Structure.CHARGER.value
-    factory_map[4][0] = Structure.CHARGER.value
+    factory_map = UseCase.get_map()
 
     return factory_map
 

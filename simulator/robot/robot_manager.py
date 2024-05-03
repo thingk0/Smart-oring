@@ -21,7 +21,6 @@ class RobotManager:
         self.idle_robots: List[Robot] = []
         self.working_robots: List[Robot] = []
         self.num_robots = 0
-        self.lock_map = None
 
     def add_robot(self, x, y):
         robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.IDLE, current_node=Node(x, y))
@@ -43,7 +42,6 @@ class RobotManager:
 
     def set_map(self, factory_map):
         self.factory_map = factory_map
-        self.lock_map = np.zeros((len(factory_map), len(factory_map[0])))
 
     def get_all_robots(self) -> List[Robot]:
         return self.idle_robots + self.working_robots
