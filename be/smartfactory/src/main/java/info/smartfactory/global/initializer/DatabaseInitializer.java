@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 
 import info.smartfactory.domain.node.entity.constant.EntranceDirection;
 import info.smartfactory.domain.node.service.NodeService;
-import info.smartfactory.domain.node.service.command.ChargerDto;
-import info.smartfactory.domain.node.service.command.DestinationDto;
-import info.smartfactory.domain.node.service.command.NodeDto;
-import info.smartfactory.domain.node.service.command.StorageDto;
+import info.smartfactory.domain.node.service.dto.ChargerServiceDto;
+import info.smartfactory.domain.node.service.dto.DestinationServiceDto;
+import info.smartfactory.domain.node.service.dto.NodeServiceDto;
+import info.smartfactory.domain.node.service.dto.StorageServiceDto;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -29,15 +29,15 @@ public class DatabaseInitializer implements CommandLineRunner {
 	}
 
 	private void initializeMap() throws Exception {
-		ArrayList<NodeDto> dtos = new ArrayList<>();
-		ArrayList<? extends NodeDto> nodeDtos = spaceUtil(0, 0, 2, true, StorageDto.class);
-		ArrayList<? extends NodeDto> nodeDtos2 = spaceUtil(4, 0, 2, true, StorageDto.class);
+		ArrayList<NodeServiceDto> dtos = new ArrayList<>();
+		ArrayList<? extends NodeServiceDto> nodeDtos = spaceUtil(0, 0, 2, true, StorageServiceDto.class);
+		ArrayList<? extends NodeServiceDto> nodeDtos2 = spaceUtil(4, 0, 2, true, StorageServiceDto.class);
 		dtos.addAll(nodeDtos);
 		dtos.addAll(nodeDtos2);
 		nodeService.addNodes(dtos);
 	}
 
-	private <T extends NodeDto> ArrayList<? extends NodeDto> spaceUtil(
+	private <T extends NodeServiceDto> ArrayList<? extends NodeServiceDto> spaceUtil(
 		int tx,
 		int ty,
 		int length,
@@ -70,25 +70,25 @@ public class DatabaseInitializer implements CommandLineRunner {
 		return dtos;
 	}
 
-	private <T extends NodeDto> void setDirection(boolean isVertical, T e, T e2) {
-		HashMap<Class<? extends NodeDto>, Function<List<T>, Void>> directionMap = new HashMap<>();
+	private <T extends NodeServiceDto> void setDirection(boolean isVertical, T e, T e2) {
+		HashMap<Class<? extends NodeServiceDto>, Function<List<T>, Void>> directionMap = new HashMap<>();
 		EntranceDirection[] directions = {EntranceDirection.WEST, EntranceDirection.EAST, EntranceDirection.NORTH,
 			EntranceDirection.SOUTH};
 		int idx = isVertical ? 0 : 2;
 
-		directionMap.put(StorageDto.class, (List<T> dtos) -> {
-			((StorageDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((StorageDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
+		directionMap.put(StorageServiceDto.class, (List<T> dtos) -> {
+			((StorageServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
+			((StorageServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
 			return null;
 		});
-		directionMap.put(ChargerDto.class, (List<T> dtos) -> {
-			((ChargerDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((ChargerDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
+		directionMap.put(ChargerServiceDto.class, (List<T> dtos) -> {
+			((ChargerServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
+			((ChargerServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
 			return null;
 		});
-		directionMap.put(DestinationDto.class, (List<T> dtos) -> {
-			((DestinationDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((DestinationDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
+		directionMap.put(DestinationServiceDto.class, (List<T> dtos) -> {
+			((DestinationServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
+			((DestinationServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
 			return null;
 		});
 		ArrayList<T> t = new ArrayList<>();

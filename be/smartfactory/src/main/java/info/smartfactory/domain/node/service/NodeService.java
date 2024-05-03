@@ -21,6 +21,7 @@ import info.smartfactory.domain.node.repository.ChargerRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.NodeRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
+import info.smartfactory.domain.node.service.dto.NodeServiceDto;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -227,11 +228,16 @@ public class NodeService {
         }
     }
 
-    public void addNodes(ArrayList<info.smartfactory.domain.node.service.command.NodeDto> nodes) {
+    public void addNodes(ArrayList<NodeServiceDto> nodes) {
         List<Node> nodeEntities = new ArrayList<>();
         for (var node : nodes) {
             nodeEntities.add(node.toEntity());
         }
         nodeRepository.saveAll(nodeEntities);
+    }
+
+    public List<Node> getMap() {
+        List<Node> nodes = nodeRepository.findAll();
+        return nodes;
     }
 }
