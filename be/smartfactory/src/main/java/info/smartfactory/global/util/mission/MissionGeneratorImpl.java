@@ -2,8 +2,8 @@ package info.smartfactory.global.util.mission;
 
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
-import info.smartfactory.domain.node.entity.Destination;
-import info.smartfactory.domain.node.entity.Storage;
+import info.smartfactory.domain.node.entity.type.Destination;
+import info.smartfactory.domain.node.entity.type.Storage;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -19,15 +19,19 @@ public class MissionGeneratorImpl implements MissionGenerator {
         //nodes들 중 랜덤으로 submissionNum 개수만큼 생성해줌
 
         HashSet<Integer> set = new HashSet<>();
-                for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
-                    while (true) {
-                        Random random = new Random();
-                        random.setSeed(System.currentTimeMillis());
-                        int size = storages.size();
-                        if(size <= 0) size = 1;
-                        int randomIdx = random.nextInt(size); // 창고 랜덤 인덱스 생성
+        for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
+            while (true) {
+                Random random = new Random();
+                random.setSeed(System.currentTimeMillis());
+                int size = storages.size();
+                if (size <= 0) {
+                    size = 1;
+                }
+                int randomIdx = random.nextInt(size); // 창고 랜덤 인덱스 생성
 
-                if (set.add(randomIdx)) break; // 저장되어 있지 않은 창고라면 추가
+                if (set.add(randomIdx)) {
+                    break; // 저장되어 있지 않은 창고라면 추가
+                }
             }
         }
 
@@ -44,12 +48,11 @@ public class MissionGeneratorImpl implements MissionGenerator {
         for (int index : set) {
             // submission 개수만큼 랜덤으로 갈 곳 생성했으니 객체 생성해줌
             Submission submission = Submission.createSubmission(
-                    storages.get(index),
-                    ++order
+                storages.get(index),
+                ++order
             );
             mission.addSubmission(submission);
         }
-
 
         // 마지막으로 도착지를 랜덤으로 생성
         Random random = new Random();
@@ -58,8 +61,8 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         // 도착지 노드 생성
         Submission destSubmission = Submission.createSubmission(
-                destinations.get(randomIdx),
-                submissionNum + 1
+            destinations.get(randomIdx),
+            submissionNum + 1
         );
         //submissionList.add(destSubmission); //submission list에 추가해줌
         mission.addSubmission(destSubmission);
