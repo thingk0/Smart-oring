@@ -21,6 +21,10 @@ import info.smartfactory.domain.node.repository.ChargerRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.NodeRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
+import info.smartfactory.domain.node.service.dto.ChargerServiceDto;
+import info.smartfactory.domain.node.service.dto.DestinationServiceDto;
+import info.smartfactory.domain.node.service.dto.NodeServiceDto;
+import info.smartfactory.domain.node.service.dto.StorageServiceDto;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -227,11 +231,28 @@ public class NodeService {
         }
     }
 
-    public void addNodes(ArrayList<info.smartfactory.domain.node.service.command.NodeDto> nodes) {
+    public void addNodes(ArrayList<NodeServiceDto> nodes) {
         List<Node> nodeEntities = new ArrayList<>();
         for (var node : nodes) {
             nodeEntities.add(node.toEntity());
         }
         nodeRepository.saveAll(nodeEntities);
+    }
+
+    public List<NodeServiceDto> getMap() {
+        List<Node> nodes = nodeRepository.findAll();
+        List<NodeServiceDto> newNodes = new ArrayList<>();
+        for (Node node : nodes) {
+            NodeServiceDto newNode = null;
+            if (node instanceof Charger charger) {
+                newNode = ChargerServiceDto.from(charger);
+            } else if (node instanceof Destination destination) {
+                newNode = DestinationServiceDto.from(destination);
+            } else if (node instanceof Storage storage) {
+                newNode = StorageServiceDto.from(storage);
+            }
+            newNodes.add(newNode);
+        }
+        return newNodes;
     }
 }
