@@ -1,5 +1,6 @@
 package info.smartfactory.domain.mission.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import info.smartfactory.domain.common.BaseTimeEntity;
@@ -34,6 +35,7 @@ public class Mission extends BaseTimeEntity {
     private LocalDateTime missionFinishedAt;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Submission> submissionList = new ArrayList<>();
 
     public static Mission createMission() {
