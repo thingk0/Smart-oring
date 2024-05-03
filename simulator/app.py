@@ -1,13 +1,11 @@
 import datetime
 import json
-import os
 import time
 from collections import deque
 
 from confluent_kafka import Producer, Consumer, Message
-from spring_config import ClientConfigurationBuilder
-from spring_config.client import SpringConfigClient
 
+from app_env import env
 from robot.mission import mission_util
 from robot.mission.entity.mission import Mission
 from robot.mission.entity.structure import Structure
@@ -17,7 +15,6 @@ missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
 rm: RobotManager = RobotManager.instance()
 producer: Producer
 consumer: Consumer
-env: dict
 
 
 def get_map():
@@ -50,19 +47,6 @@ def init_kafka():
     consumer.subscribe(['mission'])
 
 
-def init_env():
-    # 환경변수 불러오기
-    global env
-    profile = os.environ["profile"]
-    config = (ClientConfigurationBuilder()
-              .app_name("simulator")
-              .address("http://localhost:8888")
-              .profile(profile)
-              .branch("master")
-              .build())
-
-    c = SpringConfigClient(config)
-    env = c.get_config()
 
 
 def get_mission():
@@ -72,7 +56,6 @@ def get_mission():
 
 
 def start():
-    init_env()
     init_kafka()
     init_robot()
     factory_map = get_map()
