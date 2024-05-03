@@ -66,10 +66,10 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         List<Submission> submissionList = mission.getSubmissionList();
 
-//        for (Submission submission : submissionList) {
-//            System.out.print("x : " + submission.getArriveNode().getXCoordinate());
-//            System.out.println("y : " + submission.getArriveNode().getYCoordinate());
-//        }
+        for (Submission submission : submissionList) {
+            System.out.print("x : " + submission.getArriveNode().getXCoordinate());
+            System.out.println("y : " + submission.getArriveNode().getYCoordinate());
+        }
 
         return mission;
     }
