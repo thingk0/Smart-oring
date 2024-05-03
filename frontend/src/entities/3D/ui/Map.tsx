@@ -39,17 +39,8 @@ function Map({ resource }: MapProps) {
 
   return (
     <>
-      {/* {data.charger.map((c, index: number) => {
-        return <Charger start={c.start} end={c.end} key={index} />;
-      })}
-      {data.destination.map((d, index) => {
-        return <Destination start={d.start} end={d.end} key={index} />;
-      })}
-      {data.logistic.map((l, index) => {
-        return <Logistic start={l.start} end={l.end} key={index} />;
-      })} */}
       <QueryClientProvider client={queryClient}>
-        {/* <Robot /> */}
+        <Robot />
         <InstancedRobot />
       </QueryClientProvider>
       <Path />

@@ -1,4 +1,4 @@
-import { useHelper } from '@react-three/drei';
+import { Environment, useHelper } from '@react-three/drei';
 import { useRef } from 'react';
 import { DirectionalLightHelper } from 'three';
 
@@ -10,7 +10,7 @@ function Light() {
   useHelper(lightRef, DirectionalLightHelper, 3, 'red');
   return (
     <>
-      <ambientLight color={lightColor} intensity={1} />
+      <Environment preset="warehouse" environmentIntensity={0.3} />
       <directionalLight
         ref={lightRef}
         position={[0, 10, 0]}

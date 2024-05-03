@@ -327,12 +327,12 @@
       }
     ]
   },
-
   "robot": [
     {
       "position": [0, 0],
       "mission": "move logistics",
-      "battery": 80
+      "battery": 80,
+      "id": "9749"
     }
   ]
 }
