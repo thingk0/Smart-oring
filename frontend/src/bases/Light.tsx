@@ -1,12 +1,12 @@
 import { Environment, useHelper } from '@react-three/drei';
 import { useRef } from 'react';
-import { DirectionalLightHelper } from 'three';
+import { DirectionalLightHelper, DirectionalLight } from 'three';
 
 // set light at this function
 const lightColor = 'white';
 
 function Light() {
-  const lightRef = useRef(null);
+  const lightRef = useRef<DirectionalLight>(null!);
   useHelper(lightRef, DirectionalLightHelper, 3, 'red');
   return (
     <>
@@ -14,6 +14,7 @@ function Light() {
       <directionalLight
         ref={lightRef}
         position={[0, 10, 0]}
+        color={lightColor}
         intensity={0.8}
         target-position={[0, 0, 0]}
         castShadow
