@@ -29,6 +29,10 @@ public class Destination extends Node {
                                EntranceDirection.fromValue(addRequest.direction()));
     }
 
+    public static Destination createDestination(int x, int y, EntranceDirection entranceDirection) {
+        return new Destination(x, y, entranceDirection);
+    }
+
     @Override
     public void updateMap(String[][][] map) {
         map[getXCoordinate()][getYCoordinate()][0] = NodeType.DESTINATION;
