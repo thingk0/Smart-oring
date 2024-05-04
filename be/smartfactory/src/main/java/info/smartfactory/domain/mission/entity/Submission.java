@@ -59,8 +59,12 @@ public class Submission extends BaseTimeEntity {
         this.mission = mission;
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "id=" + id +
+                ", arriveNode= [" + arriveNode.getXCoordinate() + " " + arriveNode.getYCoordinate() + "] " +
+                ", submissionOrder=" + submissionOrder +
+                '}';
+    }
 }
