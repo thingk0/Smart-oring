@@ -28,8 +28,8 @@ public class Mission extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "mission_created_at", updatable = false)
-    private LocalDateTime missionCreatedAt;
+    @Column(name = "mission_started_at", updatable = false)
+    private LocalDateTime missionStartedAt;
 
     @Column(name = "mission_finished_at", updatable = false)
     private LocalDateTime missionFinishedAt;
