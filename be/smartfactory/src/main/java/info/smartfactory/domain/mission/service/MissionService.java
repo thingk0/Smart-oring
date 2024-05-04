@@ -69,8 +69,12 @@ public class MissionService {
         }
 
         List<Submission> submission = submissionRepository.findByMissionIdWithNodes(missionId);
-        System.out.println(submission);
 
-        return null;
+        for (Submission object : submission){
+            System.out.println(object.toString());
+            log.info(object.toString());
+        }
+
+        return submission;
     }
 }
