@@ -19,7 +19,7 @@ public class MissionController {
 
     final private MissionService missionService;
 
-    @GetMapping("/{missionId}")
+    @GetMapping("/route/{missionId}")
     public ResultResponse<List<Submission>> getMissionInfo(@PathVariable(name = "missionId") Long missionId) {
 
         List<Submission> missionInfo = missionService.getMissionInfo(missionId);
