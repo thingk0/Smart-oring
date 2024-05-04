@@ -1,18 +1,12 @@
 package info.smartfactory.domain.history.entity;
 
+import info.smartfactory.domain.history.constant.AmrStatus;
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
 import info.smartfactory.domain.mission.entity.Mission;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,6 +43,11 @@ public class AmrHistory extends BaseTimeEntity {
 
     @Column(name = "y_coordinate", nullable = false)
     private Integer yCoordinate;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "amr_status", nullable = false)
+    private AmrStatus amrStatus = AmrStatus.IDLE;
 
     @Column(name = "amr_history_created_at", nullable = false)
     private LocalDateTime amrHistoryCreatedAt;
