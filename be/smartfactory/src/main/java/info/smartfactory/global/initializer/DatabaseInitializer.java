@@ -30,10 +30,81 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 	private void initializeMap() throws Exception {
 		ArrayList<NodeServiceDto> dtos = new ArrayList<>();
-		ArrayList<? extends NodeServiceDto> nodeDtos = spaceUtil(0, 0, 2, true, StorageServiceDto.class);
-		ArrayList<? extends NodeServiceDto> nodeDtos2 = spaceUtil(4, 0, 2, true, StorageServiceDto.class);
-		dtos.addAll(nodeDtos);
-		dtos.addAll(nodeDtos2);
+
+		Object[][] nodes = new Object[][] {
+			{16, 4, 11, true, StorageServiceDto.class},
+			{28, 4, 7, true, StorageServiceDto.class},
+			{16, 10, 5, true, StorageServiceDto.class},
+			{22, 10, 5, true, StorageServiceDto.class},
+			{28, 10, 7, true, StorageServiceDto.class},
+			{9, 19, 11, false, StorageServiceDto.class},
+			{16, 19, 11, false, StorageServiceDto.class},
+			{23, 19, 11, false, StorageServiceDto.class},
+			{30, 19, 11, false, StorageServiceDto.class},
+			{37, 32, 11, false, StorageServiceDto.class},
+			{37, 19, 11, false, StorageServiceDto.class},
+			{9, 32, 11, false, StorageServiceDto.class},
+			{16, 32, 11, false, StorageServiceDto.class},
+			{23, 32, 11, false, StorageServiceDto.class},
+			{30, 32, 11, false, StorageServiceDto.class},
+			{37, 32, 11, false, StorageServiceDto.class},
+			{9, 45, 11, false, StorageServiceDto.class},
+			{16, 45, 11, false, StorageServiceDto.class},
+			{16, 92, 5, true, StorageServiceDto.class},
+			{22, 92, 5, true, StorageServiceDto.class},
+			{28, 92, 7, true, StorageServiceDto.class},
+			{16, 86, 11, true, StorageServiceDto.class},
+			{28, 86, 7, true, StorageServiceDto.class},
+			{9, 71, 11, false, StorageServiceDto.class},
+			{16, 71, 11, false, StorageServiceDto.class},
+			{23, 71, 11, false, StorageServiceDto.class},
+			{30, 71, 11, false, StorageServiceDto.class},
+			{37, 71, 11, false, StorageServiceDto.class},
+			{9, 58, 11, false, StorageServiceDto.class},
+			{16, 58, 11, false, StorageServiceDto.class},
+			{23, 58, 11, false, StorageServiceDto.class},
+			{30, 58, 11, false, StorageServiceDto.class},
+			{37, 58, 11, false, StorageServiceDto.class},
+			{23, 45, 11, false, StorageServiceDto.class},
+			{30, 45, 11, false, StorageServiceDto.class},
+			{37, 45, 11, false, StorageServiceDto.class},
+
+			{2, 6, 11, true, ChargerServiceDto.class},
+			{38, 6, 11, true, ChargerServiceDto.class},
+			{2, 88, 6, false, ChargerServiceDto.class},
+			{38, 88, 6, false, ChargerServiceDto.class},
+
+			{3, 21, 4, false, DestinationServiceDto.class},
+			{3, 26, 4, false, DestinationServiceDto.class},
+			{3, 31, 4, false, DestinationServiceDto.class},
+			{3, 36, 4, false, DestinationServiceDto.class},
+			{3, 41, 4, false, DestinationServiceDto.class},
+			{3, 46, 4, false, DestinationServiceDto.class},
+			{44, 21, 4, false, DestinationServiceDto.class},
+			{44, 26, 4, false, DestinationServiceDto.class},
+			{44, 31, 4, false, DestinationServiceDto.class},
+			{44, 36, 4, false, DestinationServiceDto.class},
+			{44, 41, 4, false, DestinationServiceDto.class},
+			{44, 46, 4, false, DestinationServiceDto.class},
+			{3, 76, 4, false, DestinationServiceDto.class},
+			{3, 71, 4, false, DestinationServiceDto.class},
+			{3, 66, 4, false, DestinationServiceDto.class},
+			{3, 61, 4, false, DestinationServiceDto.class},
+			{3, 56, 4, false, DestinationServiceDto.class},
+			{3, 51, 4, false, DestinationServiceDto.class},
+			{44, 76, 4, false, DestinationServiceDto.class},
+			{44, 71, 4, false, DestinationServiceDto.class},
+			{44, 66, 4, false, DestinationServiceDto.class},
+			{44, 61, 4, false, DestinationServiceDto.class},
+			{44, 56, 4, false, DestinationServiceDto.class},
+			{44, 51, 4, false, DestinationServiceDto.class},
+		};
+
+		for (Object[] node : nodes) {
+			dtos.addAll(spaceUtil((int)node[0], (int)node[1], (int)node[2], (boolean)node[3],
+				(Class<? extends NodeServiceDto>)node[4]));
+		}
+
 		nodeService.addNodes(dtos);
 	}
 
@@ -97,6 +168,4 @@ public class DatabaseInitializer implements CommandLineRunner {
 		directionMap.get(e.getClass()).apply(t);
 	}
 
-	private void spaceUtil2(int length, boolean isVertical) {
-	}
 }
