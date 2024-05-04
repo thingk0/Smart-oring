@@ -23,6 +23,6 @@ public class MissionController {
     public ResultResponse<List<Submission>> getMissionInfo(@PathVariable(name = "missionId") Long missionId) {
 
         List<Submission> missionInfo = missionService.getMissionInfo(missionId);
-        return ResultResponse.res(HttpStatus.OK, "succuess", missionInfo);
+        return ResultResponse.res(HttpStatus.OK, "success", missionInfo);
     }
 }
