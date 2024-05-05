@@ -47,7 +47,7 @@ public class AmrHistory extends BaseTimeEntity {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "amr_status", nullable = false)
-    private AmrStatus amrStatus = AmrStatus.IDLE;
+    private AmrStatus amrStatus = AmrStatus.CHARGING;
 
     @Column(name = "amr_history_created_at", nullable = false)
     private LocalDateTime amrHistoryCreatedAt;
