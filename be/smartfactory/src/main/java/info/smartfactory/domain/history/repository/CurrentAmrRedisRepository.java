@@ -5,7 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import info.smartfactory.domain.history.entity.AmrHistory;
 
-@Repository
-public interface CurrentAmrRedisRepository extends CrudRepository<AmrHistory, String> {
+import java.util.List;
 
+@Repository
+public interface CurrentAmrRedisRepository extends CrudRepository<CurrentAmrInfoRedisDto, String> {
+
+    @Override
+    List<CurrentAmrInfoRedisDto> findAll();
 }
