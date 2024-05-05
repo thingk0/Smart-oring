@@ -4,7 +4,7 @@ import Logistic from './Logistic';
 type MapData = {
   charger: PositionData[];
   destination: PositionData[];
-  logistic: PositionData[];
+  storage: PositionData[];
 };
 type PositionData = {
   start: Point2D;
@@ -13,8 +13,8 @@ type PositionData = {
 };
 function Logistics({ data }: { data: MapData }) {
   const { nodes, materials } = useGLTF('./models/BigShelves04Group3.glb');
-  console.log(nodes);
-  console.log(materials);
+  // console.log(nodes);
+  // console.log(materials);
   return (
     <>
       <Instances
@@ -23,7 +23,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.BigShelvesMetall03}
         geometry={nodes.BigShelves04_1.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -41,7 +41,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.BigShelvesMetall01}
         geometry={nodes.BigShelves04_2.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -59,7 +59,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.BigShelvesWood}
         geometry={nodes.BigShelves04_3.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -76,7 +76,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.BigShelvesMetall02}
         geometry={nodes.BigShelves04_4.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -94,7 +94,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.BigShelvesWoodBox}
         geometry={nodes.BigShelvesWoodBox.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -111,7 +111,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.Cardboard_box05}
         geometry={nodes.Cardboard_box01.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}
@@ -128,7 +128,7 @@ function Logistics({ data }: { data: MapData }) {
         material={materials.Cardboard_box06}
         geometry={nodes.Cardboard_box05.geometry}
       >
-        {data.logistic.map((l, index) => {
+        {data.storage.map((l, index) => {
           return (
             <Logistic
               start={l.start}

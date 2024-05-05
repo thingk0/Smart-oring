@@ -7,12 +7,18 @@ type DestinationProps = {
   direction: number;
 };
 
+// direction: WEST, NORTH
+const arr = {
+  WEST: Math.PI / 2,
+  NORTH: 0,
+};
+
 function Logistic({ start, end, direction }: DestinationProps) {
   return (
     <>
       <Instance
         position={convertPosition(start, end)}
-        rotation={[0, direction === 1 ? Math.PI / 2 : 0, 0]}
+        rotation={[0, arr[direction], 0]}
       />
     </>
   );
