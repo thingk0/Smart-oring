@@ -51,7 +51,7 @@ public class NodeService {
      * @return 생성된 맵 데이터를 포함하는 MapData 객체.
      */
     public MapData getMapData() {
-        String[][][] map = new String[MAP_WIDTH][MAP_HEIGHT][2];
+        String[][][] map = new String[MAP_HEIGHT][MAP_WIDTH][2];
         loadAndMapNodes(map);
 
         List<ChargerDto> chargerDtos = new ArrayList<>();
@@ -73,6 +73,7 @@ public class NodeService {
             if (node instanceof Charger charger) {
                 charger.updateMap(map);
             } else if (node instanceof Destination destination) {
+
                 destination.updateMap(map);
             } else if (node instanceof Storage storage) {
                 storage.updateMap(map);
