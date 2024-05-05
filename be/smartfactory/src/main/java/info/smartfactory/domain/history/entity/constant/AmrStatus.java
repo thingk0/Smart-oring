@@ -1,4 +1,4 @@
-package info.smartfactory.domain.history.constant;
+package info.smartfactory.domain.history.entity.constant;
 
 public enum AmrStatus {
     IDLE,           // 대기 상태

@@ -1,6 +1,6 @@
 package info.smartfactory.domain.history.entity;
 
-import info.smartfactory.domain.history.constant.AmrStatus;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;

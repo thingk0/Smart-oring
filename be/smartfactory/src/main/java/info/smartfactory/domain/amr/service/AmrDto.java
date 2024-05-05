@@ -1,6 +1,5 @@
 package info.smartfactory.domain.amr.service;
 
-import info.smartfactory.domain.history.constant.AmrStatus;
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.mission.entity.Mission;
 import lombok.Data;
