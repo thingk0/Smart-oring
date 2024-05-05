@@ -76,6 +76,7 @@ public class NodeService {
 
                 destination.updateMap(map);
             } else if (node instanceof Storage storage) {
+                System.out.println("Storage");
                 storage.updateMap(map);
             }
         });
@@ -96,7 +97,7 @@ public class NodeService {
         List<DestinationDto> destinationDtos,
         List<StorageDto> storageDtos
     ) {
-        boolean[][] visited = new boolean[MAP_WIDTH][MAP_HEIGHT];
+        boolean[][] visited = new boolean[MAP_HEIGHT][MAP_WIDTH];
         Deque<int[]> queue = new ArrayDeque<>();
         queue.add(new int[]{0, 0});
 
@@ -160,7 +161,7 @@ public class NodeService {
      * @return 좌표가 유효하면 true, 그렇지 않으면 false.
      */
     private boolean isNodeTypeValid(int x, int y) {
-        return 0 <= x && x < MAP_WIDTH && 0 <= y && y < MAP_HEIGHT;
+        return 0 <= x && x < MAP_HEIGHT && 0 <= y && y < MAP_WIDTH;
     }
 
 
@@ -193,11 +194,11 @@ public class NodeService {
         int nx = x;
         int ny = y;
 
-        while (nx < MAP_WIDTH && map[nx][y][0] != null && map[nx][y][0].equals(nodeType)) {
+        while (nx < MAP_HEIGHT && map[nx][y][0] != null && map[nx][y][0].equals(nodeType)) {
             nx++;
         }
 
-        while (ny < MAP_HEIGHT && map[x][ny][0] != null && map[x][ny][0].equals(nodeType)) {
+        while (ny < MAP_WIDTH && map[x][ny][0] != null && map[x][ny][0].equals(nodeType)) {
             ny++;
         }
 
