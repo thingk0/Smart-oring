@@ -39,8 +39,8 @@ public class NodeService {
     private final ChargerRepository chargerRepository;
     private final DestinationRepository destinationRepository;
 
-    private static final int MAP_WIDTH = 100+1;
-    private static final int MAP_HEIGHT = 50+1;
+    private static final int MAP_WIDTH = 100;
+    private static final int MAP_HEIGHT = 50;
     private static final int[] DX = {0, 1, 0, -1};
     private static final int[] DY = {-1, 0, 1, 0};
 
