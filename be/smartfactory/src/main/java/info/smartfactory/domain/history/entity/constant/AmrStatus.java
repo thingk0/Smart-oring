@@ -6,5 +6,4 @@ public enum AmrStatus {
     CHARGING,       // 충전 중
     ERROR,          // 에러 발생
     DISCHARGING     // 방전
-
 }

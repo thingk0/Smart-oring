@@ -29,7 +29,7 @@ public class HistoryService {
 	public void saveHistory(AmrHistoryLog amrHistoryLog) {
 		//amr의 missionId로 submission 가져와서 submission 저장
 
-		List<Submission> submissionList = missionRepository.getSubmissions(amrHistoryLog.missionId());
+		//List<Submission> submissionList = missionRepository.getSubmissions(amrHistoryLog.missionId());
 
 		List<String> nodes = new ArrayList<String>();
 
