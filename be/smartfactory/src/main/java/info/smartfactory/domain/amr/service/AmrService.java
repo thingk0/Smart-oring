@@ -14,13 +14,15 @@ import lombok.RequiredArgsConstructor;
 public class AmrService {
 
     private final AmrRepository amrRepository;
+    private final AmrMapper amrMapper;
 
     public List<AmrDto> getAmrs() {
         List<Amr> amrs = amrRepository.findAll();
-        // amrs to amrDtos
+
         List<AmrDto> amrDtos = new ArrayList<>();
         for (Amr amr : amrs) {
-            amrDtos.add(AmrDto.from(amr));
+            AmrDto dto = amrMapper.toDto(amr);
+            amrDtos.add(dto);
         }
         return amrDtos;
     }

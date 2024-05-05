@@ -48,7 +48,9 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-config:4.1.1'
     // spring actuators
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
+    // map struct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 }
 
 tasks.named('test') {
