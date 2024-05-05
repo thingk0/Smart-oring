@@ -14,5 +14,5 @@ class FactoryMap:
     def to_zero_one_array(self):
         array = [[0 for _ in range(self.width)] for _ in range(self.height)]
         for structure in self.structures:
-            array[structure.y_coordinate][structure.x_coordinate] = 1
+            array[structure.x_coordinate][structure.y_coordinate] = 1
         return np.array(array)
