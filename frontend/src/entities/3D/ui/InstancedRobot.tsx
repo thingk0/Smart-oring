@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 import { getRobotPosition } from '../../../shared/api';
 import RobotModel from './RobotModel';
-import { robotData } from '../../../shared/types';
+import { TRobot, robotData } from '../../../shared/types';
 import { getRotationIndex } from '../../../shared/lib';
 
 // main component
