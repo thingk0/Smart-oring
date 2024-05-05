@@ -1,8 +1,9 @@
 export type Point2D = [number, number];
 
 export type robotData = {
-  position: Point2D;
+  xcoordinate: number;
+  ycoordinate: number;
   battery: number;
-  id: string;
+  amrId: number;
   mission: string;
 };
