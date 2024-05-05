@@ -28,9 +28,9 @@ public class BottleneckController {
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), data));
     }
 
-    @PostMapping("/bottleneck/add")
-    public ResponseEntity<ResultResponse<Bottleneck>> addBottleneckData(@RequestBody @Valid AddBottleneckRequest request) {
-        bottleneckService.addBottleneckData(request);
-        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString()));
-    }
+//    @PostMapping("/bottleneck/add")
+//    public ResponseEntity<ResultResponse<Bottleneck>> addBottleneckData(@RequestBody @Valid AddBottleneckRequest request) {
+//        bottleneckService.addBottleneckData(request);
+//        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString()));
+//    }
 }

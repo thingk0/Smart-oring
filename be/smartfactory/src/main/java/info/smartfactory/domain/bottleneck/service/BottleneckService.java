@@ -1,5 +1,6 @@
 package info.smartfactory.domain.bottleneck.service;
 
+import info.smartfactory.domain.bottleneck.dto.BottleneckDto;
 import info.smartfactory.domain.bottleneck.dto.request.AddBottleneckRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.repository.BottleneckRepository;
@@ -15,16 +16,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BottleneckService {
     private final BottleneckRepository bottleneckRepository;
-    private final MissionRepository missionRepository;
 
     public List<Bottleneck> getBottleneckData(){
         List<Bottleneck> bottlenecks = bottleneckRepository.findAll();
         return bottlenecks;
     }
 
-    public void addBottleneckData(AddBottleneckRequest request) {
-        Optional<Mission> mission = missionRepository.findById(request.getMission_id());
-        Bottleneck bottleneck = Bottleneck.createBottleneck(request.getX_coordinate(), request.getY_coordinate(), request.getBottleneck_time());
+    public void addBottleneckData(BottleneckDto bottleneckDto) {
+        Bottleneck bottleneck = Bottleneck.createBottleneck(bottleneckDto.getX_coordinate(), bottleneckDto.getY_coordinate(), bottleneckDto.getBottleneck_time());
         bottleneckRepository.save(bottleneck);
     }
 }
