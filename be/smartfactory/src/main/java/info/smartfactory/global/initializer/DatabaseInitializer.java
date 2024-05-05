@@ -127,8 +127,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 				e2.setXCoordinate(tx + i);
 				e2.setYCoordinate(ty + 1);
 			} else {
-				e.setXCoordinate(ty + i);
-				e.setYCoordinate(tx);
+				e.setYCoordinate(ty + i);
+				e.setXCoordinate(tx);
 
 				e2.setYCoordinate(ty + i);
 				e2.setXCoordinate(tx + 1);
