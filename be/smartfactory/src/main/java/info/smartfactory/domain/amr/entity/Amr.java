@@ -33,10 +33,6 @@ public class Amr extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "mission_id")
-    private Mission mission;
-
     @Column(name = "amr_code", length = 7, nullable = false)
     private String amrCode;
 
