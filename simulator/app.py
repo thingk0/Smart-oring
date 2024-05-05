@@ -3,12 +3,14 @@ import json
 import time
 from collections import deque
 
+from dataclasses import dataclass, asdict
 from confluent_kafka import Producer, Consumer, Message
 
 from app_env import env
 from domain.factory_map import FactoryMap
 from robot.mission import mission_util
 from robot.mission.entity.mission import Mission
+from robot.mission.entity.robot import Robot
 from robot.robot_manager import RobotManager
 from usecase import UseCase
 
@@ -42,8 +44,6 @@ def init_kafka():
         'auto.offset.reset': 'earliest'
     })
     consumer.subscribe(['mission'])
-
-
 
 
 def get_mission():
@@ -83,9 +83,11 @@ def send_robot_stat():
             "xCoordinate": robot.current_node.x,
             "yCoordinate": robot.current_node.y,
             "battery": 100,
-            "amrHistoryCreatedAt": current_time
+            "amrHistoryCreatedAt": current_time,
+            "amrRoute": [[e.x, e.y] for e in robot.get_next_nodes()]
         }
-        producer.produce("robot-stat", key=str(robot.robot_id), value=json.dumps(robot_stat).encode('utf-8'))
+        producer.produce("robot-stat", key=str(robot.robot_id),
+                         value=json.dumps(robot_stat, default=asdict).encode('utf-8'), )
         producer.flush()
 
 

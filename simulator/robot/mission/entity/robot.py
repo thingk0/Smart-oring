@@ -1,5 +1,6 @@
 from collections import deque
 from enum import Enum
+from typing import List
 
 from robot.mission.entity.mission import Mission
 from robot.mission.path.node import Node
@@ -30,6 +31,9 @@ class Robot:
 
     def __str__(self):
         return f"로봇 ID : {self.robot_id}, 로봇 상태 : {self.robot_status}, 현재 노드 : {self.current_node}, 현재 미션 : {self.current_mission}"
+
+    def get_next_nodes(self) -> List[Node]:
+        return list(self.next_nodes)
 
 
 class RobotStatus(Enum):
