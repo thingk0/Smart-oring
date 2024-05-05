@@ -1,4 +1,4 @@
-import { TRobot } from './InstancedRobot';
+import { TRobot } from '../../../shared/types';
 
 // props
 type RobotModelProps = {
