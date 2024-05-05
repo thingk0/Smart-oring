@@ -73,10 +73,8 @@ public class NodeService {
             if (node instanceof Charger charger) {
                 charger.updateMap(map);
             } else if (node instanceof Destination destination) {
-
                 destination.updateMap(map);
             } else if (node instanceof Storage storage) {
-                System.out.println("Storage");
                 storage.updateMap(map);
             }
         });
