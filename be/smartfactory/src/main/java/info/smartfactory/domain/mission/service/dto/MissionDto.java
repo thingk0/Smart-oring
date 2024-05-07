@@ -1,4 +1,4 @@
-package info.smartfactory.domain.mission.dto;
+package info.smartfactory.domain.mission.service.dto;
 
 
 import info.smartfactory.domain.mission.entity.Submission;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
-public class MissionDTO {
+public class MissionDto {
     private Long id;
     private LocalDateTime missionCreatedAt;
     private LocalDateTime missionFinishedAt;
