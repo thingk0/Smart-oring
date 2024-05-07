@@ -32,7 +32,7 @@ function Robot() {
   const model = useGLTF('./models/AGV.glb');
 
   const [beforePositions, setBeforePositions] = useState([]);
-  const forklifts = useRef([]);
+  const AGVs = useRef([]);
 
   useEffect(() => {
     // calculate direction
@@ -40,15 +40,15 @@ function Robot() {
       const [y, x, rotationIndex] = getRotationIndex(before, data[index]);
       const direction = arr[rotationIndex];
 
-      // move forklifts position
-      gsap.to(forklifts.current[index].position, {
+      // move AGVs position
+      gsap.to(AGVs.current[index].position, {
         duration: 1,
         ease: 'none',
         x: data[index].xcoordinate + x,
         z: data[index].ycoordinate + y,
         onComplete: () => {
-          // rotate forklifts
-          forklifts.current[index].rotation.y = direction;
+          // rotate AGVs
+          AGVs.current[index].rotation.y = direction;
         },
       });
     });
@@ -61,11 +61,11 @@ function Robot() {
     <group>
       {!isPending &&
         data.map((F: robotData, index: number) => {
-          // forklifts.current.push();
+          // AGVs.current.push();
           return (
             <object3D
               key={F.amrId}
-              ref={element => (forklifts.current[index] = element)}
+              ref={element => (AGVs.current[index] = element)}
             >
               <primitive object={model.scene.clone()} />
             </object3D>
