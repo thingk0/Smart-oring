@@ -6,6 +6,7 @@ import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.mission.kafka.KafkaProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
+import info.smartfactory.domain.mission.service.dto.MissionKafkaDto;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
 import info.smartfactory.domain.node.repository.DestinationRepository;
@@ -76,5 +77,11 @@ public class MissionService {
         }
 
         return submission;
+    }
+
+    public void completeMission(MissionKafkaDto missionKafkaDto) {
+        Mission mission = missionRepository.findById(missionKafkaDto.id()).orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
+
+        mission.modifyMission(mission.getMissionStartedAt(), mission.getMissionFinishedAt(), mission.getMissionEstimatedTime());
     }
 }
