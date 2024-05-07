@@ -1,5 +1,6 @@
 package info.smartfactory.domain.history.repository;
 
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;

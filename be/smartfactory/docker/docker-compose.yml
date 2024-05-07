@@ -32,6 +32,17 @@ services:
     networks:
       - backend
 
+  redis_batch:
+    container_name: redis_batch
+    image: redis:latest
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
   broker-1:
     image: confluentinc/cp-kafka:7.6.0
     ports:

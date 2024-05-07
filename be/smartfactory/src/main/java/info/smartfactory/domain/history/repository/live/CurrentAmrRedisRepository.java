@@ -1,5 +1,6 @@
-package info.smartfactory.domain.history.repository;
+package info.smartfactory.domain.history.repository.live;
 
+import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
