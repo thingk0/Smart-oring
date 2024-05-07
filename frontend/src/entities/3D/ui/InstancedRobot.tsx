@@ -17,22 +17,22 @@ function InstancedRobot() {
   });
 
   const [beforePositions, setBeforePositions] = useState([]);
-  const forklifts = useRef(null);
+  const AGVs = useRef(null);
 
   useEffect(() => {
     // calculate direction
     beforePositions?.forEach((before: robotData, index: number) => {
       const [y, x, radian] = getRotationIndex(before, data[index]);
 
-      // move forklifts position
-      gsap.to(forklifts.current?.children[index].position, {
+      // move AGVs position
+      gsap.to(AGVs.current?.children[index].position, {
         duration: 1,
         ease: 'none',
         x: data[index].position[1] + x,
         z: data[index].position[0] + y,
         onComplete: () => {
-          // rotate forklifts
-          forklifts.current.children[index].rotation.y = radian;
+          // rotate AGVs
+          AGVs.current.children[index].rotation.y = radian;
         },
       });
     });
