@@ -67,6 +67,7 @@ function Robot() {
               key={F.id}
               ref={element => (forklifts.current[index] = element)}
             >
+              <pointLight color="#00afff" intensity={10} />
               <primitive object={model.scene.clone()} />
             </object3D>
           );

@@ -1,4 +1,4 @@
-import Charger from './Charger';
+import ChargeArea from './ChargeArea';
 import Destinations from './Destinations';
 import Storages from './Storages';
 import { MapData } from '../../../shared/types';
@@ -9,6 +9,7 @@ import { Instances } from '@react-three/drei';
 import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
+import Chargers from './Chargers';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -34,9 +35,10 @@ function Map({ resource }: MapProps) {
       <Floor />
       <Instances>
         {data.charger.map((c, index: number) => {
-          return <Charger start={c.start} end={c.end} key={index} />;
+          return <ChargeArea start={c.start} end={c.end} key={index} />;
         })}
       </Instances>
+      <Chargers data={data} />
       <Destinations data={data} />
       <Storages data={data} />
     </>
