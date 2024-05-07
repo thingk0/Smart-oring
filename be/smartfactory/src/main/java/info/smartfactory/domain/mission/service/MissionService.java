@@ -19,7 +19,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -62,12 +61,10 @@ public class MissionService {
         return mission;
     }
 
-    public List<Submission> getMissionInfo(Long missionId) {
-        // missionId 에 해당하는 mission, submission 정보를 반환해줌
-        Optional<Mission> mission = missionRepository.findById(missionId);
-        if (mission.isEmpty()) {
-            throw new RuntimeException("Mission not found with id: " + missionId);
-        }
+    public Mission getMissionInfo(Long missionId) {
+        // missionId에 해당하는 mission, submission 정보를 반환해줌
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
         List<Submission> submission = submissionRepository.findByMissionIdWithNodes(missionId);
 
@@ -76,7 +73,8 @@ public class MissionService {
             log.info(object.toString());
         }
 
-        return submission;
+
+        return mission;
     }
 
     public void completeMission(MissionKafkaDto missionKafkaDto) {
