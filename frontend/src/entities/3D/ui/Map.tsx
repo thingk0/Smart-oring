@@ -1,16 +1,14 @@
 import Charger from './Charger';
-import Destination from './Destination';
-import Logistic from './Logistic';
+import Destinations from './Destinations';
+import Logistics from './Logistics';
 import { Point2D } from '../../../shared/types';
 import Robot from './Robot';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
-import { Instances, Plane, useGLTF } from '@react-three/drei';
-import Logistics from './Logistics';
+import { Instances } from '@react-three/drei';
 import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
-import Destinations from './Destinations';
 interface MapProps {
   resource: {
     read(): MapData;
