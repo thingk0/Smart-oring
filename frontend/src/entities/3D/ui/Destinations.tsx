@@ -1,16 +1,6 @@
 import { convertPosition } from '../../../shared/lib';
-import { Point2D } from '../../../shared/types';
+import { MapData } from '../../../shared/types';
 import { Instances, Model } from './Destination';
-type MapData = {
-  charger: PositionData[];
-  destination: PositionData[];
-  logistic: PositionData[];
-};
-type PositionData = {
-  start: Point2D;
-  end: Point2D;
-  direction: number;
-};
 
 function Destinations({ data }: { data: MapData }) {
   return (

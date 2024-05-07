@@ -1,7 +1,7 @@
 import Charger from './Charger';
 import Destinations from './Destinations';
-import Logistics from './Logistics';
-import { Point2D } from '../../../shared/types';
+import Storages from './Storages';
+import { MapData } from '../../../shared/types';
 import Robot from './Robot';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
@@ -14,18 +14,6 @@ interface MapProps {
     read(): MapData;
   };
 }
-
-type MapData = {
-  charger: PositionData[];
-  destination: PositionData[];
-  logistic: PositionData[];
-};
-
-type PositionData = {
-  start: Point2D;
-  end: Point2D;
-  direction: number;
-};
 
 const queryClient = new QueryClient();
 
@@ -50,7 +38,7 @@ function Map({ resource }: MapProps) {
         })}
       </Instances>
       <Destinations data={data} />
-      <Logistics data={data} />
+      <Storages data={data} />
     </>
   );
 }
