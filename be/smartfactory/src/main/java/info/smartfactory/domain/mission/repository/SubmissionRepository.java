@@ -10,8 +10,10 @@ import java.util.List;
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
     @Query("""
-            SELECT s
-            FROM Submission s JOIN FETCH s.arriveNode n
+            SELECT m
+            FROM Mission m
+            JOIN FETCH m.submissionList s
+            JOIN FETCH s.arriveNode n
             WHERE s.mission.id = :missionId
             """)
     List<Submission> findByMissionIdWithNodes(@Param("missionId") Long missionId);
