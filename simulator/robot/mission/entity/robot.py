@@ -17,7 +17,7 @@ class Robot:
     def assign_mission(self, mission, route: deque):
         self.current_mission = mission
         self.next_nodes = route
-        self.robot_status = RobotStatus.WORKING
+        self.robot_status = RobotStatus.PROCESSING
 
     def go_next_node(self):
         if not self.next_nodes:
@@ -37,9 +37,14 @@ class Robot:
 
 
 class RobotStatus(Enum):
-    IDLE = 'IDLE'
-    WORKING = 'WORKING'
+    PROCESSING = 'PROCESSING'
+    STOPPED = 'STOPPED'
     CHARGING = 'CHARGING'
     ERROR = 'ERROR'
-    STOP = 'STOP'
-    EMERGENCY = 'EMERGENCY'
+    DISCHARGING = 'DISCHARGING'
+    # IDLE = 'IDLE'
+    # WORKING = 'WORKING'
+    # CHARGING = 'CHARGING'
+    # ERROR = 'ERROR'
+    # STOP = 'STOP'
+    # EMERGENCY = 'EMERGENCY'

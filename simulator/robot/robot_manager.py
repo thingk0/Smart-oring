@@ -24,7 +24,7 @@ class RobotManager:
         self.num_robots = 0
 
     def add_robot(self, x, y):
-        robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.IDLE, current_node=Node(x, y))
+        robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.CHARGING, current_node=Node(x, y))
         self.idle_robots.append(robot)
         self.num_robots += 1
 
