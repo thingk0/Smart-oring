@@ -77,6 +77,11 @@ public class MissionService {
     public void completeMission(MissionKafkaDto missionKafkaDto) {
         Mission mission = missionRepository.findById(missionKafkaDto.id()).orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
 
-        mission.modifyMission(mission.getMissionStartedAt(), mission.getMissionFinishedAt(), mission.getMissionEstimatedTime());
+        mission.modifyMission(
+                mission.getMissionStartedAt(),
+                mission.getMissionFinishedAt(),
+                mission.getMissionEstimatedTime(),
+                mission.getFullPath()
+        );
     }
 }
