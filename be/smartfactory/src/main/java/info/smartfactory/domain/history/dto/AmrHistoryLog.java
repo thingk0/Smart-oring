@@ -2,6 +2,7 @@ package info.smartfactory.domain.history.dto;
 
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.history.entity.AmrHistory;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.mission.entity.Mission;
 
 import java.time.LocalDateTime;

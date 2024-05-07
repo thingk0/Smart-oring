@@ -1,5 +1,6 @@
 package info.smartfactory.domain.history.controller;
 
+import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.node.dto.MapData;
 import info.smartfactory.global.result.ResultResponse;
@@ -20,9 +21,15 @@ public class HistoryController {
 
 	final private HistoryService historyService;
 
-	@GetMapping("/robots/state")
+	@GetMapping("/amr/state")
 	public ResponseEntity<?> getRobotStates() {
 		List<CurrentAmrInfoRedisDto> result = historyService.getRecentRobotStates();
+		return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+	}
+
+	@GetMapping("/histories/amr")
+	public ResponseEntity<?> getRobotHistories() {
+		List<BatchAmrInfoRedisDto> result = historyService.getRobotHistoriess();
 		return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 	}
 
