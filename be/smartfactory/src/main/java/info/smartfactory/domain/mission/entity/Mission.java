@@ -43,4 +43,11 @@ public class Mission extends BaseTimeEntity {
         submissionList.add(submission);
         submission.assignMission(this);
     }
+
+
+    public void modifyMission(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt, LocalDateTime missionEstimatedTime) {
+        this.missionStartedAt = missionStartedAt;
+        this.missionFinishedAt = missionFinishedAt;
+        this.missionEstimatedTime = missionEstimatedTime;
+    }
 }
