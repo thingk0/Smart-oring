@@ -84,7 +84,8 @@ def send_robot_stat():
             "yCoordinate": robot.current_node.y,
             "battery": 100,
             "amrHistoryCreatedAt": current_time,
-            "amrRoute": [[e.x, e.y] for e in robot.get_next_nodes()]
+            "amrRoute": [[e.x, e.y] for e in robot.get_next_nodes()],
+            "amrStatus": robot.robot_status.value,
         }
         producer.produce("robot-stat", key=str(robot.robot_id),
                          value=json.dumps(robot_stat, default=asdict).encode('utf-8'), )
