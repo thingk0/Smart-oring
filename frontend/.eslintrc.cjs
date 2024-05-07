@@ -21,4 +21,5 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto', semicolon: 'true' }],
   },
+  ignorePatterns: ['vite.config.ts'],
 };

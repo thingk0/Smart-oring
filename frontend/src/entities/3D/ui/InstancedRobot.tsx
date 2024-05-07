@@ -3,10 +3,10 @@ import { Merged, useGLTF } from '@react-three/drei';
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
-import { getRobotPosition } from '../../../shared/api';
+import { getRobotPosition } from '@shared/api';
+import { getRotationIndex } from '@shared/lib';
+import { TRobot, robotData } from '@shared/types';
 import RobotModel from './RobotModel';
-import { TRobot, robotData } from '../../../shared/types';
-import { getRotationIndex } from '../../../shared/lib';
 
 // main component
 function InstancedRobot() {
@@ -56,7 +56,7 @@ function InstancedRobot() {
   );
 
   return (
-    <group ref={forklifts}>
+    <group ref={AGVs}>
       {!isPending &&
         data?.map((_: any, index: number) => {
           return (
