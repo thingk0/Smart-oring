@@ -2,7 +2,6 @@ package info.smartfactory.domain.mission.service;
 
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.mission.kafka.KafkaProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
@@ -66,20 +65,23 @@ public class MissionService {
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
-        List<Submission> submission = submissionRepository.findByMissionIdWithNodes(missionId);
-
-        for (Submission object : submission){
-            System.out.println(object.toString());
-            log.info(object.toString());
-        }
+        //        for (Submission object : submission){
+//            System.out.println(object.toString());
+//            log.info(object.toString());
+//        }
 
 
-        return mission;
+        return submissionRepository.findByMissionIdWithNodes(missionId);
     }
 
     public void completeMission(MissionKafkaDto missionKafkaDto) {
         Mission mission = missionRepository.findById(missionKafkaDto.id()).orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
 
-        mission.modifyMission(mission.getMissionStartedAt(), mission.getMissionFinishedAt(), mission.getMissionEstimatedTime());
+        mission.modifyMission(
+                mission.getMissionStartedAt(),
+                mission.getMissionFinishedAt(),
+                mission.getMissionEstimatedTime(),
+                mission.getFullPath()
+        );
     }
 }
