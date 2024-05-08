@@ -1,10 +1,8 @@
 package info.smartfactory.global.initializer;
 
-import java.lang.reflect.InvocationTargetException;
+import static info.smartfactory.domain.node.entity.constant.EntranceDirection.*;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.Function;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -31,141 +29,396 @@ public class DatabaseInitializer implements CommandLineRunner {
 	private void initializeMap() throws Exception {
 		ArrayList<NodeServiceDto> dtos = new ArrayList<>();
 
-		Object[][] nodes = new Object[][] {
-			{16, 4, 11, true, StorageServiceDto.class},
-			{28, 4, 7, true, StorageServiceDto.class},
-			{16, 10, 5, true, StorageServiceDto.class},
-			{22, 10, 5, true, StorageServiceDto.class},
-			{28, 10, 7, true, StorageServiceDto.class},
-			{9, 19, 11, false, StorageServiceDto.class},
-			{16, 19, 11, false, StorageServiceDto.class},
-			{23, 19, 11, false, StorageServiceDto.class},
-			{30, 19, 11, false, StorageServiceDto.class},
-			{37, 32, 11, false, StorageServiceDto.class},
-			{37, 19, 11, false, StorageServiceDto.class},
-			{9, 32, 11, false, StorageServiceDto.class},
-			{16, 32, 11, false, StorageServiceDto.class},
-			{23, 32, 11, false, StorageServiceDto.class},
-			{30, 32, 11, false, StorageServiceDto.class},
-			{37, 32, 11, false, StorageServiceDto.class},
-			{9, 45, 11, false, StorageServiceDto.class},
-			{16, 45, 11, false, StorageServiceDto.class},
-			{16, 92, 5, true, StorageServiceDto.class},
-			{22, 92, 5, true, StorageServiceDto.class},
-			{28, 92, 7, true, StorageServiceDto.class},
-			{16, 86, 11, true, StorageServiceDto.class},
-			{28, 86, 7, true, StorageServiceDto.class},
-			{9, 71, 11, false, StorageServiceDto.class},
-			{16, 71, 11, false, StorageServiceDto.class},
-			{23, 71, 11, false, StorageServiceDto.class},
-			{30, 71, 11, false, StorageServiceDto.class},
-			{37, 71, 11, false, StorageServiceDto.class},
-			{9, 58, 11, false, StorageServiceDto.class},
-			{16, 58, 11, false, StorageServiceDto.class},
-			{23, 58, 11, false, StorageServiceDto.class},
-			{30, 58, 11, false, StorageServiceDto.class},
-			{37, 58, 11, false, StorageServiceDto.class},
-			{23, 45, 11, false, StorageServiceDto.class},
-			{30, 45, 11, false, StorageServiceDto.class},
-			{37, 45, 11, false, StorageServiceDto.class},
+		dtos.add(createNode(2, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(4, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(6, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(8, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(10, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(12, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(14, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(16, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(18, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(20, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(22, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(24, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(26, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(28, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(30, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(32, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(34, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(36, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(38, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(40, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(42, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(44, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(46, 1, EAST, ChargerServiceDto.class));
+		dtos.add(createNode(48, 1, EAST, ChargerServiceDto.class));
 
-			{2, 6, 11, true, ChargerServiceDto.class},
-			{38, 6, 11, true, ChargerServiceDto.class},
-			{2, 88, 6, false, ChargerServiceDto.class},
-			{38, 88, 6, false, ChargerServiceDto.class},
+		dtos.add(createNode(9, 13, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 14, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 15, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 16, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 17, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 18, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 19, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 20, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 21, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 22, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 13, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 14, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 15, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 16, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 17, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 18, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 19, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 20, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 21, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 22, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 13, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 14, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 15, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 16, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 17, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 18, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 19, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 20, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 21, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 22, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 13, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 14, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 15, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 16, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 17, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 18, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 19, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 20, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 21, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 22, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 13, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 14, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 15, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 16, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 17, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 18, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 19, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 20, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 21, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 22, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 13, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 14, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 15, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 16, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 17, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 18, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 19, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 20, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 21, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 22, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 13, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 14, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 15, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 16, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 17, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 18, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 19, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 20, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 21, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 22, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 13, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 14, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 15, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 16, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 17, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 18, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 19, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 20, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 21, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 22, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 26, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 27, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 28, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 29, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 30, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 31, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 32, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 33, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 34, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 35, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 26, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 27, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 28, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 29, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 30, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 31, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 32, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 33, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 34, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 35, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 26, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 27, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 28, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 29, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 30, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 31, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 32, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 33, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 34, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 35, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 26, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 27, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 28, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 29, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 30, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 31, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 32, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 33, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 34, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 35, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 26, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 27, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 28, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 29, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 30, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 31, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 32, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 33, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 34, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 35, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 26, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 27, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 28, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 29, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 30, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 31, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 32, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 33, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 34, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 35, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 26, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 27, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 28, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 29, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 30, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 31, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 32, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 33, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 34, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 35, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 26, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 27, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 28, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 29, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 30, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 31, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 32, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 33, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 34, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 35, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 39, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 40, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 41, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 42, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 43, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 44, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 45, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 46, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 47, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 48, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 39, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 40, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 41, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 42, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 43, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 44, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 45, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 46, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 47, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 48, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 39, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 40, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 41, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 42, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 43, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 44, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 45, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 46, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 47, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 48, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 39, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 40, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 41, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 42, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 43, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 44, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 45, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 46, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 47, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 48, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 39, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 40, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 41, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 42, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 43, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 44, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 45, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 46, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 47, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 48, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 39, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 40, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 41, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 42, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 43, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 44, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 45, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 46, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 47, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 48, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 39, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 40, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 41, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 42, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 43, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 44, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 45, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 46, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 47, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 48, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 39, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 40, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 41, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 42, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 43, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 44, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 45, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 46, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 47, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 48, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 52, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 53, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 54, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 55, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 56, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 57, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 58, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 59, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 60, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(9, 61, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 52, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 53, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 54, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 55, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 56, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 57, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 58, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 59, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 60, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(10, 61, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 52, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 53, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 54, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 55, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 56, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 57, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 58, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 59, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 60, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(18, 61, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 52, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 53, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 54, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 55, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 56, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 57, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 58, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 59, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 60, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(19, 61, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 52, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 53, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 54, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 55, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 56, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 57, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 58, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 59, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 60, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(27, 61, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 52, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 53, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 54, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 55, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 56, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 57, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 58, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 59, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 60, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(28, 61, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 52, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 53, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 54, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 55, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 56, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 57, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 58, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 59, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 60, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(36, 61, NORTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 52, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 53, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 54, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 55, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 56, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 57, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 58, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 59, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 60, SOUTH, StorageServiceDto.class));
+		dtos.add(createNode(37, 61, SOUTH, StorageServiceDto.class));
 
-			{3, 21, 4, false, DestinationServiceDto.class},
-			{3, 26, 4, false, DestinationServiceDto.class},
-			{3, 31, 4, false, DestinationServiceDto.class},
-			{3, 36, 4, false, DestinationServiceDto.class},
-			{3, 41, 4, false, DestinationServiceDto.class},
-			{3, 46, 4, false, DestinationServiceDto.class},
-			{44, 21, 4, false, DestinationServiceDto.class},
-			{44, 26, 4, false, DestinationServiceDto.class},
-			{44, 31, 4, false, DestinationServiceDto.class},
-			{44, 36, 4, false, DestinationServiceDto.class},
-			{44, 41, 4, false, DestinationServiceDto.class},
-			{44, 46, 4, false, DestinationServiceDto.class},
-			{3, 76, 4, false, DestinationServiceDto.class},
-			{3, 71, 4, false, DestinationServiceDto.class},
-			{3, 66, 4, false, DestinationServiceDto.class},
-			{3, 61, 4, false, DestinationServiceDto.class},
-			{3, 56, 4, false, DestinationServiceDto.class},
-			{3, 51, 4, false, DestinationServiceDto.class},
-			{44, 76, 4, false, DestinationServiceDto.class},
-			{44, 71, 4, false, DestinationServiceDto.class},
-			{44, 66, 4, false, DestinationServiceDto.class},
-			{44, 61, 4, false, DestinationServiceDto.class},
-			{44, 56, 4, false, DestinationServiceDto.class},
-			{44, 51, 4, false, DestinationServiceDto.class},
-		};
-
-		for (Object[] node : nodes) {
-			dtos.addAll(spaceUtil((int)node[0], (int)node[1], (int)node[2], (boolean)node[3],
-				(Class<? extends NodeServiceDto>)node[4]));
-		}
+		dtos.add(createNode(6, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(7, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(8, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(13, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(14, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(15, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(20, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(21, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(22, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(27, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(28, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(29, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(34, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(35, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(36, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(41, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(42, 70, WEST, DestinationServiceDto.class));
+		dtos.add(createNode(43, 70, WEST, DestinationServiceDto.class));
 
 		nodeService.addNodes(dtos);
 	}
 
-	private <T extends NodeServiceDto> ArrayList<? extends NodeServiceDto> spaceUtil(
-		int tx,
-		int ty,
-		int length,
-		boolean isVertical,
-		Class<T> classType
-	) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-		ArrayList<T> dtos = new ArrayList<>();
+	<T extends NodeServiceDto> NodeServiceDto createNode(int x, int y, EntranceDirection direction, Class<T> clazz) {
 
-		for (int i = 0; i < length; i++) {
-			T e = classType.getDeclaredConstructor().newInstance();
-			T e2 = classType.getDeclaredConstructor().newInstance();
-			if (isVertical) {
-				e.setXCoordinate(tx + i);
-				e.setYCoordinate(ty);
+		NodeServiceDto dto;
 
-				e2.setXCoordinate(tx + i);
-				e2.setYCoordinate(ty + 1);
-			} else {
-				e.setYCoordinate(ty + i);
-				e.setXCoordinate(tx);
-
-				e2.setYCoordinate(ty + i);
-				e2.setXCoordinate(tx + 1);
-			}
-			setDirection(isVertical, e, e2);
-			dtos.add(e);
-			dtos.add(e2);
+		switch (clazz.getSimpleName()) {
+			case "ChargerServiceDto":
+				dto = new ChargerServiceDto();
+				break;
+			case "StorageServiceDto":
+				dto = new StorageServiceDto();
+				break;
+			case "DestinationServiceDto":
+				dto = new DestinationServiceDto();
+				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
 		}
+		dto.setEntranceDirection(direction);
+		dto.setXCoordinate(x);
+		dto.setYCoordinate(y);
 
-		return dtos;
-	}
-
-	private <T extends NodeServiceDto> void setDirection(boolean isVertical, T e, T e2) {
-		HashMap<Class<? extends NodeServiceDto>, Function<List<T>, Void>> directionMap = new HashMap<>();
-		EntranceDirection[] directions = {EntranceDirection.WEST, EntranceDirection.EAST, EntranceDirection.NORTH,
-			EntranceDirection.SOUTH};
-		int idx = isVertical ? 0 : 2;
-
-		directionMap.put(StorageServiceDto.class, (List<T> dtos) -> {
-			((StorageServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((StorageServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
-			return null;
-		});
-		directionMap.put(ChargerServiceDto.class, (List<T> dtos) -> {
-			((ChargerServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((ChargerServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
-			return null;
-		});
-		directionMap.put(DestinationServiceDto.class, (List<T> dtos) -> {
-			((DestinationServiceDto)dtos.getFirst()).setEntranceDirection(directions[idx]);
-			((DestinationServiceDto)dtos.get(1)).setEntranceDirection(directions[idx + 1]);
-			return null;
-		});
-		ArrayList<T> t = new ArrayList<>();
-		t.add(e);
-		t.add(e2);
-		directionMap.get(e.getClass()).apply(t);
+		return dto;
 	}
 
 }
