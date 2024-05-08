@@ -19,7 +19,7 @@ function Wall() {
       {/* 좌 */}
       <mesh
         scale={[1, height, width2]}
-        position={[0, height / 2, width2 / 2 - 1]}
+        position={[-0.5, height / 2, width2 / 2 - 1]}
       >
         <boxGeometry />
         <meshStandardMaterial />
@@ -27,7 +27,7 @@ function Wall() {
       {/* 우 */}
       <mesh
         scale={[1, height, width2]}
-        position={[100, height / 2, width2 / 2 - 1]}
+        position={[100.5, height / 2, width2 / 2 - 1]}
       >
         <boxGeometry />
         <meshStandardMaterial />
