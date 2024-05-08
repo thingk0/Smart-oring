@@ -41,7 +41,7 @@ function Map({ resource }: MapProps) {
       <Chargers data={data} />
       <Destinations data={data} />
       <Storages data={data} />
-      <Conveyors data={data} />
+      {/* <Conveyors data={data} /> */}
     </>
   );
 }
