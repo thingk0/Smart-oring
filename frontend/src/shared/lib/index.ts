@@ -23,8 +23,8 @@ export const calculateScale = (
 const arr = [0, Math.PI / 2, 0, Math.PI * 1.5, Math.PI];
 
 export const getRotationIndex = (before: robotData, current: robotData) => {
-  const y = before.position[0] - current.position[0];
-  const x = before.position[1] - current.position[1];
+  const y = before.xcoordinate - current.xcoordinate;
+  const x = before.ycoordinate - current.ycoordinate;
   const radian = arr[2 * y + x + 2];
 
   return [y, x, radian];

@@ -1,18 +1,10 @@
 import { Suspense } from 'react';
-import Map from '../entities/3D/ui/Map';
 import axios from 'axios';
 import { Center } from '@react-three/drei';
-type MapData = {
-  charger: PositionData[];
-  destination: PositionData[];
-  logistic: PositionData[];
-};
 
-type PositionData = {
-  start: [number, number];
-  end: [number, number];
-  direction: number;
-};
+import { MapData } from '@shared/types';
+import Map from '@entity/3D/ui/Map';
+
 function LoadMapData(): {
   read(): MapData;
 } {
@@ -32,24 +24,11 @@ function LoadMapData(): {
   };
 }
 
-// function LoadMap() {
-//   return {
-//     map: LoadMapData(),
-//   };
-// }
-
 // update mesh in this function
 function Mesh() {
   return (
     <>
-      <Suspense
-        fallback={
-          <mesh>
-            <boxGeometry />
-            <meshStandardMaterial color={'red'} />
-          </mesh>
-        }
-      >
+      <Suspense fallback={null}>
         <Center disableY>
           <Map resource={LoadMapData()} />
         </Center>
