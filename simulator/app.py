@@ -1,20 +1,21 @@
 import datetime
 import json
 import time
+import traceback
 from collections import deque
+from dataclasses import asdict
 
-from dataclasses import dataclass, asdict
 from confluent_kafka import Producer, Consumer, Message
 
 from app_env import env
 from domain.factory_map import FactoryMap
-from robot.mission import mission_util
 from robot.mission.entity.mission import Mission
-from robot.mission.entity.robot import Robot
 from robot.robot_manager import RobotManager
 from usecase import UseCase
 
-missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
+# missions: deque[Mission] = deque([mission_util.get_random_mission(4, 5, 5)])
+missions: deque[Mission] = deque([])
+
 rm: RobotManager = RobotManager.instance()
 producer: Producer
 consumer: Consumer
@@ -27,7 +28,6 @@ def get_map():
 
 def init_robot():
     rm.add_robot(0, 0)
-    rm.add_robot(2, 0)
 
 
 def init_kafka():
@@ -50,6 +50,12 @@ def get_mission():
     msg: Message = consumer.poll(0.1)
     if msg is None:
         return
+    mission_dic = json.loads(msg.value().decode('utf-8'))
+    # request to server using requests
+    try:
+        missions.append(UseCase.get_mission(mission_dic["id"]))
+    except Exception as e:
+        traceback.print_exception(e)
 
 
 def start():
