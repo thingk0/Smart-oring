@@ -19,9 +19,10 @@ function LoadMapData(): {
   read(): MapData;
 } {
   let map: MapData | null = null;
-  const suspender = axios.get('http://localhost:3001/map').then(({ data }) => {
-    map = data;
-  });
+
+  const suspender = axios
+    .get(import.meta.env.VITE_BACKEND_SERVER + '/map')
+    .then(res => (map = res.data.resultData));
 
   return {
     read() {
