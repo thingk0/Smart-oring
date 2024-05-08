@@ -18,7 +18,7 @@ public record AmrHistoryLog(
         Integer xCoordinate,
         Integer yCoordinate,
         List<Integer[]> amrRoute,
-        String amrStatus,
+        AmrStatus amrStatus,
         LocalDateTime amrHistoryCreatedAt
         ) {
 

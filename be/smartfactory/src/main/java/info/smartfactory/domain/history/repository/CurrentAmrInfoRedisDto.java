@@ -26,11 +26,13 @@ public class CurrentAmrInfoRedisDto {
 
 	private Integer battery;
 
-	private String amrStatus;
+	private AmrStatus amrStatus;
 
 	private Integer xCoordinate;
 
 	private Integer yCoordinate;
+
+	private long stopPeriod;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime amrHistoryCreatedAt;
