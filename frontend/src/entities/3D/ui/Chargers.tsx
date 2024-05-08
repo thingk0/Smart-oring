@@ -5,7 +5,9 @@ function LocateChargers(end: number): JSX.Element[] {
   console.log(end);
   let chargers: JSX.Element[] = [];
   for (let i = 2; i < end - 1; i += 2) {
-    chargers.push(<Model position={convertPosition([i, 1], [i, 1])}></Model>);
+    chargers.push(
+      <Model position={convertPosition([i, 1], [i, 1])} key={i}></Model>
+    );
   }
   console.log(chargers.length);
   return chargers;

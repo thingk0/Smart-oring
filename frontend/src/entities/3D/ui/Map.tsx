@@ -10,6 +10,7 @@ import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
+import Conveyors from './Conveyors';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -41,6 +42,7 @@ function Map({ resource }: MapProps) {
       <Chargers data={data} />
       <Destinations data={data} />
       <Storages data={data} />
+      <Conveyors data={data} />
     </>
   );
 }
