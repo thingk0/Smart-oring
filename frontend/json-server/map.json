@@ -1,138 +1,140 @@
 {
   "map": {
-    "charger": [
-      {
-        "start": [0, 0],
-        "end": [50, 1],
-        "direction": 1
-      }
-    ],
-    "storage": [
-      {
-        "start": [9, 13],
-        "end": [12, 23],
-        "direction": 2
-      },
-      {
-        "start": [18, 13],
-        "end": [21, 23],
-        "direction": 2
-      },
-      {
-        "start": [27, 13],
-        "end": [30, 23],
-        "direction": 2
-      },
-      {
-        "start": [36, 13],
-        "end": [39, 23],
-        "direction": 2
-      },
-      {
-        "start": [9, 26],
-        "end": [12, 36],
-        "direction": 2
-      },
-      {
-        "start": [18, 26],
-        "end": [21, 36],
-        "direction": 2
-      },
-      {
-        "start": [27, 26],
-        "end": [30, 36],
-        "direction": 2
-      },
-      {
-        "start": [36, 26],
-        "end": [39, 36],
-        "direction": 2
-      },
-      {
-        "start": [9, 39],
-        "end": [12, 49],
-        "direction": 2
-      },
-      {
-        "start": [18, 39],
-        "end": [21, 49],
-        "direction": 2
-      },
-      {
-        "start": [27, 39],
-        "end": [30, 49],
-        "direction": 2
-      },
-      {
-        "start": [36, 39],
-        "end": [39, 49],
-        "direction": 2
-      },
-      {
-        "start": [9, 52],
-        "end": [12, 62],
-        "direction": 2
-      },
-      {
-        "start": [18, 52],
-        "end": [21, 62],
-        "direction": 2
-      },
-      {
-        "start": [27, 52],
-        "end": [30, 62],
-        "direction": 2
-      },
-      {
-        "start": [36, 52],
-        "end": [39, 62],
-        "direction": 2
-      }
-    ],
-    "destination": [
-      {
-        "start": [0, 47],
-        "end": [5, 53],
-        "direction": 2
-      },
-      {
-        "start": [45, 47],
-        "end": [50, 53],
-        "direction": 0
-      }
-    ],
-    "conveyor": [
-      {
-        "start": [6, 70],
-        "end": [9, 100],
-        "direction": 3
-      },
-      {
-        "start": [13, 70],
-        "end": [16, 100],
-        "direction": 3
-      },
-      {
-        "start": [20, 70],
-        "end": [23, 100],
-        "direction": 3
-      },
-      {
-        "start": [27, 70],
-        "end": [30, 100],
-        "direction": 3
-      },
-      {
-        "start": [34, 70],
-        "end": [37, 100],
-        "direction": 3
-      },
-      {
-        "start": [41, 70],
-        "end": [44, 100],
-        "direction": 3
-      }
-    ]
+    "resultData": {
+      "charger": [
+        {
+          "start": [0, 0],
+          "end": [50, 1],
+          "direction": 1
+        }
+      ],
+      "storage": [
+        {
+          "start": [9, 13],
+          "end": [12, 23],
+          "direction": 2
+        },
+        {
+          "start": [18, 13],
+          "end": [21, 23],
+          "direction": 2
+        },
+        {
+          "start": [27, 13],
+          "end": [30, 23],
+          "direction": 2
+        },
+        {
+          "start": [36, 13],
+          "end": [39, 23],
+          "direction": 2
+        },
+        {
+          "start": [9, 26],
+          "end": [12, 36],
+          "direction": 2
+        },
+        {
+          "start": [18, 26],
+          "end": [21, 36],
+          "direction": 2
+        },
+        {
+          "start": [27, 26],
+          "end": [30, 36],
+          "direction": 2
+        },
+        {
+          "start": [36, 26],
+          "end": [39, 36],
+          "direction": 2
+        },
+        {
+          "start": [9, 39],
+          "end": [12, 49],
+          "direction": 2
+        },
+        {
+          "start": [18, 39],
+          "end": [21, 49],
+          "direction": 2
+        },
+        {
+          "start": [27, 39],
+          "end": [30, 49],
+          "direction": 2
+        },
+        {
+          "start": [36, 39],
+          "end": [39, 49],
+          "direction": 2
+        },
+        {
+          "start": [9, 52],
+          "end": [12, 62],
+          "direction": 2
+        },
+        {
+          "start": [18, 52],
+          "end": [21, 62],
+          "direction": 2
+        },
+        {
+          "start": [27, 52],
+          "end": [30, 62],
+          "direction": 2
+        },
+        {
+          "start": [36, 52],
+          "end": [39, 62],
+          "direction": 2
+        }
+      ],
+      "destination": [
+        {
+          "start": [0, 47],
+          "end": [5, 53],
+          "direction": 2
+        },
+        {
+          "start": [45, 47],
+          "end": [50, 53],
+          "direction": 0
+        }
+      ],
+      "conveyor": [
+        {
+          "start": [6, 70],
+          "end": [9, 100],
+          "direction": 3
+        },
+        {
+          "start": [13, 70],
+          "end": [16, 100],
+          "direction": 3
+        },
+        {
+          "start": [20, 70],
+          "end": [23, 100],
+          "direction": 3
+        },
+        {
+          "start": [27, 70],
+          "end": [30, 100],
+          "direction": 3
+        },
+        {
+          "start": [34, 70],
+          "end": [37, 100],
+          "direction": 3
+        },
+        {
+          "start": [41, 70],
+          "end": [44, 100],
+          "direction": 3
+        }
+      ]
+    }
   },
   "robot": [
     {

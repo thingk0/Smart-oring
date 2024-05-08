@@ -23,12 +23,11 @@ function Map({ resource }: MapProps) {
   const data: MapData = resource.read();
   // console.log(data);
 
-  console.log(data);
+  console.log('데이터', data);
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Robot />
         <InstancedRobot />
       </QueryClientProvider>
       <Path />
