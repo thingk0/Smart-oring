@@ -67,6 +67,7 @@ function Robot() {
               key={F.amrId}
               ref={element => (AGVs.current[index] = element)}
             >
+              <pointLight color="#00afff" intensity={10} />
               <primitive object={model.scene.clone()} />
             </object3D>
           );

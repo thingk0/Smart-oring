@@ -1,86 +1,25 @@
-import { Instances, useGLTF } from '@react-three/drei';
-import { Point2D } from '../../../shared/types';
-import Destination from './Destination';
-type MapData = {
-  charger: PositionData[];
-  destination: PositionData[];
-  logistic: PositionData[];
-};
-type PositionData = {
-  start: Point2D;
-  end: Point2D;
-  direction: number;
-};
+import { convertPosition } from '../../../shared/lib';
+import { MapData } from '../../../shared/types';
+import { Instances, Model } from './Destination';
+
 function Destinations({ data }: { data: MapData }) {
-  const { nodes, materials } = useGLTF('./models/098-belt.glb');
-  console.log(nodes);
-  console.log(materials);
   return (
     <>
-      <Instances
-        castShadow
-        geometry={nodes.Plane001.geometry}
-        material={materials['Material.001']}
-      >
-        {data.destination.map((l, index) => {
+      <Instances>
+        {data.destination.map((d, i) => {
+          console.log(convertPosition(d.start, d.end, 0.2));
+          console.log('start', d.start);
+          console.log('end', d.end);
           return (
-            <Destination
-              start={l.start}
-              end={l.end}
-              direction={l.direction}
-              key={index}
-            />
+            <Model
+              position={convertPosition(d.start, d.end)}
+              scale={[d.end[0] - d.start[0], 2, d.end[1] - d.start[1]]}
+              rotation={[0, Math.PI / 2, 0]}
+              key={i}
+            ></Model>
           );
         })}
       </Instances>
-      <Instances
-        castShadow
-        geometry={nodes.Plane002.geometry}
-        material={materials['Material.002']}
-      >
-        {data.destination.map((l, index) => {
-          return (
-            <Destination
-              start={l.start}
-              end={l.end}
-              direction={l.direction}
-              key={index}
-            />
-          );
-        })}
-      </Instances>
-      <Instances
-        castShadow
-        geometry={nodes.Vert.geometry}
-        material={materials['Material.002']}
-      >
-        {data.destination.map((l, index) => {
-          return (
-            <Destination
-              start={l.start}
-              end={l.end}
-              direction={l.direction}
-              key={index}
-            />
-          );
-        })}
-      </Instances>
-      {/* <Instances
-        castShadow
-        geometry={nodes.Circle.geometry}
-        material={materials['Material.002']}
-      >
-        {data.destination.map((l, index) => {
-          return (
-            <Destination
-              start={l.start}
-              end={l.end}
-              direction={l.direction}
-              key={index}
-            />
-          );
-        })}
-      </Instances> */}
     </>
   );
 }

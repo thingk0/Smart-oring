@@ -10,6 +10,17 @@ export type robotData = {
   mission: string;
 };
 
+export type MapData = {
+  charger: PositionData[];
+  storage: PositionData[];
+  destination: PositionData[];
+  conveyor: PositionData[];
+};
+export type PositionData = {
+  start: Point2D;
+  end: Point2D;
+  direction: number;
+};
 export type TRobot = {
   geo_aluminium_3: Object3D;
   geo_black_7: Object3D;

@@ -1,331 +1,140 @@
 {
   "map": {
-    "logistic": [
-      {
-        "direction": 1,
-        "start": [16, 4],
-        "end": [26, 7]
-      },
-      {
-        "direction": 1,
-        "start": [28, 4],
-        "end": [34, 7]
-      },
-      {
-        "direction": 1,
-        "start": [16, 10],
-        "end": [20, 13]
-      },
-      {
-        "direction": 1,
-        "start": [22, 10],
-        "end": [26, 13]
-      },
-      {
-        "direction": 1,
-        "start": [28, 10],
-        "end": [34, 13]
-      },
-      {
-        "direction": 2,
-        "start": [9, 19],
-        "end": [12, 29]
-      },
-      {
-        "direction": 2,
-        "start": [16, 19],
-        "end": [19, 29]
-      },
-      {
-        "direction": 2,
-        "start": [23, 19],
-        "end": [26, 29]
-      },
-      {
-        "direction": 2,
-        "start": [30, 19],
-        "end": [33, 29]
-      },
-      {
-        "direction": 2,
-        "start": [37, 32],
-        "end": [40, 42]
-      },
-      {
-        "direction": 2,
-        "start": [37, 19],
-        "end": [40, 29]
-      },
-      {
-        "direction": 2,
-        "start": [9, 32],
-        "end": [12, 42]
-      },
-      {
-        "direction": 2,
-        "start": [16, 32],
-        "end": [19, 42]
-      },
-      {
-        "direction": 2,
-        "start": [23, 32],
-        "end": [26, 42]
-      },
-      {
-        "direction": 2,
-        "start": [30, 32],
-        "end": [33, 42]
-      },
-      {
-        "direction": 2,
-        "start": [37, 32],
-        "end": [40, 42]
-      },
-      {
-        "direction": 2,
-        "start": [9, 45],
-        "end": [12, 55]
-      },
-      {
-        "direction": 2,
-        "start": [16, 45],
-        "end": [19, 55]
-      },
-      {
-        "start": [16, 92],
-        "end": [20, 95],
-        "direction": 1
-      },
-      {
-        "start": [22, 92],
-        "end": [26, 95],
-        "direction": 1
-      },
-      {
-        "start": [28, 92],
-        "end": [34, 95],
-        "direction": 1
-      },
-      {
-        "start": [16, 86],
-        "end": [26, 89],
-        "direction": 1
-      },
-      {
-        "start": [28, 86],
-        "end": [34, 89],
-        "direction": 1
-      },
-      {
-        "start": [9, 71],
-        "end": [12, 81],
-        "direction": 2
-      },
-      {
-        "start": [16, 71],
-        "end": [19, 81],
-        "direction": 2
-      },
-      {
-        "start": [23, 71],
-        "end": [26, 81],
-        "direction": 2
-      },
-      {
-        "start": [30, 71],
-        "end": [33, 81],
-        "direction": 2
-      },
-      {
-        "start": [37, 71],
-        "end": [40, 81],
-        "direction": 2
-      },
-      {
-        "start": [9, 58],
-        "end": [12, 68],
-        "direction": 2
-      },
-      {
-        "start": [16, 58],
-        "end": [19, 68],
-        "direction": 2
-      },
-      {
-        "start": [23, 58],
-        "end": [26, 68],
-        "direction": 2
-      },
-      {
-        "start": [30, 58],
-        "end": [33, 68],
-        "direction": 2
-      },
-      {
-        "start": [37, 58],
-        "end": [40, 68],
-        "direction": 2
-      },
-      {
-        "start": [23, 45],
-        "end": [26, 55],
-        "direction": 2
-      },
-      {
-        "start": [30, 45],
-        "end": [33, 55],
-        "direction": 2
-      },
-      {
-        "start": [37, 45],
-        "end": [40, 55],
-        "direction": 2
-      }
-    ],
-    "charger": [
-      {
-        "direction": 1,
-        "start": [2, 6],
-        "end": [12, 11]
-      },
-      {
-        "direction": 1,
-        "start": [38, 6],
-        "end": [48, 11]
-      },
-      {
-        "start": [2, 88],
-        "end": [12, 93],
-        "direction": 3
-      },
-      {
-        "start": [38, 88],
-        "end": [48, 93],
-        "direction": 3
-      }
-    ],
-    "destination": [
-      {
-        "direction": 2,
-        "start": [3, 21],
-        "end": [6, 24]
-      },
-      {
-        "direction": 2,
-        "start": [3, 26],
-        "end": [6, 29]
-      },
-      {
-        "direction": 2,
-        "start": [3, 31],
-        "end": [6, 34]
-      },
-      {
-        "direction": 2,
-        "start": [3, 36],
-        "end": [6, 39]
-      },
-      {
-        "direction": 2,
-        "start": [3, 41],
-        "end": [6, 44]
-      },
-      {
-        "direction": 2,
-        "start": [3, 46],
-        "end": [6, 49]
-      },
-      {
-        "direction": 0,
-        "start": [44, 21],
-        "end": [47, 24]
-      },
-      {
-        "direction": 0,
-        "start": [44, 26],
-        "end": [47, 29]
-      },
-      {
-        "direction": 0,
-        "start": [44, 31],
-        "end": [47, 34]
-      },
-      {
-        "direction": 0,
-        "start": [44, 36],
-        "end": [47, 39]
-      },
-      {
-        "direction": 0,
-        "start": [44, 41],
-        "end": [47, 44]
-      },
-      {
-        "direction": 0,
-        "start": [44, 46],
-        "end": [47, 49]
-      },
-      {
-        "start": [3, 76],
-        "end": [6, 79],
-        "direction": 2
-      },
-      {
-        "start": [3, 71],
-        "end": [6, 74],
-        "direction": 2
-      },
-      {
-        "start": [3, 66],
-        "end": [6, 69],
-        "direction": 2
-      },
-      {
-        "start": [3, 61],
-        "end": [6, 64],
-        "direction": 2
-      },
-      {
-        "start": [3, 56],
-        "end": [6, 59],
-        "direction": 2
-      },
-      {
-        "start": [3, 51],
-        "end": [6, 54],
-        "direction": 2
-      },
-      {
-        "start": [44, 76],
-        "end": [47, 79],
-        "direction": 0
-      },
-      {
-        "start": [44, 71],
-        "end": [47, 74],
-        "direction": 0
-      },
-      {
-        "start": [44, 66],
-        "end": [47, 69],
-        "direction": 0
-      },
-      {
-        "start": [44, 61],
-        "end": [47, 64],
-        "direction": 0
-      },
-      {
-        "start": [44, 56],
-        "end": [47, 59],
-        "direction": 0
-      },
-      {
-        "start": [44, 51],
-        "end": [47, 54],
-        "direction": 0
-      }
-    ]
+    "resultData": {
+      "charger": [
+        {
+          "start": [0, 0],
+          "end": [50, 1],
+          "direction": 1
+        }
+      ],
+      "storage": [
+        {
+          "start": [9, 13],
+          "end": [12, 23],
+          "direction": 2
+        },
+        {
+          "start": [18, 13],
+          "end": [21, 23],
+          "direction": 2
+        },
+        {
+          "start": [27, 13],
+          "end": [30, 23],
+          "direction": 2
+        },
+        {
+          "start": [36, 13],
+          "end": [39, 23],
+          "direction": 2
+        },
+        {
+          "start": [9, 26],
+          "end": [12, 36],
+          "direction": 2
+        },
+        {
+          "start": [18, 26],
+          "end": [21, 36],
+          "direction": 2
+        },
+        {
+          "start": [27, 26],
+          "end": [30, 36],
+          "direction": 2
+        },
+        {
+          "start": [36, 26],
+          "end": [39, 36],
+          "direction": 2
+        },
+        {
+          "start": [9, 39],
+          "end": [12, 49],
+          "direction": 2
+        },
+        {
+          "start": [18, 39],
+          "end": [21, 49],
+          "direction": 2
+        },
+        {
+          "start": [27, 39],
+          "end": [30, 49],
+          "direction": 2
+        },
+        {
+          "start": [36, 39],
+          "end": [39, 49],
+          "direction": 2
+        },
+        {
+          "start": [9, 52],
+          "end": [12, 62],
+          "direction": 2
+        },
+        {
+          "start": [18, 52],
+          "end": [21, 62],
+          "direction": 2
+        },
+        {
+          "start": [27, 52],
+          "end": [30, 62],
+          "direction": 2
+        },
+        {
+          "start": [36, 52],
+          "end": [39, 62],
+          "direction": 2
+        }
+      ],
+      "destination": [
+        {
+          "start": [0, 47],
+          "end": [5, 53],
+          "direction": 2
+        },
+        {
+          "start": [45, 47],
+          "end": [50, 53],
+          "direction": 0
+        }
+      ],
+      "conveyor": [
+        {
+          "start": [6, 70],
+          "end": [9, 100],
+          "direction": 3
+        },
+        {
+          "start": [13, 70],
+          "end": [16, 100],
+          "direction": 3
+        },
+        {
+          "start": [20, 70],
+          "end": [23, 100],
+          "direction": 3
+        },
+        {
+          "start": [27, 70],
+          "end": [30, 100],
+          "direction": 3
+        },
+        {
+          "start": [34, 70],
+          "end": [37, 100],
+          "direction": 3
+        },
+        {
+          "start": [41, 70],
+          "end": [44, 100],
+          "direction": 3
+        }
+      ]
+    }
   },
   "robot": [
     {

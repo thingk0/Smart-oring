@@ -1,6 +1,4 @@
 import { Suspense } from 'react';
-import Boxes from '../components/Boxes';
-import Floor from '../components/Floor';
 import Map from '../entities/3D/ui/Map';
 import axios from 'axios';
 import { Center } from '@react-three/drei';
