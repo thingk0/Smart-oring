@@ -19,7 +19,11 @@ function Chargers({ data }: { data: MapData }) {
         {/* {LocateChargers(data.charger[0].end[0])} */}
         {data.charger.map((c, i) => {
           return (
-            <Model position={convertPosition(c.start, c.end)} key={i}></Model>
+            <Model
+              position={convertPosition(c.start, c.end)}
+              key={i}
+              rotation={[0, -Math.PI / 2, 0]}
+            ></Model>
           );
         })}
       </Instances>
