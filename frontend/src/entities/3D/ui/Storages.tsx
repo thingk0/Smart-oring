@@ -8,11 +8,7 @@ function Storages({ data }: { data: MapData }) {
       <Instances>
         {data.storage.map((l, i) => {
           return (
-            <Model
-              position={convertPosition(l.start, l.end)}
-              rotation={[0, l.direction === 1 ? Math.PI / 2 : 0, 0]}
-              key={i}
-            ></Model>
+            <Model position={convertPosition(l.start, l.end)} key={i}></Model>
           );
         })}
       </Instances>
