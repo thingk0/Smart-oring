@@ -1,6 +1,7 @@
 package info.smartfactory.domain.history.repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -27,11 +28,13 @@ public class BatchAmrInfoRedisDto {
 
     private Integer battery;
 
-    private String amrStatus;
+    private AmrStatus amrStatus;
 
     private Integer xCoordinate;
 
     private Integer yCoordinate;
+
+    private long stopPeriod;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime amrHistoryCreatedAt;

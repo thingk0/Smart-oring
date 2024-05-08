@@ -28,7 +28,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'redis.clients:jedis:3.6.0'
     // kafka
     implementation 'org.springframework.kafka:spring-kafka'
     // MariaDB

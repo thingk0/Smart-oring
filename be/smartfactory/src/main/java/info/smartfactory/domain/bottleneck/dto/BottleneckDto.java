@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class BottleneckDto {
-    int x_coordinate;
+    int xCoordinate;
 
-    int y_coordinate;
+    int yCoordinate;
 
-    Long mission_id;
+    Long missionId;
 
-    LocalDateTime bottleneck_time;
+    Long bottleneckPeriod;
 
+    LocalDateTime bottleneckCreatedAt;
 }

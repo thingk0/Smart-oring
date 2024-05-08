@@ -36,19 +36,23 @@ public class Bottleneck extends BaseTimeEntity {
     @JoinColumn(name="mission_id")
     private Mission mission;
 
+    @Column(name = "bottleneck_period", nullable = false)
+    private Long bottleneckPeriod;
+
     @Column(name = "bottleneck_created_at", nullable = false)
     private LocalDateTime bottleneckCreatedAt;
 
     public static Bottleneck createBottleneck(
             Integer xCoordinate,
             Integer yCoordinate,
+            Long bottleneckPeriod,
             LocalDateTime bottleneckCreatedAt
     ){
         Bottleneck bottleneck = new Bottleneck();
 
         bottleneck.xCoordinate = xCoordinate;
         bottleneck.yCoordinate = yCoordinate;
-        //bottleneck.mission = mission;
+        bottleneck.bottleneckPeriod = bottleneckPeriod;
         bottleneck.bottleneckCreatedAt = bottleneckCreatedAt;
 
         return bottleneck;

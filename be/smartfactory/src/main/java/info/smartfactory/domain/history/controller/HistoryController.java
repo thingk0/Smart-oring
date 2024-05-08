@@ -21,11 +21,17 @@ public class HistoryController {
 
 	final private HistoryService historyService;
 
+
+	// amr 실시간 위치
+
 	@GetMapping("/amr/state")
 	public ResponseEntity<?> getRobotStates() {
 		List<CurrentAmrInfoRedisDto> result = historyService.getRecentRobotStates();
 		return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 	}
+
+
+	// amr 전체 이력 저장
 
 	@GetMapping("/histories/amr")
 	public ResponseEntity<?> getRobotHistories() {

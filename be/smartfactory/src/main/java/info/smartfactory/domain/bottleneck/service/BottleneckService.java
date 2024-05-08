@@ -23,7 +23,7 @@ public class BottleneckService {
     }
 
     public void addBottleneckData(BottleneckDto bottleneckDto) {
-        Bottleneck bottleneck = Bottleneck.createBottleneck(bottleneckDto.getX_coordinate(), bottleneckDto.getY_coordinate(), bottleneckDto.getBottleneck_time());
+        Bottleneck bottleneck = Bottleneck.createBottleneck(bottleneckDto.getXCoordinate(), bottleneckDto.getYCoordinate(), bottleneckDto.getBottleneckPeriod(),  bottleneckDto.getBottleneckCreatedAt());
         bottleneckRepository.save(bottleneck);
     }
 }
