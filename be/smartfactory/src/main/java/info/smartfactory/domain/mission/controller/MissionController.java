@@ -1,10 +1,11 @@
 package info.smartfactory.domain.mission.controller;
 
-import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.service.MissionService;
+import info.smartfactory.domain.mission.service.dto.MissionDto;
 import info.smartfactory.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,11 @@ public class MissionController {
 
     final private MissionService missionService;
 
+    @Transactional
     @GetMapping("/{missionId}")
-    public ResultResponse<Mission> getMissionInfo(@PathVariable(name = "missionId") Long missionId) {
+    public ResultResponse<MissionDto> getMissionInfo(@PathVariable(name = "missionId") Long missionId) {
 
-        Mission missionInfo = missionService.getMissionInfo(missionId);
+        MissionDto missionInfo = missionService.getMissionInfo(missionId);
         return ResultResponse.res(HttpStatus.OK, "success", missionInfo);
     }
 }
