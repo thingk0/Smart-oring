@@ -2,6 +2,7 @@ package info.smartfactory.domain.mission.service;
 
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.mission.kafka.KafkaProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
@@ -47,11 +48,14 @@ public class MissionService {
         if(storageList.size() > submissionNum && destinationList.size() > 0){
             mission = missionGenerator.generateRandomMission(submissionNum, destinationList, storageList);
             //TODO : 생성된 미션 디비에 저장하기 **
-//            List<Submission> submissionList = mission.getSubmissionList();
-//            for(Submission submission : submissionList) {
+            missionRepository.save(mission);
+
+            List<Submission> submissionList = mission.getSubmissionList();
+            for (Submission submission : submissionList) {
+                submissionRepository.save(submission);
 //                System.out.println(submission.getArriveNode().getXCoordinate()+ " " + submission.getArriveNode().getYCoordinate());
-//            }
-            System.out.println("==========");
+            }
+//            System.out.println("==========");
 
             MissionKafkaDTO missionKafkaDTO = MissionKafkaDTO.builder()
                     .id(mission.getId())
@@ -73,9 +77,11 @@ public class MissionService {
 
         Mission missionWithNodes = missionRepository.findByMissionIdWithNodes(missionId);
 
+        System.out.println(missionWithNodes.toString());
+        log.info("============================================");
+        log.info(missionWithNodes.toString());
 
         MissionDto missionDto = missionMapper.toDto(mission);
-
 
         return missionDto;
     }
