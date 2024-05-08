@@ -4,6 +4,7 @@ import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,4 +16,13 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
             WHERE s.mission.id = :missionId
             """)
     List<Submission> getSubmissions(Long missionId);
+
+    @Query("""
+            SELECT m
+            FROM Mission m
+            JOIN FETCH m.submissionList s
+            JOIN FETCH s.arriveNode n
+            WHERE m.id = :missionId
+            """)
+    Mission findByMissionIdWithNodes(@Param("missionId") Long missionId);
 }
