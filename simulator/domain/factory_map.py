@@ -2,11 +2,11 @@ from typing import List
 
 import numpy as np
 
-from domain.structure import Structure
+from domain.node import Node
 
 
 class FactoryMap:
-    def __init__(self, structures: List[Structure], width: int, height: int):
+    def __init__(self, structures: List[Node], width: int, height: int):
         self.structures = structures
         self.width = width
         self.height = height

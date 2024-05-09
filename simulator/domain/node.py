@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Structure:
+class Node:
 
     def __init__(self, xcoordinate, ycoordinate):
         self.x_coordinate = xcoordinate
@@ -11,20 +11,20 @@ class Structure:
         return f"x: {self.x_coordinate}, y: {self.y_coordinate}"
 
 
-class Charger(Structure):
+class Charger(Node):
 
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
         self.entranceDirection: EntranceDirection = entranceDirection
 
 
-class Storage(Structure):
+class Storage(Node):
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
         self.entranceDirection: EntranceDirection = entranceDirection
 
 
-class Destination(Structure):
+class Destination(Node):
     def __init__(self, xcoordinate, ycoordinate, entranceDirection):
         super().__init__(xcoordinate, ycoordinate)
         self.entranceDirection: EntranceDirection = entranceDirection

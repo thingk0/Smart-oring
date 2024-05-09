@@ -1,7 +1,7 @@
-from domain.structure import Structure, EntranceDirection
+from domain.node import Node, EntranceDirection
 
 
-def get_front_entrance_from_structure(e: Structure):
+def get_front_entrance_from_structure(e: Node):
     if not hasattr(e, 'entranceDirection'):
         return None
     entrance: EntranceDirection = e.entranceDirection

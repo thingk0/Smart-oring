@@ -56,11 +56,11 @@ class RobotManager:
 
         for robot in self.working_robots:
             next_node = robot.get_next_node()
-            if next_node in locked_nodes:
+            if next_node in locked_nodes:  # 다음 노드가 락 걸린 노드라면 기다린다
                 continue
-            if not next_node:
+            if not next_node:  # 현재 다음 노드가 없다면
                 robot.finish_mission()
-            if robot.current_mission:
+            if robot.current_mission:  # 현재 부여받은 미션이 있다면
                 robot.go_next_node()
                 continue
 

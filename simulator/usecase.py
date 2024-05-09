@@ -2,7 +2,7 @@ from typing import List
 
 import requests
 
-from domain.structure import Structure, Charger, Storage, Destination, EntranceDirection
+from domain.node import Node, Charger, Storage, Destination, EntranceDirection
 from robot.mission.entity.mission import Mission, Submission
 from robot.mission.path.point import Point
 
@@ -11,7 +11,7 @@ class UseCase:
     base_url = "http://localhost:8080"
 
     @staticmethod
-    def get_map() -> List[Structure]:
+    def get_map() -> List[Node]:
         json = UseCase.get("/map/simul")
 
         nodes = []
