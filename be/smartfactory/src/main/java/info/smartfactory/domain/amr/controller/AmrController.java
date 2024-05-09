@@ -25,4 +25,6 @@ public class AmrController {
         return ResultResponse.res(HttpStatus.OK, "success", amrs);
     }
 
+
+
 }
