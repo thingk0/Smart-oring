@@ -1,18 +1,18 @@
 import numpy as np
 
 from robot.mission.entity.mission import Mission, Submission
-from robot.mission.path.node import Node
 from robot.mission.path.path_finder import find_path
+from robot.mission.path.point import Point
 
 
 def _generator():
-    target = [Node(0, 0), Node(0, 4), Node(4, 2), Node(1, 4), Node(2, 3)]
+    target = [Point(0, 0), Point(0, 4), Point(4, 2), Point(1, 4), Point(2, 3)]
 
     for node in target:
         yield node
 
 
-def process_mission(mission: Mission, factory_map, start_point: Node, road):
+def process_mission(mission: Mission, factory_map, start_point: Point, road):
     points = [start_point]
     height = len(factory_map)
     width = len(factory_map[0])

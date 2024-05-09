@@ -3,16 +3,16 @@ from enum import Enum
 from typing import List
 
 from robot.mission.entity.mission import Mission
-from robot.mission.path.node import Node
+from robot.mission.path.point import Point
 
 
 class Robot:
     def __init__(self, robot_id, robot_status, current_node):
         self.robot_id = robot_id
         self.robot_status: RobotStatus = robot_status
-        self.current_node: Node = current_node
+        self.current_node: Point = current_node
         self.current_mission: Mission = None
-        self.next_nodes: deque[Node] = deque()
+        self.next_nodes: deque[Point] = deque()
 
     def assign_mission(self, mission, route: deque):
         self.current_mission = mission
@@ -24,7 +24,7 @@ class Robot:
             return
         self.current_node = self.next_nodes.popleft()
 
-    def get_next_node(self) -> Node | None:
+    def get_next_node(self) -> Point | None:
         if not self.next_nodes:
             return None
         return self.next_nodes[0]
@@ -35,7 +35,7 @@ class Robot:
     def __str__(self):
         return f"로봇 ID : {self.robot_id}, 로봇 상태 : {self.robot_status}, 현재 노드 : {self.current_node}, 현재 미션 : {self.current_mission}"
 
-    def get_next_nodes(self) -> List[Node]:
+    def get_next_nodes(self) -> List[Point]:
         return list(self.next_nodes)
 
 

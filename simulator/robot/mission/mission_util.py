@@ -18,6 +18,6 @@ def get_random_submission(mission_order, width, height):
     y = random.randrange(0, width)
     return mi.Submission(
         mission_order_id=1,
-        arrive_node=mi.Node(x, y),
+        arrive_node=mi.Point(x, y),
         mission_order=mission_order
     )

@@ -2,7 +2,7 @@ from dataclasses import dataclass, astuple
 
 
 @dataclass
-class Node:
+class Point:
     x: int
     y: int
 

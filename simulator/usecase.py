@@ -4,7 +4,7 @@ import requests
 
 from domain.structure import Structure, Charger, Storage, Destination, EntranceDirection
 from robot.mission.entity.mission import Mission, Submission
-from robot.mission.path.node import Node
+from robot.mission.path.point import Point
 
 
 class UseCase:
@@ -46,7 +46,7 @@ class UseCase:
         submission_list = []
         for e in submission_json:
             node_json = e['arrive_node']
-            node = Node(node_json['xcoordinate'], node_json['ycoordinate'])
+            node = Point(node_json['xcoordinate'], node_json['ycoordinate'])
             submission = Submission(e['id'], node, e['submission_order'])
             submission_list.append(submission)
 

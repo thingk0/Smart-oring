@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from robot.mission.path.node import Node
+from robot.mission.path.point import Point
 
 
 # class Node:
@@ -57,10 +57,10 @@ class Mission:
 
 
 class Submission:
-    def __init__(self, mission_order_id: int, arrive_node: Node,
+    def __init__(self, mission_order_id: int, arrive_node: Point,
                  mission_order: Optional[int] = None):
         self.mission_order_id = mission_order_id
-        self.arrive_node: Node = arrive_node
+        self.arrive_node: Point = arrive_node
         self.mission_order = mission_order
 
     def __str__(self):
