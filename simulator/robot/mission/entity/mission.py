@@ -52,7 +52,7 @@ class Mission:
         self.submissions.append(order)
 
     def __str__(self):
-        return (f"미션 ID : {self.mission_id}, 미션 생성 시간 : {self.created_at}, 미션 처리 시간 : {self.mission_process_time},"
+        return (f"미션 ID : {self.mission_id}, 미션 생성 시간 : {self.created_at},"
                 f"\n{'\n'.join([str(i) for i in self.submissions])}")
 
 
@@ -64,4 +64,5 @@ class Submission:
         self.mission_order = mission_order
 
     def __str__(self):
-        return f"미션 오더 ID : {self.mission_order_id}, 미션 오더 : {self.mission_order}, 타겟 노드 : {self.arrive_node}"
+        return (f"미션 오더 ID : {self.mission_order_id}, 도착 노드 : {self.arrive_node},"
+                f"\n미션 오더 : {self.mission_order}")
