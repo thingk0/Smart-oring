@@ -29,6 +29,9 @@ class Robot:
             return None
         return self.next_nodes[0]
 
+    def finish_mission(self):
+        self.current_mission = None
+
     def __str__(self):
         return f"로봇 ID : {self.robot_id}, 로봇 상태 : {self.robot_status}, 현재 노드 : {self.current_node}, 현재 미션 : {self.current_mission}"
 

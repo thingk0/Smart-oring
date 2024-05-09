@@ -58,6 +58,8 @@ class RobotManager:
             next_node = robot.get_next_node()
             if next_node in locked_nodes:
                 continue
+            if not next_node:
+                robot.finish_mission()
             if robot.current_mission:
                 robot.go_next_node()
                 continue
