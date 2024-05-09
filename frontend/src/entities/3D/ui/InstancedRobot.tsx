@@ -3,7 +3,7 @@ import { Merged, useGLTF } from '@react-three/drei';
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
-import { BackendRobotPosition, getRobotPosition } from '@shared/api';
+import { BackendRobotPosition } from '@shared/api';
 import { getRotationIndex } from '@shared/lib';
 import { TRobot, robotData } from '@shared/types';
 import RobotModel from './RobotModel';
@@ -27,20 +27,25 @@ function InstancedRobot() {
 
       // calculate direction
       beforePositions?.forEach((before: robotData, index: number) => {
-        const [y, x, radian] = getRotationIndex(before, data[index]);
+        if (before && data[index]) {
+          const [y, x, radian] = getRotationIndex(before, data[index]);
 
-        // move AGVs position
-        gsap.to(AGVs.current?.children[index].position, {
-          duration: 1,
-          ease: 'none',
-          x: data[index].ycoordinate + x,
-          z: data[index].xcoordinate + y,
-          onComplete: () => {
-            // rotate AGVs
-            AGVs.current.children[index].rotation.y = radian;
-            console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
-          },
-        });
+          // move AGVs position
+          gsap.to(AGVs.current?.children[index].position, {
+            duration: 1,
+            ease: 'none',
+            x: data[index].ycoordinate + x,
+            z: data[index].xcoordinate + y,
+            onComplete: () => {
+              // rotate AGVs
+              AGVs.current.children[index].rotation.y = radian;
+              console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
+            },
+          });
+        } else {
+          const date = new Date();
+          console.log('로봇 null 들어옴 ', date);
+        }
       });
 
       // update state
