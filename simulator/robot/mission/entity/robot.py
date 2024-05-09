@@ -41,7 +41,7 @@ class Robot:
 
 class RobotStatus(Enum):
     PROCESSING = 'PROCESSING'
-    STOPPED = 'STOPPED'
+    BOTTLENECK = 'BOTTLENECK'
     CHARGING = 'CHARGING'
     ERROR = 'ERROR'
     DISCHARGING = 'DISCHARGING'
