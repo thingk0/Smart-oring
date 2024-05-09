@@ -3,8 +3,8 @@
     "resultData": {
       "charger": [
         {
-          "start": [0, 0],
-          "end": [50, 1],
+          "start": [2, 1],
+          "end": [3, 2],
           "direction": 1
         }
       ],
