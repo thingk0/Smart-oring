@@ -3,6 +3,7 @@ import numpy as np
 from robot.mission.entity.mission import Mission, Submission
 from robot.mission.path.path_finder import find_path
 from robot.mission.path.point import Point
+from util import StructureUtil
 
 
 def _generator():
@@ -17,7 +18,10 @@ def process_mission(mission: Mission, factory_map, start_point: Point, road):
     height = len(factory_map)
     width = len(factory_map[0])
     for i in mission.submissions:
-        points.append(i.arrive_node)
+        node = i.arrive_node
+        front_node = StructureUtil.get_front_entrance_from_node(node)
+        point = Point(*front_node)
+        points.append(point)
     path = find_path(points, np.array([[0] * width for _ in range(height)]), road=road)
     path.popleft()
     return path
