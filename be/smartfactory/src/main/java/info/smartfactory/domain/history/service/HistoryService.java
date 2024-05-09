@@ -2,17 +2,16 @@ package info.smartfactory.domain.history.service;
 
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
+import info.smartfactory.domain.history.dto.AmrHistoryLog;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
+import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import info.smartfactory.domain.history.dto.AmrHistoryLog;
-import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class HistoryService {
 		if (previous.isPresent()) {
 			CurrentAmrInfoRedisDto previousAmrInfo = previous.get();
 
-			if (!(amrHistoryLog.amrStatus() == AmrStatus.STOPPED) && previousAmrInfo.getStopPeriod() > 0L) {
+			if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getStopPeriod() > 0L) {
 				bottleneckService.addBottleneckData(new BottleneckDto(
 						amrHistoryLog.xCoordinate(),
 						amrHistoryLog.yCoordinate(),
@@ -62,11 +61,11 @@ public class HistoryService {
 				));
 			}
 
-			if (amrHistoryLog.amrStatus() == AmrStatus.STOPPED) {
+			if (amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) {
 				period = previousAmrInfo.getStopPeriod() + 1L;
 			}
 		}else{
-			if (amrHistoryLog.amrStatus() == AmrStatus.STOPPED) {
+			if (amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) {
 				period += 1L;
 			}
 		}
