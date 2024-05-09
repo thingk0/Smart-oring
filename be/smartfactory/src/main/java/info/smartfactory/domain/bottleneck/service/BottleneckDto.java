@@ -1,4 +1,4 @@
-package info.smartfactory.domain.bottleneck.dto;
+package info.smartfactory.domain.bottleneck.service;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

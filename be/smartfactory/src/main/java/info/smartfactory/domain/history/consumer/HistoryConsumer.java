@@ -1,7 +1,5 @@
 package info.smartfactory.domain.history.consumer;
 
-import info.smartfactory.domain.bottleneck.dto.BottleneckDto;
-import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;

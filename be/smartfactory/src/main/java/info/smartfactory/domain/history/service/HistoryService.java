@@ -1,6 +1,6 @@
 package info.smartfactory.domain.history.service;
 
-import info.smartfactory.domain.bottleneck.dto.BottleneckDto;
+import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
@@ -41,9 +41,10 @@ public class HistoryService {
 	}
 
 	public void saveHistory(AmrHistoryLog amrHistoryLog) {
-		//amr의 missionId로 submission 가져와서 submission 저장
+		// List<Submission> submissionList = missionRepository.getSubmissions(amrHistoryLog.missionId());
 
-		//List<Submission> submissionList = missionRepository.getSubmissions(amrHistoryLog.missionId());
+		// 병목 기간 저장
+
 		Optional<CurrentAmrInfoRedisDto> previous = currentAmrRedisRepository.findById(amrHistoryLog.amrId().toString());
 
 		long period = 0L;
@@ -70,6 +71,7 @@ public class HistoryService {
 			}
 		}
 
+		// redis에 amr 현재 위치 저장
 
 		List<String> nodes = new ArrayList<String>();
 
@@ -85,6 +87,8 @@ public class HistoryService {
 				 .amrHistoryCreatedAt(amrHistoryLog.amrHistoryCreatedAt())
 				 .build());
 
+		// redis에 amr 이력 저장
+
 		batchAmrRedisRepository.save(BatchAmrInfoRedisDto.builder()
 				.amrId(amrHistoryLog.amrId())
 				.subMissions(nodes)
@@ -98,11 +102,15 @@ public class HistoryService {
 				.build());
 	}
 
+	// amr 현재 위치 가져오기
+
 	public List<CurrentAmrInfoRedisDto> getRecentRobotStates() {
 		List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 		all.forEach(System.out::println);
 		return all;
 	}
+
+	// amr 이력 정보 가져오기
 
 	public List<BatchAmrInfoRedisDto> getRobotHistoriess() {
 		List<BatchAmrInfoRedisDto> all = batchAmrRedisRepository.findAll();
