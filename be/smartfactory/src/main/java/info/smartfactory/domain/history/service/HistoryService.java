@@ -77,11 +77,15 @@ public class HistoryService {
 
 		CurrentAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, redisDto, period);
 
+		currentAmrRedisRepository.save(redisDto);
+
 		// redis에 amr 이력 저장
 
 		BatchAmrInfoRedisDto amrHistoryDto = AmrHistoryMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
 		AmrHistoryMapper.INSTANCE.setStopPeriod(amrHistoryLog, amrHistoryDto, period);
+
+		batchAmrRedisRepository.save(amrHistoryDto);
 	}
 
 	// amr 현재 위치 가져오기
