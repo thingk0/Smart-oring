@@ -23,6 +23,6 @@ export const getRobotPosition = () =>
   instanceAPI.get(`http://localhost:3001/robot`).then(res => res.data);
 
 export const BackendRobotPosition = () =>
-  axios.get(import.meta.env.VITE_BACKEND_SERVER + '/robots/state').then(res => {
+  axios.get(import.meta.env.VITE_BACKEND_SERVER + '/amr/state').then(res => {
     return res.data.resultData;
   });

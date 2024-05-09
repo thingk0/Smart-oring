@@ -3,7 +3,7 @@ import { Merged, useGLTF } from '@react-three/drei';
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
-import { getRobotPosition } from '@shared/api';
+import { BackendRobotPosition, getRobotPosition } from '@shared/api';
 import { getRotationIndex } from '@shared/lib';
 import { TRobot, robotData } from '@shared/types';
 import RobotModel from './RobotModel';
@@ -12,8 +12,9 @@ import RobotModel from './RobotModel';
 function InstancedRobot() {
   const { data, isPending } = useQuery({
     queryKey: ['robotPosition'],
-    queryFn: getRobotPosition,
-    refetchInterval: 1000,
+    // queryFn: getRobotPosition, : mocking api
+    queryFn: BackendRobotPosition,
+    // refetchInterval: 1000,
   });
 
   const [beforePositions, setBeforePositions] = useState([]);
@@ -28,8 +29,8 @@ function InstancedRobot() {
       gsap.to(AGVs.current?.children[index].position, {
         duration: 1,
         ease: 'none',
-        x: data[index].position[1] + x,
-        z: data[index].position[0] + y,
+        x: data[index].xcoordinate + x,
+        z: data[index].ycoordinate + y,
         onComplete: () => {
           // rotate AGVs
           AGVs.current.children[index].rotation.y = radian;

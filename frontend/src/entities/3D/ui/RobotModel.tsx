@@ -12,6 +12,7 @@ function RobotModel({ instances, ...props }: RobotModelProps) {
   return (
     <group {...props}>
       <group>
+        <pointLight color="#00afff" intensity={10} />
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
