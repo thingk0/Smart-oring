@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
  * DTO for {@link Mission}
  */
 public record MissionKafkaDto(Long id, LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt,
-                              LocalDateTime missionEstimatedTime, String fillPath) {
+                              LocalDateTime missionEstimatedTime, String fullPath) {
 }
