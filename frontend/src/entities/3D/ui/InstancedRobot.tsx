@@ -14,32 +14,37 @@ function InstancedRobot() {
     queryKey: ['robotPosition'],
     // queryFn: getRobotPosition, : mocking api
     queryFn: BackendRobotPosition,
-    // refetchInterval: 1000,
+    refetchInterval: 800,
   });
 
   const [beforePositions, setBeforePositions] = useState([]);
   const AGVs = useRef(null);
 
   useEffect(() => {
-    // calculate direction
-    beforePositions?.forEach((before: robotData, index: number) => {
-      const [y, x, radian] = getRotationIndex(before, data[index]);
+    if (data && data[0] !== null) {
+      // console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
 
-      // move AGVs position
-      gsap.to(AGVs.current?.children[index].position, {
-        duration: 1,
-        ease: 'none',
-        x: data[index].xcoordinate + x,
-        z: data[index].ycoordinate + y,
-        onComplete: () => {
-          // rotate AGVs
-          AGVs.current.children[index].rotation.y = radian;
-        },
+      // calculate direction
+      beforePositions?.forEach((before: robotData, index: number) => {
+        const [y, x, radian] = getRotationIndex(before, data[index]);
+
+        // move AGVs position
+        gsap.to(AGVs.current?.children[index].position, {
+          duration: 1,
+          ease: 'none',
+          x: data[index].ycoordinate + x,
+          z: data[index].xcoordinate + y,
+          onComplete: () => {
+            // rotate AGVs
+            AGVs.current.children[index].rotation.y = radian;
+            console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
+          },
+        });
       });
-    });
 
-    // update state
-    setBeforePositions(data);
+      // update state
+      setBeforePositions(data);
+    }
   }, [data]);
 
   const { nodes } = useGLTF('./models/AGV.glb');
