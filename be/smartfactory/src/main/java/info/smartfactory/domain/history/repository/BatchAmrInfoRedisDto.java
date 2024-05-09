@@ -22,8 +22,6 @@ public class BatchAmrInfoRedisDto {
 
     private Long amrId;
 
-    private List<String> subMissions;
-
     private List<Integer[]> amrRoute;
 
     private Integer battery;

@@ -2,16 +2,19 @@ package info.smartfactory.domain.history.service;
 
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
-import info.smartfactory.domain.history.dto.AmrHistoryLog;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
-import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
+import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
+import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import info.smartfactory.domain.history.dto.AmrHistoryLog;
+import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +43,6 @@ public class HistoryService {
 	}
 
 	public void saveHistory(AmrHistoryLog amrHistoryLog) {
-		// List<Submission> submissionList = missionRepository.getSubmissions(amrHistoryLog.missionId());
-
 		// 병목 기간 저장
 
 		Optional<CurrentAmrInfoRedisDto> previous = currentAmrRedisRepository.findById(amrHistoryLog.amrId().toString());
@@ -70,35 +71,17 @@ public class HistoryService {
 			}
 		}
 
-		// redis에 amr 현재 위치 저장
+		// redis에 amr 실시간 위치 저장
 
-		List<String> nodes = new ArrayList<String>();
+		CurrentAmrInfoRedisDto redisDto = CurrentAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
-		 currentAmrRedisRepository.save(CurrentAmrInfoRedisDto.builder()
-				 .amrId(amrHistoryLog.amrId())
-				 .subMissions(nodes)
-				 .amrRoute(amrHistoryLog.amrRoute())
-				 .battery(amrHistoryLog.battery())
-				 .xCoordinate(amrHistoryLog.xCoordinate())
-				 .yCoordinate(amrHistoryLog.yCoordinate())
-				 .amrStatus(amrHistoryLog.amrStatus())
-				 .stopPeriod(period)
-				 .amrHistoryCreatedAt(amrHistoryLog.amrHistoryCreatedAt())
-				 .build());
+		CurrentAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, redisDto, period);
 
 		// redis에 amr 이력 저장
 
-		batchAmrRedisRepository.save(BatchAmrInfoRedisDto.builder()
-				.amrId(amrHistoryLog.amrId())
-				.subMissions(nodes)
-				.amrRoute(amrHistoryLog.amrRoute())
-				.battery(amrHistoryLog.battery())
-				.xCoordinate(amrHistoryLog.xCoordinate())
-				.yCoordinate(amrHistoryLog.yCoordinate())
-				.amrStatus(amrHistoryLog.amrStatus())
-				.stopPeriod(period)
-				.amrHistoryCreatedAt(amrHistoryLog.amrHistoryCreatedAt())
-				.build());
+		BatchAmrInfoRedisDto amrHistoryDto = AmrHistoryMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
+
+		AmrHistoryMapper.INSTANCE.setStopPeriod(amrHistoryLog, amrHistoryDto, period);
 	}
 
 	// amr 현재 위치 가져오기
