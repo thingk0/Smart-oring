@@ -7,6 +7,7 @@ import { BackendRobotPosition, getRobotPosition } from '@shared/api';
 import { getRotationIndex } from '@shared/lib';
 import { TRobot, robotData } from '@shared/types';
 import RobotModel from './RobotModel';
+import { Group, Object3DEventMap } from 'three';
 
 // main component
 function InstancedRobot() {
@@ -18,7 +19,7 @@ function InstancedRobot() {
   });
 
   const [beforePositions, setBeforePositions] = useState([]);
-  const AGVs = useRef(null);
+  const AGVs = useRef<Group<Object3DEventMap>>(null!);
 
   useEffect(() => {
     if (data && data[0] !== null) {
@@ -67,7 +68,9 @@ function InstancedRobot() {
         data?.map((_: any, index: number) => {
           return (
             <Merged meshes={instances} key={index}>
-              {(instances: TRobot) => <RobotModel instances={instances} />}
+              {(instances: TRobot) => (
+                <RobotModel instances={instances} name={'robot' + index} />
+              )}
             </Merged>
           );
         })}
