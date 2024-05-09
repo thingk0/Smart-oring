@@ -2,8 +2,6 @@ package info.smartfactory.global.util.mission;
 
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
-import info.smartfactory.domain.mission.repository.MissionRepository;
-import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MissionGeneratorImpl implements MissionGenerator {
 
-    final MissionRepository missionRepository;
-    final SubmissionRepository submissionRepository;
 
     @Override
     public Mission generateRandomMission(int submissionNum, List<Destination> destinations, List<Storage> storages) {
@@ -42,7 +38,6 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         // 위에서 뽑힌 창고 인덱스 순서대로 submission을 만들어줌
         Mission mission = Mission.createMission();
-        missionRepository.save(mission);
 
         int order = 0;
         for (int index : set) {
@@ -52,7 +47,6 @@ public class MissionGeneratorImpl implements MissionGenerator {
                     ++order
             );
             mission.addSubmission(submission);
-            submissionRepository.save(submission);
         }
 
 
@@ -67,7 +61,6 @@ public class MissionGeneratorImpl implements MissionGenerator {
                 submissionNum + 1
         );
         mission.addSubmission(destSubmission);
-        submissionRepository.save(destSubmission);
 
         return mission;
     }
