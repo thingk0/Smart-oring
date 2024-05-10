@@ -1,18 +1,22 @@
 import { ThreeEvent, useFrame } from '@react-three/fiber';
-import { TRobot } from '../../../shared/types';
+import { TRobot } from '@shared/types';
 import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { Html } from '@react-three/drei';
+import classes from './RobotModel.module.css';
 // props
 type RobotModelProps = {
   instances: TRobot;
   name: string;
+  battery: number;
 };
 
 // main function
-function RobotModel({ instances, name, ...props }: RobotModelProps) {
+function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
   // console.log(instances);
-
+  console.log('battery', battery);
   const [isFPV, setIsFPV] = useState(false);
+  console.log(props);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
@@ -39,6 +43,11 @@ function RobotModel({ instances, name, ...props }: RobotModelProps) {
         onPointerOut={onPointerOut}
       >
         <pointLight color="#00afff" intensity={10} />
+        <Html position={[0, 5, 0]}>
+          <div className={`${classes.content} ${hovered && classes.hovered}`}>
+            배터리 {battery}%
+          </div>
+        </Html>
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />

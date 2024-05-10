@@ -1,0 +1,7 @@
+.content {
+  background: white;
+  visibility: hidden;
+}
+.hovered {
+  visibility: visible !important;
+}

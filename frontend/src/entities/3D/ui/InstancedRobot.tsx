@@ -70,11 +70,15 @@ function InstancedRobot() {
   return (
     <group ref={AGVs}>
       {!isPending &&
-        data?.map((_: any, index: number) => {
+        data?.map((status: any, index: number) => {
           return (
             <Merged meshes={instances} key={index}>
               {(instances: TRobot) => (
-                <RobotModel instances={instances} name={'robot' + index} />
+                <RobotModel
+                  instances={instances}
+                  name={'robot' + index}
+                  battery={status.battery}
+                />
               )}
             </Merged>
           );
