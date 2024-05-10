@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'info.smartfactory'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2023.0.1")
+}
+
+dependencies {
+    // SpringBoot
+    implementation 'org.springframework.boot:spring-boot-starter'
+    // Kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+    // Kafka Streams and Clients
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.apache.kafka:kafka-clients'
+    // Kafka Connect
+    implementation 'org.apache.kafka:connect-api'
+    implementation 'org.apache.kafka:connect-json'
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    // Lombok
+    implementation 'org.projectlombok:lombok'
+    // Jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    // Mariadb
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    // Jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.2'
+    // Spring-Cloud-Config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config:4.1.1'
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
