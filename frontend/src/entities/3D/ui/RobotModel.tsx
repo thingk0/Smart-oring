@@ -1,9 +1,8 @@
-import { ThreeEvent, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { TRobot } from '@shared/types';
 import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { Html } from '@react-three/drei';
-import classes from './RobotModel.module.css';
+import { AGVToolTip } from 'widget/agv/ui/index';
 // props
 type RobotModelProps = {
   instances: TRobot;
@@ -43,11 +42,7 @@ function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
         onPointerOut={onPointerOut}
       >
         <pointLight color="#00afff" intensity={10} />
-        <Html position={[0, 2, 0]}>
-          <div className={`${classes.content} ${hovered && classes.hovered}`}>
-            배터리 {battery}%
-          </div>
-        </Html>
+        <AGVToolTip battery={battery} hovered={hovered} />
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
