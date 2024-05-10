@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface CurrentAmrMapper {
+
     CurrentAmrMapper INSTANCE = Mappers.getMapper(CurrentAmrMapper.class);
 
     // AmrHistoryLog -> CurrentAmrInfoRedisDto 매핑
