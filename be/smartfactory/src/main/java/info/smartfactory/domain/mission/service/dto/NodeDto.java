@@ -12,13 +12,20 @@ import java.time.LocalDateTime;
  */
 @Value
 public class NodeDto implements Serializable {
+
+
+    Long id;
+
+    Integer xCoordinate;
+
+    Integer yCoordinate;
+
+    EntranceDirection entranceDirection;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime updatedAt;
-    Long id;
-    Integer xCoordinate;
-    Integer yCoordinate;
-    EntranceDirection entranceDirection;
+
 }
