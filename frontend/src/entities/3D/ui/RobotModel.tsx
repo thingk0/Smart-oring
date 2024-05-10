@@ -43,7 +43,7 @@ function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
         onPointerOut={onPointerOut}
       >
         <pointLight color="#00afff" intensity={10} />
-        <Html position={[0, 5, 0]}>
+        <Html position={[0, 2, 0]}>
           <div className={`${classes.content} ${hovered && classes.hovered}`}>
             배터리 {battery}%
           </div>
