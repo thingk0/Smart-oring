@@ -1,6 +1,6 @@
 import { ThreeEvent, useFrame } from '@react-three/fiber';
 import { TRobot } from '../../../shared/types';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
 // props
 type RobotModelProps = {
@@ -22,12 +22,21 @@ function RobotModel({ instances, name, ...props }: RobotModelProps) {
     target.y = 2;
     state.camera.position.copy(target);
   });
+  const [hovered, setHover] = useState(false);
+  useEffect(
+    () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
+    [hovered]
+  );
+  const onPointerOver = useCallback(() => setHover(true), []);
+  const onPointerOut = useCallback(() => setHover(false), []);
   return (
     <group {...props}>
       <group
         name={name}
         onClick={() => setIsFPV(true)}
         onPointerMissed={() => setIsFPV(false)}
+        onPointerOver={onPointerOver}
+        onPointerOut={onPointerOut}
       >
         <pointLight color="#00afff" intensity={10} />
         <instances.geo_aluminium_3 />
