@@ -1,5 +1,16 @@
 version: '3.8'
 
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mariadb-data:
+  kafka-logs:
+  kafka_data0:
+  kafka_data1:
+  kafka_data2:
+
 services:
   mariadb:
     container_name: mariadb
@@ -44,91 +55,107 @@ services:
       - redis
 
   broker-1:
-    image: confluentinc/cp-kafka:7.6.0
+    container_name: broker-1
+    image: 'bitnami/kafka:3.6.1'
     ports:
-      - "9092:9092"
+      - '10000:9094'
     environment:
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_NODE_ID: 1
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-1:9092,EXTERNAL://127.0.0.1:10000
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data0:/bitnami/kafka"
     networks:
       - backend
 
   broker-2:
-    image: confluentinc/cp-kafka:7.6.0
+    container_name: broker-2
+    image: 'bitnami/kafka:3.6.1'
     ports:
-      - "9093:9092"
+      - '10001:9094'
     environment:
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_NODE_ID: 2
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:29094,PLAINTEXT_HOST://localhost:9093'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-2:29094,CONTROLLER://broker-2:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-2:9092,EXTERNAL://127.0.0.1:10001
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data1:/bitnami/kafka"
     networks:
       - backend
 
   broker-3:
-    image: confluentinc/cp-kafka:7.6.0
+    container_name: broker-3
+    image: 'bitnami/kafka:3.6.1'
     ports:
-      - "9094:9092"
+      - '10002:9094'
     environment:
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_NODE_ID: 3
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:29096,PLAINTEXT_HOST://localhost:9094'
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-3:29096,CONTROLLER://broker-3:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=2
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-3:9092,EXTERNAL://127.0.0.1:10002
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data2:/bitnami/kafka"
     networks:
       - backend
 
   kafka-ui:
-    image: provectuslabs/kafka-ui
     container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
     ports:
       - "8989:8080"
     restart: always
     environment:
-      - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker-1:29092
-    depends_on:
-      - broker-1
-      - broker-2
-      - broker-3
+      - KAFKA_CLUSTERS_0_NAME=smart-factory-cluster-0
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker-1:9092,broker-2:9092,broker-3:9092
     networks:
       - backend
 
-  kafka-init-topics:
+  kafka-init:
+    container_name: kafka-init
     image: confluentinc/cp-kafka:7.6.0
     depends_on:
       - broker-1
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
-                 cub kafka-ready -b broker-1:29092 1 30 && \
-                 kafka-topics --create --topic robot-stat --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:29092
+                 cub kafka-ready -b broker-1:9092 1 30 && \
+                 kafka-topics --create --topic amr-history-log --partitions 10 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 \
+                 kafka-topics --create --topic mission --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 && \
                  '"
     networks:
       - backend
-
-networks:
-  backend:
-    driver: bridge
-
-volumes:
-  mariadb-data:
-  kafka-logs:
-
