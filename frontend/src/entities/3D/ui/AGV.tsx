@@ -36,7 +36,7 @@ export function Instances({
   children,
   ...props
 }: JSX.IntrinsicElements['group']) {
-  const { nodes } = useGLTF('/AGV-transformed.glb') as GLTFResult;
+  const { nodes } = useGLTF('/models/AGV-transformed.glb') as GLTFResult;
   const instances = useMemo(
     () => ({
       Geoblackmatte: nodes.geo_black_matte_1,
@@ -60,6 +60,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   const instances = useContext(context);
   return (
     <group {...props} dispose={null}>
+      <pointLight color="#00afff" intensity={10} />
       <instances.Geoblackmatte />
       <instances.Geoaluminium />
       <instances.Georubber />
@@ -69,4 +70,4 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/AGV-transformed.glb');
+useGLTF.preload('/models/AGV-transformed.glb');

@@ -11,6 +11,7 @@ import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
 import Conveyors from './Conveyors';
+import AGVInstance from './AGVInstance';
 interface MapProps {
   resource: {
     read(): MapData;
@@ -28,7 +29,8 @@ function Map({ resource }: MapProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <InstancedRobot />
+        {/* <InstancedRobot /> */}
+        <AGVInstance />
       </QueryClientProvider>
       <Path />
       <Wall />
