@@ -17,22 +17,24 @@ import java.util.List;
 @RedisHash("currentAmrInfo")
 public class CurrentAmrInfoRedisDto {
 
-	@Id
-	private Long amrId;
+    @Id
+    private Long amrId;
 
-	private List<Integer[]> amrRoute;
+    private List<String> subMissions;
 
-	private Integer battery;
+    private List<Integer[]> amrRoute;
 
-	private AmrStatus amrStatus;
+    private Integer battery;
 
-	private Integer xCoordinate;
+    private AmrStatus amrStatus;
 
-	private Integer yCoordinate;
+    private Integer xCoordinate;
 
-	private long stopPeriod;
+    private Integer yCoordinate;
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime amrHistoryCreatedAt;
+    private long stopPeriod;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime amrHistoryCreatedAt;
 
 }
