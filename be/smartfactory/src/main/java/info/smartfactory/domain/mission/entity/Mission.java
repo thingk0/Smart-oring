@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "mission")
+@Table(name = "mission_history")
 public class Mission extends BaseTimeEntity {
 
     @Id

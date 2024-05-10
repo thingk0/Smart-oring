@@ -3,22 +3,16 @@ package info.smartfactory.domain.bottleneck.entity;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.mission.entity.Mission;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "bottleneck")
+@Table(name = "bottleneck_history")
 public class Bottleneck extends BaseTimeEntity {
 
     @Id
