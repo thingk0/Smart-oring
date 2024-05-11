@@ -29,10 +29,13 @@ public class Mission extends BaseTimeEntity {
     private LocalDateTime missionFinishedAt;
 
     @Column(name = "mission_estimated time", updatable = false)
-    private LocalDateTime missionEstimatedTime;
+    private Integer missionEstimatedTime;
 
     @Column(name = "full_path")
-    private String fullPath;
+    private String fullPath; // JSON 형식의 데이터를 저장할 문자열 필드
+
+    @Column(name = "mission_type")
+    private MissionType missionType;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
     @JsonManagedReference
@@ -47,10 +50,15 @@ public class Mission extends BaseTimeEntity {
         submission.assignMission(this);
     }
 
-    public void modifyMission(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt, LocalDateTime missionEstimatedTime, String fullPath) {
+
+    public void completeMission(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt, Integer missionEstimatedTime, String fullPath) {
         this.missionStartedAt = missionStartedAt;
         this.missionFinishedAt = missionFinishedAt;
         this.missionEstimatedTime = missionEstimatedTime;
         this.fullPath = fullPath;
+    }
+
+    public void modifyMissionType(MissionType missionType) {
+        this.missionType = missionType;
     }
 }
