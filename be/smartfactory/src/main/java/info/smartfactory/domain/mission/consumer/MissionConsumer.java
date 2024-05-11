@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MissionConsumer {
+
     private final ObjectMapper mapper;
     private final MissionService missionService;
 

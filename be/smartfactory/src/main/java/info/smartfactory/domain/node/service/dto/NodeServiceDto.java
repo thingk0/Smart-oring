@@ -6,10 +6,11 @@ import lombok.Data;
 
 @Data
 public abstract class NodeServiceDto {
-	Integer xCoordinate;
-	Integer yCoordinate;
-	EntranceDirection entranceDirection;
-	String nodeType;
 
-	public abstract Node toEntity();
+    Integer xCoordinate;
+    Integer yCoordinate;
+    EntranceDirection entranceDirection;
+    String nodeType;
+
+    public abstract Node toEntity();
 }

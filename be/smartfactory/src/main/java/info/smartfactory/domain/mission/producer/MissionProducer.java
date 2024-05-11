@@ -1,4 +1,4 @@
-package info.smartfactory.domain.mission.kafka;
+package info.smartfactory.domain.mission.producer;
 
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import lombok.RequiredArgsConstructor;
@@ -6,10 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
 @RequiredArgsConstructor
-public class KafkaProducer {
+public class MissionProducer {
+
     private final KafkaTemplate<String, MissionKafkaDTO> kafkaTemplate;
 
     public void create(MissionKafkaDTO mission) {

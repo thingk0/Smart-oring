@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MissionController {
 
-    final private MissionService missionService;
+    private final MissionService missionService;
 
     @GetMapping("/{missionId}")
     public ResultResponse<MissionDto> getMissionInfo(@PathVariable(name = "missionId") Long missionId) {
-
         MissionDto missionInfo = missionService.getMissionInfo(missionId);
         return ResultResponse.res(HttpStatus.OK, "success", missionInfo);
     }

@@ -16,12 +16,18 @@ import lombok.Value;
 @Value
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SubmissionDto implements Serializable {
+
+
+    Long id;
+
+    NodeDto arriveNode;
+
+    Integer submissionOrder;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime updatedAt;
-    Long id;
-    NodeDto arriveNode;
-    Integer submissionOrder;
+
 }

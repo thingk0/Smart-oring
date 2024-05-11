@@ -4,18 +4,14 @@ import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class MissionGeneratorImpl implements MissionGenerator {
-
 
     @Override
     public Mission generateRandomMission(int submissionNum, List<Destination> destinations, List<Storage> storages) {
@@ -26,7 +22,9 @@ public class MissionGeneratorImpl implements MissionGenerator {
                 Random random = new Random();
                 random.setSeed(System.currentTimeMillis());
                 int randomIdx = random.nextInt(storages.size()); // 창고 랜덤 인덱스 생성
-                if (set.add(randomIdx)) break; // 저장되어 있지 않은 창고라면 추가
+                if (set.add(randomIdx)) {
+                    break; // 저장되어 있지 않은 창고라면 추가
+                }
             }
         }
 
@@ -43,12 +41,11 @@ public class MissionGeneratorImpl implements MissionGenerator {
         for (int index : set) {
             // submission 개수만큼 랜덤으로 갈 곳 생성했으니 객체 생성해줌
             Submission submission = Submission.createSubmission(
-                    storages.get(index),
-                    ++order
+                storages.get(index),
+                ++order
             );
             mission.addSubmission(submission);
         }
-
 
         // 마지막으로 도착지를 랜덤으로 생성
         Random random = new Random();
@@ -57,8 +54,8 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
         // 도착지 노드 생성
         Submission destSubmission = Submission.createSubmission(
-                destinations.get(randomIdx),
-                submissionNum + 1
+            destinations.get(randomIdx),
+            submissionNum + 1
         );
         mission.addSubmission(destSubmission);
 

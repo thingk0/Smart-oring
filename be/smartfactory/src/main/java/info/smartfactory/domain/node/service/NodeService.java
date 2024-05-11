@@ -200,8 +200,8 @@ public class NodeService {
             ny++;
         }
 
-        for(int i=x; i<nx; i++) {
-            for(int j=y; j<ny; j++) {
+        for (int i = x; i < nx; i++) {
+            for (int j = y; j < ny; j++) {
                 visited[i][j] = true;
             }
         }

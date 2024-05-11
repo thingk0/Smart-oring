@@ -10,13 +10,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AddBottleneckRequest {
+
     @NotNull(message = "x좌표는 필수 항목입니다.")
-    int x_coordinate;
+    private int x_coordinate;
 
     @NotNull(message = "y좌표는 필수 항목입니다.")
-    int y_coordinate;
+    private int y_coordinate;
 
-    Long mission_id;
+    private Long mission_id;
 
-    LocalDateTime bottleneck_time;
+    private LocalDateTime bottleneck_time;
+
 }

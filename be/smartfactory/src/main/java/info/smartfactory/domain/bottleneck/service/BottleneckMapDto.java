@@ -6,9 +6,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BottleneckMapDto {
+
     private long bottleneckNum;
     private List<BottleneckDto> bottleneckList;
+
 }

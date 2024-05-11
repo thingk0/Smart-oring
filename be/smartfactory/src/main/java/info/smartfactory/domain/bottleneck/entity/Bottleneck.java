@@ -2,10 +2,20 @@ package info.smartfactory.domain.bottleneck.entity;
 
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.mission.entity.Mission;
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
@@ -27,7 +37,7 @@ public class Bottleneck extends BaseTimeEntity {
     private Integer yCoordinate;
 
     @ManyToOne
-    @JoinColumn(name="mission_id")
+    @JoinColumn(name = "mission_id")
     private Mission mission;
 
     @Column(name = "bottleneck_period", nullable = false)
@@ -37,18 +47,16 @@ public class Bottleneck extends BaseTimeEntity {
     private LocalDateTime bottleneckCreatedAt;
 
     public static Bottleneck createBottleneck(
-            Integer xCoordinate,
-            Integer yCoordinate,
-            Long bottleneckPeriod,
-            LocalDateTime bottleneckCreatedAt
-    ){
-        Bottleneck bottleneck = new Bottleneck();
-
-        bottleneck.xCoordinate = xCoordinate;
-        bottleneck.yCoordinate = yCoordinate;
-        bottleneck.bottleneckPeriod = bottleneckPeriod;
-        bottleneck.bottleneckCreatedAt = bottleneckCreatedAt;
-
-        return bottleneck;
+        Integer xCoordinate,
+        Integer yCoordinate,
+        Long bottleneckPeriod,
+        LocalDateTime bottleneckCreatedAt
+    ) {
+        return Bottleneck.builder()
+                         .xCoordinate(xCoordinate)
+                         .yCoordinate(yCoordinate)
+                         .bottleneckPeriod(bottleneckPeriod)
+                         .bottleneckCreatedAt(bottleneckCreatedAt)
+                         .build();
     }
 }

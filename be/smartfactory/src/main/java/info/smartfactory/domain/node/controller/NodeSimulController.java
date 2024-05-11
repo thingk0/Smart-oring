@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/map/simul")
 public class NodeSimulController {
 
-	private final NodeService nodeService;
+    private final NodeService nodeService;
 
-	@GetMapping
-	public ResultResponse<List<NodeServiceDto>> getMap() {
-		List<NodeServiceDto> map = nodeService.getMap();
-		return ResultResponse.res(HttpStatus.OK, "success", map);
-	}
+    @GetMapping
+    public ResultResponse<List<NodeServiceDto>> getMap() {
+        List<NodeServiceDto> map = nodeService.getMap();
+        return ResultResponse.res(HttpStatus.OK, "success", map);
+    }
 
 }
