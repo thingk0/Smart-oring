@@ -2,6 +2,7 @@ package info.smartfactory.domain.mission.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import info.smartfactory.domain.common.BaseTimeEntity;
+import info.smartfactory.domain.mission.entity.constant.MissionType;
 import jakarta.persistence.*;
 import lombok.*;
 
