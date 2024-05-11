@@ -105,4 +105,8 @@ def get_current_mission(robot):
     return current_mission
 
 
-start()
+try:
+    start()
+finally:
+    producer.flush()
+    consumer.close()
