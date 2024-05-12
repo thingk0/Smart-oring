@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
+import info.smartfactory.domain.history.repository.AmrHistoryRepository;
+import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
+import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
@@ -18,7 +22,21 @@ import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepositor
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
+import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.repository.MissionRepository;
+import info.smartfactory.domain.mission.service.MissionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+
 @Service
+//@RequiredArgsConstructor
 public class HistoryService {
 
     private final RedisTemplate<String, Object> liveRedisTemplate;
@@ -26,17 +44,27 @@ public class HistoryService {
     private final CurrentAmrRedisRepository currentAmrRedisRepository;
     private final BatchAmrRedisRepository batchAmrRedisRepository;
     private final BottleneckService bottleneckService;
+    private final MissionRepository missionRepository;
+    private final AmrHistoryRepository amrHistoryRepository;
+    //    private final HistoryService historyService;
+//    private final MissionService missionService;
 
     public HistoryService(@Qualifier("liveRedisTemplate") RedisTemplate<String, Object> redisTemplate,
                           @Qualifier("batchRedisTemplate") RedisTemplate<String, Object> batchRedisTemplate,
                           CurrentAmrRedisRepository currentAmrRedisRepository,
                           BatchAmrRedisRepository batchAmrRedisRepository,
-                          BottleneckService bottleneckService) {
+                          BottleneckService bottleneckService, /*,
+                          HistoryService historyService*/
+                          MissionRepository missionRepository,
+                          AmrHistoryRepository amrHistoryRepository) {
         this.liveRedisTemplate = redisTemplate;
         this.batchRedisTemplate = batchRedisTemplate;
         this.currentAmrRedisRepository = currentAmrRedisRepository;
         this.batchAmrRedisRepository = batchAmrRedisRepository;
         this.bottleneckService = bottleneckService;
+//        this.historyService = historyService;
+        this.missionRepository = missionRepository;
+        this.amrHistoryRepository = amrHistoryRepository;
     }
 
     public void saveHistory(AmrHistoryLog amrHistoryLog) {
@@ -101,4 +129,19 @@ public class HistoryService {
         all.forEach(System.out::println);
         return all;
     }
+
+	public List<AmrHistoryDto> getReplay(Long missionId) {
+
+//        historyService.
+
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
+
+        LocalDateTime missionStartedAt = mission.getMissionStartedAt();
+        LocalDateTime missionFinishedAt = mission.getMissionFinishedAt();
+
+//        amrHistoryRepository.findAllHistoriesBetweenStartedAndFinished;
+
+        return null;
+	}
 }
