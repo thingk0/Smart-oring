@@ -1,13 +1,16 @@
 package info.smartfactory.domain.mission.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import info.smartfactory.domain.node.repository.ConveyorBeltRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
@@ -15,10 +18,12 @@ import info.smartfactory.domain.mission.producer.MissionProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.mission.service.dto.MissionDto;
+import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
 import info.smartfactory.domain.mission.service.dto.MissionKafkaDto;
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
+import info.smartfactory.domain.node.repository.ConveyorBeltRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.global.util.mission.MissionGenerator;
@@ -38,6 +43,7 @@ public class MissionService {
     private final MissionMapper missionMapper;
     private final ConveyorBeltRepository conveyorBeltRepository;
     private final MissionProducer kafkaProducer;
+    private final AmrHistoryRepository amrHistoryRepository;
 
     @Scheduled(cron = "0/10 * * * * ?")
     public Mission generateMission() {
@@ -99,5 +105,12 @@ public class MissionService {
                 mission.getMissionEstimatedTime(),
                 mission.getFullPath()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MissionHistoryDto> getMissionHistories(
+        Pageable pageable, String amrType, LocalDateTime startTime, LocalDateTime endTime, Integer bottleneckSeconds
+    ) {
+        return amrHistoryRepository.fetchMissionHistories(pageable, amrType, startTime, endTime, bottleneckSeconds);
     }
 }
