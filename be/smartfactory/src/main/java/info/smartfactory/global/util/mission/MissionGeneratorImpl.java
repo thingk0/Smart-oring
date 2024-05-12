@@ -100,13 +100,13 @@ public class MissionGeneratorImpl implements MissionGenerator {
             // n개의 자재창고 경유지 설정 + 도착지까지 결정됨
             generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
         }
-        else if(randomIdx == MissionType.STORAGE_TO_CONVEYER.ordinal()){ // 자재창고 -> 컨베이어벨트
+        else if(randomIdx == MissionType.STORAGE_TO_CONVEYOR.ordinal()){ // 자재창고 -> 컨베이어벨트
             // 출발지 : 자재창고
             // 도착지 : 컨베이어 벨트
             // 중간에 들르는 곳 : n개의 자재창고
 
             // MissionType 설정
-            mission.modifyMissionType(MissionType.STORAGE_TO_CONVEYER);
+            mission.modifyMissionType(MissionType.STORAGE_TO_CONVEYOR);
 
             // 출발지
             random.setSeed(System.currentTimeMillis());
@@ -119,7 +119,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
             mission.addSubmission(startSubmission);
 
             // n개의 자재창고 경유지
-            generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
+            order = generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
 
             // 도착지
             random.setSeed(System.currentTimeMillis());
@@ -132,13 +132,13 @@ public class MissionGeneratorImpl implements MissionGenerator {
             mission.addSubmission(endSubmission);
 
         }
-        else if(randomIdx == MissionType.CONVEYER_TO_DESTINATION.ordinal()){ // 컨베이어벨트 -> 완성품보관 창고
+        else if(randomIdx == MissionType.CONVEYOR_TO_DESTINATION.ordinal()){ // 컨베이어벨트 -> 완성품보관 창고
             // 출발지 : 컨베이어벨트
             // 도착지 : 완성품보관 창고
             // 중간에 들르는 곳 : 없음
 
             // MissionType 설정
-            mission.modifyMissionType(MissionType.CONVEYER_TO_DESTINATION);
+            mission.modifyMissionType(MissionType.CONVEYOR_TO_DESTINATION);
 
             // 출발지
             random.setSeed(System.currentTimeMillis());
@@ -164,7 +164,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
         return mission;
     }
 
-    private void generateRandomStopover(Mission mission, int order, int startIdx, List<Storage> storages, int stopoverNum) {
+    private int generateRandomStopover(Mission mission, int order, int startIdx, List<Storage> storages, int stopoverNum) {
         HashSet<Integer> set = new HashSet<>();
         set.add(startIdx);
 
@@ -186,5 +186,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
                 }
             }
         }
+
+        return order;
     }
 }
