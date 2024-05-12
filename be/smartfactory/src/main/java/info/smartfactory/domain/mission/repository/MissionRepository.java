@@ -1,5 +1,6 @@
 package info.smartfactory.domain.mission.repository;
 
+import info.smartfactory.domain.dashboard.service.MissionStatusDto;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MissionRepository extends JpaRepository<Mission, Long> {
@@ -28,9 +30,16 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
     Mission findByMissionIdWithNodes(@Param("missionId") Long missionId);
 
     @Query("""
-        SELECT m
+        SELECT new info.smartfactory.domain.dashboard.service.MissionStatusDto(m, 
+            CASE 
+                WHEN (SELECT COUNT(ah) FROM AmrHistory ah WHERE ah.mission = m AND ah.amrStatus = info.smartfactory.domain.history.entity.constant.AmrStatus.ERROR) > 0 THEN true
+                ELSE false
+            END
+        )
         FROM Mission m
-        WHERE m.missionStartedAt BETWEEN :yesterday AND :today
+        WHERE m.missionStartedAt >= :yesterdayStart AND m.missionStartedAt <= :now
+        AND m.missionFinishedAt IS NOT NULL
         """)
-    List<Mission> getCompleteMissions(@Param("yesterday") LocalDate yesterday, @Param("today") LocalDate today);
+    List<MissionStatusDto> getCompleteMissions(@Param("yesterdayStart") LocalDateTime yesterdayStart, @Param("now") LocalDateTime now);
+
 }
