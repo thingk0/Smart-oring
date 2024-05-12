@@ -33,3 +33,20 @@ export const getMap = () =>
 
 export const getReplayData = () =>
   axios.get(mockUrl + '/replay').then(res => res.data.resultData);
+
+export function LoadData(url: string): {
+  read(): Object;
+} {
+  let data: Object | null = null;
+
+  const suspender = axios.get(url).then(res => {
+    data = res.data.resultData;
+  });
+
+  return {
+    read() {
+      if (data === null) throw suspender;
+      return data;
+    },
+  };
+}
