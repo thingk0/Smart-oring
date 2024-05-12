@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AmrPercentDto {
     private Long amrId;
-    private int percentage;
+    private Long percentage;
 }

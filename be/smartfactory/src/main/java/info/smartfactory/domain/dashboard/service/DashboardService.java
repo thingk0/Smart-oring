@@ -76,10 +76,26 @@ public class DashboardService {
         // 가동룰 - 전체 Amr 중에 실시간 PROCESSING, BOTTLENECK인 것의 비율
         int processingNum = 0;
 
+
         // amr별 사용률
+        int todayMissionCnt = todayMissions.size();
+        List<AmrPercentDto> amrUsagePercent = new ArrayList<AmrPercentDto>();
 
+        // amrId별로 미션을 그룹화하고 각 amrId의 출현 횟수를 계산
+        Map<Long, Long> amrIdCount = todayMissions.stream()
+                .collect(Collectors.groupingBy(mission -> mission.getAmr().getId(), Collectors.counting()));
 
+        // 출현 횟수가 가장 낮은 상위 3개의 amrId와 그 횟수를 선택
+        List<Map.Entry<Long, Long>> leastFrequentAmrIds = amrIdCount.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(3)
+                .collect(Collectors.toList());
 
+        leastFrequentAmrIds.forEach(entry ->
+                amrUsagePercent.add(AmrPercentDto.builder()
+                       .amrId(entry.getKey())
+                       .percentage(entry.getValue() * 100 / todayMissionCnt)
+                       .build()));
 
         // amr별 에러율
 

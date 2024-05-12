@@ -24,10 +24,10 @@ public class DashboardDto {
     private int totalUsagePercent;
 
     // amr별 사용률
-    private Double [] amrUsagePercent;
+    private List<AmrPercentDto> amrUsagePercent;
 
     // amr별 에러율
-    private Double [] amrErrorPercent;
+    private List<AmrPercentDto> amrErrorPercent;
 
     // 실시간 에러
     private List<ErrorDto> realtimeError;
