@@ -33,7 +33,7 @@ public class MissionDto implements Serializable {
     LocalDateTime missionFinishedAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-    LocalDateTime missionEstimatedTime;
+    Integer missionEstimatedTime;
 
     String fullPath;
 

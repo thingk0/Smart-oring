@@ -3,7 +3,7 @@ package info.smartfactory.domain.mission.service;
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
-import info.smartfactory.domain.mission.kafka.KafkaProducer;
+import info.smartfactory.domain.mission.producer.MissionProducer;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.mission.service.dto.MissionDto;
@@ -38,9 +38,7 @@ public class MissionService {
     private final SubmissionRepository submissionRepository;
     private final MissionMapper missionMapper;
     private final ConveyerBeltRepository conveyerBeltRepository;
-
-    @Autowired
-    private KafkaProducer kafkaProducer;
+    private final MissionProducer kafkaProducer;
 
     @Scheduled(cron = "0/10 * * * * ?")
     public Mission generateMission() {
