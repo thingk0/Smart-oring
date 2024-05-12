@@ -1,5 +1,6 @@
 package info.smartfactory.domain.bottleneck.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.mission.entity.Mission;
 import jakarta.persistence.Column;
@@ -43,6 +44,7 @@ public class Bottleneck extends BaseTimeEntity {
     @Column(name = "bottleneck_period", nullable = false)
     private Long bottleneckPeriod;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "bottleneck_created_at", nullable = false)
     private LocalDateTime bottleneckCreatedAt;
 
