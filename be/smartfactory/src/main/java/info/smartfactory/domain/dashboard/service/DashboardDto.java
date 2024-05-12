@@ -12,13 +12,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DashboardDto {
     // 오늘 실시간 미션 처리량 - 시간 간격?
-    private long [] todayMissionCount;
+    private long [] todayOutputGraph;
 
     // 어제 시간 별 미션 처리량
-    private long [] yesterdayMissionCount;
+    private long [] yesterdayOutputGraph;
 
-    // 오늘 처리량
-    private long todayTotalMissionCount;
+    // 오늘 생산량
+    private long todayTotalOutput;
 
     // 가동률
     private int totalUsagePercent;

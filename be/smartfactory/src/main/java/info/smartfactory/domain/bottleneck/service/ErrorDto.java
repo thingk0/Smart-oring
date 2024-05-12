@@ -15,7 +15,5 @@ public class ErrorDto {
     private Integer yCoordinate;
     private Long missionId;
     private Long amrId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime errorCreatedAt;
 
 }
