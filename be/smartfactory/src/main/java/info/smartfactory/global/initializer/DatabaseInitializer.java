@@ -395,7 +395,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createNode(42, 70, WEST, DestinationServiceDto.class));
 		dtos.add(createNode(43, 70, WEST, DestinationServiceDto.class));
 
-		dtos.add(createNode(50, 70, WEST, ConveyorBeltServiceDto.class));
+		dtos.add(createNode(49, 70, WEST, ConveyorBeltServiceDto.class));
 
 		nodeService.addNodes(dtos);
 	}
