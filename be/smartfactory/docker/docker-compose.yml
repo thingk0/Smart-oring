@@ -141,6 +141,10 @@ services:
     ports:
       - "8989:8080"
     restart: always
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
     environment:
       - KAFKA_CLUSTERS_0_NAME=smart-factory-cluster-0
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker-1:9092,broker-2:9092,broker-3:9092
@@ -152,10 +156,15 @@ services:
     image: confluentinc/cp-kafka:7.6.0
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
-                 cub kafka-ready -b broker-1:9092 1 30 && \
-                 kafka-topics --create --topic amr-history-log --partitions 10 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 \
-                 kafka-topics --create --topic mission --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 && \
-                 '"
+                         cub kafka-ready -b broker-1:9092 1 60 && \
+                         kafka-topics --create --topic amr-history-log --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 && \
+                         kafka-topics --create --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-repartition --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-2:9092 && \
+                         kafka-topics --create --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-changelog --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-2:9092 && \
+                         kafka-topics --create --topic mission --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-3:9092 && \
+                         kafka-topics --create --topic mission-complete --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092'"
+
     networks:
       - backend
