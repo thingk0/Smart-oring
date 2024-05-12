@@ -1,6 +1,6 @@
 import { create } from 'zustand'; // 변경된 부분
 
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 type graphicsQualityType = 'low' | 'medium' | 'high' | 'custom';
 type shadowDetailType = 'off' | 'low' | 'high';
@@ -24,7 +24,6 @@ const useGraphicsQualityStore = create<UseGraphicsQualityStore>()(
       fov: 75,
       actions: {
         setGraphicsQuality: (value: graphicsQualityType) => {
-          usePerformanceSettingStore.setState(() => ({ isShadowOn: false }));
           set({ graphicsQuality: value });
         },
         setShadowDetail: (value: shadowDetailType) =>
@@ -34,6 +33,11 @@ const useGraphicsQualityStore = create<UseGraphicsQualityStore>()(
     }),
     {
       name: 'graphics-quality',
+      storage: createJSONStorage(() => localStorage),
+      partialize: state =>
+        Object.fromEntries(
+          Object.entries(state).filter(([key]) => !['actions'].includes(key))
+        ),
     }
   )
 );
