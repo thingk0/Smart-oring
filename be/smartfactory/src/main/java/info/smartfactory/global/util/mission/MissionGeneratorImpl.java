@@ -1,17 +1,18 @@
 package info.smartfactory.global.util.mission;
 
-import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.mission.entity.Submission;
-import info.smartfactory.domain.mission.entity.constant.MissionType;
-import info.smartfactory.domain.node.entity.type.ConveyerBelt;
-import info.smartfactory.domain.node.entity.type.Destination;
-import info.smartfactory.domain.node.entity.type.Storage;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+
+import org.springframework.stereotype.Component;
+
+import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.entity.Submission;
+import info.smartfactory.domain.mission.entity.constant.MissionType;
+import info.smartfactory.domain.node.entity.type.ConveyorBelt;
+import info.smartfactory.domain.node.entity.type.Destination;
+import info.smartfactory.domain.node.entity.type.Storage;
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
@@ -68,7 +69,8 @@ public class MissionGeneratorImpl implements MissionGenerator {
 //    }
 
     @Override
-    public Mission generateRandomMission(int stopoverNum, List<Storage> storages, List<ConveyerBelt> conveyerBelts, List<Destination> destinations) {
+    public Mission generateRandomMission(int stopoverNum, List<Storage> storages, List<ConveyorBelt> conveyorBelts,
+        List<Destination> destinations) {
         // MissionType 중 하나를 랜덤으로 뽑음
         Random random = new Random();
         random.setSeed(System.currentTimeMillis());
@@ -121,10 +123,10 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
             // 도착지
             random.setSeed(System.currentTimeMillis());
-            int endIdx = random.nextInt(conveyerBelts.size());
+            int endIdx = random.nextInt(conveyorBelts.size());
 
             Submission endSubmission = Submission.createSubmission(
-                    conveyerBelts.get(endIdx),
+                conveyorBelts.get(endIdx),
                     ++order
             );
             mission.addSubmission(endSubmission);
@@ -140,10 +142,10 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
             // 출발지
             random.setSeed(System.currentTimeMillis());
-            int startIdx = random.nextInt(conveyerBelts.size());
+            int startIdx = random.nextInt(conveyorBelts.size());
 
             Submission startSubmission = Submission.createSubmission(
-                    conveyerBelts.get(startIdx),
+                conveyorBelts.get(startIdx),
                     ++order
             );
             mission.addSubmission(startSubmission);

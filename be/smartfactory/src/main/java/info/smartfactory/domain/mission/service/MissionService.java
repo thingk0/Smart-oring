@@ -1,5 +1,12 @@
 package info.smartfactory.domain.mission.service;
 
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import info.smartfactory.domain.mission.dto.MissionKafkaDTO;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
@@ -8,23 +15,15 @@ import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.mission.service.dto.MissionDto;
 import info.smartfactory.domain.mission.service.dto.MissionKafkaDto;
-import info.smartfactory.domain.node.entity.type.ConveyerBelt;
+import info.smartfactory.domain.node.entity.type.ConveyorBelt;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
 import info.smartfactory.domain.node.repository.ConveyerBeltRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.global.util.mission.MissionGenerator;
-import info.smartfactory.global.util.mission.MissionGeneratorImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Random;
 
 @Slf4j
 @Service
@@ -43,7 +42,7 @@ public class MissionService {
     @Scheduled(cron = "0/10 * * * * ?")
     public Mission generateMission() {
         List<Storage> storageList = storageRepository.findAll();
-        List<ConveyerBelt> conveyerbeltList = conveyerBeltRepository.findAll();
+        List<ConveyorBelt> conveyerbeltList = conveyerBeltRepository.findAll();
         List<Destination> destinationList = destinationRepository.findAll();
 
         int maxStopoverNum = 2;
