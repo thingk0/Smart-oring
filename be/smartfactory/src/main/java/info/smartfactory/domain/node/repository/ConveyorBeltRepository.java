@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
 
-public interface ConveyerBeltRepository extends JpaRepository<ConveyorBelt, Long> {
+public interface ConveyorBeltRepository extends JpaRepository<ConveyorBelt, Long> {
 }
