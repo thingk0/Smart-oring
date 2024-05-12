@@ -28,6 +28,11 @@ class Destination(Node):
         super().__init__(xcoordinate, ycoordinate, entranceDirection)
 
 
+class ConveyorBelt(Node):
+    def __init__(self, xcoordinate, ycoordinate, entranceDirection):
+        super().__init__(xcoordinate, ycoordinate, entranceDirection)
+
+
 class EntranceDirection(Enum):
     WEST = "WEST"
     EAST = "EAST"

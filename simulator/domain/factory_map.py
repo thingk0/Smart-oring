@@ -2,7 +2,7 @@ from typing import List
 
 import numpy as np
 
-from domain.node import Node
+from domain.node import Node, Charger
 
 
 class FactoryMap:
@@ -16,3 +16,10 @@ class FactoryMap:
         for structure in self.structures:
             array[structure.x_coordinate][structure.y_coordinate] = 1
         return np.array(array)
+
+    def get_chargers(self) -> List[Charger]:
+        chargers = []
+        for structure in self.structures:
+            if isinstance(structure, Charger):
+                chargers.append(structure)
+        return chargers

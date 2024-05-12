@@ -55,17 +55,23 @@ class RobotManager:
             locked_nodes.add(robot.current_node)
 
         for robot in self.working_robots:
-            next_node = robot.get_next_node()
-            if next_node in locked_nodes:  # 다음 노드가 락 걸린 노드라면 기다린다
-                continue
-            if not next_node:  # 현재 다음 노드가 없다면
-                robot.finish_mission()
-            if robot.current_mission:  # 현재 부여받은 미션이 있다면
-                robot.go_next_node()
-                continue
+            robot.process(locked_nodes, self.factory_map)
 
-            self.working_robots.remove(robot)
-            self.idle_robots.append(robot)
+        # for robot in self.working_robots:
+        #     if robot.last_event == RobotEvent.
+        #         pass
+        #
+        #     next_node = robot.get_next_node()
+        #     if next_node:
+        #         if next_node in locked_nodes:
+        #             continue
+        #         robot.go_next_node()
+        #     else:
+        #         if robot.current_mission:
+        #             robot.finish_mission()
+        #             continue
+        #         self.working_robots.remove(robot)
+        #         self.idle_robots.append(robot)
 
     def print_factory_map(self):
 

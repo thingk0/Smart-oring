@@ -1,3 +1,5 @@
+from collections import deque
+
 import numpy as np
 
 from domain.node import Node, EntranceDirection
@@ -23,6 +25,15 @@ def process_mission(mission: Mission, factory_map, start_point: Point, road):
         front_node = StructureUtil.get_front_entrance_from_node(node)
         point = Point(*front_node)
         points.append(point)
+    path = find_path(points, factory_map, road=road)
+    path.popleft()
+    return path
+
+
+def get_route_point_to_point(factory_map, current_point: Point, target_point: Point, road=None) -> deque[Point]:
+    if road is None:
+        road = [0]
+    points = [current_point, target_point]
     path = find_path(points, factory_map, road=road)
     path.popleft()
     return path
