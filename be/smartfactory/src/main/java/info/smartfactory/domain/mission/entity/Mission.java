@@ -41,6 +41,7 @@ public class Mission extends BaseTimeEntity {
     private String fullPath; // JSON 형식의 데이터를 저장할 문자열 필드
 
     @Column(name = "mission_type")
+    @Enumerated(value = EnumType.STRING)
     private MissionType missionType;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
