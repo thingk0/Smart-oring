@@ -24,7 +24,7 @@ public class Mission extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "amr_id")
     private Amr amr;
 
@@ -43,8 +43,9 @@ public class Mission extends BaseTimeEntity {
     @Column(name = "mission_type")
     private MissionType missionType;
 
-    @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
     @JsonManagedReference
+    @Builder.Default
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
     private List<Submission> submissionList = new ArrayList<>();
 
     public static Mission createMission() {
