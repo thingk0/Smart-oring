@@ -26,3 +26,20 @@ export const BackendRobotPosition = () =>
   axios.get(import.meta.env.VITE_BACKEND_SERVER + '/amr/state').then(res => {
     return res.data.resultData;
   });
+
+export function LoadData(url: string): {
+  read(): Object;
+} {
+  let data: Object | null = null;
+
+  const suspender = axios.get(url).then(res => {
+    data = res.data.resultData;
+  });
+
+  return {
+    read() {
+      if (data === null) throw suspender;
+      return data;
+    },
+  };
+}
