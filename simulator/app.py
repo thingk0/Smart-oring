@@ -93,7 +93,7 @@ def send_robot_stat():
             "amrRoute": [[e.x, e.y] for e in robot.get_next_nodes()],
             "amrStatus": robot.robot_status.value,
         }
-        producer.produce("robot-stat", key=str(robot.robot_id),
+        producer.produce("amr-history-log", key=str(robot.robot_id),
                          value=json.dumps(robot_stat, default=asdict).encode('utf-8'), )
         producer.flush()
 
