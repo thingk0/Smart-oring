@@ -143,5 +143,70 @@
       "battery": 80,
       "id": "9749"
     }
-  ]
+  ],
+  "heatmap": {
+    "resultData": [
+      {
+        "name": "ex1",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      }
+    ]
+  },
+  "dashboard": {
+    "resultData": [
+      {
+        "todayMissionCount": [],
+        "yesterdayMissionCount": [],
+        "todayTotalMissionCount": 21,
+        "totalUsagePercent": 70,
+        "amrUsagePercent": [{ "amrId": 15, "UsagePercent": 50 }],
+        "amrErrorPercent": [{ "amrId": 15, "ErrorPercent": 50 }],
+        "realtimeError": [
+          {
+            "amrId": 13,
+            "missionId": 56,
+            "xcoordinate": 30,
+            "ycoordinate": 10
+          }
+        ],
+        "realtimeBottleneck": [
+          {
+            "id": 1,
+            "amrId": 12,
+            "missionId": 12,
+            "bottleneckCreatedAt": "2024- 05-02 14:44:30",
+            "bottleneckPeriod": 3,
+            "xcoordinate": 30,
+            "ycoordinate": 10
+          }
+        ]
+      }
+    ]
+  }
 }
