@@ -13,11 +13,16 @@ const option: any = {
   },
 };
 
-type RadialBarProps = {
+type OperatingRateProps = {
   data: number;
 };
 
-function RadialBar({ data }: RadialBarProps) {
-  return <ReactApexChart type="radialBar" series={[data]} options={option} />;
+function OperatingRate({ data }: OperatingRateProps) {
+  return (
+    <div>
+      <h3>가동률</h3>
+      <ReactApexChart type="radialBar" series={[data]} options={option} />
+    </div>
+  );
 }
-export default RadialBar;
+export default OperatingRate;

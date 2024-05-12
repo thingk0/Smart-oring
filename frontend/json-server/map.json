@@ -27061,8 +27061,16 @@
         "yesterdayMissionCount": [],
         "todayTotalMissionCount": 21,
         "totalUsagePercent": 70,
-        "amrUsagePercent": [{ "amrId": 15, "UsagePercent": 50 }],
-        "amrErrorPercent": [{ "amrId": 15, "ErrorPercent": 50 }],
+        "amrUsagePercent": [
+          { "amrId": 1, "UsagePercent": 90 },
+          { "amrId": 2, "UsagePercent": 80 },
+          { "amrId": 3, "UsagePercent": 70 }
+        ],
+        "amrErrorPercent": [
+          { "amrId": 1, "ErrorPercent": 10 },
+          { "amrId": 2, "ErrorPercent": 20 },
+          { "amrId": 3, "ErrorPercent": 30 }
+        ],
         "realtimeError": [
           {
             "amrId": 13,
