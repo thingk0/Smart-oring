@@ -14,7 +14,7 @@ public class ConveyorBeltServiceDto extends NodeServiceDto {
 		chargerServiceDto.setXCoordinate(conveyerBelt.getXCoordinate());
 		chargerServiceDto.setYCoordinate(conveyerBelt.getYCoordinate());
 		chargerServiceDto.setEntranceDirection(conveyerBelt.getEntranceDirection());
-		chargerServiceDto.nodeType = NodeType.CHARGER;
+		chargerServiceDto.nodeType = NodeType.CONVEYER_BELT;
 
 		return chargerServiceDto;
 	}
