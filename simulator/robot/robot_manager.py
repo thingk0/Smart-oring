@@ -19,42 +19,39 @@ class RobotManager:
 
     def __init__(self):
         self.factory_map: FactoryMap | None = None
-        self.idle_robots: List[Robot] = []
-        self.working_robots: List[Robot] = []
+        # self.idle_robots: List[Robot] = []
+        # self.working_robots: List[Robot] = []
+        self.robots: List[Robot] = []
         self.num_robots = 0
 
     def add_robot(self, x, y):
         robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.CHARGING, current_node=Point(x, y))
-        self.idle_robots.append(robot)
+        self.robots.append(robot)
         self.num_robots += 1
 
-    def assign_mission(self, mission):
-        if not self.idle_robots:
-            return False
-        robot: Robot = self.idle_robots.pop(0)
-
-        new_factory_map = self.factory_map.to_zero_one_array()
-
-        route = mission_processor.process_mission(mission, new_factory_map, robot.current_node, road=[0])
-        print(route)
-        robot.assign_mission(mission, route)
-        self.working_robots.append(robot)
-        return True
+    def assign_mission(self, mission, current_time) -> bool:
+        for robot in self.robots:
+            if robot.robot_status == RobotStatus.CHARGING:
+                new_factory_map = self.factory_map.to_zero_one_array()
+                route = mission_processor.process_mission(mission, new_factory_map, robot.current_node, road=[0])
+                print(route)
+                robot.assign_mission(mission, route, current_time=current_time)
+                return True
+        return False
 
     def set_map(self, factory_map):
         self.factory_map = factory_map
 
     def get_all_robots(self) -> List[Robot]:
-        return self.idle_robots + self.working_robots
+        return self.robots
 
     def process_robots(self):
-        locked_nodes = set()
-        for robot in self.working_robots:
-            locked_nodes.add(robot.current_node)
-        for robot in self.idle_robots:
-            locked_nodes.add(robot.current_node)
 
-        for robot in self.working_robots:
+        for robot in self.robots:
+            locked_nodes = set()
+
+            for other_robot in self.robots:
+                locked_nodes.add(other_robot.current_node)
             robot.process(locked_nodes, self.factory_map)
 
         # for robot in self.working_robots:
