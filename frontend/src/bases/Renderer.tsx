@@ -6,11 +6,13 @@ import Helpers from './Helper';
 import PostProcessing from './Postprocessing';
 import Shader from './Shader';
 import CustomLoader from '@entity/Loading/ui';
+import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 
 function Renderer() {
+  const { fov } = useGraphicsQualityStore();
   return (
     <>
-      <Canvas shadows>
+      <Canvas shadows camera={{ fov: fov }}>
         <Helpers />
         <PostProcessing />
         <Shader />
