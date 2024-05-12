@@ -8,7 +8,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
-    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'samsung.smart'
@@ -70,20 +69,6 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-def generated = 'src/main/generated'
-
-querydsl {
-    jpa = true
-    querydslSourcesDir = generated
-}
-sourceSets {
-    main.java.srcDir generated
-}
-
-compileQuerydsl{
-    options.annotationProcessorPath = configurations.querydsl
 }
 
 configurations {
