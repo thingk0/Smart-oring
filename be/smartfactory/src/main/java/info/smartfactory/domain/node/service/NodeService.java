@@ -15,6 +15,7 @@ import info.smartfactory.domain.node.dto.request.MapAddRequest;
 import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Charger;
+import info.smartfactory.domain.node.entity.type.ConveyerBelt;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
 import info.smartfactory.domain.node.repository.ChargerRepository;
@@ -22,6 +23,7 @@ import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.NodeRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.domain.node.service.dto.ChargerServiceDto;
+import info.smartfactory.domain.node.service.dto.ConveyorBeltServiceDto;
 import info.smartfactory.domain.node.service.dto.DestinationServiceDto;
 import info.smartfactory.domain.node.service.dto.NodeServiceDto;
 import info.smartfactory.domain.node.service.dto.StorageServiceDto;
@@ -250,6 +252,8 @@ public class NodeService {
                 newNode = DestinationServiceDto.from(destination);
             } else if (node instanceof Storage storage) {
                 newNode = StorageServiceDto.from(storage);
+			} else if (node instanceof ConveyerBelt conveyerBelt) {
+				newNode = ConveyorBeltServiceDto.from(conveyerBelt);
             }
             newNodes.add(newNode);
         }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import info.smartfactory.domain.node.entity.constant.EntranceDirection;
 import info.smartfactory.domain.node.service.NodeService;
 import info.smartfactory.domain.node.service.dto.ChargerServiceDto;
+import info.smartfactory.domain.node.service.dto.ConveyorBeltServiceDto;
 import info.smartfactory.domain.node.service.dto.DestinationServiceDto;
 import info.smartfactory.domain.node.service.dto.NodeServiceDto;
 import info.smartfactory.domain.node.service.dto.StorageServiceDto;
@@ -394,6 +395,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createNode(42, 70, WEST, DestinationServiceDto.class));
 		dtos.add(createNode(43, 70, WEST, DestinationServiceDto.class));
 
+		dtos.add(createNode(50, 70, WEST, ConveyorBeltServiceDto.class));
+
 		nodeService.addNodes(dtos);
 	}
 
@@ -402,17 +405,11 @@ public class DatabaseInitializer implements CommandLineRunner {
 		NodeServiceDto dto;
 
 		switch (clazz.getSimpleName()) {
-			case "ChargerServiceDto":
-				dto = new ChargerServiceDto();
-				break;
-			case "StorageServiceDto":
-				dto = new StorageServiceDto();
-				break;
-			case "DestinationServiceDto":
-				dto = new DestinationServiceDto();
-				break;
-			default:
-				throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
+			case "ChargerServiceDto" -> dto = new ChargerServiceDto();
+			case "StorageServiceDto" -> dto = new StorageServiceDto();
+			case "DestinationServiceDto" -> dto = new DestinationServiceDto();
+			case "ConveyorBeltServiceDto" -> dto = new ConveyorBeltServiceDto();
+			default -> throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
 		}
 		dto.setEntranceDirection(direction);
 		dto.setXCoordinate(x);
