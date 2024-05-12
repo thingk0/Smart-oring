@@ -1,6 +1,7 @@
 package info.smartfactory.domain.mission.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.mission.entity.constant.MissionType;
 import jakarta.persistence.*;
@@ -22,6 +23,10 @@ public class Mission extends BaseTimeEntity {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "amr_id")
+    private Amr amr;
 
     @Column(name = "mission_started_at", updatable = false)
     private LocalDateTime missionStartedAt;

@@ -9,14 +9,13 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BottleneckDto {
+public class ErrorDto {
 
     private Integer xCoordinate;
     private Integer yCoordinate;
     private Long missionId;
     private Long amrId;
-    private Long bottleneckPeriod;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime bottleneckCreatedAt;
+    private LocalDateTime errorCreatedAt;
 
 }

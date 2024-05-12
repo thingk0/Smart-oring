@@ -7,36 +7,36 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class BottleneckService {
-
     private final BottleneckRepository bottleneckRepository;
 
-    public List<Bottleneck> getBottleneckData() {
-        return bottleneckRepository.findAll();
+    public List<Bottleneck> getBottleneckData(){
+        List<Bottleneck> bottlenecks = bottleneckRepository.findAll();
+        return bottlenecks;
     }
 
     public BottleneckMapDto[][] getBottleneckMapData() {
-        List<Bottleneck> bottleneckList = bottleneckRepository.findAllWithMission();
+        List<Bottleneck> bottleneckList = bottleneckRepository.findAll();
+
         BottleneckMapDto[][] bottleneckMap = new BottleneckMapDto[500][1000];
 
-        for (int i = 0; i < 500; i++) {
-            for (int j = 0; j < 1000; j++) {
-                bottleneckMap[i][j] = new BottleneckMapDto(0L, new ArrayList<>());
+        for(int i = 0; i < 500; i++){
+            for(int j = 0; j < 1000; j++){
+                bottleneckMap[i][j] = new BottleneckMapDto(0L, new ArrayList<BottleneckDto>());
             }
         }
 
-        for (Bottleneck bottleneck : bottleneckList) {
+        for(Bottleneck bottleneck : bottleneckList){
             bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()]
-                .setBottleneckNum(bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()].getBottleneckNum() + 1);
+                    .setBottleneckNum(bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()].getBottleneckNum()+1);
 
             bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()]
                 .getBottleneckList().add(BottleneckDto.builder()
                                                       .missionId(bottleneck.getMission().getId())
+                                                      .amrId(bottleneck.getMission().getAmr().getId())
                                                       .xCoordinate(bottleneck.getXCoordinate())
                                                       .yCoordinate(bottleneck.getYCoordinate())
                                                       .bottleneckPeriod(bottleneck.getBottleneckPeriod())

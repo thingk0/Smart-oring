@@ -20,7 +20,7 @@ public class CurrentAmrInfoRedisDto {
     @Id
     private Long amrId;
 
-    private List<String> subMissions;
+    private Long missionId;
 
     private List<Integer[]> amrRoute;
 
