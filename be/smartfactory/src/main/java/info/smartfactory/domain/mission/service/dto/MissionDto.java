@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.entity.constant.MissionType;
 import lombok.Value;
 
 /**
@@ -17,18 +18,13 @@ import lombok.Value;
 @Value
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MissionDto implements Serializable {
-
-    Long id;
-
-    String fullPath;
-
-    List<SubmissionDto> submissionList;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime updatedAt;
+
+    Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime missionStartedAt;
@@ -39,4 +35,9 @@ public class MissionDto implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime missionEstimatedTime;
 
+    String fullPath;
+
+    MissionType missionType;
+
+    List<SubmissionDto> submissionList;
 }
