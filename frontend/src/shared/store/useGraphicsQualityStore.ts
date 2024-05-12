@@ -1,6 +1,5 @@
 import { create } from 'zustand'; // 변경된 부분
 
-import usePerformanceSettingStore from './usePerformanceSetting';
 import { persist } from 'zustand/middleware';
 
 type graphicsQualityType = 'low' | 'medium' | 'high' | 'custom';
