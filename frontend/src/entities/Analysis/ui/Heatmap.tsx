@@ -1,4 +1,4 @@
-import Charts from 'react-apexcharts';
+import ReactApexChart from 'react-apexcharts';
 
 type HeatmapProps = {
   resource: {
@@ -18,7 +18,7 @@ function Heatmap({ resource }: HeatmapProps) {
 
   return (
     <>
-      <Charts type="heatmap" series={data} options={option} />
+      <ReactApexChart type="heatmap" series={data} options={option} />
     </>
   );
 }
