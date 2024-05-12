@@ -26,9 +26,9 @@ public class StreamConfig {
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration kafkaStreamsConfiguration() {
         Map<String, Object> props = new HashMap<>();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "amr-streams-app");
-//        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:10000,localhost:10001,localhost:10002");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, brokerAddress);
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "amr-history-streams-group");
+//        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, brokerAddress);
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:10000,localhost:10001,localhost:10002");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, StringSerde.class.getName());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, StringSerde.class.getName());
         return new KafkaStreamsConfiguration(props);
