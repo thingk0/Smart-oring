@@ -125,6 +125,7 @@ class Robot:
     def cant_move_for_mission(self, locked_points):
         self.cant_move_duration += 1
         possibility = random.random()
+        self.robot_status = RobotStatus.BOTTLENECK
         if self.cant_move_duration < 3 and possibility < 0.5:
             return
         self.set_new_route_for_mission(locked_points)
@@ -132,6 +133,8 @@ class Robot:
     def cant_move_to_charger(self, locked_points):
         self.cant_move_duration += 1
         self.last_event = RobotEvent.CANT_MOVE
+        self.robot_status = RobotStatus.BOTTLENECK
+
         possibility = random.random()
         if self.cant_move_duration < 3 and possibility < 0.5:
             return
