@@ -28,9 +28,31 @@ def get_map():
 
 
 def init_robot():
-    rm.add_robot(0, 0)
-    rm.add_robot(2, 0)
-    rm.add_robot(4, 0)
+    rm.add_robot(0, 1)
+    rm.add_robot(2, 1)
+    rm.add_robot(4, 1)
+    rm.add_robot(6, 1)
+    rm.add_robot(8, 1)
+    rm.add_robot(10, 1)
+    rm.add_robot(12, 1)
+    rm.add_robot(14, 1)
+    rm.add_robot(16, 1)
+    rm.add_robot(18, 1)
+    rm.add_robot(20, 1)
+    rm.add_robot(22, 1)
+    rm.add_robot(24, 1)
+    rm.add_robot(26, 1)
+    rm.add_robot(28, 1)
+    rm.add_robot(30, 1)
+    rm.add_robot(32, 1)
+    rm.add_robot(34, 1)
+    rm.add_robot(36, 1)
+    rm.add_robot(38, 1)
+    rm.add_robot(40, 1)
+    rm.add_robot(42, 1)
+    rm.add_robot(44, 1)
+    rm.add_robot(46, 1)
+    rm.add_robot(48, 1)
 
 
 def init_kafka():
@@ -63,9 +85,9 @@ def get_mission():
 
 def start():
     init_kafka()
-    init_robot()
     factory_map = get_map()
     rm.set_map(factory_map)
+    init_robot()
 
     while True:
         time.sleep(1)
@@ -89,15 +111,16 @@ def send_robot_stat(current_time):
         current_mission = get_current_mission(robot)
         robot_stat = {
             "amrId": robot.robot_id,
-            "xCoordinate": robot.current_node.x,
-            "yCoordinate": robot.current_node.y,
+            "xCoordinate": robot.current_point.x,
+            "yCoordinate": robot.current_point.y,
             "battery": 100,
             "amrHistoryCreatedAt": current_time,
             "amrRoute": [[e.x, e.y] for e in robot.get_next_nodes()],
             "amrStatus": robot.robot_status.value,
             "robotEvent": robot.last_event.value,
             "visited_node_until_mission_complete": list(robot.visited_node_until_mission_complete),
-            "current_mission": current_mission
+            "current_mission": current_mission,
+            "cant_move_duration": robot.cant_move_duration
         }
 
         producer.produce("amr-history-log", key=str(robot.robot_id),

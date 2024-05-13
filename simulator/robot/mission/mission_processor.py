@@ -1,4 +1,5 @@
 from collections import deque
+from typing import List
 
 import numpy as np
 
@@ -22,6 +23,20 @@ def process_mission(mission: Mission, factory_map, start_point: Point, road):
     width = len(factory_map[0])
     for i in mission.submissions:
         node = i.arrive_node
+        front_node = StructureUtil.get_front_entrance_from_node(node)
+        point = Point(*front_node)
+        points.append(point)
+    path = find_path(points, factory_map, road=road)
+    path.popleft()
+    return path
+
+
+def get_route_to_structure(nodes: List[Node], factory_map, start_point: Point, road=None):
+    if road is None:
+        road = [0]
+    points = [start_point]
+    for node in nodes:
+        node: Node
         front_node = StructureUtil.get_front_entrance_from_node(node)
         point = Point(*front_node)
         points.append(point)

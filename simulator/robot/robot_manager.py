@@ -3,7 +3,6 @@ from typing import List
 import numpy as np
 
 from domain.factory_map import FactoryMap
-from robot.mission import mission_processor
 from robot.mission.entity.robot import RobotStatus, Robot
 from robot.mission.path.point import Point
 
@@ -25,17 +24,15 @@ class RobotManager:
         self.num_robots = 0
 
     def add_robot(self, x, y):
-        robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.CHARGING, current_node=Point(x, y))
+        robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.CHARGING, current_node=Point(x, y),
+                      factory_map=self.factory_map)
         self.robots.append(robot)
         self.num_robots += 1
 
     def assign_mission(self, mission, current_time) -> bool:
         for robot in self.robots:
-            if robot.robot_status == RobotStatus.CHARGING:
-                new_factory_map = self.factory_map.to_zero_one_array()
-                route = mission_processor.process_mission(mission, new_factory_map, robot.current_node, road=[0])
-                print(route)
-                robot.assign_mission(mission, route, current_time=current_time)
+            result = robot.assign_mission(mission, current_time=current_time)
+            if result:
                 return True
         return False
 
@@ -51,7 +48,7 @@ class RobotManager:
             locked_nodes = set()
 
             for other_robot in self.robots:
-                locked_nodes.add(other_robot.current_node)
+                locked_nodes.add(other_robot.current_point)
             robot.process(locked_nodes, self.factory_map)
 
         # for robot in self.working_robots:
@@ -74,6 +71,6 @@ class RobotManager:
 
         new_factory_map = np.array([row[:] for row in self.factory_map])
         for robot in self.get_all_robots():
-            new_factory_map[robot.current_node.x][robot.current_node.y] = 1
+            new_factory_map[robot.current_point.x][robot.current_point.y] = 1
 
         print(new_factory_map)
