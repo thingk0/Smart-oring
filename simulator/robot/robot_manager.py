@@ -24,10 +24,10 @@ class RobotManager:
         self.num_robots = 0
 
     def add_robot(self, x, y):
+        self.num_robots += 1
         robot = Robot(robot_id=self.num_robots, robot_status=RobotStatus.CHARGING, current_node=Point(x, y),
                       factory_map=self.factory_map)
         self.robots.append(robot)
-        self.num_robots += 1
 
     def assign_mission(self, mission, current_time) -> bool:
         for robot in self.robots:
