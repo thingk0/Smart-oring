@@ -1,12 +1,16 @@
 package info.smartfactory.domain.bottleneck.service;
 
+import info.smartfactory.domain.bottleneck.dto.request.BottleneckMapRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.repository.BottleneckRepository;
+import info.smartfactory.domain.mission.entity.constant.MissionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static info.smartfactory.domain.mission.entity.constant.MissionType.STORAGE_TO_CONVEYOR;
 
 @Service
 @RequiredArgsConstructor
@@ -18,30 +22,51 @@ public class BottleneckService {
         return bottlenecks;
     }
 
-    public BottleneckMapDto[][] getBottleneckMapData() {
-        List<Bottleneck> bottleneckList = bottleneckRepository.findAll();
+    public List<BottleneckMapDto> getBottleneckMapData(BottleneckMapRequest request) {
 
-        BottleneckMapDto[][] bottleneckMap = new BottleneckMapDto[500][1000];
+        List<BottleneckMapDto> bottleneckMap = new ArrayList<>();
+        List<Bottleneck> bottleneckList;
 
-        for(int i = 0; i < 500; i++){
-            for(int j = 0; j < 1000; j++){
-                bottleneckMap[i][j] = new BottleneckMapDto(0L, new ArrayList<BottleneckDto>());
+        if(request.getMissionType() == null){
+            if(request.getStartDate() == null && request.getEndDate() == null){
+                bottleneckList = bottleneckRepository.findAll();
+            }else{
+                bottleneckList = bottleneckRepository.findAllByBottleneckCreatedAtBetween(request.getStartDate(), request.getEndDate());
+            }
+        }else{
+            MissionType type;
+            switch(request.getMissionType()){
+                case "STORAGE_TO_STORAGE":
+                    type = MissionType.STORAGE_TO_STORAGE;
+                    break;
+                case "STORAGE_TO_CONVEYOR":
+                    type = STORAGE_TO_CONVEYOR;
+                    break;
+                case "CONVEYOR_TO_DESTINATION":
+                    type = MissionType.CONVEYOR_TO_DESTINATION;
+                    break;
+                default:
+                    type = STORAGE_TO_CONVEYOR;
+            }
+
+            if(request.getStartDate() == null && request.getEndDate() == null){
+                bottleneckList = bottleneckRepository.findBottltneckByMissionType(type);
+            }else{
+                bottleneckList = bottleneckRepository.findByMissionTypeAndDateBetween(request.getStartDate(), request.getEndDate(), type);
             }
         }
 
-        for(Bottleneck bottleneck : bottleneckList){
-            bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()]
-                    .setBottleneckNum(bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()].getBottleneckNum()+1);
+        for (int i = 0; i < 500; i++) {
+            List<HeatmapDto> heatmapDtoList = new ArrayList<HeatmapDto>();
+            for (int j = 0; j < 1000; j++) {
+                heatmapDtoList.add(HeatmapDto.builder().x(j).y(0).build());
+            }
+            bottleneckMap.add(BottleneckMapDto.builder().name(i).data(heatmapDtoList).build());
+        }
 
-            bottleneckMap[bottleneck.getXCoordinate()][bottleneck.getYCoordinate()]
-                .getBottleneckList().add(BottleneckDto.builder()
-                                                      .missionId(bottleneck.getMission().getId())
-                                                      .amrId(bottleneck.getMission().getAmr().getId())
-                                                      .xCoordinate(bottleneck.getXCoordinate())
-                                                      .yCoordinate(bottleneck.getYCoordinate())
-                                                      .bottleneckPeriod(bottleneck.getBottleneckPeriod())
-                                                      .bottleneckCreatedAt(bottleneck.getBottleneckCreatedAt())
-                                                      .build());
+        for(Bottleneck bottleneck : bottleneckList){
+            bottleneckMap.get(bottleneck.getXCoordinate()).getData().get(bottleneck.getYCoordinate())
+                    .setY(bottleneckMap.get(bottleneck.getXCoordinate()).getData().get(bottleneck.getYCoordinate()).getY()+1);
         }
 
         return bottleneckMap;
