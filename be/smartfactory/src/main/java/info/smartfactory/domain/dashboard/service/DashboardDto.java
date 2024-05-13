@@ -11,11 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DashboardDto {
+
     // 오늘 실시간 미션 처리량 - 시간 간격?
-    private long [] todayOutputGraph;
+    private long[] todayOutputGraph;
 
     // 어제 시간 별 미션 처리량
-    private long [] yesterdayOutputGraph;
+    private long[] yesterdayOutputGraph;
 
     // 오늘 생산량
     private long todayTotalOutput;
@@ -34,4 +35,5 @@ public class DashboardDto {
 
     // 실시간 병목
     private List<BottleneckDto> realtimeBottleneck;
+
 }

@@ -19,6 +19,7 @@ import info.smartfactory.domain.mission.repository.MissionRepository;
 import info.smartfactory.domain.mission.repository.SubmissionRepository;
 import info.smartfactory.domain.mission.service.dto.MissionDto;
 import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
+import info.smartfactory.domain.mission.service.dto.MissionInfoDto;
 import info.smartfactory.domain.mission.service.dto.MissionKafkaDto;
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
 import info.smartfactory.domain.node.entity.type.Destination;
@@ -46,7 +47,8 @@ public class MissionService {
     private final AmrHistoryRepository amrHistoryRepository;
 
     @Scheduled(cron = "0/10 * * * * ?")
-    public Mission generateMission() {
+    public void generateMission() {
+
         List<Storage> storageList = storageRepository.findAll();
         List<ConveyorBelt> conveyerbeltList = conveyorBeltRepository.findAll();
         List<Destination> destinationList = destinationRepository.findAll();
@@ -55,11 +57,11 @@ public class MissionService {
 
         Random random = new Random();
         random.setSeed(System.currentTimeMillis());
-        int randomStopoverNum = random.nextInt(maxStopoverNum+1);
+        int randomStopoverNum = random.nextInt(maxStopoverNum + 1);
 
         log.info("Test Scheduled");
 
-        if((storageList.size() >= randomStopoverNum+2) && (!conveyerbeltList.isEmpty()) && (!destinationList.isEmpty())) {
+        if ((storageList.size() >= randomStopoverNum + 2) && (!conveyerbeltList.isEmpty()) && (!destinationList.isEmpty())) {
             Mission mission = missionGenerator.generateRandomMission(randomStopoverNum, storageList, conveyerbeltList, destinationList);
             missionRepository.save(mission);
 
@@ -67,25 +69,20 @@ public class MissionService {
             submissionRepository.saveAll(submissionList);
 
             MissionKafkaDTO missionKafkaDTO = MissionKafkaDTO.builder()
-                    .id(mission.getId())
-                    .build();
+                                                             .id(mission.getId())
+                                                             .build();
 
             kafkaProducer.create(missionKafkaDTO);
-
-            return mission;
         }
-
-        return null;
     }
 
     @Transactional
     public MissionDto getMissionInfo(Long missionId) {
         // missionId에 해당하는 mission, submission 정보를 반환해줌
         Mission mission = missionRepository.findById(missionId)
-                .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
+                                           .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
 //        MissionDto missionDto = missionMapper.toDto(mission);
-
 
         Mission missionWithNodes = missionRepository.findByMissionIdWithNodes(missionId);
 
@@ -97,13 +94,14 @@ public class MissionService {
     }
 
     public void completeMission(MissionKafkaDto missionKafkaDto) {
-        Mission mission = missionRepository.findById(missionKafkaDto.id()).orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
+        Mission mission = missionRepository.findById(missionKafkaDto.id())
+                                           .orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
 
         mission.completeMission(
-                mission.getMissionStartedAt(),
-                mission.getMissionFinishedAt(),
-                mission.getMissionEstimatedTime(),
-                mission.getFullPath()
+            mission.getMissionStartedAt(),
+            mission.getMissionFinishedAt(),
+            mission.getMissionEstimatedTime(),
+            mission.getFullPath()
         );
     }
 
@@ -111,6 +109,11 @@ public class MissionService {
     public Page<MissionHistoryDto> getMissionHistories(
         Pageable pageable, String amrType, LocalDateTime startTime, LocalDateTime endTime, Integer bottleneckSeconds
     ) {
-        return amrHistoryRepository.fetchMissionHistories(pageable, amrType, startTime, endTime, bottleneckSeconds);
+        return missionRepository.fetchMissionHistories(pageable, amrType, startTime, endTime, bottleneckSeconds);
+    }
+
+    @Transactional(readOnly = true)
+    public MissionInfoDto getMissionHistoryAnalysisInfo(Long missionId) {
+        return amrHistoryRepository.fetchMissionAnalysisInfo(missionId);
     }
 }

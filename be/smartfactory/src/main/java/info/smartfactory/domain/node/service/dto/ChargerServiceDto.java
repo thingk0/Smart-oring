@@ -2,9 +2,7 @@ package info.smartfactory.domain.node.service.dto;
 
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Charger;
-import lombok.Data;
 
-@Data
 public class ChargerServiceDto extends NodeServiceDto {
 
     @Override

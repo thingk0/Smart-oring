@@ -2,9 +2,7 @@ package info.smartfactory.domain.node.service.dto;
 
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
-import lombok.Data;
 
-@Data
 public class ConveyorBeltServiceDto extends NodeServiceDto {
 
 	public static ConveyorBeltServiceDto from(

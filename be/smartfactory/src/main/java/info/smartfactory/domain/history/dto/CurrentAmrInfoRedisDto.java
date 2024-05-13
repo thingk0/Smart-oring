@@ -1,4 +1,4 @@
-package info.smartfactory.domain.history.repository;
+package info.smartfactory.domain.history.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;

@@ -3,9 +3,7 @@ package info.smartfactory.domain.node.service.dto;
 import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.Destination;
-import lombok.Data;
 
-@Data
 public class DestinationServiceDto extends NodeServiceDto {
 
     @Override

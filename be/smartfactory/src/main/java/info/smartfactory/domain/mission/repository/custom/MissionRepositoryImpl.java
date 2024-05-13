@@ -1,4 +1,4 @@
-package info.smartfactory.domain.history.repository.impl;
+package info.smartfactory.domain.mission.repository.custom;
 
 import static info.smartfactory.domain.amr.entity.QAmr.amr;
 import static info.smartfactory.domain.history.entity.QAmrHistory.amrHistory;
@@ -10,7 +10,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import info.smartfactory.domain.history.repository.custom.AmrHistoryRepositoryCustom;
 import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,9 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 
 @RequiredArgsConstructor
-public class AmrHistoryRepositoryImpl implements AmrHistoryRepositoryCustom {
+public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
-    private final JPAQueryFactory queryFactory;
+    private final JPAQueryFactory query;
 
     @Override
     public Page<MissionHistoryDto> fetchMissionHistories(Pageable pageable,
@@ -42,13 +41,13 @@ public class AmrHistoryRepositoryImpl implements AmrHistoryRepositoryCustom {
                                                                   LocalDateTime endTime,
                                                                   Integer bottleneckSeconds
     ) {
-        JPAQuery<MissionHistoryDto> query = queryFactory.select(getHistoryDtoConstructorExpression())
-                                                        .from(mission)
-                                                        .leftJoin(amrHistory).on(amrHistory.mission.id.eq(mission.id))
-                                                        .leftJoin(amr).on(amrHistory.amr.id.eq(amr.id))
-                                                        .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds));
 
-        return query.orderBy(mission.missionFinishedAt.desc());
+        return query.select(getHistoryDtoConstructorExpression())
+                    .from(mission)
+                    .leftJoin(amrHistory).on(amrHistory.mission.id.eq(mission.id))
+                    .leftJoin(amr).on(amrHistory.amr.id.eq(amr.id))
+                    .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds))
+                    .orderBy(mission.missionFinishedAt.desc());
     }
 
     private JPAQuery<Long> createCountQuery(String amrCode,
@@ -56,11 +55,11 @@ public class AmrHistoryRepositoryImpl implements AmrHistoryRepositoryCustom {
                                             LocalDateTime endTime,
                                             Integer bottleneckSeconds
     ) {
-        return queryFactory.select(mission.count())
-                           .from(amrHistory)
-                           .leftJoin(amrHistory.mission, mission)
-                           .leftJoin(amrHistory.amr, amr)
-                           .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds));
+        return query.select(mission.count())
+                    .from(amrHistory)
+                    .leftJoin(amrHistory.mission, mission)
+                    .leftJoin(amrHistory.amr, amr)
+                    .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds));
     }
 
     private List<MissionHistoryDto> getQueryContent(

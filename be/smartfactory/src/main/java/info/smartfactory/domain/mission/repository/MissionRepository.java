@@ -3,15 +3,14 @@ package info.smartfactory.domain.mission.repository;
 import info.smartfactory.domain.dashboard.service.MissionStatusDto;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.Submission;
+import info.smartfactory.domain.mission.repository.custom.MissionRepositoryCustom;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-public interface MissionRepository extends JpaRepository<Mission, Long> {
+public interface MissionRepository extends JpaRepository<Mission, Long>, MissionRepositoryCustom {
 
     @Query("""
             SELECT s
