@@ -68,7 +68,7 @@ public class AmrStreamsProcessor {
               .groupBy((key, value) -> value.mission_id(), Grouped.with(Serdes.Long(), amrHistorySerde))
 
               // 1분 단위의 타임 윈도우를 적용합니다.
-              .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMinutes(1)))
+              .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(15)))
 
               // 윈도우 내의 레코드를 ArrayList 로 집계합니다.
               // 키(key)는 Long 타입, 값(value)은 AmrHistoryLog 객체 리스트입니다.
