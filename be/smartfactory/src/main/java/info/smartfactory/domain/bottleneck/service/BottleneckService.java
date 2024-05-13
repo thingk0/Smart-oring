@@ -1,5 +1,6 @@
 package info.smartfactory.domain.bottleneck.service;
 
+import info.smartfactory.domain.bottleneck.dto.request.AddBottleneckRequest;
 import info.smartfactory.domain.bottleneck.dto.request.BottleneckMapRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.repository.BottleneckRepository;
@@ -75,6 +76,16 @@ public class BottleneckService {
     public void addBottleneckData(BottleneckDto bottleneckDto) {
         Bottleneck bottleneck = Bottleneck.createBottleneck(bottleneckDto.getXCoordinate(), bottleneckDto.getYCoordinate(),
                                                             bottleneckDto.getBottleneckPeriod(), bottleneckDto.getBottleneckCreatedAt());
+        bottleneckRepository.save(bottleneck);
+    }
+
+    public void saveBottleneckData(AddBottleneckRequest request) {
+        Bottleneck bottleneck = Bottleneck.builder()
+                .xCoordinate(request.getXCoordinate())
+                .yCoordinate(request.getYCoordinate())
+                .bottleneckPeriod(request.getBottleneckPeriod())
+                .bottleneckCreatedAt(request.getBottleneckTime())
+                .build();
         bottleneckRepository.save(bottleneck);
     }
 }

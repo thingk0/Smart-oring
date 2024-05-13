@@ -47,6 +47,7 @@ public class HistoryService {
 
         if (previous.isPresent()) {
             CurrentAmrInfoRedisDto previousAmrInfo = previous.get();
+            System.out.println(amrHistoryLog.amrStatus());
 
             if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getStopPeriod() > 0L) {
                 bottleneckService.addBottleneckData(BottleneckDto.builder()

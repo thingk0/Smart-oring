@@ -12,13 +12,15 @@ import java.time.LocalDateTime;
 public class AddBottleneckRequest {
 
     @NotNull(message = "x좌표는 필수 항목입니다.")
-    private int x_coordinate;
+    private int xCoordinate;
 
     @NotNull(message = "y좌표는 필수 항목입니다.")
-    private int y_coordinate;
+    private int yCoordinate;
 
-    private Long mission_id;
+    private Long missionId;
 
-    private LocalDateTime bottleneck_time;
+    private Long bottleneckPeriod;
+
+    private LocalDateTime bottleneckTime;
 
 }
