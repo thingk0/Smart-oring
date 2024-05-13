@@ -1,7 +1,7 @@
 export type DashboardData = {
-  todayMissionCount: Array<any>;
-  yesterdayMissionCount: Array<any>;
-  todayTotalMissionCount: number;
+  todayOutputGraph: Array<number>;
+  yesterdayOutputGraph: Array<number>;
+  todayTotalOutput: number;
   totalUsagePercent: number;
   amrUsagePercent: [{ amrId: number; UsagePercent: number }];
   amrErrorPercent: [{ amrId: number; ErrorPercent: number }];
