@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
+import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
@@ -23,6 +24,7 @@ import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,32 +41,34 @@ import org.springframework.stereotype.Service;
 //@RequiredArgsConstructor
 public class HistoryService {
 
+    @Qualifier("liveRedisTemplate")
     private final RedisTemplate<String, Object> liveRedisTemplate;
+    @Qualifier("batchRedisTemplate")
     private final RedisTemplate<String, Object> batchRedisTemplate;
     private final CurrentAmrRedisRepository currentAmrRedisRepository;
     private final BatchAmrRedisRepository batchAmrRedisRepository;
     private final BottleneckService bottleneckService;
     private final MissionRepository missionRepository;
     private final AmrHistoryRepository amrHistoryRepository;
-    //    private final HistoryService historyService;
-//    private final MissionService missionService;
+    private final AmrHistoryMapper amrHistoryMapper;
 
     public HistoryService(@Qualifier("liveRedisTemplate") RedisTemplate<String, Object> redisTemplate,
                           @Qualifier("batchRedisTemplate") RedisTemplate<String, Object> batchRedisTemplate,
                           CurrentAmrRedisRepository currentAmrRedisRepository,
                           BatchAmrRedisRepository batchAmrRedisRepository,
-                          BottleneckService bottleneckService, /*,
-                          HistoryService historyService*/
+                          BottleneckService bottleneckService,
                           MissionRepository missionRepository,
-                          AmrHistoryRepository amrHistoryRepository) {
+                          AmrHistoryRepository amrHistoryRepository,
+                          AmrHistoryMapper amrHistoryMapper
+                          ) {
         this.liveRedisTemplate = redisTemplate;
         this.batchRedisTemplate = batchRedisTemplate;
         this.currentAmrRedisRepository = currentAmrRedisRepository;
         this.batchAmrRedisRepository = batchAmrRedisRepository;
         this.bottleneckService = bottleneckService;
-//        this.historyService = historyService;
         this.missionRepository = missionRepository;
         this.amrHistoryRepository = amrHistoryRepository;
+        this.amrHistoryMapper = amrHistoryMapper;
     }
 
     public void saveHistory(AmrHistoryLog amrHistoryLog) {
@@ -132,16 +136,21 @@ public class HistoryService {
 
 	public List<AmrHistoryDto> getReplay(Long missionId) {
 
-//        historyService.
-
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
+        //TODO : 이거 끝난 미션인지 확인하기 ! !..
         LocalDateTime missionStartedAt = mission.getMissionStartedAt();
         LocalDateTime missionFinishedAt = mission.getMissionFinishedAt();
 
-//        amrHistoryRepository.findAllHistoriesBetweenStartedAndFinished;
+        List<AmrHistory> resultList = amrHistoryRepository.findByMissionIdAndMissionStartedAtBetween(mission.getId(), missionStartedAt, missionFinishedAt);
 
-        return null;
+        List<AmrHistoryDto> resultDtoList = new ArrayList<>();
+        for(AmrHistory amrHistory : resultList) {
+            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
+            resultDtoList.add(dto);
+        }
+
+        return resultDtoList;
 	}
 }
