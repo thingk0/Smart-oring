@@ -91,6 +91,7 @@ class Robot:
     def move_for_charge(self):
         self.current_point = self.next_points.popleft()
         self.last_event = RobotEvent.MOVE_FOR_CHARGE
+        self.robot_status = RobotStatus.PROCESSING
         self.cant_move_duration = 0
 
     def move_to_complete_mission(self):
@@ -101,6 +102,8 @@ class Robot:
             self.processing_submission_idx += 1
 
         self.last_event = RobotEvent.MOVE_FOR_MISSION
+        self.robot_status = RobotStatus.PROCESSING
+
         self.current_point = self.next_points.popleft()
         self.cant_move_duration = 0
 
