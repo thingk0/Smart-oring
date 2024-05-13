@@ -30,3 +30,9 @@ export type TRobot = {
   geo_orange_1: Object3D;
   geo_rubber_6: Object3D;
 };
+
+export type GraphicsQuality = 'low' | 'medium' | 'high' | 'custom';
+export type ShadowDetail = 'off' | 'low' | 'high';
+export type RenderingScale = 0.5 | 0.75 | 1 | 1.25 | 1.5 | 1.75 | 2 | 'auto';
+export type LightQuality = 'low' | 'medium' | 'high';
+export type EffectQuality = 'low' | 'high';
