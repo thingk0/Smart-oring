@@ -1,23 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { Merged, useGLTF } from '@react-three/drei';
-import { useMemo, useState, useRef, useEffect } from 'react';
+import { Instances, Model } from './AGV';
+import { BackendRobotPosition } from '@shared/api';
+import { useEffect, useRef, useState } from 'react';
+import { Group, Object3DEventMap } from 'three';
+import { getRotationIndex } from '@shared/lib';
+import { robotData } from '@shared/types';
 import { gsap } from 'gsap';
 
-import { BackendRobotPosition } from '@shared/api';
-import { getRotationIndex } from '@shared/lib';
-import { TRobot, robotData } from '@shared/types';
-import RobotModel from './RobotModel';
-import { Group, Object3DEventMap } from 'three';
-
-// main component
-function InstancedRobot() {
+function AGVInstance() {
   const { data, isPending } = useQuery({
     queryKey: ['robotPosition'],
     // queryFn: getRobotPosition, : mocking api
     queryFn: BackendRobotPosition,
     refetchInterval: 800,
   });
-
   const [beforePositions, setBeforePositions] = useState([]);
   const AGVs = useRef<Group<Object3DEventMap>>(null!);
 
@@ -52,41 +48,17 @@ function InstancedRobot() {
       setBeforePositions(data);
     }
   }, [data]);
-
-  const { nodes } = useGLTF('./models/AGV.glb');
-  const instances: TRobot = useMemo(
-    () => ({
-      geo_aluminium_3: nodes['geo_aluminium_3'],
-      geo_black_7: nodes['geo_black_7'],
-      geo_black_matte_1: nodes['geo_black_matte_1'],
-      geo_black_smoke_glass_8: nodes['geo_black_smoke_glass_8'],
-      geo_light_cyan_1: nodes['geo_light_cyan_1'],
-      geo_orange_1: nodes['geo_orange_1'],
-      geo_rubber_6: nodes['geo_rubber_6'],
-    }),
-    [nodes]
-  );
-
   return (
-    <group ref={AGVs}>
-      {!isPending &&
-        data?.map((status: any, index: number) => {
-          return (
-            <Merged meshes={instances} key={index}>
-              {(instances: TRobot) => (
-                <RobotModel
-                  instances={instances}
-                  name={'robot' + index}
-                  battery={status.battery}
-                />
-              )}
-            </Merged>
-          );
-        })}
-    </group>
+    <>
+      <Instances>
+        <group ref={AGVs}>
+          {!isPending &&
+            data?.map((status: any, index: number) => {
+              return <Model name={'robot' + index} />;
+            })}
+        </group>
+      </Instances>
+    </>
   );
 }
-
-export default InstancedRobot;
-
-useGLTF.preload('./models/AGV.glb');
+export default AGVInstance;
