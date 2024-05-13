@@ -1,18 +1,21 @@
-import { ThreeEvent, useFrame } from '@react-three/fiber';
-import { TRobot } from '../../../shared/types';
-import { useState } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { TRobot } from '@shared/types';
+import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { AGVToolTip } from 'widget/agv/ui/index';
 // props
 type RobotModelProps = {
   instances: TRobot;
   name: string;
+  battery: number;
 };
 
 // main function
-function RobotModel({ instances, name, ...props }: RobotModelProps) {
+function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
   // console.log(instances);
-
+  console.log('battery', battery);
   const [isFPV, setIsFPV] = useState(false);
+  console.log(props);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
@@ -22,14 +25,24 @@ function RobotModel({ instances, name, ...props }: RobotModelProps) {
     target.y = 2;
     state.camera.position.copy(target);
   });
+  const [hovered, setHover] = useState(false);
+  useEffect(
+    () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
+    [hovered]
+  );
+  const onPointerOver = useCallback(() => setHover(true), []);
+  const onPointerOut = useCallback(() => setHover(false), []);
   return (
     <group {...props}>
       <group
         name={name}
         onClick={() => setIsFPV(true)}
         onPointerMissed={() => setIsFPV(false)}
+        onPointerOver={onPointerOver}
+        onPointerOut={onPointerOut}
       >
         <pointLight color="#00afff" intensity={10} />
+        <AGVToolTip battery={battery} hovered={hovered} />
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
