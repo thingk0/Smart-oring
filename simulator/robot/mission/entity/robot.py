@@ -25,6 +25,7 @@ class Robot:
         self.cant_move_duration = 0
         self.factory_map: FactoryMap = factory_map
         self.processing_submission_idx: int | None = None
+        self.estimated_time_when_mission_first_set = 0
 
     def assign_mission(self, mission, current_time=None):
         if self.robot_status != RobotStatus.CHARGING:
@@ -38,6 +39,7 @@ class Robot:
         self.last_event = RobotEvent.MOVE_FOR_MISSION
         self.last_mission_processing_time = 0
         self.last_mission_started_at = current_time
+        self.estimated_time_when_mission_first_set = len(route)
 
         e: Submission
         self.processing_submission_idx = 0

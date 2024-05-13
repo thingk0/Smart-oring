@@ -28,7 +28,6 @@ def get_map():
 
 
 def init_robot():
-    rm.add_robot(0, 1)
     rm.add_robot(2, 1)
     rm.add_robot(4, 1)
     rm.add_robot(6, 1)
@@ -131,7 +130,7 @@ def send_robot_stat(current_time):
                 "id": robot.robot_id,
                 "missionStartedAt": robot.last_mission_started_at,
                 "missionFinishedAt": current_time,
-                "missionEstimatedTime": len(robot.visited_node_until_mission_complete),
+                "missionEstimatedTime": robot.estimated_time_when_mission_first_set,
                 "fullPath": list(robot.visited_node_until_mission_complete)
             }
             producer.produce("mission-complete", key=str(robot.robot_id),
