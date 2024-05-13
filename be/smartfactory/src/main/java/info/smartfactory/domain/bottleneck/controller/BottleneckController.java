@@ -1,15 +1,20 @@
 package info.smartfactory.domain.bottleneck.controller;
 
+import info.smartfactory.domain.bottleneck.dto.request.BottleneckMapRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.service.BottleneckMapDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
+import info.smartfactory.domain.node.dto.request.MapAddRequest;
 import info.smartfactory.global.result.ResultResponse;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -26,8 +31,8 @@ public class BottleneckController {
     }
 
     @GetMapping("/bottleneck/map")
-    public ResponseEntity<?> bottleneckMapData() {
-        BottleneckMapDto[][] data = bottleneckService.getBottleneckMapData();
+    public ResponseEntity<?> bottleneckMapData(@RequestBody @Valid BottleneckMapRequest request) {
+        List<BottleneckMapDto> data = bottleneckService.getBottleneckMapData(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), data));
     }
 
