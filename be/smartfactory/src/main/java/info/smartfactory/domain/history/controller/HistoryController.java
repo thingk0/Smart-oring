@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
-import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
+import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
+import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.service.HistoryService;
 import info.smartfactory.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
