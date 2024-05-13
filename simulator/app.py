@@ -131,7 +131,7 @@ def send_robot_stat(current_time):
                 "missionStartedAt": robot.last_mission_started_at,
                 "missionFinishedAt": current_time,
                 "missionEstimatedTime": robot.estimated_time_when_mission_first_set,
-                "fullPath": list(robot.visited_node_until_mission_complete)
+                "fullPath": [[i.x, i.y] for i in robot.visited_node_until_mission_complete]
             }
             producer.produce("mission-complete", key=str(robot.robot_id),
                              value=json.dumps(complete_msg, default=asdict).encode('utf-8'), )
