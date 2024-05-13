@@ -34,7 +34,7 @@ public class Mission extends BaseTimeEntity {
     @Column(name = "mission_finished_at", updatable = false)
     private LocalDateTime missionFinishedAt;
 
-    @Column(name = "mission_estimated time", updatable = false)
+    @Column(name = "mission_estimated_time", updatable = false)
     private Integer missionEstimatedTime;
 
     @Column(name = "full_path")
@@ -57,7 +57,6 @@ public class Mission extends BaseTimeEntity {
         submissionList.add(submission);
         submission.assignMission(this);
     }
-
 
     public void completeMission(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt, Integer missionEstimatedTime, String fullPath) {
         this.missionStartedAt = missionStartedAt;
