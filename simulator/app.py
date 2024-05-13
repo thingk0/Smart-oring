@@ -107,7 +107,7 @@ def start():
 def send_robot_stat(current_time):
     robots = rm.get_all_robots()
     for robot in robots:
-        current_mission = get_current_mission(robot)
+        current_mission_id = get_current_mission_id(robot)
         robot_stat = {
             "amrId": robot.robot_id,
             "xCoordinate": robot.current_point.x,
@@ -118,7 +118,7 @@ def send_robot_stat(current_time):
             "amrStatus": robot.robot_status.value,
             "robotEvent": robot.last_event.value,
             "visited_node_until_mission_complete": list(robot.visited_node_until_mission_complete),
-            "current_mission": current_mission,
+            "missionId": current_mission_id,
             "cant_move_duration": robot.cant_move_duration
         }
 
@@ -139,11 +139,10 @@ def send_robot_stat(current_time):
         producer.flush()
 
 
-def get_current_mission(robot):
-    current_mission = None if not robot.current_mission else {
-        "mission_id": robot.current_mission.mission_id
-    }
-    return current_mission
+def get_current_mission_id(robot):
+    if not robot.current_mission:
+        return None
+    return robot.current_mission.mission_id
 
 
 try:
