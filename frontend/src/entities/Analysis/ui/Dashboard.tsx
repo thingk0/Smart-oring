@@ -1,6 +1,10 @@
 import { DashboardData } from '../types';
+import CurrentTime from './CurrentTime';
 import ErrorRate from './ErrorRate';
 import OperaingRate from './OperatingRate';
+import RealTimeBottleneck from './RealTimeBottleneck';
+import RealTimeError from './RealTimeError';
+import TodayOutput from './TodayOutput';
 import UsageRate from './UsageRate';
 
 type DashboardProps = {
@@ -11,7 +15,7 @@ type DashboardProps = {
 
 function Dashboard({ resource }: DashboardProps) {
   const data: DashboardData[] = resource.read();
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
@@ -26,35 +30,10 @@ function Dashboard({ resource }: DashboardProps) {
           </div>
         </div> */}
         <div>
-          <div>
-            <h3>시간</h3>
-          </div>
-          <div>
-            <h3>오늘 생산량</h3>
-            <p>{data[0].todayTotalMissionCount}</p>
-          </div>
-          <div>
-            <h3>실시간 에러</h3>
-            {data[0].realtimeError.map(({ amrId, missionId }) => {
-              return (
-                <p>
-                  {amrId}번 기기 - {missionId} 미션 수행 시 에러
-                </p>
-              );
-            })}
-          </div>
-          <div>
-            <h3>실시간 병목</h3>
-            {data[0].realtimeBottleneck.map(
-              ({ amrId, xcoordinate, ycoordinate }) => {
-                return (
-                  <p>
-                    {amrId}번 기기 - ({xcoordinate}, {ycoordinate}) 좌표 병목
-                  </p>
-                );
-              }
-            )}
-          </div>
+          <CurrentTime />
+          <TodayOutput data={data[0].todayTotalMissionCount} />
+          <RealTimeError data={data[0].realtimeError} />
+          <RealTimeBottleneck data={data[0].realtimeBottleneck} />
         </div>
       </div>
     </>
