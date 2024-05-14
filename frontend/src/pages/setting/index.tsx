@@ -23,7 +23,6 @@ import { useState } from 'react';
 import classes from './index.module.css';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Link } from 'react-router-dom';
-import { ArrowDropDown } from '@mui/icons-material';
 
 export function SettingPage() {
   const {
