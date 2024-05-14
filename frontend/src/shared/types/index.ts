@@ -36,3 +36,13 @@ export type ShadowDetail = 'off' | 'low' | 'high';
 export type RenderingScale = 0.5 | 0.75 | 1 | 1.25 | 1.5 | 1.75 | 2 | 'auto';
 export type LightQuality = 'low' | 'medium' | 'high';
 export type EffectQuality = 'low' | 'high';
+export type AmrStatus = {
+  battery: number;
+  amrId: number;
+  missionId: number;
+  amrStatus: string;
+  stopPeriod: number;
+  amrHistoryCreatedAt: string;
+  ycoordinate: number;
+  xcoordinate: number;
+};
