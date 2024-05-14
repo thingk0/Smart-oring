@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record MissionHistoryDto(Long missionId,
                                 Long amrId,
+                                String amrCode,
                                 Integer delayTime,
                                 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
                                 LocalDateTime missionStartedAt,
