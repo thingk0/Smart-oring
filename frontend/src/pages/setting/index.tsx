@@ -20,6 +20,10 @@ import {
   ShadowDetail,
 } from '@shared/types';
 import { useState } from 'react';
+import classes from './index.module.css';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import { Link } from 'react-router-dom';
+import { ArrowDropDown } from '@mui/icons-material';
 
 export function SettingPage() {
   const {
@@ -55,8 +59,13 @@ export function SettingPage() {
   };
 
   return (
-    <main>
-      <h1>환경설정</h1>
+    <main className={classes.main}>
+      <header>
+        <Link to="/">
+          <HomeRoundedIcon fontSize="large" />
+        </Link>
+        <h1>환경설정</h1>
+      </header>
       <h2>그래픽</h2>
       <div>
         <h3>고급 설정</h3>
@@ -64,7 +73,7 @@ export function SettingPage() {
           <li>
             <div>전반적인 그래픽 품질</div>
             <div>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <Select
                   value={optionState.graphicsQuality}
                   onChange={e => {
@@ -88,7 +97,7 @@ export function SettingPage() {
           <li>
             <div>렌더링 크기</div>
             <div>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <Select
                   value={optionState.renderingScale}
                   onChange={e =>
@@ -115,9 +124,9 @@ export function SettingPage() {
           </li>
           <li>
             <div>카메라 시야 FOV</div>
-            <div>
+            <div className={classes.fovslider}>
               <Grid container spacing={2} alignItems="center">
-                <Grid item xs>
+                <Grid item style={{ flex: 1 }}>
                   <Slider
                     value={
                       typeof optionState.fov === 'number' ? optionState.fov : 0
@@ -128,9 +137,10 @@ export function SettingPage() {
                       })
                     }
                     aria-labelledby="input-slider"
+                    style={{ width: '100%' }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item style={{ flex: 0.3 }}>
                   <Input
                     value={optionState.fov}
                     size="small"
@@ -155,7 +165,7 @@ export function SettingPage() {
 
           <li>
             <div>그림자</div>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
               <Select
                 value={optionState.shadowDetail}
                 onChange={e =>
@@ -191,7 +201,7 @@ export function SettingPage() {
           <li>
             <div>조명 품질</div>
             <div>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <Select
                   value={optionState.lightQuality}
                   onChange={e =>
@@ -215,7 +225,7 @@ export function SettingPage() {
           <li>
             <div>이펙트</div>
             <div>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <Select
                   value={optionState.effectQuality}
                   onChange={e =>
@@ -237,15 +247,30 @@ export function SettingPage() {
           </li>
         </ul>
         <div>
-          <Button
-            variant="outlined"
-            onClick={() => setOptionState(mediumOption)}
+          <Grid
+            container
+            spacing={2}
+            justifyContent="flex-end"
+            alignItems="flex-end"
+            style={{ position: 'fixed', bottom: 20, right: 20 }}
           >
-            초기화
-          </Button>
-          <Button variant="contained" onClick={() => setOption(optionState)}>
-            저장
-          </Button>
+            <Grid item>
+              <Button
+                variant="outlined"
+                onClick={() => setOptionState(mediumOption)}
+              >
+                초기화
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={() => setOption(optionState)}
+              >
+                저장
+              </Button>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </main>
