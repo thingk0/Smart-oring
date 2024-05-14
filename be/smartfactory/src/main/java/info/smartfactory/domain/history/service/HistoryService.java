@@ -13,8 +13,6 @@ import info.smartfactory.domain.history.dto.AmrHistoryLog;
 import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.AmrHistoryRepository;
-import info.smartfactory.domain.history.repository.BatchAmrInfoRedisDto;
-import info.smartfactory.domain.history.repository.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
