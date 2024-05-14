@@ -20,6 +20,7 @@ import {
   ShadowDetail,
 } from '@shared/types';
 import { useState } from 'react';
+import classes from './index.module.css';
 
 export function SettingPage() {
   const {
@@ -55,7 +56,7 @@ export function SettingPage() {
   };
 
   return (
-    <main>
+    <main className={classes.main}>
       <h1>환경설정</h1>
       <h2>그래픽</h2>
       <div>
