@@ -1,3 +1,6 @@
+import styles from './Analysis.module.css';
+import { Typography } from '@mui/material';
+
 type RealTimeBottleneck = {
   data: [
     {
@@ -10,8 +13,10 @@ type RealTimeBottleneck = {
 
 function RealTimeBottleneck({ data }: RealTimeBottleneck) {
   return (
-    <div>
-      <h3>실시간 병목</h3>
+    <div className={styles.component_background}>
+      <Typography variant="h5" component="h2">
+        실시간 병목
+      </Typography>
       {data.map(({ amrId, xcoordinate, ycoordinate }) => {
         return (
           <p key={amrId}>

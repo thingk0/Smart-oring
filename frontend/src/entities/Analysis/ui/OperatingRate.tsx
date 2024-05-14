@@ -1,4 +1,7 @@
 import ReactApexChart from 'react-apexcharts';
+import styles from './Analysis.module.css';
+
+import { Typography } from '@mui/material';
 
 const option: any = {
   labels: ['가동률'],
@@ -19,8 +22,10 @@ type OperatingRateProps = {
 
 function OperatingRate({ data }: OperatingRateProps) {
   return (
-    <div>
-      <h3>가동률</h3>
+    <div className={styles.component_background}>
+      <Typography variant="h5" component="h2">
+        가동률
+      </Typography>
       <ReactApexChart type="radialBar" series={[data]} options={option} />
     </div>
   );

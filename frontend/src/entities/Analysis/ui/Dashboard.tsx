@@ -1,3 +1,4 @@
+import styles from './Analysis.module.css';
 import { DashboardData } from '../types';
 import CapacityLineGraph from './CapacityLineGraph';
 import CurrentTime from './CurrentTime';
@@ -23,20 +24,19 @@ function Dashboard({ resource }: DashboardProps) {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <div>
-        <div>
+      <div className={styles.flex}>
+        <div className={styles.flex_column}>
           <CapacityLineGraph
             yesterday={data[0].yesterdayOutputGraph}
             today={data[0].todayOutputGraph}
           />
-          <div>
+          <div className={styles.flex}>
             <OperaingRate data={data[0].totalUsagePercent} />
             <UsageRate data={data[0].amrUsagePercent} />
             <ErrorRate data={data[0].amrErrorPercent} />
           </div>
         </div>
-        <div>
+        <div className={styles.flex_column}>
           <CurrentTime />
           <TodayOutput data={data[0].todayTotalOutput} />
           <RealTimeError data={data[0].realtimeError} />

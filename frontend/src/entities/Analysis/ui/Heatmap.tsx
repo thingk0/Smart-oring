@@ -17,9 +17,9 @@ function Heatmap({ resource }: HeatmapProps) {
   };
 
   return (
-    <>
+    <div>
       <ReactApexChart type="heatmap" series={data} options={option} />
-    </>
+    </div>
   );
 }
 
