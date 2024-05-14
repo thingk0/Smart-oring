@@ -12,7 +12,7 @@ function Analysis() {
     <div className={styles.wrap}>
       <Suspense fallback={<h1>Loading...</h1>}>
         {/* <Heatmap resource={LoadData(import.meta.env.VITE_HEATMAP_URL)} /> */}
-        <Dashboard resource={LoadData(import.meta.env.VITE_DASHBOARD_URL)} />
+        {/* <Dashboard resource={LoadData(import.meta.env.VITE_DASHBOARD_URL)} /> */}
         <Mission />
       </Suspense>
     </div>
