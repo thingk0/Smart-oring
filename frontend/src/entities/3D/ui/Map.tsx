@@ -10,7 +10,6 @@ import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
-import Conveyors from './Conveyors';
 import AGVInstance from './AGVInstance';
 interface MapProps {
   resource: {

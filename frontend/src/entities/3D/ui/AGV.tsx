@@ -9,13 +9,16 @@ import React, {
   useMemo,
   useContext,
   createContext,
+  useEffect,
   useCallback,
   useState,
+  useRef,
 } from 'react';
 import { useGLTF, Merged } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { AGVToolTip } from 'widget/agv/ui';
 import { useFrame } from '@react-three/fiber';
+import { AGVToolTip } from 'widget/agv/ui';
+import { AmrStatus } from '@shared/types';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -64,8 +67,7 @@ export function Instances({
   );
 }
 type ModelProps = JSX.IntrinsicElements['group'] & {
-  battery: number;
-  amrId: number;
+  status: AmrStatus;
   name: string;
 };
 export function Model(props: ModelProps) {
@@ -81,8 +83,14 @@ export function Model(props: ModelProps) {
     state.camera.position.copy(target);
   });
   const [hovered, setHover] = useState(false);
+  useEffect(
+    () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
+    [hovered]
+  );
   const onPointerOver = useCallback(() => setHover(true), []);
   const onPointerOut = useCallback(() => setHover(false), []);
+  const meshRef = useRef<THREE.Group>(null!);
+
   return (
     <group
       {...props}
@@ -92,13 +100,10 @@ export function Model(props: ModelProps) {
       onPointerMissed={() => setIsFPV(false)}
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
+      ref={meshRef}
     >
       <pointLight color="#00afff" intensity={10} />
-      <AGVToolTip
-        battery={props.battery}
-        amrId={props.amrId}
-        hovered={hovered}
-      />
+      <AGVToolTip status={props.status} hovered={hovered} />
       <instances.Geoblackmatte />
       <instances.Geoaluminium />
       <instances.Georubber />
