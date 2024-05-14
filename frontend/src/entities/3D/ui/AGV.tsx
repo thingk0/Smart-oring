@@ -14,7 +14,7 @@ import React, {
 } from 'react';
 import { useGLTF, Merged } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { AGVToolTip } from 'widget/agv/ui';
+import { AGVToolTip } from 'widgets/agv/ui';
 import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {

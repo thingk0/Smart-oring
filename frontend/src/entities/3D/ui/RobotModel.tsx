@@ -3,7 +3,7 @@ import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { TRobot } from '@shared/types';
 import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { AGVToolTip } from 'widget/agv/ui/index';
+import { AGVToolTip } from 'widgets/agv/ui/index';
 // props
 type RobotModelProps = {
   instances: TRobot;

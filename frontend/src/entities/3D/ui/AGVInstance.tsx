@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Instances, Model } from './AGV';
 import { BackendRobotPosition } from '@shared/api';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Group, Object3DEventMap } from 'three';
+import { useEffect, useRef, useState } from 'react';
 import { getRotationIndex } from '@shared/lib';
 import { robotData } from '@shared/types';
 import { gsap } from 'gsap';
