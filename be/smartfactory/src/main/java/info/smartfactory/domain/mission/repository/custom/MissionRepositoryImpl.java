@@ -25,7 +25,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
     @Override
     public Page<MissionHistoryDto> fetchMissionHistories(Pageable pageable,
-                                                         String amrCode,
+                                                         List<String> amrCode,
                                                          LocalDateTime startTime,
                                                          LocalDateTime endTime,
                                                          Integer bottleneckSeconds
@@ -36,7 +36,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private JPAQuery<MissionHistoryDto> createMissionHistoryQuery(String amrCode,
+    private JPAQuery<MissionHistoryDto> createMissionHistoryQuery(List<String> amrCode,
                                                                   LocalDateTime startTime,
                                                                   LocalDateTime endTime,
                                                                   Integer bottleneckSeconds
@@ -50,7 +50,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                     .orderBy(mission.missionFinishedAt.desc());
     }
 
-    private JPAQuery<Long> createCountQuery(String amrCode,
+    private JPAQuery<Long> createCountQuery(List<String> amrCode,
                                             LocalDateTime startTime,
                                             LocalDateTime endTime,
                                             Integer bottleneckSeconds
@@ -74,6 +74,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         return Projections.constructor(MissionHistoryDto.class,
                                        mission.id,
                                        amr.id,
+                                       amr.amrCode,
                                        Expressions.numberTemplate(Integer.class,
                                                                   "TIMESTAMPDIFF(SECOND, {0}, {1})",
                                                                   mission.missionFinishedAt,
@@ -83,20 +84,26 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         );
     }
 
-    private BooleanExpression commonConditions(String amrCode,
+    private BooleanExpression commonConditions(List<String> amrCodes,
                                                LocalDateTime startTime,
                                                LocalDateTime endTime,
                                                Integer bottleneckSeconds) {
         BooleanExpression conditions = mission.missionFinishedAt.isNotNull()
-                                                                .and(amr.amrCode.eq(amrCode))
                                                                 .and(mission.missionStartedAt.goe(startTime))
                                                                 .and(mission.missionFinishedAt.loe(endTime));
+
+        if (amrCodes != null && !amrCodes.isEmpty()) {
+            conditions = conditions.and(amr.amrCode.in(amrCodes));
+        }
+
         if (bottleneckSeconds != null) {
             conditions = conditions.and(Expressions.numberTemplate(Integer.class,
                                                                    "TIMESTAMPDIFF(SECOND, mission.missionEstimatedTime, mission.missionFinishedAt)")
                                                    .loe(bottleneckSeconds));
         }
+
         return conditions;
     }
+
 
 }
