@@ -29,17 +29,12 @@ function Map({ resource }: MapProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <InstancedRobot />
-        {/* <AGVInstance /> */}
+        {/* <InstancedRobot /> */}
+        <AGVInstance />
       </QueryClientProvider>
       <Path />
       <Wall />
       <Floor />
-      <Instances>
-        {data.charger.map((c, index: number) => {
-          return <ChargeArea start={c.start} end={c.end} key={index} />;
-        })}
-      </Instances>
       <Chargers data={data} />
       <Destinations data={data} />
       <Storages data={data} />

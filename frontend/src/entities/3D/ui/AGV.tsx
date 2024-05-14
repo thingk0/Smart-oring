@@ -5,9 +5,17 @@ Files: ./public/models/AGV.glb [1.89MB] > C:\Users\SSAFY\Documents\GitLab\S10P31
 */
 
 import * as THREE from 'three';
-import React, { useMemo, useContext, createContext } from 'react';
+import React, {
+  useMemo,
+  useContext,
+  createContext,
+  useCallback,
+  useState,
+} from 'react';
 import { useGLTF, Merged } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { AGVToolTip } from 'widget/agv/ui';
+import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -55,12 +63,42 @@ export function Instances({
     </Merged>
   );
 }
-
-export function Model(props: JSX.IntrinsicElements['group']) {
+type ModelProps = JSX.IntrinsicElements['group'] & {
+  battery: number;
+  amrId: number;
+  name: string;
+};
+export function Model(props: ModelProps) {
   const instances = useContext(context);
+  const [isFPV, setIsFPV] = useState(false);
+  useFrame(state => {
+    if (!isFPV) return;
+    const target = new THREE.Vector3();
+    const robot = state.scene.getObjectByName(props.name);
+    // getWorldPosition으로 target에 robot의 위치를 저장한다. (헷갈림 주의)
+    robot?.children[0].getWorldPosition(target);
+    target.y = 2;
+    state.camera.position.copy(target);
+  });
+  const [hovered, setHover] = useState(false);
+  const onPointerOver = useCallback(() => setHover(true), []);
+  const onPointerOut = useCallback(() => setHover(false), []);
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      name={props.name}
+      onClick={() => setIsFPV(true)}
+      onPointerMissed={() => setIsFPV(false)}
+      onPointerOver={onPointerOver}
+      onPointerOut={onPointerOut}
+    >
       <pointLight color="#00afff" intensity={10} />
+      <AGVToolTip
+        battery={props.battery}
+        amrId={props.amrId}
+        hovered={hovered}
+      />
       <instances.Geoblackmatte />
       <instances.Geoaluminium />
       <instances.Georubber />
