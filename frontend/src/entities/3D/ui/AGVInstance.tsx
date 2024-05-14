@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { Instances, Model } from './AGV';
 import { BackendRobotPosition } from '@shared/api';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Group, Object3DEventMap } from 'three';
 import { getRotationIndex } from '@shared/lib';
 import { robotData } from '@shared/types';
 import { gsap } from 'gsap';
+import * as THREE from 'three';
 
 function AGVInstance() {
   const { data, isPending } = useQuery({
@@ -15,7 +16,7 @@ function AGVInstance() {
     refetchInterval: 800,
   });
   const [beforePositions, setBeforePositions] = useState([]);
-  const AGVs = useRef<Group<Object3DEventMap>>(null!);
+  const AGVs = useRef<THREE.Group>(null!);
 
   useEffect(() => {
     if (data && data[0] !== null) {
@@ -54,7 +55,14 @@ function AGVInstance() {
         <group ref={AGVs}>
           {!isPending &&
             data?.map((status: any, index: number) => {
-              return <Model name={'robot' + index} />;
+              return (
+                <Model
+                  name={'robot' + index}
+                  battery={status?.battery}
+                  amrId={status?.amrId}
+                  key={status?.amrId || index}
+                />
+              );
             })}
         </group>
       </Instances>

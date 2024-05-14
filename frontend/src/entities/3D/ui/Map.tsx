@@ -29,8 +29,8 @@ function Map({ resource }: MapProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <InstancedRobot />
-        {/* <AGVInstance /> */}
+        {/* <InstancedRobot /> */}
+        <AGVInstance />
       </QueryClientProvider>
       <Path />
       <Wall />
