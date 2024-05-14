@@ -8,10 +8,9 @@ function Form() {
   const setMissionList = useMissionStore(state => state.setMissionList);
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_MISSION_URL).then(res => {
-      setMissionList(res.data.content);
-      console.log(res.data.content);
-    });
+    axios
+      .get(import.meta.env.VITE_MISSION_URL)
+      .then(res => setMissionList(res.data.content));
   }, []);
 
   return (
