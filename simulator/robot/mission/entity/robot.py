@@ -141,11 +141,15 @@ class Robot:
         possibility = random.random()
         if self.cant_move_duration < 3 and possibility < 0.5:
             return
-        charger = self.factory_map.get_chargers()[self.robot_id]
+        charger = self.get_charger()
         array = self.get_map_with_locked_nodes(locked_points)
         route = mission_processor.get_route_to_structure([charger], array, self.current_point)
         if route:
             self.next_points = route
+
+    def get_charger(self):
+        charger = self.factory_map.get_chargers()[self.robot_id - 1]
+        return charger
 
     def get_map_with_locked_nodes(self, locked_nodes: set[Point]):
         array = self.factory_map.to_zero_one_array()
@@ -154,7 +158,7 @@ class Robot:
         return array
 
     def set_route_to_charge_and_go(self, locked_nodes: set[Point]):
-        charger = self.factory_map.get_chargers()[self.robot_id]
+        charger = self.get_charger()
         front_node = StructureUtil.get_front_entrance_from_node(charger)
 
         array = self.get_map_with_locked_nodes(locked_nodes)
