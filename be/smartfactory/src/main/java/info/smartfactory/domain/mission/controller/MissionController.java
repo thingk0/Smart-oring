@@ -6,6 +6,7 @@ import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
 import info.smartfactory.domain.mission.service.dto.MissionInfoDto;
 import info.smartfactory.global.result.ResultResponse;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class MissionController {
 
     @GetMapping
     public ResultResponse<?> getMissionHistory(
-        @RequestParam(required = false) String amrType,
+        @RequestParam(required = false) List<String> amrType,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
         @RequestParam(required = false) Integer bottleneckSeconds,
