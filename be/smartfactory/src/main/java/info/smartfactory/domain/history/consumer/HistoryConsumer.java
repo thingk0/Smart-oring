@@ -23,7 +23,7 @@ public class HistoryConsumer {
     @KafkaListener(topics = "amr-history-log", groupId = "amr-consumer-group")
     public void listen(@Payload String message) throws JsonProcessingException {
         AmrHistoryLog amrHistoryLog = mapper.readValue(message, AmrHistoryLog.class);
-        log.info(amrHistoryLog.toString());
+        log.debug(amrHistoryLog.toString());
         historyService.saveHistory(amrHistoryLog);
     }
 }

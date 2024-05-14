@@ -1,21 +1,22 @@
 package info.smartfactory.domain.history.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
-import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
 import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
 @Service
 public class HistoryService {
@@ -47,7 +48,6 @@ public class HistoryService {
 
         if (previous.isPresent()) {
             CurrentAmrInfoRedisDto previousAmrInfo = previous.get();
-            System.out.println(amrHistoryLog.amrStatus());
 
             if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getStopPeriod() > 0L) {
                 bottleneckService.addBottleneckData(BottleneckDto.builder()
