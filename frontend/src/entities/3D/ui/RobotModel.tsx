@@ -9,6 +9,7 @@ type RobotModelProps = {
   instances: TRobot;
   name: string;
   battery: number;
+  amrId: number;
 };
 
 // main function
@@ -46,7 +47,7 @@ function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
         {lightQuality === 'high' && (
           <pointLight color="#00afff" intensity={10} />
         )}
-        <AGVToolTip battery={battery} hovered={hovered} />
+        <AGVToolTip battery={battery} amrId={props.amrId} hovered={hovered} />
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
