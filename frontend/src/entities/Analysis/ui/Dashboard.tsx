@@ -3,7 +3,7 @@ import { DashboardData } from '../types';
 import CapacityLineGraph from './CapacityLineGraph';
 import CurrentTime from './CurrentTime';
 import ErrorRate from './ErrorRate';
-import OperaingRate from './OperatingRate';
+import OperatingRate from './OperatingRate';
 import RealTimeBottleneck from './RealTimeBottleneck';
 import RealTimeError from './RealTimeError';
 import TodayOutput from './TodayOutput';
@@ -24,24 +24,19 @@ function Dashboard({ resource }: DashboardProps) {
 
   return (
     <>
-      <div className={styles.flex}>
-        <div className={styles.flex_column}>
-          <CapacityLineGraph
-            yesterday={data[0].yesterdayOutputGraph}
-            today={data[0].todayOutputGraph}
-          />
-          <div className={styles.flex}>
-            <OperaingRate data={data[0].totalUsagePercent} />
-            <UsageRate data={data[0].amrUsagePercent} />
-            <ErrorRate data={data[0].amrErrorPercent} />
-          </div>
-        </div>
-        <div className={styles.flex_column}>
-          <CurrentTime />
-          <TodayOutput data={data[0].todayTotalOutput} />
-          <RealTimeError data={data[0].realtimeError} />
-          <RealTimeBottleneck data={data[0].realtimeBottleneck} />
-        </div>
+      {/* grid로 변경 */}
+      <div className={styles.grid}>
+        <CapacityLineGraph
+          yesterday={data[0].yesterdayOutputGraph}
+          today={data[0].todayOutputGraph}
+        />
+        <CurrentTime />
+        <TodayOutput data={data[0].todayTotalOutput} />
+        <RealTimeError data={data[0].realtimeError} />
+        <OperatingRate data={data[0].totalUsagePercent} />
+        <UsageRate data={data[0].amrUsagePercent} />
+        <ErrorRate data={data[0].amrErrorPercent} />
+        <RealTimeBottleneck data={data[0].realtimeBottleneck} />
       </div>
     </>
   );

@@ -17,17 +17,6 @@
   padding: 28px 57px;
 }
 
-.flex {
-  display: flex;
-  gap: 20px;
-}
-
-.flex_column {
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-}
-
 .body_margin {
   padding: 25px 44px;
   background-color: #f2f2f7;
@@ -41,6 +30,16 @@
   padding: 45px;
 }
 
-.component_margin {
-  margin: 20px;
+.grid {
+  display: grid;
+  gap: 20px;
+
+  /* minmax 써서 반응형 해보기 */
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.line {
+  grid-column: 1 / 4;
+  grid-row: 1 / 4;
 }

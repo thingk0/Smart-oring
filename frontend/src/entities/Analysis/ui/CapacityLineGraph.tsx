@@ -22,7 +22,7 @@ function CapacityLineGraph({ yesterday, today }: CapacityLineGraphProps) {
   ];
 
   return (
-    <div className={styles.component_background}>
+    <div className={`${styles.component_background} ${styles.line}`}>
       <Typography variant="h5" component="h2">
         미션 처리량
       </Typography>
