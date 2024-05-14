@@ -26,6 +26,7 @@ class Robot:
         self.factory_map: FactoryMap = factory_map
         self.processing_submission_idx: int | None = None
         self.estimated_time_when_mission_first_set = 0
+        self.last_mission: Mission | None = None
 
     def assign_mission(self, mission, current_time=None):
         if self.robot_status != RobotStatus.CHARGING:
@@ -175,6 +176,7 @@ class Robot:
 
     def finish_mission(self):
         self.last_event = RobotEvent.COMPLETE_MISSION
+        self.last_mission = self.current_mission
         self.current_mission = None
         self.processing_submission_idx = None
 

@@ -127,7 +127,8 @@ def send_robot_stat(current_time):
 
         if robot.last_event == RobotEvent.COMPLETE_MISSION:
             complete_msg = {
-                "id": robot.robot_id,
+                "id": robot.last_mission.mission_id,
+                "amrId": robot.robot_id,
                 "missionStartedAt": robot.last_mission_started_at,
                 "missionFinishedAt": current_time,
                 "missionEstimatedTime": robot.estimated_time_when_mission_first_set,
