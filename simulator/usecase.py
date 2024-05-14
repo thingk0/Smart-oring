@@ -2,12 +2,13 @@ from typing import List
 
 import requests
 
+from app_env import env
 from domain.node import Node, Charger, Storage, Destination, EntranceDirection
 from robot.mission.entity.mission import Mission, Submission
 
 
 class UseCase:
-    base_url = "http://localhost:8080"
+    base_url = env["mission"]["server"]
 
     @staticmethod
     def get_map() -> List[Node]:

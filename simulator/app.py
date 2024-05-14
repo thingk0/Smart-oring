@@ -63,7 +63,7 @@ def init_kafka():
         }
     )
     consumer = Consumer({
-        'bootstrap.servers': env["kafka"]["server"],
+        'bootstrap.servers': server,
         'group.id': 'simulator',
         'auto.offset.reset': 'earliest'
     })
