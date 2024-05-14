@@ -37,7 +37,8 @@ public class Mission extends BaseTimeEntity {
     @Column(name = "mission_estimated_time", updatable = false)
     private Integer missionEstimatedTime;
 
-    @Column(name = "full_path")
+    @Lob
+    @Column(name = "full_path", columnDefinition = "TEXT")
     private String fullPath; // JSON 형식의 데이터를 저장할 문자열 필드
 
     @Column(name = "mission_type")
