@@ -107,7 +107,8 @@ public class MissionService {
 
     @Transactional(readOnly = true)
     public Page<MissionHistoryDto> getMissionHistories(
-        Pageable pageable, String amrType, LocalDateTime startTime, LocalDateTime endTime, Integer bottleneckSeconds
+        Pageable pageable, List<String> amrType, LocalDateTime startTime, LocalDateTime endTime,
+        Integer bottleneckSeconds
     ) {
         return missionRepository.fetchMissionHistories(pageable, amrType, startTime, endTime, bottleneckSeconds);
     }

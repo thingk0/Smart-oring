@@ -1,16 +1,10 @@
 package info.smartfactory.amrstreams.streams;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import info.smartfactory.amrstreams.log.AmrHistoryLog;
-import info.smartfactory.amrstreams.log.AmrRealtimeStatusLog;
-import info.smartfactory.amrstreams.mapper.AmrHistoryMapper;
-import info.smartfactory.amrstreams.serde.AmrHistoryListSerde;
-import jakarta.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -25,6 +19,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.kafka.support.serializer.JsonSerde;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import info.smartfactory.amrstreams.log.AmrHistoryLog;
+import info.smartfactory.amrstreams.log.AmrRealtimeStatusLog;
+import info.smartfactory.amrstreams.mapper.AmrHistoryMapper;
+import info.smartfactory.amrstreams.serde.AmrHistoryListSerde;
+import jakarta.annotation.PostConstruct;
 
 /**
  * AMR 기기의 실시간 상태 로그를 처리하여 데이터베이스에 배치 형태로 저장하는 카프카 스트림즈 애플리케이션입니다.
@@ -65,7 +68,7 @@ public class AmrStreamsProcessor {
 
               // 레코드를 mission_id 를 기준으로 그룹화합니다.
               // 키(key)는 Long 타입, 값(value)은 AmrHistoryLog 타입으로 설정합니다.
-              .groupBy((key, value) -> value.mission_id(), Grouped.with(Serdes.Long(), amrHistorySerde))
+            .groupBy((key, value) -> value.amr_id(), Grouped.with(Serdes.Long(), amrHistorySerde))
 
               // 1분 단위의 타임 윈도우를 적용합니다.
               .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(15)))
@@ -124,7 +127,11 @@ public class AmrStreamsProcessor {
             @Override
             public void setValues(@NonNull java.sql.PreparedStatement preparedStatement, int i) throws SQLException {
                 AmrHistoryLog record = records.get(i);
-                preparedStatement.setLong(1, record.mission_id());
+                if (record.mission_id() == null) {
+                    preparedStatement.setNull(1, java.sql.Types.BIGINT);
+                } else {
+                    preparedStatement.setLong(1, record.mission_id());
+                }
                 preparedStatement.setLong(2, record.amr_id());
                 preparedStatement.setInt(3, record.battery());
                 preparedStatement.setInt(4, record.x_coordinate());
