@@ -22,4 +22,4 @@ spring:
     import: "configserver:http://${CLOUD_CONFIG_HOST_NAME:localhost}:8888"
   cloud:
     config:
-      label: main, master
+      label: master
