@@ -23,7 +23,6 @@ public class MissionConsumer {
     public void listen(@Payload String message) throws JsonProcessingException {
         MissionKafkaDto missionKafkaDto = mapper.readValue(message, MissionKafkaDto.class);
 
-        log.info(missionKafkaDto.toString());
         missionService.completeMission(missionKafkaDto);
     }
 }

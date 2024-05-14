@@ -28,13 +28,13 @@ public class Mission extends BaseTimeEntity {
     @JoinColumn(name = "amr_id")
     private Amr amr;
 
-    @Column(name = "mission_started_at", updatable = false)
+    @Column(name = "mission_started_at")
     private LocalDateTime missionStartedAt;
 
-    @Column(name = "mission_finished_at", updatable = false)
+    @Column(name = "mission_finished_at")
     private LocalDateTime missionFinishedAt;
 
-    @Column(name = "mission_estimated_time", updatable = false)
+    @Column(name = "mission_estimated_time")
     private Integer missionEstimatedTime;
 
     @Lob
@@ -59,14 +59,34 @@ public class Mission extends BaseTimeEntity {
         submission.assignMission(this);
     }
 
-    public void completeMission(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt, Integer missionEstimatedTime, String fullPath) {
+    public void completeMission(
+            LocalDateTime missionStartedAt,
+            LocalDateTime missionFinishedAt,
+            Integer missionEstimatedTime,
+            String fullPath,
+            Amr amr) {
         this.missionStartedAt = missionStartedAt;
         this.missionFinishedAt = missionFinishedAt;
         this.missionEstimatedTime = missionEstimatedTime;
         this.fullPath = fullPath;
+        this.amr = amr;
     }
 
     public void modifyMissionType(MissionType missionType) {
         this.missionType = missionType;
+    }
+
+    @Override
+    public String toString() {
+        return "Mission{" +
+                "id=" + id +
+                ", amr=" + amr +
+                ", missionStartedAt=" + missionStartedAt +
+                ", missionFinishedAt=" + missionFinishedAt +
+                ", missionEstimatedTime=" + missionEstimatedTime +
+                ", fullPath='" + fullPath + '\'' +
+                ", missionType=" + missionType +
+                ", submissionList=" + submissionList +
+                '}';
     }
 }
