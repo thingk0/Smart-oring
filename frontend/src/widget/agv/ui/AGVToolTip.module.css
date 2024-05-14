@@ -7,8 +7,8 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 1rem;
   width: 10rem;
-  visibility: hidden;
+  display: none;
 }
 .hovered {
-  visibility: visible !important;
+  display: block;
 }
