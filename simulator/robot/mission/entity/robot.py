@@ -165,8 +165,9 @@ class Robot:
 
         route = get_route_point_to_point(array, current_point=self.current_point,
                                          target_point=Point(*front_node))
-        self.next_points = route
-        self.move_for_charge()
+        if route:
+            self.next_points = route
+            self.move_for_charge()
 
     def charge(self):
         self.robot_status = RobotStatus.CHARGING
