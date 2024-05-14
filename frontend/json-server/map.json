@@ -27098,5 +27098,113 @@
         ]
       }
     ]
+  },
+  "mission": {
+    "content": [
+      {
+        "mission_id": 101,
+        "amr_id": 201,
+        "delay_time": 45,
+        "mission_started_at": "2024-05-01T08:00:00",
+        "mission_finished_at": "2024-05-01T09:15:00"
+      },
+      {
+        "mission_id": 102,
+        "amr_id": 202,
+        "delay_time": 30,
+        "mission_started_at": "2024-05-01T10:00:00",
+        "mission_finished_at": "2024-05-01T11:00:00"
+      },
+      {
+        "mission_id": 103,
+        "amr_id": 203,
+        "delay_time": 60,
+        "mission_started_at": "2024-05-02T12:00:00",
+        "mission_finished_at": "2024-05-02T14:00:00"
+      },
+      {
+        "mission_id": 104,
+        "amr_id": 204,
+        "delay_time": 15,
+        "mission_started_at": "2024-05-02T15:00:00",
+        "mission_finished_at": "2024-05-02T15:45:00"
+      },
+      {
+        "mission_id": 105,
+        "amr_id": 205,
+        "delay_time": 25,
+        "mission_started_at": "2024-05-03T08:00:00",
+        "mission_finished_at": "2024-05-03T09:25:00"
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+      },
+      "offset": 0,
+      "pageSize": 20,
+      "pageNumber": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 1,
+    "totalElements": 5,
+    "last": true,
+    "size": 20,
+    "number": 0,
+    "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+    },
+    "numberOfElements": 5,
+    "first": true,
+    "empty": false
+  },
+  "mission_history": {
+    "status": "OK",
+    "message": "success",
+    "data": {
+      "total_execution_time": 30,
+      "processing_time": 17,
+      "bottleneck_time": 3,
+      "charging_time": 4,
+      "error_time": 1,
+      "discharging_time": 5,
+      "mission_infos": [
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "BOTTLENECK",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "BOTTLENECK",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "PROCESSING",
+        "CHARGING",
+        "CHARGING",
+        "PROCESSING",
+        "PROCESSING",
+        "ERROR",
+        "DISCHARGING",
+        "DISCHARGING",
+        "DISCHARGING",
+        "BOTTLENECK",
+        "DISCHARGING"
+      ]
+    }
   }
 }
