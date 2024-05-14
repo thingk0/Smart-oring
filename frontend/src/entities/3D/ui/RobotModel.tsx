@@ -15,7 +15,6 @@ type RobotModelProps = {
 function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   // console.log(instances);
   const [isFPV, setIsFPV] = useState(false);
-  console.log(props);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
