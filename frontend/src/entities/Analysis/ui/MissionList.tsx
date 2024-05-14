@@ -1,5 +1,13 @@
 import axios from 'axios';
-import useMissionStore from '../store/useMissionStore';
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material';
+import useMissionStore, { MissionObject } from '../store/useMissionStore';
+import styles from './Analysis.module.css';
 
 function MissionList() {
   const list = useMissionStore(state => state.missionList);
@@ -7,34 +15,67 @@ function MissionList() {
 
   const onClickHandler = () => {
     axios.get(import.meta.env.VITE_MISSION_HISTORY_URL).then(res => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setHistory(res.data.data);
     });
   };
 
   return (
-    <aside>
-      <h3>리스트</h3>
-      <ul>
+    <aside className={styles.component_background}>
+      <Typography variant="h5" component="h2">
+        리스트
+      </Typography>
+      <List sx={{ height: '300px', overflowY: 'scroll' }}>
         {list?.map((mission: any) => (
-          <Mission
-            key={mission.mission_id}
-            mission={mission}
-            onClick={() => onClickHandler()}
-          />
+          <ListItem key={mission.mission_id}>
+            <ListItemButton>
+              <Mission mission={mission} onClick={() => onClickHandler()} />
+            </ListItemButton>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </aside>
   );
 }
 
 type MissionProps = {
-  mission: any;
+  mission: MissionObject;
   onClick: React.MouseEventHandler;
 };
 
+const getDate = (datetime: string) => {
+  const tmp = new Date(datetime);
+  return tmp.toLocaleDateString();
+};
+
+const getTime = (datetime: string) => {
+  const tmp = new Date(datetime);
+  return tmp.toLocaleTimeString();
+};
+
 function Mission({ mission, onClick }: MissionProps) {
-  return <li onClick={onClick}>{mission.mission_id}</li>;
+  return (
+    <>
+      <ListItemText onClick={onClick}>
+        <div>
+          <Typography variant="h6" component="h3">
+            AMR {mission.amr_id} | MISSION {mission.mission_id}
+          </Typography>
+          <Typography variant="body2" component="p">
+            지연 시간 : {mission.delay_time}초
+          </Typography>
+          <Typography variant="body2" component="p">
+            미션 날짜 : {getDate(mission.mission_started_at)} ~
+            {' ' + getDate(mission.mission_finished_at)}
+          </Typography>
+          <Typography variant="body2" component="p">
+            미션 시간 : {getTime(mission.mission_started_at)} ~
+            {' ' + getTime(mission.mission_finished_at)}
+          </Typography>
+        </div>
+      </ListItemText>
+    </>
+  );
 }
 
 export default MissionList;

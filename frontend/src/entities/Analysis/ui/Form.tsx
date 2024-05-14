@@ -1,11 +1,59 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useMissionStore from '../store/useMissionStore';
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import styles from './Analysis.module.css';
 
-const AMRs = ['AMR01', 'AMR02', 'AMR03', 'AMR04', 'AMR05'];
+const AMRs = [
+  'ALL',
+  'AMR01',
+  'AMR02',
+  'AMR03',
+  'AMR04',
+  'AMR05',
+  'AMR06',
+  'AMR07',
+  'AMR08',
+  'AMR09',
+  'AMR10',
+  'AMR11',
+  'AMR12',
+  'AMR13',
+  'AMR14',
+  'AMR15',
+  'AMR16',
+  'AMR17',
+  'AMR18',
+  'AMR19',
+  'AMR20',
+  'AMR21',
+  'AMR22',
+  'AMR23',
+  'AMR24',
+];
 
 function Form() {
   const setMissionList = useMissionStore(state => state.setMissionList);
+
+  const [AMRType, setAMRType] = useState('ALL');
+  const onSelectAMRHandler = (event: SelectChangeEvent) => {
+    setAMRType(event.target.value);
+  };
+
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [bottleneckTime, setBottleneckTime] = useState();
 
   useEffect(() => {
     axios
@@ -14,25 +62,43 @@ function Form() {
   }, []);
 
   return (
-    <div>
-      <p>필터</p>
-      <form action="#" method="get" onSubmit={() => {}}>
-        {/* AMR 종류 선택, 다중선택임 */}
-        <label htmlFor="AMR_type">AMR 종류</label>
-        <select name="" id="AMR_type">
-          {AMRs.map((info: any, index: number) => {
-            return <option key={index}>{info}</option>;
-          })}
-        </select>
-        {/* 분석 시간 선정 */}
-        {/* 오늘부터 6개월 전까지 데이터 보관*/}
-        <label htmlFor="analysis_start_range">분석시간 범위</label>
-        <input type="date" name="startTime" id="analysis_start_range" />
-        <input type="date" name="endTime" id="analysis_end_range" />
-        {/* 병목 시간 선정 */}
-        <label htmlFor="bottleneck_time">병목시간</label>
-        <input type="number" id="bottleneck_time" />
-        <button type="submit">검색</button>
+    <div className={styles.filter}>
+      <form action="#" method="get">
+        <div className={styles.flex_center}>
+          {/* 다중선택임 */}
+          <Typography variant="h5" component="h2">
+            Filter
+          </Typography>
+
+          <InputLabel id="AMRtype-label">AMR Type</InputLabel>
+          <Select
+            labelId="AMRtype-label"
+            label="AMR type"
+            value={AMRType}
+            onChange={onSelectAMRHandler}
+          >
+            {AMRs.map((info: any, index: number) => {
+              return (
+                <MenuItem key={index} value={info}>
+                  {info}
+                </MenuItem>
+              );
+            })}
+          </Select>
+
+          {/* 오늘부터 6개월 전까지 데이터 보관*/}
+          <InputLabel id="analysis_start_range">분석시간 범위</InputLabel>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker />
+            <DatePicker />
+          </LocalizationProvider>
+
+          {/* 병목 시간 선정 */}
+          <InputLabel id="bottleneck_time">병목 시간</InputLabel>
+          <TextField type="number" defaultValue={1} variant="standard" />
+
+          <Button variant="contained">검색</Button>
+        </div>
       </form>
     </div>
   );

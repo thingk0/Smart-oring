@@ -7,7 +7,7 @@ type MissionState = {
   setMissionHistory: (by: MissionHistory) => void;
 };
 
-type MissionObject = {
+export type MissionObject = {
   mission_id: number;
   amr_id: number;
   amr_code: string;

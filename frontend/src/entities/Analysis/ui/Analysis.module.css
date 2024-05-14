@@ -17,10 +17,15 @@
   padding: 28px 57px;
 }
 
+.flex {
+  display: flex;
+  gap: 20px;
+}
+
 .body_margin {
   padding: 25px 44px;
   background-color: #f2f2f7;
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 .component_background {
@@ -30,6 +35,10 @@
   padding: 45px;
 }
 
+.component_margin {
+  margin: 20px;
+}
+
 .grid {
   display: grid;
   gap: 20px;
@@ -37,9 +46,46 @@
   /* minmax 써서 반응형 해보기 */
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  /* grid-template-areas:
+    'line' 'line' 'line' ''
+    'line' 'line' 'line' ''
+    'line' 'line' 'line' ''
+    '' '' '' ''; */
 }
 
 .line {
   grid-column: 1 / 4;
   grid-row: 1 / 4;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter {
+  background-color: #ffffff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 10px;
+  padding: 15px 20px;
+}
+
+.margin_bottom {
+  margin-bottom: 20px;
+}
+
+/* mission.tsx */
+.mission_grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+
+  /* minmax 써서 반응형 해보기 */
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-rows: repeat(3, 1fr); */
+}
+
+.mission_grid_column {
+  grid-column: 2 / 4;
 }
