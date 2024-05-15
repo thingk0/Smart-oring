@@ -2,7 +2,12 @@ import styles from './Analysis.module.css';
 import { Typography } from '@mui/material';
 
 type UsageRateProps = {
-  data: [{ amrId: number; UsagePercent: number }];
+  data: Array<UsageRate>;
+};
+
+type UsageRate = {
+  amrId: number;
+  percentage: number;
 };
 
 function UsageRate({ data }: UsageRateProps) {
@@ -12,10 +17,10 @@ function UsageRate({ data }: UsageRateProps) {
         미션 수행률 Top 3
       </Typography>
       <ol>
-        {data.map((amr: any) => {
+        {data.map(({ amrId, percentage }: UsageRate) => {
           return (
-            <Typography variant="body1" component="li" key={amr.amrId}>
-              AMR {amr.UsagePercent}
+            <Typography variant="body1" component="li" key={amrId}>
+              AMR {amrId} : {percentage}%
             </Typography>
           );
         })}

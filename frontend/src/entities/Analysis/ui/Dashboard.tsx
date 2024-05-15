@@ -14,7 +14,8 @@ type DashboardProps = {
 };
 
 function Dashboard({ resource }: DashboardProps) {
-  const data: DashboardData[] = resource.read();
+  const data: DashboardData = resource.read();
+  console.log(data);
 
   // 실시간 병목, 에러 = 1초마다 생성되거나 없어짐
   // 따라서 tanstack-query 써야할 것 같은데
@@ -24,17 +25,18 @@ function Dashboard({ resource }: DashboardProps) {
     <>
       {/* grid로 변경 */}
       <div className={styles.grid}>
-        <RealTimeBottleneck data={data[0].realtimeBottleneck} />
-        <RealTimeError data={data[0].realtimeError} />
+        <RealTimeBottleneck data={data.realtimeBottleneck} />
+        <RealTimeError data={data.realtimeError} />
 
-        <UsageRate data={data[0].amrUsagePercent} />
-        <ErrorRate data={data[0].amrErrorPercent} />
+        <UsageRate data={data.amrUsagePercent} />
+        <ErrorRate data={data.amrErrorPercent} />
 
         <CapacityLineGraph
-          yesterday={data[0].yesterdayOutputGraph}
-          today={data[0].todayOutputGraph}
+          yesterday={data.yesterdayOutputGraph}
+          today={data.todayOutputGraph}
+          total={data.todayTotalOutput}
         />
-        <OperatingRate data={data[0].totalUsagePercent} />
+        <OperatingRate data={data.totalUsagePercent} />
       </div>
     </>
   );
