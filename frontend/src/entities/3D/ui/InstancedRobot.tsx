@@ -77,8 +77,7 @@ function InstancedRobot() {
                 <RobotModel
                   instances={instances}
                   name={'robot' + index}
-                  battery={status?.battery}
-                  amrId={status?.amrId}
+                  status={status}
                 />
               )}
             </Merged>

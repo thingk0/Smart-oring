@@ -1,41 +1,39 @@
 import Destinations from './Destinations';
 import Storages from './Storages';
 import { MapData } from '../../../shared/types';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+import InstancedRobot from './InstancedRobot';
 import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
-import AGVInstance from './AGVInstance';
-interface MapProps {
-  resource: {
-    read(): MapData;
-  };
-}
+import { getMap } from '@shared/api';
 
-const queryClient = new QueryClient();
-
-function Map({ resource }: MapProps) {
-  const data: MapData = resource.read();
-  // console.log(data);
-
-  console.log('데이터', data);
-
-  return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        {/* <InstancedRobot /> */}
-        <AGVInstance />
-      </QueryClientProvider>
-      <Path />
-      <Wall />
-      <Floor />
-      <Chargers data={data} />
-      <Destinations data={data} />
-      <Storages data={data} />
-      {/* <Conveyors data={data} /> */}
-    </>
-  );
+function Map() {
+  const { data, isPending } = useQuery({
+    queryKey: ['map'],
+    // queryFn: getRobotPosition, : mocking api
+    queryFn: getMap,
+  });
+  if (data) {
+    return (
+      <>
+        <InstancedRobot />
+        {/* <AGVInstance /> */}
+        <Path />
+        <Wall />
+        <Floor />
+        <Chargers data={data} />
+        <Destinations data={data} />
+        <Storages data={data} />
+        {/* <Conveyors data={data} /> */}
+      </>
+    );
+  }
 }
 
 export default Map;
