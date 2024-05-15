@@ -25,16 +25,19 @@ const theme = createTheme({
       fontSize: 32,
       color: '#1F1E30',
     },
+    h3: {
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
     h2: {
       marginBottom: '20px',
       fontSize: 20,
       fontWeight: 'bold',
     },
-    h3: {},
-    body1: {},
-    button: {},
-    // fontSize: 24,
-    // fontWeight: 'bold',
+    h4: {
+      fontSize: 20,
+      fontWeight: 600,
+    },
   },
 });
 

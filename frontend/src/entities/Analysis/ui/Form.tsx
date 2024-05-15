@@ -66,8 +66,8 @@ function Form() {
       <form action="#" method="get">
         <div className={styles.flex_center}>
           {/* 다중선택임 */}
-          <Typography variant="h5" component="h2">
-            Filter
+          <Typography variant="h3" component="h2">
+            검색 조건
           </Typography>
 
           <InputLabel id="AMRtype-label">AMR Type</InputLabel>
