@@ -117,3 +117,8 @@
   top: 0px;
   background-color: inherit;
 }
+
+.flex_notcenter {
+  display: flex;
+  gap: 20px;
+}
