@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { Instances, Model } from './AGV';
 import { BackendRobotPosition } from '@shared/api';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Group, Object3DEventMap } from 'three';
+import { useEffect, useRef, useState } from 'react';
 import { getRotationIndex } from '@shared/lib';
 import { robotData } from '@shared/types';
 import { gsap } from 'gsap';
 import * as THREE from 'three';
+import { Bvh } from '@react-three/drei';
 
 function AGVInstance() {
   const { data, isPending } = useQuery({
@@ -36,7 +36,6 @@ function AGVInstance() {
             onComplete: () => {
               // rotate AGVs
               AGVs.current.children[index].rotation.y = radian;
-              console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
             },
           });
         } else {
@@ -51,21 +50,22 @@ function AGVInstance() {
   }, [data]);
   return (
     <>
-      <Instances>
-        <group ref={AGVs}>
-          {!isPending &&
-            data?.map((status: any, index: number) => {
-              return (
-                <Model
-                  name={'robot' + index}
-                  battery={status?.battery}
-                  amrId={status?.amrId}
-                  key={status?.amrId || index}
-                />
-              );
-            })}
-        </group>
-      </Instances>
+      <Bvh>
+        <Instances>
+          <group ref={AGVs}>
+            {!isPending &&
+              data?.map((status: any, index: number) => {
+                return (
+                  <Model
+                    name={'robot' + index}
+                    status={status}
+                    key={status?.amrId || index}
+                  />
+                );
+              })}
+          </group>
+        </Instances>
+      </Bvh>
     </>
   );
 }

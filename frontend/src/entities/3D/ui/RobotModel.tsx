@@ -1,23 +1,20 @@
 import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
-import { TRobot } from '@shared/types';
+import { AmrStatus, TRobot } from '@shared/types';
 import { useCallback, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { AGVToolTip } from 'widget/agv/ui/index';
+import { AGVToolTip } from 'widgets/agv/ui/index';
 // props
 type RobotModelProps = {
   instances: TRobot;
   name: string;
-  battery: number;
-  amrId: number;
+  status: AmrStatus;
 };
 
 // main function
-function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
+function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   // console.log(instances);
-  console.log('battery', battery);
   const [isFPV, setIsFPV] = useState(false);
-  console.log(props);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
@@ -47,7 +44,7 @@ function RobotModel({ instances, name, battery, ...props }: RobotModelProps) {
         {lightQuality === 'high' && (
           <pointLight color="#00afff" intensity={10} />
         )}
-        <AGVToolTip battery={battery} amrId={props.amrId} hovered={hovered} />
+        <AGVToolTip status={status} hovered={hovered} />
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
