@@ -77,8 +77,11 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                                        amr.amrCode,
                                        Expressions.numberTemplate(Integer.class,
                                                                   "TIMESTAMPDIFF(SECOND, {0}, {1})",
-                                                                  mission.missionFinishedAt,
-                                                                  mission.missionEstimatedTime),
+                                                                  Expressions.dateTimeTemplate(LocalDateTime.class,
+                                                                                               "DATE_ADD({0}, INTERVAL {1} SECOND)",
+                                                                                               mission.missionStartedAt,
+                                                                                               mission.missionEstimatedTime),
+                                                                  mission.missionFinishedAt),
                                        mission.missionStartedAt,
                                        mission.missionFinishedAt
         );
@@ -105,12 +108,13 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         if (bottleneckSeconds != null) {
             conditions = conditions.and(Expressions.numberTemplate(Integer.class,
                                                                    "TIMESTAMPDIFF(SECOND, {0}, {1})",
-                                                                   mission.missionEstimatedTime,
+                                                                   Expressions.dateTimeTemplate(LocalDateTime.class,
+                                                                                                "DATE_ADD({0}, INTERVAL {1} SECOND)",
+                                                                                                mission.missionStartedAt,
+                                                                                                mission.missionEstimatedTime),
                                                                    mission.missionFinishedAt)
                                                    .loe(bottleneckSeconds));
         }
         return conditions;
     }
-
-
 }
