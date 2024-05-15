@@ -92,7 +92,7 @@ function MissionHistory() {
       >
         <div className={`${styles.flex_center} ${styles.margin_bottom}`}>
           <div>
-            <Typography component="h2" variant="h5">
+            <Typography component="h3" variant="h3">
               대충 AMR 번호랑 미션 번호
             </Typography>
             <Typography component="p" variant="body2">
@@ -104,21 +104,23 @@ function MissionHistory() {
             Replay
           </Button>
         </div>
-        <div className={styles.flex}>
+        <div className={styles.flex_notcenter}>
           <div>
-            <Typography component="p" variant="h5">
-              main graph
+            <Typography component="p" variant="h2">
+              Main Graph
             </Typography>
             <ReactApexChart type="donut" series={series} options={options} />
           </div>
           <div>
-            <Typography component="p" variant="h5">
-              line graph
+            <Typography component="p" variant="h2">
+              Timeline Graph
             </Typography>
             <ReactApexChart
               type="rangeBar"
               series={timelineSeries}
               options={timelineOptions}
+              width={550}
+              height={200}
             />
           </div>
         </div>
