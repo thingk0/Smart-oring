@@ -1,120 +1,96 @@
 package info.smartfactory.domain.mission.repository.custom;
 
-import static info.smartfactory.domain.amr.entity.QAmr.amr;
-import static info.smartfactory.domain.history.entity.QAmrHistory.amrHistory;
-import static info.smartfactory.domain.mission.entity.QMission.mission;
-
-import com.querydsl.core.types.ConstructorExpression;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
-    private final JPAQueryFactory query;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public Page<MissionHistoryDto> fetchMissionHistories(Pageable pageable,
-                                                         List<String> amrCode,
-                                                         LocalDateTime startTime,
-                                                         LocalDateTime endTime,
-                                                         Integer bottleneckSeconds
-    ) {
-        JPAQuery<MissionHistoryDto> contentQuery = createMissionHistoryQuery(amrCode, startTime, endTime, bottleneckSeconds);
-        List<MissionHistoryDto> content = getQueryContent(pageable, contentQuery);
-        JPAQuery<Long> countQuery = createCountQuery(amrCode, startTime, endTime, bottleneckSeconds);
-        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    public Page<MissionHistoryDto> fetchMissionHistories(Pageable pageable, List<String> amrTypes, LocalDateTime startTime, LocalDateTime endTime,
+                                                         Integer bottleneckSeconds) {
+
+        List<Object> params = new ArrayList<>();
+        StringBuilder whereClause = new StringBuilder("WHERE mh.mission_finished_at IS NOT NULL ");
+
+        buildWhereClause(amrTypes, startTime, endTime, bottleneckSeconds, params, whereClause);
+
+        String sql = """
+            SELECT mh.id,
+                   amr.id AS amrId,
+                   amr.amr_code AS amrCode,
+                   TIMESTAMPDIFF(SECOND, DATE_ADD(mh.mission_started_at, INTERVAL mh.mission_estimated_time SECOND), mh.mission_finished_at) AS delayTime,
+                   mh.mission_started_at,
+                   mh.mission_finished_at
+            FROM mission_history mh
+                     LEFT JOIN amr_history ah ON mh.id = ah.mission_id
+                     LEFT JOIN amr ON ah.amr_id = amr.id
+            """ + whereClause + """
+            ORDER BY mh.mission_finished_at DESC
+            LIMIT ? OFFSET ?""";
+
+        params.add(pageable.getPageSize());
+        params.add(pageable.getOffset());
+
+        List<MissionHistoryDto> content = jdbcTemplate.query(sql, params.toArray(), missionHistoryRowMapper(pageable));
+
+        String countQuery = """
+            SELECT COUNT(*)
+            FROM mission_history mh
+                     LEFT JOIN amr_history ah ON mh.id = ah.mission_id
+                     LEFT JOIN amr ON ah.amr_id = amr.id
+            """ + whereClause;
+
+        Integer total = Optional.ofNullable(jdbcTemplate.queryForObject(countQuery, Integer.class, params.toArray())).orElse(0);
+        return new PageImpl<>(content, pageable, total);
     }
 
-    private JPAQuery<MissionHistoryDto> createMissionHistoryQuery(List<String> amrCode,
-                                                                  LocalDateTime startTime,
-                                                                  LocalDateTime endTime,
-                                                                  Integer bottleneckSeconds
-    ) {
+    private void buildWhereClause(List<String> amrTypes, LocalDateTime startTime, LocalDateTime endTime, Integer bottleneckSeconds,
+                                  List<Object> params, StringBuilder whereClause) {
+        if (!CollectionUtils.isEmpty(amrTypes)) {
+            whereClause.append(" AND amr.amr_code IN (");
+            String inClause = String.join(",", amrTypes.stream().map(type -> "?").toArray(String[]::new));
+            whereClause.append(inClause).append(") ");
+            params.addAll(amrTypes);
+        }
 
-        return query.select(getHistoryDtoConstructorExpression())
-                    .from(mission)
-                    .leftJoin(amrHistory).on(amrHistory.mission.id.eq(mission.id))
-                    .leftJoin(amr).on(amrHistory.amr.id.eq(amr.id))
-                    .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds))
-                    .orderBy(mission.missionFinishedAt.desc());
-    }
-
-    private JPAQuery<Long> createCountQuery(List<String> amrCode,
-                                            LocalDateTime startTime,
-                                            LocalDateTime endTime,
-                                            Integer bottleneckSeconds
-    ) {
-        return query.select(mission.count())
-                    .from(amrHistory)
-                    .leftJoin(amrHistory.mission, mission)
-                    .leftJoin(amrHistory.amr, amr)
-                    .where(commonConditions(amrCode, startTime, endTime, bottleneckSeconds));
-    }
-
-    private List<MissionHistoryDto> getQueryContent(
-        Pageable pageable, JPAQuery<MissionHistoryDto> query
-    ) {
-        return query.offset(pageable.getOffset())
-                    .limit(pageable.getPageSize())
-                    .fetch();
-    }
-
-    private static ConstructorExpression<MissionHistoryDto> getHistoryDtoConstructorExpression() {
-        return Projections.constructor(MissionHistoryDto.class,
-                                       mission.id,
-                                       amr.id,
-                                       amr.amrCode,
-                                       Expressions.numberTemplate(Integer.class,
-                                                                  "TIMESTAMPDIFF(SECOND, {0}, {1})",
-                                                                  Expressions.dateTimeTemplate(LocalDateTime.class,
-                                                                                               "DATE_ADD({0}, INTERVAL {1} SECOND)",
-                                                                                               mission.missionStartedAt,
-                                                                                               mission.missionEstimatedTime),
-                                                                  mission.missionFinishedAt),
-                                       mission.missionStartedAt,
-                                       mission.missionFinishedAt
-        );
-    }
-
-    private BooleanExpression commonConditions(List<String> amrCodes,
-                                               LocalDateTime startTime,
-                                               LocalDateTime endTime,
-                                               Integer bottleneckSeconds) {
-
-        BooleanExpression conditions = mission.missionFinishedAt.isNotNull();
         if (startTime != null) {
-            conditions = conditions.and(mission.missionStartedAt.goe(startTime));
+            whereClause.append(" AND mh.mission_started_at >= ? ");
+            params.add(startTime);
         }
 
         if (endTime != null) {
-            conditions = conditions.and(mission.missionFinishedAt.loe(endTime));
-        }
-
-        if (amrCodes != null && !amrCodes.isEmpty()) {
-            conditions = conditions.and(amr.amrCode.in(amrCodes));
+            whereClause.append(" AND mh.mission_finished_at <= ? ");
+            params.add(endTime);
         }
 
         if (bottleneckSeconds != null) {
-            conditions = conditions.and(Expressions.numberTemplate(Integer.class,
-                                                                   "TIMESTAMPDIFF(SECOND, {0}, {1})",
-                                                                   Expressions.dateTimeTemplate(LocalDateTime.class,
-                                                                                                "DATE_ADD({0}, INTERVAL {1} SECOND)",
-                                                                                                mission.missionStartedAt,
-                                                                                                mission.missionEstimatedTime),
-                                                                   mission.missionFinishedAt)
-                                                   .loe(bottleneckSeconds));
+            whereClause.append(
+                " AND TIMESTAMPDIFF(SECOND, DATE_ADD(mh.mission_started_at, INTERVAL mh.mission_estimated_time SECOND), mh.mission_finished_at) <= ? ");
+            params.add(bottleneckSeconds);
         }
-        return conditions;
+    }
+
+    private RowMapper<MissionHistoryDto> missionHistoryRowMapper(Pageable pageable) {
+        return (rs, rowNum) -> new MissionHistoryDto(
+            rs.getLong("id"),
+            rs.getLong("amrId"),
+            rs.getString("amrCode"),
+            rs.getInt("delayTime"),
+            rs.getTimestamp("mission_started_at").toLocalDateTime(),
+            rs.getTimestamp("mission_finished_at").toLocalDateTime()
+        );
     }
 }
