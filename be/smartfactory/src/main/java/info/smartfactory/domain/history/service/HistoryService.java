@@ -1,8 +1,8 @@
 package info.smartfactory.domain.history.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import info.smartfactory.domain.history.service.dto.ReplayDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,25 +15,17 @@ import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
-import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
 import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.repository.MissionRepository;
-import info.smartfactory.domain.mission.service.MissionService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+
 
 @Service
 //@RequiredArgsConstructor
@@ -132,23 +124,52 @@ public class HistoryService {
         return all;
     }
 
-	public List<AmrHistoryDto> getReplay(Long missionId) {
+	public List<ReplayDto> getReplay(Long missionId) {
 
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
-        //TODO : 이거 끝난 미션인지 확인하기 ! !..
         LocalDateTime missionStartedAt = mission.getMissionStartedAt();
         LocalDateTime missionFinishedAt = mission.getMissionFinishedAt();
 
-        List<AmrHistory> resultList = amrHistoryRepository.findByMissionIdAndMissionStartedAtBetween(mission.getId(), missionStartedAt, missionFinishedAt);
-
-        List<AmrHistoryDto> resultDtoList = new ArrayList<>();
-        for(AmrHistory amrHistory : resultList) {
-            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
-            resultDtoList.add(dto);
+        if(missionStartedAt==null || missionFinishedAt==null) {
+            throw new RuntimeException("Mission startedAt or finishedAt is null : " + missionId);
         }
 
-        return resultDtoList;
-	}
+        List<AmrHistory> resultList = amrHistoryRepository.findMissionStartedAtBetween(missionStartedAt, missionFinishedAt);
+
+
+        System.out.println("#######################################################");
+        for(AmrHistory amrHistory : resultList) {
+            System.out.println(amrHistory.toString());
+        }
+
+        //key에 대한 값을 저장하기
+        Map<LocalDateTime, List<AmrHistoryDto>> map2 = new HashMap<>();
+
+        for(AmrHistory amrHistory : resultList) {
+            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
+
+            map2.putIfAbsent(dto.getAmrHistoryCreatedAt(), new ArrayList<>());
+            map2.get(dto.getAmrHistoryCreatedAt()).add(dto);
+
+        }
+
+        // return 값
+        List<ReplayDto> replayDtoList = new ArrayList<>();
+
+        Set<LocalDateTime> localDateTimes = map2.keySet();
+
+        //keySet Sort
+        TreeSet<LocalDateTime> sortedSet = new TreeSet<>(localDateTimes);
+
+        for(LocalDateTime localDateTime : sortedSet) {
+            List<AmrHistoryDto> amrHistoryDto = map2.get(localDateTime);
+
+            ReplayDto replayDto = new ReplayDto(localDateTime, amrHistoryDto);
+            replayDtoList.add(replayDto);
+        }
+
+        return replayDtoList;
+    }
 }

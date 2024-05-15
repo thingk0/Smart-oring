@@ -3,6 +3,7 @@ package info.smartfactory.domain.history.controller;
 import java.util.List;
 
 import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
+import info.smartfactory.domain.history.service.dto.ReplayDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,7 @@ public class HistoryController {
     @Operation(summary = "분석웹 Mission페이지 미션 리플레이")
     @GetMapping("/histories/replay/{missionId}")
     public ResultResponse<?> getReplay(@PathVariable(name = "missionId") Long missionId) {
-        List<AmrHistoryDto> replayInfo = historyService.getReplay(missionId);
+        List<ReplayDto> replayInfo = historyService.getReplay(missionId);
 
         return ResultResponse.res(HttpStatus.OK, "success", replayInfo);
     }

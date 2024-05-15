@@ -12,6 +12,8 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface AmrHistoryMapper {
+    @Mapping(source = "XCoordinate", target = "xCoordinate")
+    @Mapping(source = "YCoordinate", target = "yCoordinate")
     AmrHistoryDto toDto(AmrHistory amrHistory);
 
     AmrHistoryMapper INSTANCE = Mappers.getMapper(AmrHistoryMapper.class);

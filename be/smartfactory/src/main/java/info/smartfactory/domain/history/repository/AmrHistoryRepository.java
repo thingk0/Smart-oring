@@ -13,11 +13,10 @@ public interface AmrHistoryRepository extends JpaRepository<AmrHistory, Long>, A
 
     @Query("""
            SELECT a
-           FROM AmrHistory a join fetch a.mission m
-           WHERE m.id = :missionId
-           AND m.missionStartedAt >= :missionStartedAt
-           AND m.missionFinishedAt <= :missionFinishedAt
+           FROM AmrHistory a
+           WHERE a.amrHistoryCreatedAt >= :missionStartedAt
+           AND a.amrHistoryCreatedAt <= :missionFinishedAt
            """)
-    List<AmrHistory> findByMissionIdAndMissionStartedAtBetween(@Param("missionId")Long missionId, @Param("missionStartedAt") LocalDateTime missionStartedAt, @Param("missionFinishedAt") LocalDateTime missionFinishedAt);
+    List<AmrHistory> findMissionStartedAtBetween(@Param("missionStartedAt") LocalDateTime missionStartedAt, @Param("missionFinishedAt") LocalDateTime missionFinishedAt);
 
 }
