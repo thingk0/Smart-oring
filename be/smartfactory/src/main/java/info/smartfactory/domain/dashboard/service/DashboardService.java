@@ -51,13 +51,25 @@ public class DashboardService {
         /////////////////////
         // 생산량 - 오늘 실시간, 어제 데이터
 
-        //어제와 오늘 데이터 중 미션 Type이 CONVEYER_TO_DESTINATION인 데이터
+        //어제와 오늘 데이터 중 미션 Type이 CONVEYOR_TO_DESTINATION인 데이터
         LocalDate today = LocalDate.now();
+        System.out.println("today localdate"+ today);
         LocalDate yesterday = today.minusDays(1);
+        System.out.println("yesterday localdate"+ yesterday);
         LocalDateTime yesterdayStart = today.minusDays(1).atStartOfDay();
+        System.out.println("yesterday localdatetime"+yesterdayStart);
         LocalDateTime now = LocalDateTime.now();
+        System.out.println("now localdatetime"+now);
 
         List<MissionStatusDto> missionList = missionRepository.getCompleteMissions(yesterdayStart, now);
+
+        System.out.println(missionList.size());
+
+        for(MissionStatusDto dto : missionList){
+            System.out.println(dto.getMission().getMissionType());
+            System.out.println(dto.getMission().getMissionType() == MissionType.CONVEYOR_TO_DESTINATION);
+        }
+
 
         // 어제 완성품 옮긴 미션 리스트
         List<MissionStatusDto> yesterdayConveyerMissions = missionList.stream()
