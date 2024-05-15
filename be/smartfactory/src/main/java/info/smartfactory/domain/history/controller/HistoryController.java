@@ -2,10 +2,9 @@ package info.smartfactory.domain.history.controller;
 
 import java.util.List;
 
-import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
 import info.smartfactory.domain.history.service.dto.ReplayDto;
 import info.smartfactory.domain.history.service.RealtimeAmrDto;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
