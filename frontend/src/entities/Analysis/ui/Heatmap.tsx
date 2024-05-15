@@ -19,7 +19,7 @@ function Heatmap({ resource }: HeatmapProps) {
 
   return (
     <div className={styles.component_background}>
-      <Typography variant="h2" component="h2">
+      <Typography variant="h3" component="h2">
         병목 좌표
       </Typography>
       <ReactApexChart
