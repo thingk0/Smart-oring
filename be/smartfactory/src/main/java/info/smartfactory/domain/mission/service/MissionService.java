@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import info.smartfactory.domain.amr.entity.Amr;
+import info.smartfactory.domain.amr.repository.AmrRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -45,6 +49,8 @@ public class MissionService {
     private final ConveyorBeltRepository conveyorBeltRepository;
     private final MissionProducer kafkaProducer;
     private final AmrHistoryRepository amrHistoryRepository;
+    private final ObjectMapper objectMapper;
+    private final AmrRepository amrRepository;
 
     @Scheduled(cron = "0/10 * * * * ?")
     public void generateMission() {
@@ -82,26 +88,25 @@ public class MissionService {
         Mission mission = missionRepository.findById(missionId)
                                            .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
 
-//        MissionDto missionDto = missionMapper.toDto(mission);
-
         Mission missionWithNodes = missionRepository.findByMissionIdWithNodes(missionId);
-
-        System.out.println(missionWithNodes.toString());
-        log.info("============================================");
-        log.info(missionWithNodes.toString());
 
         return missionMapper.toDto(mission);
     }
 
-    public void completeMission(MissionKafkaDto missionKafkaDto) {
+    @Transactional(readOnly = false)
+    public void completeMission(MissionKafkaDto missionKafkaDto) throws JsonProcessingException {
         Mission mission = missionRepository.findById(missionKafkaDto.id())
-                                           .orElseThrow(() -> new RuntimeException("Entity not found with ID: " + missionKafkaDto.id()));
+                                           .orElseThrow(() -> new RuntimeException("Mission Entity not found with ID: " + missionKafkaDto.id()));
+
+        Amr amr = amrRepository.findById(missionKafkaDto.amrId())
+                .orElseThrow(() -> new RuntimeException("Amr Entity not found with ID: " + missionKafkaDto.amrId()));
 
         mission.completeMission(
-            mission.getMissionStartedAt(),
-            mission.getMissionFinishedAt(),
-            mission.getMissionEstimatedTime(),
-            mission.getFullPath()
+            missionKafkaDto.missionStartedAt(),
+            missionKafkaDto.missionFinishedAt(),
+            missionKafkaDto.missionEstimatedTime(),
+            objectMapper.writeValueAsString(missionKafkaDto.fullPath()),
+            amr
         );
     }
 
