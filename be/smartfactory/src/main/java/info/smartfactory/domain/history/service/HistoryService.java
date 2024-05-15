@@ -10,9 +10,9 @@ import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
 import info.smartfactory.domain.history.service.dto.ReplayDto;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.repository.MissionRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
