@@ -92,8 +92,9 @@ def start():
         time.sleep(1)
         # rm.print_factory_map()
         current_time = datetime.datetime.now().isoformat()
+        current_time_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()
         rm.process_robots()
-        send_robot_stat(current_time=current_time)
+        send_robot_stat(current_time=current_time, current_time_utc=current_time_utc)
         get_mission()
 
         while missions:
@@ -104,7 +105,7 @@ def start():
                 break
 
 
-def send_robot_stat(current_time):
+def send_robot_stat(current_time, current_time_utc):
     robots = rm.get_all_robots()
     for robot in robots:
         current_mission_id = get_current_mission_id(robot)
@@ -119,7 +120,8 @@ def send_robot_stat(current_time):
             "robotEvent": robot.last_event.value,
             "visited_node_until_mission_complete": list(robot.visited_node_until_mission_complete),
             "missionId": current_mission_id,
-            "cant_move_duration": robot.cant_move_duration
+            "cant_move_duration": robot.cant_move_duration,
+            "amrHistoryCreatedAInstant": current_time_utc
         }
 
         producer.produce("amr-history-log", key=str(robot.robot_id),
