@@ -15,19 +15,18 @@ function MissionList() {
 
   const onClickHandler = () => {
     axios.get(import.meta.env.VITE_MISSION_HISTORY_URL).then(res => {
-      // console.log(res.data.data);
       setHistory(res.data.data);
     });
   };
 
   return (
     <aside className={styles.component_background}>
-      <Typography variant="h5" component="h2">
-        리스트
+      <Typography variant="h3" component="h2">
+        미션 리스트
       </Typography>
       <List sx={{ height: '300px', overflowY: 'scroll' }}>
         {list?.map((mission: any) => (
-          <ListItem key={mission.mission_id}>
+          <ListItem key={mission.mission_id} divider={true}>
             <ListItemButton>
               <Mission mission={mission} onClick={() => onClickHandler()} />
             </ListItemButton>
@@ -58,7 +57,7 @@ function Mission({ mission, onClick }: MissionProps) {
     <>
       <ListItemText onClick={onClick}>
         <div>
-          <Typography variant="h6" component="h3">
+          <Typography variant="h4" component="h3">
             AMR {mission.amr_id} | MISSION {mission.mission_id}
           </Typography>
           <Typography variant="body2" component="p">
