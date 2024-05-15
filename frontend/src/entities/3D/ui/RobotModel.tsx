@@ -1,4 +1,4 @@
-import { useFrame } from '@react-three/fiber';
+import { ThreeEvent, useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { AmrStatus, TRobot } from '@shared/types';
 import { useCallback, useEffect, useState } from 'react';
@@ -29,8 +29,10 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
     [hovered]
   );
-  const onPointerOver = useCallback(() => setHover(true), []);
-  const onPointerOut = useCallback(() => setHover(false), []);
+  const onPointerOver = (e: ThreeEvent<PointerEvent>) => (
+    e.stopPropagation(), setHover(true)
+  );
+  const onPointerOut = () => setHover(false);
   const { lightQuality } = useGraphicsQualityStore();
   return (
     <group {...props}>
