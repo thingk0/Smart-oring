@@ -88,9 +88,15 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                                                LocalDateTime startTime,
                                                LocalDateTime endTime,
                                                Integer bottleneckSeconds) {
-        BooleanExpression conditions = mission.missionFinishedAt.isNotNull()
-                                                                .and(mission.missionStartedAt.goe(startTime))
-                                                                .and(mission.missionFinishedAt.loe(endTime));
+
+        BooleanExpression conditions = mission.missionFinishedAt.isNotNull();
+        if (startTime != null) {
+            conditions = conditions.and(mission.missionStartedAt.goe(startTime));
+        }
+
+        if (endTime != null) {
+            conditions = conditions.and(mission.missionFinishedAt.loe(endTime));
+        }
 
         if (amrCodes != null && !amrCodes.isEmpty()) {
             conditions = conditions.and(amr.amrCode.in(amrCodes));
@@ -98,10 +104,11 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
         if (bottleneckSeconds != null) {
             conditions = conditions.and(Expressions.numberTemplate(Integer.class,
-                                                                   "TIMESTAMPDIFF(SECOND, mission.missionEstimatedTime, mission.missionFinishedAt)")
+                                                                   "TIMESTAMPDIFF(SECOND, {0}, {1})",
+                                                                   mission.missionEstimatedTime,
+                                                                   mission.missionFinishedAt)
                                                    .loe(bottleneckSeconds));
         }
-
         return conditions;
     }
 
