@@ -1,4 +1,5 @@
 import { Suspense, useState } from 'react';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import Dashboard from './Dashboard';
 import Heatmap from './Heatmap';
@@ -33,7 +34,9 @@ function Analysis() {
             <Tab label="bottleneck coordinate" />
           </Tabs>
         </nav>
-        <Button variant="contained">Back to Monitoring</Button>
+        <Button variant="contained" endIcon={<ExitToAppIcon />}>
+          Back to Monitoring
+        </Button>
       </header>
 
       <div className={styles.body_margin}>

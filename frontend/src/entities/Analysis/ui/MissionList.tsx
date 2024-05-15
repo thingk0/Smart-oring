@@ -15,7 +15,8 @@ function MissionList() {
 
   const onClickHandler = () => {
     axios.get(import.meta.env.VITE_MISSION_HISTORY_URL).then(res => {
-      setHistory(res.data.data);
+      // console.log(res.data);
+      setHistory(res.data);
     });
   };
 

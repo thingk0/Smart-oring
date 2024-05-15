@@ -13,6 +13,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 import styles from './Analysis.module.css';
 
 const AMRs = [
@@ -61,6 +62,8 @@ function Form() {
       .then(res => setMissionList(res.data.content));
   }, []);
 
+  const date = Date.now();
+
   return (
     <div className={styles.filter}>
       <form action="#" method="get">
@@ -89,8 +92,8 @@ function Form() {
           {/* 오늘부터 6개월 전까지 데이터 보관*/}
           <InputLabel id="analysis_start_range">분석시간 범위</InputLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker />
-            <DatePicker />
+            <DatePicker defaultValue={dayjs(date - 259200000)} />
+            <DatePicker defaultValue={dayjs(date)} maxDate={dayjs(date)} />
           </LocalizationProvider>
 
           {/* 병목 시간 선정 */}
