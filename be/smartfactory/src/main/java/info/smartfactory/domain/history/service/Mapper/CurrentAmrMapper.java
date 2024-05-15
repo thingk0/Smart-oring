@@ -14,6 +14,8 @@ public interface CurrentAmrMapper {
 
     CurrentAmrMapper INSTANCE = Mappers.getMapper(CurrentAmrMapper.class);
 
+    @Mapping(source = "XCoordinate", target = "xCoordinate")
+    @Mapping(source = "YCoordinate", target = "yCoordinate")
     CurrentAmrInfoRedisDto mapToRedisDto(RealtimeAmrDto realtimeAmrDto);
 
     @AfterMapping

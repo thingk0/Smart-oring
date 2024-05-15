@@ -3,6 +3,7 @@ package info.smartfactory.domain.history.service;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
 import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
@@ -92,10 +93,10 @@ public class HistoryService {
 
         // redis에 amr 실시간 위치 저장
 
+        //amrHistory를 json으로 바꿔서 db에 저장
         RealtimeAmrDto kafkaDto = RealtimeAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
         RealtimeAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, kafkaDto, period);
-
 
         String jsonString = getJsonStringFromList(kafkaDto.getAmrRoute());
 
