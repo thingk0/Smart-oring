@@ -1,18 +1,17 @@
 import { create } from 'zustand'; // 변경된 부분
 
 import { createJSONStorage, persist } from 'zustand/middleware';
-interface GraphicsQualityOptions {
+interface UseReplayStore {
   isPlaying: boolean;
   currentTime: number;
   totalTime: number;
-  actions: {};
+  actions: ReplayStoreActions;
 }
-interface UseReplayStore extends GraphicsQualityOptions {
-  actions: {
-    setIsPlaying: (value: boolean) => void;
-    setCurrentTime: (value: number) => void;
-    increaseCurrentTime: () => void;
-  };
+interface ReplayStoreActions {
+  setIsPlaying: (value: boolean) => void;
+  setCurrentTime: (value: number) => void;
+  setTotalTime: (value: number) => void;
+  increaseCurrentTime: () => void;
 }
 const initialValue = {
   isPlaying: false,
@@ -25,6 +24,7 @@ export const useReplayStore = create<UseReplayStore>()(
       ...initialValue,
       actions: {
         setIsPlaying: (value: boolean) => set({ isPlaying: value }),
+        setTotalTime: (value: number) => set({ totalTime: value }),
         setCurrentTime: (value: number) => set({ currentTime: value }),
         increaseCurrentTime: () =>
           set(state => {
