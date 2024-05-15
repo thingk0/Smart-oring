@@ -8,12 +8,16 @@ type UsageRateProps = {
 function UsageRate({ data }: UsageRateProps) {
   return (
     <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
-        AMR 사용률 Top 3
+      <Typography variant="h2" component="h2">
+        미션 수행률 Top 3
       </Typography>
       <ol>
         {data.map((amr: any) => {
-          return <li key={amr.amrId}>{amr.UsagePercent}</li>;
+          return (
+            <Typography variant="body1" component="li" key={amr.amrId}>
+              AMR {amr.UsagePercent}
+            </Typography>
+          );
         })}
       </ol>
     </div>

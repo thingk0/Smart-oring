@@ -12,17 +12,40 @@ type RealTimeErrorProps = {
 
 function RealTimeError({ data }: RealTimeErrorProps) {
   return (
-    <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
+    <div className={`${styles.component_background} ${styles.scroll}`}>
+      <Typography variant="h2" component="h2">
         실시간 에러
       </Typography>
-      {data.map(({ amrId, missionId }) => {
-        return (
-          <p key={amrId}>
-            {amrId}번 기기 - {missionId} 미션 수행 시 에러
-          </p>
-        );
-      })}
+      <ul>
+        {data.map(({ amrId, missionId }) => {
+          return (
+            <Typography variant="body1" component="li" key={amrId}>
+              MISSION {missionId} - AMR {amrId}
+            </Typography>
+          );
+        })}
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          MISSION - AMR
+        </Typography>
+      </ul>
     </div>
   );
 }

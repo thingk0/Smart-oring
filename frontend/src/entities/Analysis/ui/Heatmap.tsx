@@ -1,4 +1,6 @@
 import ReactApexChart from 'react-apexcharts';
+import styles from './Analysis.module.css';
+import { Typography } from '@mui/material';
 
 type HeatmapProps = {
   resource: {
@@ -12,13 +14,20 @@ function Heatmap({ resource }: HeatmapProps) {
 
   const option = {
     colors: ['#000000'],
-    title: { text: 'bottleneck charts' },
     dataLabels: { enabled: true },
   };
 
   return (
-    <div>
-      <ReactApexChart type="heatmap" series={data} options={option} />
+    <div className={styles.component_background}>
+      <Typography variant="h2" component="h2">
+        병목 좌표
+      </Typography>
+      <ReactApexChart
+        type="heatmap"
+        series={data}
+        options={option}
+        height={500}
+      />
     </div>
   );
 }

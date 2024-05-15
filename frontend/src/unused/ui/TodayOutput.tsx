@@ -5,13 +5,20 @@ type TodayOutputProps = {
   data: number;
 };
 
+const getDateTime = () => {
+  const date = new Date();
+  return date.toLocaleDateString();
+};
+
 function TodayOutput({ data }: TodayOutputProps) {
   return (
     <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
-        오늘 생산량
+      <Typography variant="h2" component="h2">
+        {getDateTime()} 생산량
       </Typography>
-      <p>{data}</p>
+      <Typography variant="body1" component="p">
+        {data}
+      </Typography>
     </div>
   );
 }

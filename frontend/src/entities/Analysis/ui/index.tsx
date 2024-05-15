@@ -17,10 +17,10 @@ function Analysis() {
 
   return (
     <div className={styles.wrap}>
-      <nav className={styles.nav_wrap}>
-        <div className={styles.flex}>
-          <Typography variant="h4" component="h1">
-            Analysis
+      <header className={styles.nav_wrap}>
+        <nav className={styles.flex}>
+          <Typography variant="h1" component="h1">
+            <a href="#">Analysis</a>
           </Typography>
 
           <Tabs
@@ -28,13 +28,13 @@ function Analysis() {
             onChange={onChangeHandler}
             aria-label="Analysis Tab Nagivation"
           >
-            <Tab label="dashboard" />
-            <Tab label="mission" />
-            <Tab label="heatmap" />
+            <Tab label="realtime dashboard" />
+            <Tab label="discover mission" />
+            <Tab label="bottleneck coordinate" />
           </Tabs>
-        </div>
+        </nav>
         <Button variant="contained">Back to Monitoring</Button>
-      </nav>
+      </header>
 
       <div className={styles.body_margin}>
         <Suspense fallback={<CircularProgress />}>

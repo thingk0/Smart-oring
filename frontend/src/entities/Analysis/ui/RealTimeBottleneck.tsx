@@ -13,17 +13,67 @@ type RealTimeBottleneck = {
 
 function RealTimeBottleneck({ data }: RealTimeBottleneck) {
   return (
-    <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
+    <div className={`${styles.component_background} ${styles.scroll}`}>
+      <Typography variant="h2" component="h2">
         실시간 병목
       </Typography>
-      {data.map(({ amrId, xcoordinate, ycoordinate }) => {
-        return (
-          <p key={amrId}>
-            {amrId}번 기기 - ({xcoordinate}, {ycoordinate}) 좌표 병목
-          </p>
-        );
-      })}
+      <ul>
+        {data.map(({ amrId, xcoordinate, ycoordinate }) => {
+          return (
+            <Typography variant="body1" component="li" key={amrId}>
+              ({xcoordinate}, {ycoordinate}) Coordinate - AMR {amrId}
+            </Typography>
+          );
+        })}
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+        <Typography variant="body1" component="li">
+          Coordinate - AMR
+        </Typography>
+      </ul>
     </div>
   );
 }
