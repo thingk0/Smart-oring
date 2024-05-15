@@ -1,14 +1,12 @@
 import { Container } from '@mui/material';
-import { ReplaySlider } from '@entity/index';
-import { PlayButton } from '@entity/replay/PlayButton';
+import { ReplayBar } from '@entity/index.ts';
 
 export function ReplayPage() {
   return (
     <>
       <main>
         <Container fixed>
-          <ReplaySlider />
-          <PlayButton />
+          <ReplayBar />
         </Container>
       </main>
     </>

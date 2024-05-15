@@ -1,1 +1,1 @@
-export * from './ReplaySlider';
+export * from './ReplayBar';
