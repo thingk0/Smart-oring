@@ -40,3 +40,9 @@ export function secondsToHMS(seconds: number) {
   const secs = duration.seconds().toString().padStart(2, '0');
   return `${hours}:${minutes}:${secs}`;
 }
+
+export function convert2DTo3D(
+  value: [number, number][]
+): [number, number, number][] {
+  return value.map(e => [e[1], 1, e[0]]);
+}
