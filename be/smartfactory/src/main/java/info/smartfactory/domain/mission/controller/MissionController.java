@@ -3,7 +3,7 @@ package info.smartfactory.domain.mission.controller;
 import info.smartfactory.domain.mission.service.MissionService;
 import info.smartfactory.domain.mission.service.dto.MissionDto;
 import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
-import info.smartfactory.domain.mission.service.dto.MissionInfoDto;
+import info.smartfactory.domain.mission.service.dto.MissionAnalysisDto;
 import info.smartfactory.global.result.ResultResponse;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,8 +40,8 @@ public class MissionController {
 
     @GetMapping("/{missionId}/analysis")
     public ResultResponse<?> getMission(@PathVariable Long missionId) {
-        MissionInfoDto missionHistoryAnalysisInfo = missionService.getMissionHistoryAnalysisInfo(missionId);
-        return ResultResponse.res(HttpStatus.OK, "success", missionHistoryAnalysisInfo);
+        MissionAnalysisDto analysisInfo = missionService.getMissionHistoryAnalysisInfo(missionId);
+        return ResultResponse.res(HttpStatus.OK, "success", analysisInfo);
     }
 
     @GetMapping("/{missionId}")
