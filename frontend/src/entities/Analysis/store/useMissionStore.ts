@@ -17,13 +17,22 @@ export type MissionObject = {
 };
 
 type MissionHistory = {
-  total_execution_time: number;
-  processing_time: number;
-  bottleneck_time: number;
-  charging_time: number;
-  error_time: number;
-  discharging_time: number;
-  mission_infos: Array<string>;
+  missionExecutionTimeAnalysis: {
+    amrCode: string;
+    missionId: number;
+    totalExecutionTime: number;
+    processingTime: number;
+    bottleneckTime: number;
+    chargingTime: number;
+    errorTime: number;
+    dischargingTime: number;
+  };
+  amrStatusTimeline: [
+    {
+      amrStatus: string;
+      startToEnd: Array<number>;
+    },
+  ];
 };
 
 const useMissionStore = create<MissionState>()(set => ({

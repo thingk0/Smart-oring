@@ -175,6 +175,51 @@
           { "x": "i1", "y": 2 },
           { "x": "j1", "y": 1 }
         ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
       }
     ]
   },
@@ -288,47 +333,37 @@
     "empty": false
   },
   "mission_history": {
-    "status": "OK",
-    "message": "success",
-    "data": {
-      "total_execution_time": 30,
-      "processing_time": 17,
-      "bottleneck_time": 3,
-      "charging_time": 4,
-      "error_time": 1,
-      "discharging_time": 5,
-      "mission_infos": [
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "BOTTLENECK",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "BOTTLENECK",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "PROCESSING",
-        "CHARGING",
-        "CHARGING",
-        "PROCESSING",
-        "PROCESSING",
-        "ERROR",
-        "DISCHARGING",
-        "DISCHARGING",
-        "DISCHARGING",
-        "BOTTLENECK",
-        "DISCHARGING"
-      ]
-    }
+    "missionExecutionTimeAnalysis": {
+      "amrCode": "AMR001",
+      "missionId": 12345,
+      "totalExecutionTime": 15,
+      "processingTime": 5,
+      "bottleneckTime": 3,
+      "chargingTime": 2,
+      "errorTime": 2,
+      "dischargingTime": 3
+    },
+    "amrStatusTimeline": [
+      {
+        "x": "PROCESSING",
+        "y": [1622520000000, 1622520005000]
+      },
+      {
+        "x": "BOTTLENECK",
+        "y": [1622520005000, 1622520008000]
+      },
+      {
+        "x": "CHARGING",
+        "y": [1622520008000, 1622520010000]
+      },
+      {
+        "x": "ERROR",
+        "y": [1622520010000, 1622520012000]
+      },
+      {
+        "x": "DISCHARGING",
+        "y": [1622520012000, 1622520015000]
+      }
+    ]
   }
 }

@@ -13,7 +13,7 @@ function Heatmap({ resource }: HeatmapProps) {
   //   console.log(data);
 
   const option = {
-    colors: ['#000000'],
+    colors: ['#673ab7'],
     dataLabels: { enabled: true },
   };
 

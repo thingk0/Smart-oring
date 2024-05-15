@@ -6,70 +6,22 @@ import ReactApexChart from 'react-apexcharts';
 
 function MissionHistory() {
   const history = useMissionStore(state => state.missionHistory);
-  // console.log(history);
-
-  // console.log(history?.processing_time);
-  // console.log(history?.bottleneck_time);
-  // console.log(history?.error_time);
+  console.log(history);
 
   const series = [
-    history?.processing_time,
-    history?.bottleneck_time,
-    history?.error_time,
+    history?.missionExecutionTimeAnalysis.processingTime,
+    history?.missionExecutionTimeAnalysis.bottleneckTime,
+    history?.missionExecutionTimeAnalysis.errorTime,
   ];
   const options = {
-    chart: {
-      type: 'donut',
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: 'bottom',
-          },
-        },
-      },
+    labels: [
+      `Processing ${history?.missionExecutionTimeAnalysis.processingTime}s`,
+      `Stopped ${history?.missionExecutionTimeAnalysis.bottleneckTime}s`,
+      `Error ${history?.missionExecutionTimeAnalysis.errorTime}s`,
     ],
   };
 
-  const timelineSeries = [
-    {
-      data: [
-        {
-          x: 'Code',
-          y: [
-            new Date('2019-03-02').getTime(),
-            new Date('2019-03-04').getTime(),
-          ],
-        },
-        {
-          x: 'Test',
-          y: [
-            new Date('2019-03-04').getTime(),
-            new Date('2019-03-08').getTime(),
-          ],
-        },
-        {
-          x: 'Validation',
-          y: [
-            new Date('2019-03-08').getTime(),
-            new Date('2019-03-12').getTime(),
-          ],
-        },
-        {
-          x: 'Deployment',
-          y: [
-            new Date('2019-03-12').getTime(),
-            new Date('2019-03-18').getTime(),
-          ],
-        },
-      ],
-    },
-  ];
+  const timelineSeries = [{ data: history?.amrStatusTimeline }];
   const timelineOptions = {
     chart: {
       height: 350,
@@ -93,7 +45,8 @@ function MissionHistory() {
         <div className={`${styles.flex_center} ${styles.margin_bottom}`}>
           <div>
             <Typography component="h3" variant="h3">
-              대충 AMR 번호랑 미션 번호
+              {history.missionExecutionTimeAnalysis.amrCode} | Mission{' '}
+              {history.missionExecutionTimeAnalysis.missionId}
             </Typography>
             <Typography component="p" variant="body2">
               대충 시작 시간과 종료 시간
@@ -107,19 +60,24 @@ function MissionHistory() {
         <div className={styles.flex_notcenter}>
           <div>
             <Typography component="p" variant="h2">
-              Main Graph
+              AMR Usage Rate
             </Typography>
-            <ReactApexChart type="donut" series={series} options={options} />
+            <ReactApexChart
+              type="donut"
+              series={series}
+              options={options}
+              width={350}
+            />
           </div>
           <div>
             <Typography component="p" variant="h2">
-              Timeline Graph
+              Mission Process Timeline
             </Typography>
             <ReactApexChart
               type="rangeBar"
               series={timelineSeries}
               options={timelineOptions}
-              width={550}
+              width={450}
               height={200}
             />
           </div>
