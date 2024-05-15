@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { robotData } from '../types';
 const url = import.meta.env.VITE_BACKEND_SERVER;
+const mockUrl = 'http://localhost:3001';
 const getRandomPosition = (position: number[]) => {
   const tmp = Math.round(Math.random());
   return [position[0] + tmp, position[1] + (tmp ^ 1)];
@@ -29,3 +30,6 @@ export const BackendRobotPosition = () =>
 
 export const getMap = () =>
   axios.get(url + '/map').then(res => res.data.resultData);
+
+export const getReplayData = () =>
+  axios.get(mockUrl + '/replay').then(res => res.data.resultData);

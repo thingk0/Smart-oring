@@ -1,5 +1,8 @@
 import { Vector3 } from 'three';
 import { robotData } from '../types';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 export const convertPosition = (
   start: [number, number],
@@ -29,3 +32,11 @@ export const getRotationIndex = (before: robotData, current: robotData) => {
 
   return [y, x, radian];
 };
+
+export function secondsToHMS(seconds: number) {
+  const duration = dayjs.duration(seconds, 'seconds');
+  const hours = duration.hours().toString().padStart(2, '0');
+  const minutes = duration.minutes().toString().padStart(2, '0');
+  const secs = duration.seconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${secs}`;
+}

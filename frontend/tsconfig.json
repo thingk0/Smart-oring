@@ -4,7 +4,8 @@
     "paths": {
       "@shared/*": ["shared/*"],
       "@entity/*": ["entities/*"],
-      "@base/*": ["bases/*"]
+      "@base/*": ["bases/*"],
+      "@widgets/*": ["widgets/*"]
     },
 
     "target": "ES2020",
