@@ -14,9 +14,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash("currentAmrInfo")
 public class RealtimeAmrDto {
-    @Id
+
     private Long amrId;
 
     private Long missionId;
