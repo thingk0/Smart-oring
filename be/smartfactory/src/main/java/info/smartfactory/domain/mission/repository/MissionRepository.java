@@ -36,7 +36,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long>, Mission
             END
         )
         FROM Mission m
-        WHERE m.missionStartedAt >= :yesterdayStart AND m.missionStartedAt <= :now
+        WHERE m.missionStartedAt >= :yesterdayStart AND m.missionFinishedAt <= :now
         AND m.missionFinishedAt IS NOT NULL
         """)
     List<MissionStatusDto> getCompleteMissions(@Param("yesterdayStart") LocalDateTime yesterdayStart, @Param("now") LocalDateTime now);

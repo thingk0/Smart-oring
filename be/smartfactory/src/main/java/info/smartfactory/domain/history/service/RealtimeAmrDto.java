@@ -1,4 +1,4 @@
-package info.smartfactory.domain.history.dto;
+package info.smartfactory.domain.history.service;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
@@ -15,14 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @RedisHash("currentAmrInfo")
-public class CurrentAmrInfoRedisDto {
-
+public class RealtimeAmrDto {
     @Id
     private Long amrId;
 
     private Long missionId;
 
-    private String amrRouteJson;
+    private List<Integer[]> amrRoute;
 
     private Integer battery;
 

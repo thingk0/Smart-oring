@@ -1,9 +1,20 @@
 package info.smartfactory.domain.history.service;
-
+\
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import info.smartfactory.domain.history.entity.AmrHistory;
+import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
+import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
 import info.smartfactory.domain.history.service.dto.ReplayDto;
+import info.smartfactory.domain.mission.entity.Mission;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +26,13 @@ import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
 import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
 
-import java.time.LocalDateTime;
-
-import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
-import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.mission.repository.MissionRepository;
-
-
 @Service
-//@RequiredArgsConstructor
 public class HistoryService {
 
     @Qualifier("liveRedisTemplate")
@@ -63,7 +67,6 @@ public class HistoryService {
 
     public void saveHistory(AmrHistoryLog amrHistoryLog) {
         // 병목 기간 저장
-
         Optional<CurrentAmrInfoRedisDto> previous = currentAmrRedisRepository.findById(amrHistoryLog.amrId().toString());
 
         long period = 0L;
@@ -93,9 +96,16 @@ public class HistoryService {
 
         // redis에 amr 실시간 위치 저장
 
-        CurrentAmrInfoRedisDto redisDto = CurrentAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
+        RealtimeAmrDto kafkaDto = RealtimeAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
-        CurrentAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, redisDto, period);
+        RealtimeAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, kafkaDto, period);
+
+
+        String jsonString = getJsonStringFromList(kafkaDto.getAmrRoute());
+
+        CurrentAmrInfoRedisDto redisDto = CurrentAmrMapper.INSTANCE.mapToRedisDto(kafkaDto);
+
+        CurrentAmrMapper.INSTANCE.setAmrRoute(kafkaDto, redisDto, jsonString);
 
         currentAmrRedisRepository.save(redisDto);
 
@@ -110,10 +120,19 @@ public class HistoryService {
 
     // amr 현재 위치 가져오기
 
-    public List<CurrentAmrInfoRedisDto> getRecentRobotStates() {
+    public List<RealtimeAmrDto> getRecentRobotStates() throws JSONException {
         List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
-        all.forEach(System.out::println);
-        return all;
+
+        List<RealtimeAmrDto> result = new ArrayList<RealtimeAmrDto>();
+
+        for (CurrentAmrInfoRedisDto dto : all) {
+            RealtimeAmrDto realtimeDto = CurrentToRealAmrMapper.INSTANCE.mapToRedisDto(dto);
+             List<Integer[]> routeList = parseJsonStringToList(dto.getAmrRouteJson());
+            CurrentToRealAmrMapper.INSTANCE.setAmrRoute(dto, realtimeDto, routeList);
+            result.add(realtimeDto);
+        }
+
+        return result;
     }
 
     // amr 이력 정보 가져오기
@@ -124,7 +143,36 @@ public class HistoryService {
         return all;
     }
 
-	public List<ReplayDto> getReplay(Long missionId) {
+    public static String getJsonStringFromList(List<Integer[]> list) {
+        JSONArray jsonArray = new JSONArray();
+        for (Integer[] array : list) {
+            JSONArray innerArray = new JSONArray();
+            for (Integer item : array) {
+                innerArray.put(item);
+            }
+            jsonArray.put(innerArray);
+        }
+        return jsonArray.toString();
+    }
+
+    public static List<Integer[]> parseJsonStringToList(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        List<Integer[]> resultList = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONArray innerJsonArray = jsonArray.getJSONArray(i);
+            Integer[] array = new Integer[innerJsonArray.length()];
+
+            for (int j = 0; j < innerJsonArray.length(); j++) {
+                array[j] = innerJsonArray.getInt(j);
+            }
+
+            resultList.add(array);
+        }
+        return resultList;
+    }
+
+    public List<ReplayDto> getReplay(Long missionId) {
 
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
@@ -172,4 +220,7 @@ public class HistoryService {
 
         return replayDtoList;
     }
+}
+
+
 }
