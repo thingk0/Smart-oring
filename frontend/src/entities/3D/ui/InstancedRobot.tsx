@@ -17,6 +17,7 @@ function InstancedRobot() {
     queryFn: BackendRobotPosition,
     refetchInterval: 800,
   });
+  console.log(data);
 
   const [beforePositions, setBeforePositions] = useState([]);
   const AGVs = useRef<Group<Object3DEventMap>>(null!);
