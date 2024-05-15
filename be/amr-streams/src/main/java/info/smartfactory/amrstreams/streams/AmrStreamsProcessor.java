@@ -5,11 +5,8 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
@@ -143,8 +140,7 @@ public class AmrStreamsProcessor {
                 preparedStatement.setInt(3, record.battery());
                 preparedStatement.setInt(4, record.x_coordinate());
                 preparedStatement.setInt(5, record.y_coordinate());
-                preparedStatement.setTimestamp(6, Timestamp.from(instant),
-                    Calendar.getInstance(TimeZone.getTimeZone(ZoneOffset.UTC)));
+                preparedStatement.setTimestamp(6, Timestamp.from(instant));
                 preparedStatement.setString(7, record.amr_status().name());
             }
 
