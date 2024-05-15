@@ -2,7 +2,12 @@ import styles from './Analysis.module.css';
 import { Typography } from '@mui/material';
 
 type ErrorRateProps = {
-  data: [{ amrId: number; ErrorPercent: number }];
+  data: Array<ErrorRate>;
+};
+
+type ErrorRate = {
+  amrId: number;
+  percentage: number;
 };
 
 function ErrorRate({ data }: ErrorRateProps) {
@@ -12,13 +17,17 @@ function ErrorRate({ data }: ErrorRateProps) {
         미션 중단률 Top 3
       </Typography>
       <ol>
-        {data.map((amr: any) => {
-          return (
-            <Typography variant="body1" component="li" key={amr.amrId}>
-              AMR {amr.ErrorPercent}
-            </Typography>
-          );
-        })}
+        {data
+          .filter((amr: ErrorRate, index: number) => {
+            if (index < 3) return amr;
+          })
+          .map(({ amrId, percentage }: ErrorRate) => {
+            return (
+              <Typography variant="body1" component="li" key={amrId}>
+                AMR {amrId} : {percentage}%
+              </Typography>
+            );
+          })}
       </ol>
     </div>
   );

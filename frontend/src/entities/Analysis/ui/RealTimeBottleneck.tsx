@@ -25,54 +25,6 @@ function RealTimeBottleneck({ data }: RealTimeBottleneck) {
             </Typography>
           );
         })}
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          Coordinate - AMR
-        </Typography>
       </ul>
     </div>
   );

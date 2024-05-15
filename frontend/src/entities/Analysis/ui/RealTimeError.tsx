@@ -24,27 +24,6 @@ function RealTimeError({ data }: RealTimeErrorProps) {
             </Typography>
           );
         })}
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
-        <Typography variant="body1" component="li">
-          MISSION - AMR
-        </Typography>
       </ul>
     </div>
   );
