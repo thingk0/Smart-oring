@@ -1,17 +1,15 @@
 package info.smartfactory.domain.history.service;
-\
+
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
 import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
+import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
 import info.smartfactory.domain.history.service.dto.ReplayDto;
 import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.repository.MissionRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -21,12 +19,10 @@ import org.springframework.stereotype.Service;
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
-import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
-import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
 import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
@@ -220,7 +216,4 @@ public class HistoryService {
 
         return replayDtoList;
     }
-}
-
-
 }
