@@ -5,13 +5,23 @@ import { Typography } from '@mui/material';
 
 const option: any = {
   labels: ['가동률'],
-  dataLabels: {
-    enabled: false,
-  },
+  // dataLabels: {
+  //   enabled: false,
+  // },
   plotOptions: {
     radialBar: {
       startAngle: -150,
       endAngle: 150,
+      dataLabels: {
+        show: true,
+        name: {
+          show: false,
+        },
+        value: {
+          fontSize: '16px',
+          offsetY: 0,
+        },
+      },
     },
   },
 };
@@ -22,11 +32,16 @@ type OperatingRateProps = {
 
 function OperatingRate({ data }: OperatingRateProps) {
   return (
-    <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
+    <div className={`${styles.component_background} ${styles.operating}`}>
+      <Typography variant="h2" component="h2">
         가동률
       </Typography>
-      <ReactApexChart type="radialBar" series={[data]} options={option} />
+      <ReactApexChart
+        type="radialBar"
+        series={[data]}
+        options={option}
+        // width={300}
+      />
     </div>
   );
 }

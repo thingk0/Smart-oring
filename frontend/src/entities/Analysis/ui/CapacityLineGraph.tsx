@@ -2,8 +2,6 @@ import ReactApexCharts from 'react-apexcharts';
 import styles from './Analysis.module.css';
 import { Typography } from '@mui/material';
 
-const option = {};
-
 type CapacityLineGraphProps = {
   yesterday: Array<number>;
   today: Array<number>;
@@ -21,12 +19,19 @@ function CapacityLineGraph({ yesterday, today }: CapacityLineGraphProps) {
     },
   ];
 
+  const options = {};
+
   return (
     <div className={`${styles.component_background} ${styles.line}`}>
-      <Typography variant="h5" component="h2">
+      <Typography component="h2" variant="h2">
         미션 처리량
       </Typography>
-      <ReactApexCharts type="line" series={series} options={option} />
+      <ReactApexCharts
+        type="line"
+        series={series}
+        options={options}
+        height={220}
+      />
     </div>
   );
 }

@@ -5,6 +5,7 @@
 
   width: 100vw;
   height: 100%;
+  background-color: #f2f2f7;
 }
 
 .nav_wrap {
@@ -19,20 +20,22 @@
 
 .flex {
   display: flex;
+  align-items: center;
   gap: 20px;
 }
 
 .body_margin {
   padding: 25px 44px;
-  background-color: #f2f2f7;
-  min-height: 50vh;
+
+  max-height: 75vh;
+  min-height: 75vh;
 }
 
 .component_background {
   background-color: #ffffff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 10px;
-  padding: 45px;
+  padding: 30px;
 }
 
 .component_margin {
@@ -45,18 +48,24 @@
   gap: 20px;
 
   /* minmax 써서 반응형 해보기 */
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   /* grid-template-areas:
-    'line' 'line' 'line' ''
-    'line' 'line' 'line' ''
-    'line' 'line' 'line' ''
-    '' '' '' ''; */
+    'line line line donut'
+    'line line line donut'
+    '. . . .'; */
+
+  max-height: 80vh;
 }
 
 .line {
+  grid-row: 2 / 4;
   grid-column: 1 / 4;
-  grid-row: 1 / 3;
+}
+
+.operating {
+  grid-row: 2 / 4;
+  grid-column: 4 / 5;
 }
 
 .flex_center {
@@ -83,10 +92,28 @@
   margin-top: 20px;
 
   /* minmax 써서 반응형 해보기 */
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .mission_grid_column {
   grid-column: 2 / 4;
+}
+
+/* RealtimeBottleneck.tsx, RealtimeError.tsx */
+.scroll {
+  height: inherit;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.sticky {
+  position: sticky;
+  top: 0px;
+  background-color: inherit;
 }

@@ -8,12 +8,16 @@ type ErrorRateProps = {
 function ErrorRate({ data }: ErrorRateProps) {
   return (
     <div className={styles.component_background}>
-      <Typography variant="h5" component="h2">
-        AMR 오류율 Worst 3
+      <Typography variant="h2" component="h2">
+        미션 중단률 Top 3
       </Typography>
       <ol>
         {data.map((amr: any) => {
-          return <li key={amr.amrId}>{amr.ErrorPercent}</li>;
+          return (
+            <Typography variant="body1" component="li" key={amr.amrId}>
+              AMR {amr.ErrorPercent}
+            </Typography>
+          );
         })}
       </ol>
     </div>
