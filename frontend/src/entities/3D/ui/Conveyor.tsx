@@ -32,7 +32,7 @@ export function Instances({
   children,
   ...props
 }: JSX.IntrinsicElements['group']) {
-  const { nodes } = useGLTF('/conveyor-transformed.glb') as GLTFResult;
+  const { nodes } = useGLTF('/models/conveyor-transformed.glb') as GLTFResult;
   const instances = useMemo(
     () => ({
       AlertOrange: nodes.AlertOrange005,
@@ -61,4 +61,4 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/conveyor-transformed.glb');
+useGLTF.preload('/models/conveyor-transformed.glb');
