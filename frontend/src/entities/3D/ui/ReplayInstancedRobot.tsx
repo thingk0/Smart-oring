@@ -30,13 +30,13 @@ function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
         // 판별 로직 추가
         let offsetX = 1;
         let offsetZ = 0.5;
-        const normalizedAngle = (radian + 2 * Math.PI) % (2 * Math.PI);
-        if (
-          Math.abs(normalizedAngle - Math.PI / 2) < 0.01 ||
-          Math.abs(normalizedAngle - (3 * Math.PI) / 2) < 0.01
-        ) {
-          [offsetX, offsetZ] = [offsetZ, offsetX];
-        }
+        // const normalizedAngle = (radian + 2 * Math.PI) % (2 * Math.PI);
+        // if (
+        //   Math.abs(normalizedAngle - Math.PI / 2) < 0.01 ||
+        //   Math.abs(normalizedAngle - (3 * Math.PI) / 2) < 0.01
+        // ) {
+        //   [offsetX, offsetZ] = [offsetZ, offsetX];
+        // }
         const nx = data[index].ycoordinate + x + offsetX;
         const nz = data[index].xcoordinate + y + offsetZ;
         // move AGVs position
@@ -51,11 +51,11 @@ function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
             console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
           },
         });
-        gsap.to(AGVs.current?.children[index].rotation, {
-          duration: 1 / speed,
-          ease: 'none',
-          y: radian,
-        });
+        // gsap.to(AGVs.current?.children[index].rotation, {
+        //   duration: 1 / speed,
+        //   ease: 'none',
+        //   y: radian,
+        // });
       } else {
         const date = new Date();
         console.log('로봇 null 들어옴 ', date);
