@@ -3,8 +3,8 @@ import { create } from 'zustand';
 type MissionState = {
   missionList: Array<MissionObject> | null;
   setMissionList: (by: Array<MissionObject>) => void;
-  missionHistory: MissionHistory | null;
-  setMissionHistory: (by: MissionHistory) => void;
+  missionHistory: MissionHistoryType | null;
+  setMissionHistory: (by: MissionHistoryType) => void;
 };
 
 export type MissionObject = {
@@ -16,7 +16,7 @@ export type MissionObject = {
   mission_finished_at: string;
 };
 
-type MissionHistory = {
+export type MissionHistoryType = {
   missionExecutionTimeAnalysis: {
     amrCode: string;
     missionId: number;
