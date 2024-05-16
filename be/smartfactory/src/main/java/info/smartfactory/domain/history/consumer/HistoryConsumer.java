@@ -25,6 +25,5 @@ public class HistoryConsumer {
         AmrHistoryLog amrHistoryLog = mapper.readValue(message, AmrHistoryLog.class);
         log.debug(amrHistoryLog.toString());
         historyService.saveHistory(amrHistoryLog);
-
     }
 }
