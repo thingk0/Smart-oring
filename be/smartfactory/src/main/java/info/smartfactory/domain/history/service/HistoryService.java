@@ -3,7 +3,6 @@ package info.smartfactory.domain.history.service;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import info.smartfactory.domain.history.entity.AmrHistory;
 import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
 import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
@@ -12,7 +11,6 @@ import info.smartfactory.domain.history.service.dto.ReplayDto;
 import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.repository.MissionRepository;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -117,7 +115,7 @@ public class HistoryService {
 
     // amr 현재 위치 가져오기
 
-    public List<RealtimeAmrDto> getRecentRobotStates() throws JSONException {
+    public List<RealtimeAmrDto> getRecentRobotStates(){
         List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 
         List<RealtimeAmrDto> result = new ArrayList<RealtimeAmrDto>();
@@ -152,7 +150,7 @@ public class HistoryService {
         return jsonArray.toString();
     }
 
-    public static List<Integer[]> parseJsonStringToList(String json) throws JSONException {
+    public static List<Integer[]> parseJsonStringToList(String json) {
         JSONArray jsonArray = new JSONArray(json);
         List<Integer[]> resultList = new ArrayList<>();
 

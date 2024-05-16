@@ -47,18 +47,4 @@ public class Bottleneck extends BaseTimeEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "bottleneck_created_at", nullable = false)
     private LocalDateTime bottleneckCreatedAt;
-
-    public static Bottleneck createBottleneck(
-        Integer xCoordinate,
-        Integer yCoordinate,
-        Long bottleneckPeriod,
-        LocalDateTime bottleneckCreatedAt
-    ) {
-        return Bottleneck.builder()
-                         .xCoordinate(xCoordinate)
-                         .yCoordinate(yCoordinate)
-                         .bottleneckPeriod(bottleneckPeriod)
-                         .bottleneckCreatedAt(bottleneckCreatedAt)
-                         .build();
-    }
 }

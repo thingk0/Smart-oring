@@ -74,8 +74,12 @@ public class BottleneckService {
     }
 
     public void addBottleneckData(BottleneckDto bottleneckDto) {
-        Bottleneck bottleneck = Bottleneck.createBottleneck(bottleneckDto.getXCoordinate(), bottleneckDto.getYCoordinate(),
-                                                            bottleneckDto.getBottleneckPeriod(), bottleneckDto.getBottleneckCreatedAt());
+         Bottleneck bottleneck = Bottleneck.builder()
+                .xCoordinate(bottleneckDto.getXCoordinate())
+                .yCoordinate(bottleneckDto.getYCoordinate())
+                .bottleneckPeriod(bottleneckDto.getBottleneckPeriod())
+                .bottleneckCreatedAt(bottleneckDto.getBottleneckCreatedAt())
+                .build();
         bottleneckRepository.save(bottleneck);
     }
 
