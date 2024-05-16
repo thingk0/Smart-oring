@@ -1,28 +1,36 @@
 import { Line } from '@react-three/drei';
+import { BackendRobotPosition } from '@shared/index';
 import { convert2DTo3D } from '@shared/lib';
 import { usePathStore } from '@shared/store/usePathStore';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 function Path() {
-  const { isShow, nextRoutes, visitedRoutes } = usePathStore();
-  useEffect(() => {
-    console.log(visitedRoutes);
-  }, []);
+  const { isShow, index, nextRoutes, visitedRoutes } = usePathStore();
 
-  useEffect(() => {}, []);
-  return (
-    <>
-      {isShow && nextRoutes?.length > 0 && (
-        <Line points={convert2DTo3D(nextRoutes)} lineWidth={10} color="grey" />
-      )}
-      {isShow && visitedRoutes?.length > 0 && (
-        <Line
-          points={convert2DTo3D(visitedRoutes)}
-          lineWidth={10}
-          color="skyblue"
-        />
-      )}
-    </>
-  );
+  const { data } = useQuery({
+    queryKey: ['robotPosition'],
+    // queryFn: getRobotPosition, : mocking api
+    queryFn: BackendRobotPosition,
+  });
+  if (data)
+    return (
+      <>
+        {isShow && data[index]?.routeRemainingForMission?.length > 0 && (
+          <Line
+            points={convert2DTo3D(data[index].routeRemainingForMission)}
+            lineWidth={10}
+            color="grey"
+          />
+        )}
+        {isShow && data[index]?.routeVisitedForMission?.length > 0 && (
+          <Line
+            points={convert2DTo3D(data[index].routeVisitedForMission)}
+            lineWidth={10}
+            color="skyblue"
+          />
+        )}
+      </>
+    );
 }
 export default Path;
