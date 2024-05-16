@@ -11,7 +11,7 @@ export default function SpeedInput() {
   } = useReplayStore();
   const step = 0.5;
   const min = 0.5;
-  const max = 3;
+  const max = 10;
 
   const handleIncrement = () => {
     if (speed + step <= max) {
@@ -30,7 +30,7 @@ export default function SpeedInput() {
       <StyledButton onClick={handleDecrement}>
         <RemoveIcon fontSize="small" />
       </StyledButton>
-      <StyledPre>{speed.toFixed(1)}</StyledPre>
+      <StyledPre>{speed.toFixed(1) + 'x'}</StyledPre>
       <StyledButton onClick={handleIncrement}>
         <AddIcon fontSize="small" />
       </StyledButton>
