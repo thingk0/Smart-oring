@@ -1,8 +1,7 @@
 import { Line } from '@react-three/drei';
 import { convert2DTo3D } from '@shared/lib';
 import { usePathStore } from '@shared/store/usePathStore';
-import { useEffect, useState } from 'react';
-import * as THREE from 'three';
+import { useEffect } from 'react';
 
 function Path() {
   const { isShow, route } = usePathStore();
