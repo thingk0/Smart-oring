@@ -121,7 +121,11 @@ def send_robot_stat(current_time, current_time_utc):
             "visited_node_until_mission_complete": list(robot.visited_node_until_mission_complete),
             "missionId": current_mission_id,
             "cant_move_duration": robot.cant_move_duration,
-            "amrHistoryCreatedAInstant": current_time_utc
+            "amrHistoryCreatedAInstant": current_time_utc,
+            "currentStopDuration": robot.cant_move_duration,
+            "routeRemainingForMission": [[e.x, e.y] for e in robot.get_next_nodes()] if robot.current_mission else None,
+            "routeVisitedForMission": [[e.x, e.y] for e in
+                                       robot.visited_node_until_mission_complete] if robot.current_mission else None,
         }
 
         producer.produce("amr-history-log", key=str(robot.robot_id),
