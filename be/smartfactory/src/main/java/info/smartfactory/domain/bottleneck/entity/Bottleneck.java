@@ -42,7 +42,7 @@ public class Bottleneck extends BaseTimeEntity {
     private Mission mission;
 
     @Column(name = "bottleneck_period", nullable = false)
-    private Long bottleneckPeriod;
+    private Integer bottleneckPeriod;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "bottleneck_created_at", nullable = false)

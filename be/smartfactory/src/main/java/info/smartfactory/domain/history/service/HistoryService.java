@@ -64,54 +64,50 @@ public class HistoryService {
     }
 
     public void saveHistory(AmrHistoryLog amrHistoryLog) {
-        // 병목 기간 저장
+        // 병목 저장
         Optional<CurrentAmrInfoRedisDto> previous = currentAmrRedisRepository.findById(amrHistoryLog.amrId().toString());
-
-        long period = 0L;
 
         if (previous.isPresent()) {
             CurrentAmrInfoRedisDto previousAmrInfo = previous.get();
 
-            if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getStopPeriod() > 0L) {
+            if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getCurrentStopDuration() != null && previousAmrInfo.getCurrentStopDuration() > 0L) {
                 bottleneckService.addBottleneckData(BottleneckDto.builder()
                                                                  .missionId(amrHistoryLog.missionId())
                                                                  .amrId(amrHistoryLog.amrId())
                                                                  .xCoordinate(amrHistoryLog.xCoordinate())
                                                                  .yCoordinate(amrHistoryLog.yCoordinate())
-                                                                 .bottleneckPeriod(previousAmrInfo.getStopPeriod())
+                                                                 .bottleneckPeriod(previousAmrInfo.getCurrentStopDuration())
                                                                  .bottleneckCreatedAt(amrHistoryLog.amrHistoryCreatedAt())
                                                                  .build());
-            }
-
-            if (amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) {
-                period = previousAmrInfo.getStopPeriod() + 1L;
-            }
-        } else {
-            if (amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) {
-                period += 1L;
             }
         }
 
         // redis에 amr 실시간 위치 저장
 
         //amrHistory를 json으로 바꿔서 db에 저장
+
         RealtimeAmrDto kafkaDto = RealtimeAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
-//        RealtimeAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, kafkaDto, period);
-
-        String jsonString = getJsonStringFromList(kafkaDto.getAmrRoute());
+        String amrRoute = getJsonStringFromList(kafkaDto.getAmrRoute());
+        String visitedAmrRoute;
+        String remainingAmrRoute;
 
         CurrentAmrInfoRedisDto redisDto = CurrentAmrMapper.INSTANCE.mapToRedisDto(kafkaDto);
 
-        CurrentAmrMapper.INSTANCE.setAmrRoute(kafkaDto, redisDto, jsonString);
+        if(kafkaDto.getRouteVisitedForMission()!=null && kafkaDto.getRouteRemainingForMission()!=null) {
+            visitedAmrRoute = getJsonStringFromList(kafkaDto.getRouteVisitedForMission());
+            remainingAmrRoute = getJsonStringFromList(kafkaDto.getRouteRemainingForMission());
+            CurrentAmrMapper.INSTANCE.setAmrRoutes(kafkaDto, redisDto, amrRoute, remainingAmrRoute, visitedAmrRoute);
+
+        }else{
+            CurrentAmrMapper.INSTANCE.setAmrRoute(kafkaDto, redisDto, amrRoute);
+        }
 
         currentAmrRedisRepository.save(redisDto);
 
         // redis에 amr 이력 저장
 
         BatchAmrInfoRedisDto amrHistoryDto = AmrHistoryMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
-
-        AmrHistoryMapper.INSTANCE.setStopPeriod(amrHistoryLog, amrHistoryDto, period);
 
         batchAmrRedisRepository.save(amrHistoryDto);
     }
@@ -125,8 +121,11 @@ public class HistoryService {
 
         for (CurrentAmrInfoRedisDto dto : all) {
             RealtimeAmrDto realtimeDto = CurrentToRealAmrMapper.INSTANCE.mapToRedisDto(dto);
-             List<Integer[]> routeList = parseJsonStringToList(dto.getAmrRouteJson());
-            CurrentToRealAmrMapper.INSTANCE.setAmrRoute(dto, realtimeDto, routeList);
+             List<Integer[]> amrRouteList = parseJsonStringToList(dto.getAmrRouteJson());
+             List<Integer[]> visitedAmrRouteList = parseJsonStringToList(dto.getRouteVisitedForMissionJson());
+             List<Integer[]> remainingAmrRouteList = parseJsonStringToList(dto.getRouteRemainingForMissionJson());
+
+            CurrentToRealAmrMapper.INSTANCE.setAmrRoute(dto, realtimeDto, amrRouteList, remainingAmrRouteList, visitedAmrRouteList);
             result.add(realtimeDto);
         }
 
@@ -154,20 +153,23 @@ public class HistoryService {
     }
 
     public static List<Integer[]> parseJsonStringToList(String json) {
-        JSONArray jsonArray = new JSONArray(json);
-        List<Integer[]> resultList = new ArrayList<>();
+        if(json != null){
+            JSONArray jsonArray = new JSONArray(json);
+            List<Integer[]> resultList = new ArrayList<>();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONArray innerJsonArray = jsonArray.getJSONArray(i);
-            Integer[] array = new Integer[innerJsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONArray innerJsonArray = jsonArray.getJSONArray(i);
+                Integer[] array = new Integer[innerJsonArray.length()];
 
-            for (int j = 0; j < innerJsonArray.length(); j++) {
-                array[j] = innerJsonArray.getInt(j);
+                for (int j = 0; j < innerJsonArray.length(); j++) {
+                    array[j] = innerJsonArray.getInt(j);
+                }
+
+                resultList.add(array);
             }
-
-            resultList.add(array);
+            return resultList;
         }
-        return resultList;
+        return null;
     }
 
     public List<ReplayDto> getReplay(Long missionId) {

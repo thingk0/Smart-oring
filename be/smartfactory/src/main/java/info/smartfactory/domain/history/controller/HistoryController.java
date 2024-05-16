@@ -4,17 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import info.smartfactory.domain.history.service.RealtimeAmrDto;
-import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
 import info.smartfactory.domain.history.service.dto.ReplayDto;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.format.annotation.DateTimeFormat;
-import info.smartfactory.domain.history.service.RealtimeAmrDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
-import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
 import info.smartfactory.domain.history.service.HistoryService;
 import info.smartfactory.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;

@@ -113,7 +113,7 @@ public class DashboardService {
                                                         .amrId(amrInfo.getAmrId())
                                                         .xCoordinate(amrInfo.getXCoordinate())
                                                         .yCoordinate(amrInfo.getYCoordinate())
-                                                        .bottleneckPeriod(amrInfo.getStopPeriod())
+                                                        .bottleneckPeriod(amrInfo.getCurrentStopDuration())
                                                         .bottleneckCreatedAt(amrInfo.getAmrHistoryCreatedAt())
                                                         .build());
             } else if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.ERROR) {
@@ -189,7 +189,7 @@ public class DashboardService {
         amrIdCount.forEach((amrId, cnt) ->
                 amrUsagePercent.add(AmrPercentDto.builder()
                         .amrId(amrId)
-                        .percentage(((double) cnt / todayMissionCnt) * 100)
+                        .percentage(Math.round(((double) cnt / todayMissionCnt) * 100))
                         .build()));
 
         // 출현 횟수가 가장 낮은 상위 3개의 amrId와 그 사용률을 선택

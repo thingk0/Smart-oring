@@ -19,7 +19,7 @@ public class AddBottleneckRequest {
 
     private Long missionId;
 
-    private Long bottleneckPeriod;
+    private Integer bottleneckPeriod;
 
     private LocalDateTime bottleneckTime;
 

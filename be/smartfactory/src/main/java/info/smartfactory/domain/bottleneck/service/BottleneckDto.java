@@ -15,7 +15,7 @@ public class BottleneckDto {
     private Integer yCoordinate;
     private Long missionId;
     private Long amrId;
-    private Long bottleneckPeriod;
+    private Integer bottleneckPeriod;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime bottleneckCreatedAt;
 

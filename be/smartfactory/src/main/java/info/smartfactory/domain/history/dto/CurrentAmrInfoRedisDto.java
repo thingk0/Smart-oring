@@ -32,7 +32,11 @@ public class CurrentAmrInfoRedisDto {
 
     private Integer yCoordinate;
 
-    private long stopPeriod;
+    private Integer currentStopDuration;
+
+    private String routeRemainingForMissionJson;
+
+    private String routeVisitedForMissionJson;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime amrHistoryCreatedAt;
