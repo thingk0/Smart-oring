@@ -1,4 +1,4 @@
-import { useFrame } from '@react-three/fiber';
+import { ThreeEvent, useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
 import { AmrStatus, TRobot } from '@shared/types';

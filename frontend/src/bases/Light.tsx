@@ -10,7 +10,7 @@ const lightColor = 'white';
 function Light() {
   const { shadowDetail, lightQuality } = useGraphicsQualityStore();
   const lightRef = useRef<DirectionalLight>(null!);
-  useHelper(lightRef, DirectionalLightHelper, 3, 'red');
+  // useHelper(lightRef, DirectionalLightHelper, 3, 'red');
   return (
     <>
       {lightQuality === 'high' && (
