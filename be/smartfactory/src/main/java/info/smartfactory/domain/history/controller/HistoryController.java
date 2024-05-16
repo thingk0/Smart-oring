@@ -30,7 +30,7 @@ public class HistoryController {
     // amr 실시간 위치
     @Operation(summary = "현재 로봇 상태 조회")
     @GetMapping("/amr/state")
-    public ResponseEntity<?> getRobotStates() throws JSONException {
+    public ResponseEntity<?> getRobotStates() {
         List<RealtimeAmrDto> result = historyService.getRecentRobotStates();
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
