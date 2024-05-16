@@ -1,50 +1,40 @@
 import * as React from 'react';
-import {
-  Unstable_NumberInput as BaseNumberInput,
-  NumberInputProps,
-} from '@mui/base/Unstable_NumberInput';
 import { styled } from '@mui/system';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useReplayStore } from '@shared/store';
 
-const NumberInput = React.forwardRef(function CustomNumberInput(
-  props: NumberInputProps,
-  ref: React.ForwardedRef<HTMLDivElement>
-) {
+export default function SpeedInput() {
   const {
+    speed,
     actions: { setSpeed },
   } = useReplayStore();
-  return (
-    <BaseNumberInput
-      slots={{
-        root: StyledInputRoot,
-        input: StyledInput,
-        incrementButton: StyledButton,
-        decrementButton: StyledButton,
-      }}
-      slotProps={{
-        incrementButton: {
-          children: <AddIcon fontSize="small" />,
-          className: 'increment',
-        },
-        decrementButton: {
-          children: <RemoveIcon fontSize="small" />,
-        },
-      }}
-      {...props}
-      onChange={(event, val) => {
-        val && setSpeed(val);
-      }}
-      readOnly
-      ref={ref}
-    />
-  );
-});
+  const step = 0.5;
+  const min = 0.5;
+  const max = 3;
 
-export default function SpeedInput() {
+  const handleIncrement = () => {
+    if (speed + step <= max) {
+      setSpeed(speed + step);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (speed - step >= min) {
+      setSpeed(speed - step);
+    }
+  };
+
   return (
-    <NumberInput aria-label="Quantity Input" min={0.25} max={2} step={0.25} />
+    <StyledInputRoot>
+      <StyledButton onClick={handleDecrement}>
+        <RemoveIcon fontSize="small" />
+      </StyledButton>
+      <StyledPre>{speed.toFixed(1)}</StyledPre>
+      <StyledButton onClick={handleIncrement}>
+        <AddIcon fontSize="small" />
+      </StyledButton>
+    </StyledInputRoot>
   );
 }
 
@@ -74,7 +64,6 @@ const grey = {
 
 const StyledInputRoot = styled('div')(
   ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[500]};
   display: flex;
@@ -84,44 +73,25 @@ const StyledInputRoot = styled('div')(
 `
 );
 
-const StyledInput = styled('input')(
-  ({ theme }) => `
-  font-size: 0.875rem;
+const StyledPre = styled('pre')(
+  () => `
   font-family: inherit;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.375;
-  color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-  background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-  border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-  box-shadow: 0px 2px 4px ${
-    theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
-  };
-  border-radius: 8px;
   margin: 0 8px;
   padding: 10px 12px;
-  outline: 0;
   min-width: 0;
   width: 4rem;
   text-align: center;
-
-  &:hover {
-    border-color: ${blue[400]};
-  }
-
-  &:focus {
-    border-color: ${blue[400]};
-    box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[700] : blue[200]};
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: white;
 `
 );
 
 const StyledButton = styled('button')(
   ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   line-height: 1.5;
@@ -149,10 +119,6 @@ const StyledButton = styled('button')(
 
   &:focus-visible {
     outline: 0;
-  }
-
-  &.increment {
-    order: 1;
   }
 `
 );

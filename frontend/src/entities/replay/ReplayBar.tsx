@@ -5,6 +5,7 @@ import { TimeStatus } from './TimeStatus';
 import { useEffect } from 'react';
 import { Mark } from '@mui/base/useSlider';
 import SpeedInput from './SpeedInput';
+import Stack from '@mui/material/Stack';
 
 export function ReplayBar({ marks }: { marks: Mark[] }) {
   useEffect(() => {
@@ -14,8 +15,15 @@ export function ReplayBar({ marks }: { marks: Mark[] }) {
     <div className={classes.container}>
       <TimeStatus />
       <ReplaySlider marks={marks} />
-      <PlayButton />
-      <SpeedInput />
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={1}
+      >
+        <PlayButton />
+        <SpeedInput />
+      </Stack>
     </div>
   );
 }
