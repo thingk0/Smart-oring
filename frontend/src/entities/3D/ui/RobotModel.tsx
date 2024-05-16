@@ -1,4 +1,4 @@
-import { ThreeEvent, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
 import { AmrStatus, TRobot } from '@shared/types';
@@ -13,13 +13,7 @@ type RobotModelProps = {
 };
 
 // main function
-function RobotModel({
-  instances,
-  name,
-  status,
-  indexNumber,
-  ...props
-}: RobotModelProps) {
+function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   // console.log(instances);
   const {
     isShow,
