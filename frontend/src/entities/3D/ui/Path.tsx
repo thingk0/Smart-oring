@@ -12,8 +12,8 @@ function Path() {
   useEffect(() => {}, []);
   return (
     <>
-      {isShow && (
-        <Line points={convert2DTo3D(route)} lineWidth={10} color="black" />
+      {isShow && route?.length > 0 && (
+        <Line points={convert2DTo3D(route)} lineWidth={10} color="grey" />
       )}
     </>
   );

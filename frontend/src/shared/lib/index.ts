@@ -23,7 +23,7 @@ export const calculateScale = (
 };
 
 // robot.tsx utils
-//[아래,오른쪽,0,?,?]
+//[아래,오른쪽,0,왼쪽,위]
 const arr = [-Math.PI / 2, 0, 0, -Math.PI, -Math.PI * 1.5];
 
 export const getRotationIndex = (before: robotData, current: robotData) => {
@@ -33,6 +33,12 @@ export const getRotationIndex = (before: robotData, current: robotData) => {
 
   return [y, x, radian];
 };
+
+export const getRotationIndex2 = (
+  before: robotData,
+  current: robotData,
+  rotationY: number
+) => {};
 
 export function secondsToHMS(seconds: number) {
   const duration = dayjs.duration(seconds, 'seconds');
@@ -45,6 +51,6 @@ export function secondsToHMS(seconds: number) {
 export function convert2DTo3D(
   value: [number, number][]
 ): [number, number, number][] {
-  if (value) return value.map(e => [e[1], 1, e[0]]);
+  if (value) return value.map(e => [e[1] + 0.5, 0.2, e[0] + 0.5]);
   else return [[0, 0, 0]];
 }
