@@ -4,6 +4,7 @@ import classes from './ReplayBar.module.css';
 import { TimeStatus } from './TimeStatus';
 import { useEffect } from 'react';
 import { Mark } from '@mui/base/useSlider';
+import SpeedInput from './SpeedInput';
 
 export function ReplayBar({ marks }: { marks: Mark[] }) {
   useEffect(() => {
@@ -14,6 +15,7 @@ export function ReplayBar({ marks }: { marks: Mark[] }) {
       <TimeStatus />
       <ReplaySlider marks={marks} />
       <PlayButton />
+      <SpeedInput />
     </div>
   );
 }

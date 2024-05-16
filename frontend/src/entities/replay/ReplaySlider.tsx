@@ -43,7 +43,7 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
       }, 1000 / speed);
     }
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, speed]);
   function valueLabelFormat(value: number) {
     return secondsToHMS(value);
   }
