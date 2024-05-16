@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -46,30 +47,21 @@ public class DashboardService {
     }
 
     public DashboardDto getRealtimeData() {
-        List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 
         /////////////////////
         // 생산량 - 오늘 실시간, 어제 데이터
 
         //어제와 오늘 데이터 중 미션 Type이 CONVEYOR_TO_DESTINATION인 데이터
         LocalDate today = LocalDate.now();
-        System.out.println("today localdate"+ today);
         LocalDate yesterday = today.minusDays(1);
-        System.out.println("yesterday localdate"+ yesterday);
         LocalDateTime yesterdayStart = today.minusDays(1).atStartOfDay();
-        System.out.println("yesterday localdatetime"+yesterdayStart);
         LocalDateTime now = LocalDateTime.now();
-        System.out.println("now localdatetime"+now);
 
         List<MissionStatusDto> missionList = missionRepository.getCompleteMissions(yesterdayStart, now);
 
-        System.out.println(missionList.size());
-
-        for(MissionStatusDto dto : missionList){
-            System.out.println(dto.getMission().getMissionType());
-            System.out.println(dto.getMission().getMissionType() == MissionType.CONVEYOR_TO_DESTINATION);
+        for(MissionStatusDto mission: missionList){
+            System.out.println("mission "+mission.getMission()+" "+mission.isHasError());
         }
-
 
         // 어제 완성품 옮긴 미션 리스트
         List<MissionStatusDto> yesterdayConveyerMissions = missionList.stream()
@@ -97,9 +89,6 @@ public class DashboardService {
         // 오늘 생산량
         long todayTotalOutput = todayConveyerMissions.size();
 
-        // 가동룰 - 전체 Amr 중에 실시간 PROCESSING, BOTTLENECK인 것의 비율
-        int processingNum = 0;
-
         // amr별 사용률
         List<AmrPercentDto> amrUsagePercent = amrUsagePercent(todayMissions);
 
@@ -110,6 +99,11 @@ public class DashboardService {
 
         List<ErrorDto> realtimeErrorList = new ArrayList<>();
         List<BottleneckDto> realtimeBottleneckList = new ArrayList<>();
+
+        // 가동룰 - 전체 Amr 중에 실시간 PROCESSING, BOTTLENECK인 것의 비율
+        int processingNum = 0;
+
+        List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 
         for (CurrentAmrInfoRedisDto amrInfo : all) {
             if (amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
@@ -137,7 +131,7 @@ public class DashboardService {
         int totalUsagePercent = 0;
 
         if (processingNum > 0) {
-            totalUsagePercent = ((processingNum / 50) * 100);
+            totalUsagePercent = ((processingNum / all.size()) * 100);
         }
 
         return DashboardDto.builder()
@@ -229,7 +223,10 @@ public class DashboardService {
                                           .build());
         });
 
-        return amrErrorRate;
+        return amrErrorRate.stream()
+                .sorted(Comparator.comparingDouble(AmrPercentDto::getPercentage).reversed()) // 내림차순 정렬
+                .limit(3) // 상위 3개만 선택
+                .collect(Collectors.toList());
     }
 
 }
