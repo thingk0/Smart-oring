@@ -27,7 +27,12 @@ public record AmrHistoryLog(
 	LocalDateTime amrHistoryCreatedAt,
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX")
-	Instant amrHistoryCreatedAInstant
+	Instant amrHistoryCreatedAInstant,
+
+	List<Integer[]> routeRemainingForMission,
+	List<Integer[]> routeVisitedForMission,
+	Integer currentStopDuration
+
 ) {
 
 	public LocalDateTime amrHistoryCreatedAt() {
