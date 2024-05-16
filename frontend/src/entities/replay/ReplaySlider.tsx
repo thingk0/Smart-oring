@@ -34,10 +34,6 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
     isPlaying,
     actions: { increaseCurrentTime, setCurrentTime },
   } = useReplayStore();
-  console.log(totalTime);
-  useEffect(() => {
-    console.log(marks);
-  }, [marks]);
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isPlaying) {
