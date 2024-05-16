@@ -1,5 +1,6 @@
 package info.smartfactory.domain.dashboard.service;
 
+import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.ErrorDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
@@ -60,22 +61,20 @@ public class DashboardService {
         List<MissionStatusDto> missionList = missionRepository.getCompleteMissions(yesterdayStart, now);
 
         for(MissionStatusDto mission: missionList){
-            System.out.println("mission "+mission.getMission()+" "+mission.isHasError());
+            System.out.println("mission "+mission.getMission().getMissionType()+" "+mission.isHasError());
         }
 
         // 어제 완성품 옮긴 미션 리스트
         List<MissionStatusDto> yesterdayConveyerMissions = missionList.stream()
-                                                                      .filter(mission -> mission.getMission().getMissionStartedAt().toLocalDate()
-                                                                                                .equals(yesterday))
-                                                                      .filter(mission -> mission.getMission().getMissionType()
-                                                                          == MissionType.CONVEYOR_TO_DESTINATION)
+                                                                      .filter(mission -> yesterday.isEqual(mission.getMission().getMissionStartedAt().toLocalDate()))
+                                                                      .filter(mission -> mission.getMission().getMissionType() == MissionType.CONVEYOR_TO_DESTINATION)
                                                                       .collect(Collectors.toList());
 
         long[] yesterdayOutputGraph = countMissionsByTimeInterval(yesterdayConveyerMissions);
 
         // 오늘 수행한 전체 미션 리스트
         List<MissionStatusDto> todayMissions = missionList.stream()
-                                                          .filter(mission -> mission.getMission().getMissionStartedAt().toLocalDate().equals(today))
+                                                          .filter(mission -> today.isEqual(mission.getMission().getMissionStartedAt().toLocalDate()))
                                                           .collect(Collectors.toList());
 
         // 오늘 수행한 미션 중 완성품 옮긴 미션 리스트
@@ -108,6 +107,7 @@ public class DashboardService {
         for (CurrentAmrInfoRedisDto amrInfo : all) {
             if (amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
                 processingNum++;
+                System.out.println("Processing");
                 realtimeBottleneckList.add(BottleneckDto.builder()
                                                         .missionId(amrInfo.getMissionId())
                                                         .amrId(amrInfo.getAmrId())
@@ -125,11 +125,14 @@ public class DashboardService {
                                               .build());
             } else if (amrInfo.getAmrStatus() == AmrStatus.PROCESSING) {
                 processingNum++;
+                System.out.println("Processing");
             }
         }
 
         int totalUsagePercent = 0;
 
+        System.out.println("=========================Processing Num "+ processingNum);
+        System.out.println("=========================전체 사이즈 "+ all.size());
         if (processingNum > 0) {
             totalUsagePercent = ((processingNum / all.size()) * 100);
         }
@@ -147,25 +150,21 @@ public class DashboardService {
     }
 
     public long[] countMissionsByTimeInterval(List<MissionStatusDto> missions) {
-        // Define start and end times (assuming you start at 00:00 and end at 24:00 for simplicity)
         LocalTime startTime = LocalTime.MIN;
         LocalTime endTime = LocalTime.MAX.truncatedTo(ChronoUnit.MINUTES);
 
-        // Prepare a map to count missions in each 30 minute interval
         Map<LocalTime, Long> counts = missions.stream()
                                               .collect(Collectors.groupingBy(mission -> {
                                                   LocalTime time = mission.getMission().getMissionStartedAt().toLocalTime()
                                                                           .truncatedTo(ChronoUnit.MINUTES);
                                                   int minutes = time.getMinute();
                                                   int mod = minutes % 30;
-                                                  return time.minusMinutes(mod); // Normalize to the closest lower multiple of 30 minutes
+                                                  return time.minusMinutes(mod);
                                               }, Collectors.counting()));
 
-        // Fill an array where each index represents a 30-minute interval count from 00:00 to 23:59
         long totalIntervals = Duration.between(startTime, endTime).toMinutes() / 30;
         long[] missionCounts = new long[(int) totalIntervals];
 
-        // Fill the array with the count of missions
         for (int i = 0; i < totalIntervals; i++) {
             LocalTime intervalStart = startTime.plusMinutes(30 * i);
             missionCounts[i] = counts.getOrDefault(intervalStart, 0L).intValue();
@@ -176,39 +175,41 @@ public class DashboardService {
 
     public List<AmrPercentDto> amrUsagePercent(List<MissionStatusDto> todayMissions) {
         int todayMissionCnt = todayMissions.size();
-        List<AmrPercentDto> amrUsagePercent = new ArrayList<AmrPercentDto>();
+        List<AmrPercentDto> amrUsagePercent = new ArrayList<>();
 
         // amrId별로 미션을 그룹화하고 각 amrId의 출현 횟수를 계산
         Map<Long, Long> amrIdCount = todayMissions.stream()
-                                                  .collect(
-                                                      Collectors.groupingBy(mission -> mission.getMission().getAmr().getId(), Collectors.counting()));
+                .collect(
+                        Collectors.groupingBy(mission -> {
+                            Amr amr = mission.getMission().getAmr();
+                            return amr.getId();
+                        }, Collectors.counting()));
 
-        // 출현 횟수가 가장 낮은 상위 3개의 amrId와 그 횟수를 선택
-        List<Map.Entry<Long, Long>> leastFrequentAmrIds = amrIdCount.entrySet().stream()
-                                                                    .sorted(Map.Entry.comparingByValue())
-                                                                    .limit(3)
-                                                                    .collect(Collectors.toList());
+        // 각 amrId의 출현 횟수를 사용하여 사용률을 계산
+        amrIdCount.forEach((amrId, cnt) ->
+                amrUsagePercent.add(AmrPercentDto.builder()
+                        .amrId(amrId)
+                        .percentage(((double) cnt / todayMissionCnt) * 100)
+                        .build()));
 
-        leastFrequentAmrIds.forEach(entry ->
-                                        amrUsagePercent.add(AmrPercentDto.builder()
-                                                                         .amrId(entry.getKey())
-                                                                         .percentage(entry.getValue() * 100 / todayMissionCnt)
-                                                                         .build()));
-
-        return amrUsagePercent;
+        // 출현 횟수가 가장 낮은 상위 3개의 amrId와 그 사용률을 선택
+        return amrUsagePercent.stream()
+                .sorted(Comparator.comparingDouble(AmrPercentDto::getPercentage))
+                .limit(3)
+                .collect(Collectors.toList());
     }
 
     public List<AmrPercentDto> amrError(List<MissionStatusDto> todayMissions) {
         // amrId별로 미션 수를 계산
         Map<Long, Long> totalMissionsPerAmr = todayMissions.stream()
-                                                           .collect(Collectors.groupingBy(mission -> mission.getMission().getAmr().getId(),
-                                                                                          Collectors.counting()));
+                .collect(Collectors.groupingBy(mission -> mission.getMission().getAmr().getId(),
+                        Collectors.counting()));
 
         // amrId별로 에러가 발생한 미션 수를 계산
         Map<Long, Long> errorMissionsPerAmr = todayMissions.stream()
-                                                           .filter(MissionStatusDto::isHasError) // 에러가 있는 미션만 필터링
-                                                           .collect(Collectors.groupingBy(mission -> mission.getMission().getAmr().getId(),
-                                                                                          Collectors.counting()));
+                .filter(MissionStatusDto::isHasError) // 에러가 있는 미션만 필터링
+                .collect(Collectors.groupingBy(mission -> mission.getMission().getAmr().getId(),
+                        Collectors.counting()));
 
         // amr별 에러율 계산
         List<AmrPercentDto> amrErrorRate = new ArrayList<>();
@@ -218,9 +219,9 @@ public class DashboardService {
             double errorRate = (double) errorCount / totalCount * 100; // 에러율 계산
 
             amrErrorRate.add(AmrPercentDto.builder()
-                                          .amrId(amrId)
-                                          .percentage(errorRate)
-                                          .build());
+                    .amrId(amrId)
+                    .percentage(errorRate)
+                    .build());
         });
 
         return amrErrorRate.stream()
