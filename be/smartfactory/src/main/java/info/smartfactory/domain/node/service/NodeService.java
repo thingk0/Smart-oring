@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import info.smartfactory.domain.node.dto.*;
+import info.smartfactory.domain.node.repository.*;
 import org.springframework.stereotype.Service;
 
-import info.smartfactory.domain.node.dto.ChargerDto;
-import info.smartfactory.domain.node.dto.DestinationDto;
-import info.smartfactory.domain.node.dto.MapData;
-import info.smartfactory.domain.node.dto.StorageDto;
 import info.smartfactory.domain.node.dto.request.MapAddRequest;
 import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.constant.NodeType;
@@ -18,10 +16,6 @@ import info.smartfactory.domain.node.entity.type.Charger;
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
 import info.smartfactory.domain.node.entity.type.Destination;
 import info.smartfactory.domain.node.entity.type.Storage;
-import info.smartfactory.domain.node.repository.ChargerRepository;
-import info.smartfactory.domain.node.repository.DestinationRepository;
-import info.smartfactory.domain.node.repository.NodeRepository;
-import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.domain.node.service.dto.ChargerServiceDto;
 import info.smartfactory.domain.node.service.dto.ConveyorBeltServiceDto;
 import info.smartfactory.domain.node.service.dto.DestinationServiceDto;
@@ -40,12 +34,12 @@ public class NodeService {
     private final StorageRepository storageRepository;
     private final ChargerRepository chargerRepository;
     private final DestinationRepository destinationRepository;
+    private final ConveyorBeltRepository conveyorBeltRepository;
 
     private static final int MAP_WIDTH = 100;
     private static final int MAP_HEIGHT = 50;
     private static final int[] DX = {0, 1, 0, -1};
     private static final int[] DY = {-1, 0, 1, 0};
-
 
     /**
      * 현재 데이터베이스에 저장된 노드 정보를 이용하여 맵 데이터를 생성하고 반환합니다.
@@ -59,11 +53,11 @@ public class NodeService {
         List<ChargerDto> chargerDtos = new ArrayList<>();
         List<DestinationDto> destinationDtos = new ArrayList<>();
         List<StorageDto> storageDtos = new ArrayList<>();
+        List<ConveyorDto> conveyorDtos = new ArrayList<>();
 
-        traverseAndProcessMap(map, chargerDtos, destinationDtos, storageDtos);
-        return new MapData(chargerDtos, destinationDtos, storageDtos);
+        traverseAndProcessMap(map, chargerDtos, destinationDtos, storageDtos, conveyorDtos);
+        return new MapData(chargerDtos, destinationDtos, storageDtos,conveyorDtos);
     }
-
 
     /**
      * 데이터베이스에서 노드 객체를 조회하여 각 노드 타입에 따라 맵에 정보를 업데이트합니다.
@@ -78,6 +72,8 @@ public class NodeService {
                 destination.updateMap(map);
             } else if (node instanceof Storage storage) {
                 storage.updateMap(map);
+            } else if (node instanceof ConveyorBelt conveyorBelt) {
+                conveyorBelt.updateMap(map);
             }
         });
     }
@@ -95,7 +91,8 @@ public class NodeService {
         String[][][] map,
         List<ChargerDto> chargerDtos,
         List<DestinationDto> destinationDtos,
-        List<StorageDto> storageDtos
+        List<StorageDto> storageDtos,
+        List<ConveyorDto> conveyorDtos
     ) {
         boolean[][] visited = new boolean[MAP_HEIGHT][MAP_WIDTH];
         Deque<int[]> queue = new ArrayDeque<>();
@@ -116,7 +113,7 @@ public class NodeService {
 
                     String nodeType = map[nx][ny][0];
                     if (nodeType != null && isNodeTypeValid(nodeType)) {
-                        createNodeDtosFromMap(map, visited, nx, ny, nodeType, chargerDtos, destinationDtos, storageDtos);
+                        createNodeDtosFromMap(map, visited, nx, ny, nodeType, chargerDtos, destinationDtos, storageDtos, conveyorDtos);
                     }
                 }
             }
@@ -140,7 +137,8 @@ public class NodeService {
         String[][][] map, boolean[][] visited, int x, int y, String nodeType,
         List<ChargerDto> chargerDtos,
         List<DestinationDto> destinationDtos,
-        List<StorageDto> storageDtos
+        List<StorageDto> storageDtos,
+        List<ConveyorDto> conveyorDtos
     ) {
         int[] startCoordinates = {x, y};
         int[] endCoordinates = expandAndFindBoundaryOfNodeType(map, visited, x, y, nodeType);
@@ -149,6 +147,7 @@ public class NodeService {
             case NodeType.CHARGER -> chargerDtos.add(new ChargerDto(map[x][y][1], startCoordinates, endCoordinates));
             case NodeType.DESTINATION -> destinationDtos.add(new DestinationDto(map[x][y][1], startCoordinates, endCoordinates));
             case NodeType.STORAGE -> storageDtos.add(new StorageDto(map[x][y][1], startCoordinates, endCoordinates));
+            case NodeType.CONVEYOR_BELT -> conveyorDtos.add(new ConveyorDto(map[x][y][1], startCoordinates, endCoordinates));
         }
     }
 
@@ -173,8 +172,9 @@ public class NodeService {
      */
     private boolean isNodeTypeValid(String nodeType) {
         return nodeType.equals(NodeType.STORAGE) ||
-            nodeType.equals(NodeType.CHARGER) ||
-            nodeType.equals(NodeType.DESTINATION);
+                nodeType.equals(NodeType.CHARGER) ||
+                nodeType.equals(NodeType.DESTINATION) ||
+                nodeType.equals(NodeType.CONVEYOR_BELT);
     }
 
 
@@ -218,6 +218,7 @@ public class NodeService {
         storageRepository.deleteAll();
         chargerRepository.deleteAll();
         destinationRepository.deleteAll();
+        conveyorBeltRepository.deleteAll();
     }
 
     /**
@@ -230,6 +231,7 @@ public class NodeService {
             case NodeType.CHARGER -> chargerRepository.save(Charger.from(request));
             case NodeType.DESTINATION -> destinationRepository.save(Destination.from(request));
             case NodeType.STORAGE -> storageRepository.save(Storage.from(request));
+            case NodeType.CONVEYOR_BELT -> conveyorBeltRepository.save(ConveyorBelt.from(request));
         }
     }
 

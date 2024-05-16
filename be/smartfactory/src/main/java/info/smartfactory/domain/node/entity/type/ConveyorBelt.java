@@ -1,5 +1,6 @@
 package info.smartfactory.domain.node.entity.type;
 
+import info.smartfactory.domain.node.dto.request.MapAddRequest;
 import info.smartfactory.domain.node.entity.Node;
 import info.smartfactory.domain.node.entity.constant.EntranceDirection;
 import info.smartfactory.domain.node.entity.constant.NodeType;
@@ -28,6 +29,11 @@ public class ConveyorBelt extends Node {
         super(x, y, entranceDirection);
     }
 
+    public static ConveyorBelt from(MapAddRequest addRequest) {
+        return new ConveyorBelt(addRequest.xCoordinate(), addRequest.yCoordinate(),
+                EntranceDirection.fromValue(addRequest.direction()));
+    }
+
     public static ConveyorBelt createConveyerBelt(int x, int y, EntranceDirection entranceDirection,
         boolean isInteractive) {
         ConveyorBelt conveyorBelt = new ConveyorBelt();
@@ -40,7 +46,7 @@ public class ConveyorBelt extends Node {
 
     @Override
     public void updateMap(String[][][] map) {
-        map[getXCoordinate()][getYCoordinate()][0] = NodeType.STORAGE;
+        map[getXCoordinate()][getYCoordinate()][0] = NodeType.CONVEYOR_BELT;
         map[getXCoordinate()][getYCoordinate()][1] = getEntranceDirection().name();
     }
 
