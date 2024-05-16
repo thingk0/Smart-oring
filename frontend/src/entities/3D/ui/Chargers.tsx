@@ -22,7 +22,7 @@ function Chargers({ data }: { data: MapData }) {
             <Model
               position={convertPosition(c.start, c.end)}
               key={i}
-              rotation={[0, -Math.PI / 2, 0]}
+              rotation={[0, Math.PI, 0]}
             ></Model>
           );
         })}
