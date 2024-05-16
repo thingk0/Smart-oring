@@ -1,31 +1,32 @@
 import Slider from '@mui/material/Slider';
 import { useReplayStore } from '@shared/store';
 import { useEffect } from 'react';
+import { Mark } from '@mui/base/useSlider';
 
-const marks = [
-  {
-    value: 0,
-    label: '0°C',
-  },
-  {
-    value: 20,
-    label: '20°C',
-  },
-  {
-    value: 37,
-    label: '37°C',
-  },
-  {
-    value: 100,
-    label: '100°C',
-  },
-];
+// const marks = [
+//   {
+//     value: 0,
+//     label: '0°C',
+//   },
+//   {
+//     value: 20,
+//     label: '20°C',
+//   },
+//   {
+//     value: 37,
+//     label: '37°C',
+//   },
+//   {
+//     value: 100,
+//     label: '100°C',
+//   },
+// ];
 
 function valuetext(value: number) {
   return `${value}°C`;
 }
 
-export function ReplaySlider() {
+export function ReplaySlider({ marks }: { marks: Mark[] }) {
   const {
     totalTime,
     currentTime,
@@ -33,6 +34,9 @@ export function ReplaySlider() {
     actions: { increaseCurrentTime, setCurrentTime },
   } = useReplayStore();
   console.log(totalTime);
+  useEffect(() => {
+    console.log(marks);
+  }, [marks]);
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isPlaying) {
