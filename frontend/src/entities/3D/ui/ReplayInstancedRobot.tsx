@@ -1,9 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import { Merged, useGLTF } from '@react-three/drei';
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-
-import { BackendRobotPosition } from '@shared/api';
 import { getRotationIndex } from '@shared/lib';
 import { TRobot, robotData } from '@shared/types';
 import RobotModel from './RobotModel';
@@ -13,23 +10,15 @@ import { useReplayStore } from '@shared/store';
 interface ReplayInstancedRobotProps {
   replayData: {
     time: number[];
-    amrHistoryDtoList: {
-      createdAt: null;
-      updatedAt: null;
-      id: number;
-      battery: number;
-      amrStatus: string;
-      amrHistoryCreatedAt: string;
-      ycoordinate: number;
-      xcoordinate: number;
-    }[];
+    amrHistoryDtoList: robotData[];
   }[];
 }
 // main component
 function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
   const { currentTime } = useReplayStore();
-  const [beforePositions, setBeforePositions] = useState([]);
+  const [beforePositions, setBeforePositions] = useState<robotData[]>([]);
   const AGVs = useRef<Group<Object3DEventMap>>(null!);
+  const { speed } = useReplayStore();
 
   useEffect(() => {
     // console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
@@ -41,7 +30,7 @@ function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
 
         // move AGVs position
         gsap.to(AGVs.current?.children[index].position, {
-          duration: 1,
+          duration: 1 / speed,
           ease: 'none',
           x: data[index].ycoordinate + x,
           z: data[index].xcoordinate + y,
