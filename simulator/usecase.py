@@ -3,7 +3,7 @@ from typing import List
 import requests
 
 from app_env import env
-from domain.node import Node, Charger, Storage, Destination, EntranceDirection
+from domain.node import Node, Charger, Storage, Destination, EntranceDirection, ConveyorBelt
 from robot.mission.entity.mission import Mission, Submission
 
 
@@ -26,6 +26,10 @@ class UseCase:
             if item['nodeType'] == 'DESTINATION':
                 nodes.append(
                     Destination(item['xcoordinate'], item['ycoordinate'], EntranceDirection(item['entranceDirection'])))
+            if item['nodeType'] == 'CONVEYOR_BELT':
+                nodes.append(
+                    ConveyorBelt(item['xcoordinate'], item['ycoordinate'],
+                                 EntranceDirection(item['entranceDirection'])))
 
         return nodes
 
