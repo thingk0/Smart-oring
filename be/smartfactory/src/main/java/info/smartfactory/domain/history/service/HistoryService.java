@@ -40,6 +40,7 @@ public class HistoryService {
     private final MissionRepository missionRepository;
     private final AmrHistoryRepository amrHistoryRepository;
     private final AmrHistoryMapper amrHistoryMapper;
+    private final RealtimeAmrMapper realtimeAmrMapper;
 
     public HistoryService(@Qualifier("liveRedisTemplate") RedisTemplate<String, Object> redisTemplate,
                           @Qualifier("batchRedisTemplate") RedisTemplate<String, Object> batchRedisTemplate,
@@ -48,7 +49,8 @@ public class HistoryService {
                           BottleneckService bottleneckService,
                           MissionRepository missionRepository,
                           AmrHistoryRepository amrHistoryRepository,
-                          AmrHistoryMapper amrHistoryMapper
+                          AmrHistoryMapper amrHistoryMapper,
+                          RealtimeAmrMapper realtimeAmrMapper
                           ) {
         this.liveRedisTemplate = redisTemplate;
         this.batchRedisTemplate = batchRedisTemplate;
@@ -58,6 +60,7 @@ public class HistoryService {
         this.missionRepository = missionRepository;
         this.amrHistoryRepository = amrHistoryRepository;
         this.amrHistoryMapper = amrHistoryMapper;
+        this.realtimeAmrMapper = realtimeAmrMapper;
     }
 
     public void saveHistory(AmrHistoryLog amrHistoryLog) {
@@ -94,7 +97,7 @@ public class HistoryService {
         //amrHistory를 json으로 바꿔서 db에 저장
         RealtimeAmrDto kafkaDto = RealtimeAmrMapper.INSTANCE.mapToRedisDto(amrHistoryLog);
 
-        RealtimeAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, kafkaDto, period);
+//        RealtimeAmrMapper.INSTANCE.setStopPeriod(amrHistoryLog, kafkaDto, period);
 
         String jsonString = getJsonStringFromList(kafkaDto.getAmrRoute());
 
@@ -181,17 +184,28 @@ public class HistoryService {
 
         List<AmrHistory> resultList = amrHistoryRepository.findMissionStartedAtBetween(missionStartedAt, missionFinishedAt);
 
-
-        System.out.println("#######################################################");
-        for(AmrHistory amrHistory : resultList) {
-            System.out.println(amrHistory.toString());
-        }
-
-        //key에 대한 값을 저장하기
-        Map<LocalDateTime, List<AmrHistoryDto>> map2 = new HashMap<>();
+        //key에 대한 값 저장
+        Map<LocalDateTime, List<RealtimeAmrDto>> map2 = new HashMap<>();
 
         for(AmrHistory amrHistory : resultList) {
-            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
+            //amrHistory를 RealTimeAmrDto로 바꿔야 함
+//            RealtimeAmrDto dto = realtimeAmrMapper.toDto(amrHistory);
+            RealtimeAmrDto dto = RealtimeAmrDto.builder()
+                    .amrId(amrHistory.getAmr().getId())
+                    .missionId(amrHistory.getMission().getId())
+                    .amrRoute(parseJsonStringToList(amrHistory.getMission().getFullPath()))
+                    .battery(amrHistory.getBattery())
+                    .amrStatus(amrHistory.getAmrStatus())
+                    .xCoordinate(amrHistory.getXCoordinate())
+                    .yCoordinate(amrHistory.getYCoordinate())
+                    .currentStopDuration(amrHistory.getCurrentStopDuration())
+                    .amrHistoryCreatedAt(amrHistory.getAmrHistoryCreatedAt())
+                    .routeVisitedForMission(parseJsonStringToList(amrHistory.getRouteVisitedForMission()))
+                    .routeRemainingForMission(parseJsonStringToList(amrHistory.getRouteRemainingForMission()))
+                    .build();
+
+
+//            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
 
             map2.putIfAbsent(dto.getAmrHistoryCreatedAt(), new ArrayList<>());
             map2.get(dto.getAmrHistoryCreatedAt()).add(dto);
@@ -207,7 +221,7 @@ public class HistoryService {
         TreeSet<LocalDateTime> sortedSet = new TreeSet<>(localDateTimes);
 
         for(LocalDateTime localDateTime : sortedSet) {
-            List<AmrHistoryDto> amrHistoryDto = map2.get(localDateTime);
+            List<RealtimeAmrDto> amrHistoryDto = map2.get(localDateTime);
 
             ReplayDto replayDto = new ReplayDto(localDateTime, amrHistoryDto);
             replayDtoList.add(replayDto);
