@@ -14,7 +14,7 @@ export type MapData = {
   charger: PositionData[];
   storage: PositionData[];
   destination: PositionData[];
-  conveyor: PositionData[];
+  conveyorBelt: PositionData[];
 };
 export type PositionData = {
   start: Point2D;
