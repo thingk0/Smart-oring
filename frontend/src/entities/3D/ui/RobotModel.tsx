@@ -13,11 +13,17 @@ type RobotModelProps = {
 };
 
 // main function
-function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
+function RobotModel({
+  instances,
+  name,
+  status,
+  indexNumber,
+  ...props
+}: RobotModelProps) {
   // console.log(instances);
   const {
     isShow,
-    actions: { setIsShow, setRoute },
+    actions: { setIsShow, setRoute, setIndex },
   } = usePathStore();
   const [isFPV, setIsFPV] = useState(false);
   useFrame(state => {
@@ -38,6 +44,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     setIsShow(true);
     setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
     setHover(true);
+    setIndex(Number(name.substring(5)));
   };
   const onPointerOut = () => {
     setHover(false);
