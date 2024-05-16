@@ -2,6 +2,7 @@ import Slider from '@mui/material/Slider';
 import { useReplayStore } from '@shared/store';
 import { useEffect } from 'react';
 import { Mark } from '@mui/base/useSlider';
+import { secondsToHMS } from '@shared/lib';
 
 // const marks = [
 //   {
@@ -46,6 +47,9 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
+  function valueLabelFormat(value: number) {
+    return secondsToHMS(value);
+  }
   const handleChange = (event: Event, newValue: number | number[]) => {
     setCurrentTime(newValue as number);
   };
@@ -58,6 +62,7 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
       min={0}
       max={totalTime}
       onChange={handleChange}
+      valueLabelFormat={valueLabelFormat}
       value={currentTime}
     />
   );
