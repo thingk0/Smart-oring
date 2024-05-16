@@ -2,6 +2,7 @@ package info.smartfactory.domain.node.entity.type;
 
 import info.smartfactory.domain.node.dto.request.MapAddRequest;
 import info.smartfactory.domain.node.entity.Node;
+import info.smartfactory.domain.node.entity.constant.ConveyorBeltType;
 import info.smartfactory.domain.node.entity.constant.EntranceDirection;
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import jakarta.persistence.DiscriminatorValue;
@@ -13,6 +14,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -21,6 +25,9 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue(NodeType.CONVEYOR_BELT)
 @Table(name = "conveyor_belt")
 public class ConveyorBelt extends Node {
+
+    @NotNull
+    private ConveyorBeltType conveyorBeltType;
 
     @NotNull
     private Boolean isInteractive;
@@ -50,5 +57,28 @@ public class ConveyorBelt extends Node {
         map[getXCoordinate()][getYCoordinate()][1] = getEntranceDirection().name();
     }
 
+    public static List<ConveyorBelt> getFrontConveyorBelt(List<ConveyorBelt> list) {
+        List<ConveyorBelt> returnList = new ArrayList<>();
+
+        for(ConveyorBelt conveyorBelt : list){
+            if(conveyorBelt.conveyorBeltType == ConveyorBeltType.FRONT){
+                returnList.add(conveyorBelt);
+            }
+        }
+
+        return returnList;
+    }
+
+    public static List<ConveyorBelt> getEndConveyorBelt(List<ConveyorBelt> list) {
+        List<ConveyorBelt> returnList = new ArrayList<>();
+
+        for(ConveyorBelt conveyorBelt : list){
+            if(conveyorBelt.conveyorBeltType == ConveyorBeltType.END){
+                returnList.add(conveyorBelt);
+            }
+        }
+
+        return returnList;
+    }
 
 }

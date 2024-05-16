@@ -98,7 +98,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
             mission.addSubmission(startSubmission);
 
             // n개의 자재창고 경유지 설정 + 도착지까지 결정됨
-            generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
+            order = generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
         }
         else if(randomIdx == MissionType.STORAGE_TO_CONVEYOR.ordinal()){ // 자재창고 -> 컨베이어벨트
             // 출발지 : 자재창고
@@ -122,8 +122,10 @@ public class MissionGeneratorImpl implements MissionGenerator {
             order = generateRandomStopover(mission, order, startIdx, storages, stopoverNum);
 
             // 도착지
+            List<ConveyorBelt> frontConveyorBelt = ConveyorBelt.getFrontConveyorBelt(conveyorBelts);
+
             random.setSeed(System.currentTimeMillis());
-            int endIdx = random.nextInt(conveyorBelts.size());
+            int endIdx = random.nextInt(frontConveyorBelt.size());
 
             Submission endSubmission = Submission.createSubmission(
                 conveyorBelts.get(endIdx),
@@ -141,8 +143,10 @@ public class MissionGeneratorImpl implements MissionGenerator {
             mission.modifyMissionType(MissionType.CONVEYOR_TO_DESTINATION);
 
             // 출발지
+            List<ConveyorBelt> endConveyorBelt = ConveyorBelt.getEndConveyorBelt(conveyorBelts);
+
             random.setSeed(System.currentTimeMillis());
-            int startIdx = random.nextInt(conveyorBelts.size());
+            int startIdx = random.nextInt(endConveyorBelt.size());
 
             Submission startSubmission = Submission.createSubmission(
                 conveyorBelts.get(startIdx),
@@ -152,6 +156,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
 
             // 도착지
             random.setSeed(System.currentTimeMillis());
+
             int endIdx = random.nextInt(destinations.size());
 
             Submission endSubmission = Submission.createSubmission(
