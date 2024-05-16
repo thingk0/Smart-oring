@@ -45,4 +45,5 @@ export type AmrStatus = {
   amrHistoryCreatedAt: string;
   ycoordinate: number;
   xcoordinate: number;
+  amrRoute: [number, number][];
 };
