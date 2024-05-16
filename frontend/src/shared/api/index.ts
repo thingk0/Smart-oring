@@ -24,7 +24,7 @@ export const getRobotPosition = () =>
   instanceAPI.get(`http://localhost:3001/robot`).then(res => res.data);
 
 export const BackendRobotPosition = () =>
-  axios.get(url + '/amr/state').then(res => {
+  axios.get(url + '/histories/amr/state').then(res => {
     return res.data.resultData;
   });
 

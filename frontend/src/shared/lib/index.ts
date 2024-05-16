@@ -23,7 +23,8 @@ export const calculateScale = (
 };
 
 // robot.tsx utils
-const arr = [0, Math.PI / 2, 0, Math.PI * 1.5, Math.PI];
+//[아래,오른쪽,0,?,?]
+const arr = [-Math.PI / 2, 0, 0, -Math.PI, -Math.PI * 1.5];
 
 export const getRotationIndex = (before: robotData, current: robotData) => {
   const y = before.xcoordinate - current.xcoordinate;

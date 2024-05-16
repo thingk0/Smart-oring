@@ -30,12 +30,14 @@ function InstancedRobot() {
         if (before && data[index]) {
           const [y, x, radian] = getRotationIndex(before, data[index]);
 
+          const nx = data[index].ycoordinate + x + 0.8;
+          const nz = data[index].xcoordinate + y + 0.5;
           // move AGVs position
           gsap.to(AGVs.current?.children[index].position, {
             duration: 1,
             ease: 'none',
-            x: data[index].ycoordinate + x,
-            z: data[index].xcoordinate + y,
+            x: nx,
+            z: nz,
             onComplete: () => {
               // rotate AGVs
               AGVs.current.children[index].rotation.y = radian;

@@ -13,6 +13,7 @@ interface ReplayInstancedRobotProps {
     amrHistoryDtoList: robotData[];
   }[];
 }
+
 // main component
 function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
   const { currentTime } = useReplayStore();
@@ -21,24 +22,39 @@ function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
   const { speed } = useReplayStore();
 
   useEffect(() => {
-    // console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
     const data = replayData[currentTime].amrHistoryDtoList;
     // calculate direction
     beforePositions?.forEach((before: robotData, index: number) => {
       if (before && data[index]) {
         const [y, x, radian] = getRotationIndex(before, data[index]);
-
+        // 판별 로직 추가
+        let offsetX = 1;
+        let offsetZ = 0.5;
+        const normalizedAngle = (radian + 2 * Math.PI) % (2 * Math.PI);
+        if (
+          Math.abs(normalizedAngle - Math.PI / 2) < 0.01 ||
+          Math.abs(normalizedAngle - (3 * Math.PI) / 2) < 0.01
+        ) {
+          [offsetX, offsetZ] = [offsetZ, offsetX];
+        }
+        const nx = data[index].ycoordinate + x + offsetX;
+        const nz = data[index].xcoordinate + y + offsetZ;
         // move AGVs position
         gsap.to(AGVs.current?.children[index].position, {
           duration: 1 / speed,
           ease: 'none',
-          x: data[index].ycoordinate + x,
-          z: data[index].xcoordinate + y,
+          x: nx,
+          z: nz,
           onComplete: () => {
             // rotate AGVs
-            AGVs.current.children[index].rotation.y = radian;
+            // AGVs.current.children[index].rotation.y = radian;
             console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
           },
+        });
+        gsap.to(AGVs.current?.children[index].rotation, {
+          duration: 1 / speed,
+          ease: 'none',
+          y: radian,
         });
       } else {
         const date = new Date();
