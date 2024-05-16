@@ -1,12 +1,12 @@
-import Form from './Form';
 import MissionList from './MissionList';
 import MissionHistory from './MissionHistory';
 import styles from './Analysis.module.css';
+import MissionFilter from './compound/MissionFilter';
 
 function Mission() {
   return (
     <div>
-      <Form />
+      <MissionFilter />
       <div className={styles.mission_grid}>
         <MissionList />
         <MissionHistory />
