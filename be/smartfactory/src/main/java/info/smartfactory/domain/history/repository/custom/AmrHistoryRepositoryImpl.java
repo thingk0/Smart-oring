@@ -22,16 +22,17 @@ public class AmrHistoryRepositoryImpl implements AmrHistoryRepositoryCustom {
             .select(Projections.constructor(MissionExecutionTimeAnalysisDto.class,
                                             amr.amrCode,
                                             amrHistory.mission.id,
-                                            amrHistory.count(),
-                                            amrHistory.amrStatus.when(AmrStatus.PROCESSING).then(1).otherwise(0).sum(),
-                                            amrHistory.amrStatus.when(AmrStatus.BOTTLENECK).then(1).otherwise(0).sum(),
-                                            amrHistory.amrStatus.when(AmrStatus.CHARGING).then(1).otherwise(0).sum(),
-                                            amrHistory.amrStatus.when(AmrStatus.ERROR).then(1).otherwise(0).sum(),
-                                            amrHistory.amrStatus.when(AmrStatus.DISCHARGING).then(1).otherwise(0).sum()))
+                                            amrHistory.count().intValue(),                                                          // totalExecutionTime
+                                            amrHistory.amrStatus.when(AmrStatus.PROCESSING).then(1).otherwise(0).sum().intValue(),  // processingTime
+                                            amrHistory.amrStatus.when(AmrStatus.BOTTLENECK).then(1).otherwise(0).sum().intValue(),  // bottleneckTime
+                                            amrHistory.amrStatus.when(AmrStatus.CHARGING).then(1).otherwise(0).sum().intValue(),    // chargingTime
+                                            amrHistory.amrStatus.when(AmrStatus.ERROR).then(1).otherwise(0).sum().intValue(),       // errorTime
+                                            amrHistory.amrStatus.when(AmrStatus.DISCHARGING).then(1).otherwise(0).sum().intValue()  // dischargingTime
+            ))
             .from(amrHistory)
             .leftJoin(amrHistory.amr, amr)
             .where(amrHistory.mission.id.eq(missionId))
-            .groupBy(amrHistory.mission.id)
+            .groupBy(amr.amrCode, amrHistory.mission.id)
             .fetchOne();
     }
 
