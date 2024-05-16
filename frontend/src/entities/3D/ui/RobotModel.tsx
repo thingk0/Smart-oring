@@ -1,7 +1,8 @@
 import { ThreeEvent, useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
+import { usePathStore } from '@shared/store/usePathStore';
 import { AmrStatus, TRobot } from '@shared/types';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { AGVToolTip } from 'widgets/agv/ui/index';
 // props
@@ -14,6 +15,9 @@ type RobotModelProps = {
 // main function
 function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   // console.log(instances);
+  const {
+    actions: { setIsShow, setRoute },
+  } = usePathStore();
   const [isFPV, setIsFPV] = useState(false);
   useFrame(state => {
     if (!isFPV) return;
@@ -29,10 +33,15 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
     [hovered]
   );
-  const onPointerOver = (e: ThreeEvent<PointerEvent>) => (
-    e.stopPropagation(), setHover(true)
-  );
-  const onPointerOut = () => setHover(false);
+  const onPointerOver = () => {
+    setIsShow(true);
+    setRoute(status.amrRoute);
+    setHover(true);
+  };
+  const onPointerOut = () => {
+    setHover(false);
+    setIsShow(false);
+  };
   const { lightQuality } = useGraphicsQualityStore();
   return (
     <group {...props}>

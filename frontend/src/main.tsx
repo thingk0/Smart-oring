@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { SettingPage } from './pages/index.ts';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
+import { ReplayPage, SettingPage } from './pages';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,9 +15,15 @@ const router = createBrowserRouter([
     path: 'setting',
     element: <SettingPage />,
   },
+  {
+    path: 'replay',
+    element: <ReplayPage />,
+  },
 ]);
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
