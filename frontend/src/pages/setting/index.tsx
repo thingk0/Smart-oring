@@ -35,6 +35,7 @@ export function SettingPage() {
     lightQuality,
     actions: { setOption },
   } = useGraphicsQualityStore();
+
   const [optionState, setOptionState] = useState({
     graphicsQuality: graphicsQuality,
     fov: fov,

@@ -1,22 +1,20 @@
 import { Line } from '@react-three/drei';
-import * as THREE from 'three';
+import { convert2DTo3D } from '@shared/lib';
+import { usePathStore } from '@shared/store/usePathStore';
+import { useEffect } from 'react';
 
 function Path() {
+  const { isShow, route } = usePathStore();
+  useEffect(() => {
+    console.log(route);
+  }, []);
+
+  useEffect(() => {}, []);
   return (
     <>
-      <Line
-        points={[
-          [0, 0, 0],
-          [10, 0, 0],
-          [20, 0, 0],
-        ]}
-        lineWidth={10}
-        vertexColors={[
-          new THREE.Color('#ff0000'),
-          new THREE.Color('#00ff00'),
-          new THREE.Color('#0000ff'),
-        ]}
-      />
+      {isShow && route?.length > 0 && (
+        <Line points={convert2DTo3D(route)} lineWidth={10} color="grey" />
+      )}
     </>
   );
 }
