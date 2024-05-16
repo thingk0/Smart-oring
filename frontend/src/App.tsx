@@ -8,7 +8,6 @@ function App() {
     <>
       <Renderer />
       <BasicSpeedDial />
-      <Renderer />
       {/* <BasicSpeedDial /> */}
       {/* {createPortal(<Analysis />, document.body)} */}
     </>

@@ -35,7 +35,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   );
   const onPointerOver = () => {
     setIsShow(true);
-    setRoute(status.amrRoute);
+    setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
     setHover(true);
   };
   const onPointerOut = () => {

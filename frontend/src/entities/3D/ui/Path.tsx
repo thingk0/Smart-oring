@@ -4,16 +4,23 @@ import { usePathStore } from '@shared/store/usePathStore';
 import { useEffect } from 'react';
 
 function Path() {
-  const { isShow, route } = usePathStore();
+  const { isShow, nextRoutes, visitedRoutes } = usePathStore();
   useEffect(() => {
-    console.log(route);
+    console.log(visitedRoutes);
   }, []);
 
   useEffect(() => {}, []);
   return (
     <>
-      {isShow && route?.length > 0 && (
-        <Line points={convert2DTo3D(route)} lineWidth={10} color="grey" />
+      {isShow && nextRoutes?.length > 0 && (
+        <Line points={convert2DTo3D(nextRoutes)} lineWidth={10} color="grey" />
+      )}
+      {isShow && visitedRoutes?.length > 0 && (
+        <Line
+          points={convert2DTo3D(visitedRoutes)}
+          lineWidth={10}
+          color="skyblue"
+        />
       )}
     </>
   );

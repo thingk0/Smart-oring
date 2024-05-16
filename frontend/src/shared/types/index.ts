@@ -41,9 +41,11 @@ export type AmrStatus = {
   amrId: number;
   missionId: number;
   amrStatus: string;
-  stopPeriod: number;
+  currentStopDuration: number;
   amrHistoryCreatedAt: string;
   ycoordinate: number;
   xcoordinate: number;
-  amrRoute: [number, number][];
+  amrRoute: Point2D[];
+  routeVisitedForMission: Point2D[];
+  routeRemainingForMission: Point2D[];
 };
