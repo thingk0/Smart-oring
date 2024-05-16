@@ -3,19 +3,18 @@ import { MapData } from '../../../shared/types';
 import { Instances, Model } from './Conveyor';
 
 function Conveyors({ data }: { data: MapData }) {
-  if (data.conveyor)
+  if (data.conveyorBelt)
     return (
       <>
         <Instances>
-          {data.conveyor.map((d, i) => {
+          {data.conveyorBelt.map((d, i) => {
             console.log(convertPosition(d.start, d.end, 0.2));
             console.log('start', d.start);
             console.log('end', d.end);
             return (
               <Model
                 position={convertPosition(d.start, d.end)}
-                scale={[d.end[0] - d.start[0], 2, d.end[1] - d.start[1]]}
-                rotation={[0, Math.PI / 2, 0]}
+                rotation={[0, Math.PI, 0]}
                 key={i}
               ></Model>
             );

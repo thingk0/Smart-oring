@@ -16,6 +16,7 @@ type RobotModelProps = {
 function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   // console.log(instances);
   const {
+    isShow,
     actions: { setIsShow, setRoute },
   } = usePathStore();
   const [isFPV, setIsFPV] = useState(false);
@@ -35,13 +36,17 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
   );
   const onPointerOver = () => {
     setIsShow(true);
-    setRoute(status.amrRoute);
+    setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
     setHover(true);
   };
   const onPointerOut = () => {
     setHover(false);
     setIsShow(false);
   };
+  useEffect(() => {
+    if (isShow)
+      setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
+  }, [status]);
   const { lightQuality } = useGraphicsQualityStore();
   return (
     <group {...props}>
