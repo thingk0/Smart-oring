@@ -64,7 +64,7 @@ public class MissionService {
     public void generateMission() {
 
         List<Storage> storageList = storageRepository.findAll();
-        List<ConveyorBelt> conveyerbeltList = conveyorBeltRepository.findByIsInteractiveTrue();
+        List<ConveyorBelt> conveyerbeltList = conveyorBeltRepository.findAll();
         List<Destination> destinationList = destinationRepository.findAll();
 
         int maxStopoverNum = 3;
