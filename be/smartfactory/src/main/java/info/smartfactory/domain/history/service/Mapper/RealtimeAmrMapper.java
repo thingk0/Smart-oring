@@ -42,6 +42,8 @@ public interface RealtimeAmrMapper {
 
 
     default List<Integer[]> parseJsonStringToList(String json) {
+        if(json==null) return null;
+
         JSONArray jsonArray = new JSONArray(json);
         List<Integer[]> resultList = new ArrayList<>();
 

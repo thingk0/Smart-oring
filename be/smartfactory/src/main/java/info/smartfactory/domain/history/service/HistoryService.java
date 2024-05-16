@@ -141,6 +141,8 @@ public class HistoryService {
     }
 
     public static String getJsonStringFromList(List<Integer[]> list) {
+        if(list==null) return null;
+
         JSONArray jsonArray = new JSONArray();
         for (Integer[] array : list) {
             JSONArray innerArray = new JSONArray();
@@ -172,18 +174,7 @@ public class HistoryService {
         return null;
     }
 
-    public List<ReplayDto> getReplay(Long missionId) {
-
-        Mission mission = missionRepository.findById(missionId)
-                .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
-
-        LocalDateTime missionStartedAt = mission.getMissionStartedAt();
-        LocalDateTime missionFinishedAt = mission.getMissionFinishedAt();
-
-        if(missionStartedAt==null || missionFinishedAt==null) {
-            throw new RuntimeException("Mission startedAt or finishedAt is null : " + missionId);
-        }
-
+    public List<ReplayDto> getReplayDto(LocalDateTime missionStartedAt, LocalDateTime missionFinishedAt){
         List<AmrHistory> resultList = amrHistoryRepository.findMissionStartedAtBetween(missionStartedAt, missionFinishedAt);
 
         //key에 대한 값 저장
@@ -192,10 +183,17 @@ public class HistoryService {
         for(AmrHistory amrHistory : resultList) {
             //amrHistory를 RealTimeAmrDto로 바꿔야 함
 //            RealtimeAmrDto dto = realtimeAmrMapper.toDto(amrHistory);
+
+            Mission missionFromAmrHistory = amrHistory.getMission();
+
+            Long id = 0L;
+            if(amrHistory.getMission()==null) id = null;
+            else id = missionFromAmrHistory.getId();
+
             RealtimeAmrDto dto = RealtimeAmrDto.builder()
                     .amrId(amrHistory.getAmr().getId())
-                    .missionId(amrHistory.getMission().getId())
-                    .amrRoute(parseJsonStringToList(amrHistory.getMission().getFullPath()))
+                    .missionId(id)
+                    .amrRoute(null)
                     .battery(amrHistory.getBattery())
                     .amrStatus(amrHistory.getAmrStatus())
                     .xCoordinate(amrHistory.getXCoordinate())
@@ -205,8 +203,6 @@ public class HistoryService {
                     .routeVisitedForMission(parseJsonStringToList(amrHistory.getRouteVisitedForMission()))
                     .routeRemainingForMission(parseJsonStringToList(amrHistory.getRouteRemainingForMission()))
                     .build();
-
-
 //            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
 
             map2.putIfAbsent(dto.getAmrHistoryCreatedAt(), new ArrayList<>());
@@ -216,7 +212,6 @@ public class HistoryService {
 
         // return 값
         List<ReplayDto> replayDtoList = new ArrayList<>();
-
         Set<LocalDateTime> localDateTimes = map2.keySet();
 
         //keySet Sort
@@ -230,5 +225,25 @@ public class HistoryService {
         }
 
         return replayDtoList;
+    }
+
+    public List<ReplayDto> getReplay(Long missionId) {
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new RuntimeException("Entity not found with ID : " + missionId));
+
+        LocalDateTime missionStartedAt = mission.getMissionStartedAt();
+        LocalDateTime missionFinishedAt = mission.getMissionFinishedAt();
+
+        if(missionStartedAt==null || missionFinishedAt==null) {
+            throw new RuntimeException("Mission startedAt or finishedAt is null : " + missionId);
+        }
+
+        return getReplayDto(missionStartedAt, missionFinishedAt);
+    }
+
+
+
+    public List<ReplayDto> getBottleneckReplay(LocalDateTime startTime, LocalDateTime endTime) {
+        return getReplayDto(startTime, endTime);
     }
 }

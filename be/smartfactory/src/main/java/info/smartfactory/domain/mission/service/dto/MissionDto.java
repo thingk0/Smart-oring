@@ -35,7 +35,7 @@ public class MissionDto implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     Integer missionEstimatedTime;
 
-    String fullPath;
+    List<Integer[]> fullPath;
 
     MissionType missionType;
 
