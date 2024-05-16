@@ -6,14 +6,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { ReplayPage, SettingPage } from './pages';
-import { SettingPage } from './pages/index.ts';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-<<<<<<< HEAD
 const queryClient = new QueryClient();
 
-=======
->>>>>>> 6970afc22f2c4847605de52cddb3c2573bc0f74b
 const router = createBrowserRouter([
   {
     path: '/',
@@ -55,16 +51,10 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-<<<<<<< HEAD
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <RouterProvider router={router} />
       </ThemeProvider>
     </QueryClientProvider>
-=======
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
->>>>>>> 6970afc22f2c4847605de52cddb3c2573bc0f74b
   </React.StrictMode>
 );
