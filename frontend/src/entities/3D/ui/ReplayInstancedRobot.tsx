@@ -47,7 +47,7 @@ function ReplayInstancedRobot({ replayData }: ReplayInstancedRobotProps) {
           z: nz,
           onComplete: () => {
             // rotate AGVs
-            // AGVs.current.children[index].rotation.y = radian;
+            AGVs.current.children[index].rotation.y = radian;
             console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
           },
         });
