@@ -103,7 +103,8 @@ public class AmrStreamsProcessor {
      */
     private AmrHistoryLog convertToAmrHistoryDto(String json) {
         try {
-            return AmrHistoryMapper.INSTANCE.toHistoryLog(objectMapper.readValue(json, AmrRealtimeStatusLog.class));
+            return AmrHistoryMapper.INSTANCE.toHistoryLog(
+                objectMapper.readValue(json, AmrRealtimeStatusLog.class));
         } catch (JsonProcessingException e) {
             log.error("JSON 변환 오류", e);
             return null;
