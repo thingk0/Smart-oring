@@ -32,6 +32,7 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
     totalTime,
     currentTime,
     isPlaying,
+    speed,
     actions: { increaseCurrentTime, setCurrentTime },
   } = useReplayStore();
   useEffect(() => {
@@ -39,7 +40,7 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
     if (isPlaying) {
       interval = setInterval(() => {
         increaseCurrentTime();
-      }, 1000);
+      }, 1000 / speed);
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
