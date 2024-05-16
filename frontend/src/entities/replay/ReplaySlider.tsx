@@ -4,25 +4,6 @@ import { useEffect } from 'react';
 import { Mark } from '@mui/base/useSlider';
 import { secondsToHMS } from '@shared/lib';
 
-// const marks = [
-//   {
-//     value: 0,
-//     label: '0°C',
-//   },
-//   {
-//     value: 20,
-//     label: '20°C',
-//   },
-//   {
-//     value: 37,
-//     label: '37°C',
-//   },
-//   {
-//     value: 100,
-//     label: '100°C',
-//   },
-// ];
-
 function valuetext(value: number) {
   return `${value}°C`;
 }
@@ -61,6 +42,25 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
       onChange={handleChange}
       valueLabelFormat={valueLabelFormat}
       value={currentTime}
+      sx={{
+        height: 8, // 원하는 높이로 조절
+        '& .MuiSlider-thumb': {
+          height: 24, // thumb의 높이 조절
+          width: 24, // thumb의 너비 조절
+        },
+        '& .MuiSlider-rail': {
+          height: 8, // rail의 높이 조절
+        },
+        '& .MuiSlider-track': {
+          height: 8, // track의 높이 조절
+        },
+        '& .MuiSlider-mark': {
+          height: 8,
+          width: 'calc(1%)',
+          color: 'yellow',
+          backgroundColor: 'yellow',
+        },
+      }}
     />
   );
 }
