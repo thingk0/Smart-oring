@@ -22,4 +22,11 @@ public interface CurrentAmrMapper {
     default void setAmrRoute(RealtimeAmrDto source, @MappingTarget CurrentAmrInfoRedisDto target, String amrRoute) {
         target.setAmrRouteJson(amrRoute);
     }
+
+    @AfterMapping
+    default void setAmrRoutes(RealtimeAmrDto source, @MappingTarget CurrentAmrInfoRedisDto target, String amrRoute, String remainingAmrRoute, String visitedAmrRoute) {
+        target.setAmrRouteJson(amrRoute);
+        target.setRouteRemainingForMissionJson(remainingAmrRoute);
+        target.setRouteVisitedForMissionJson(visitedAmrRoute);
+    }
 }

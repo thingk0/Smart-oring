@@ -19,7 +19,13 @@ public interface CurrentToRealAmrMapper {
     RealtimeAmrDto mapToRedisDto(CurrentAmrInfoRedisDto currentAmrInfoRedisDto);
 
     @AfterMapping
-    default void setAmrRoute(CurrentAmrInfoRedisDto currentAmrInfoRedisDto, @MappingTarget RealtimeAmrDto target, List<Integer[]> amrRoute) {
+    default void setAmrRoute(CurrentAmrInfoRedisDto currentAmrInfoRedisDto,
+                             @MappingTarget RealtimeAmrDto target,
+                             List<Integer[]> amrRoute,
+                             List<Integer[]> remainingAmrRoute,
+                             List<Integer[]> visitedAmrRoute) {
         target.setAmrRoute(amrRoute);
+        target.setRouteRemainingForMission(remainingAmrRoute);
+        target.setRouteVisitedForMission(visitedAmrRoute);
     }
 }

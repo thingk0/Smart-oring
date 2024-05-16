@@ -105,7 +105,7 @@ public class DashboardService {
         List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 
         for (CurrentAmrInfoRedisDto amrInfo : all) {
-            if (amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
+            if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
                 processingNum++;
                 System.out.println("Processing");
                 realtimeBottleneckList.add(BottleneckDto.builder()
@@ -113,17 +113,17 @@ public class DashboardService {
                                                         .amrId(amrInfo.getAmrId())
                                                         .xCoordinate(amrInfo.getXCoordinate())
                                                         .yCoordinate(amrInfo.getYCoordinate())
-                                                        .bottleneckPeriod(amrInfo.getStopPeriod())
+                                                        .bottleneckPeriod(amrInfo.getCurrentStopDuration())
                                                         .bottleneckCreatedAt(amrInfo.getAmrHistoryCreatedAt())
                                                         .build());
-            } else if (amrInfo.getAmrStatus() == AmrStatus.ERROR) {
+            } else if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.ERROR) {
                 realtimeErrorList.add(ErrorDto.builder()
                                               .missionId(amrInfo.getMissionId())
                                               .amrId(amrInfo.getAmrId())
                                               .xCoordinate(amrInfo.getXCoordinate())
                                               .yCoordinate(amrInfo.getYCoordinate())
                                               .build());
-            } else if (amrInfo.getAmrStatus() == AmrStatus.PROCESSING) {
+            } else if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.PROCESSING) {
                 processingNum++;
                 System.out.println("Processing");
             }
@@ -189,7 +189,7 @@ public class DashboardService {
         amrIdCount.forEach((amrId, cnt) ->
                 amrUsagePercent.add(AmrPercentDto.builder()
                         .amrId(amrId)
-                        .percentage(((double) cnt / todayMissionCnt) * 100)
+                        .percentage(Math.round(((double) cnt / todayMissionCnt) * 100))
                         .build()));
 
         // 출현 횟수가 가장 낮은 상위 3개의 amrId와 그 사용률을 선택
