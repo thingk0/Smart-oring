@@ -28,9 +28,14 @@ public class ConveyorBelt extends Node {
         super(x, y, entranceDirection);
     }
 
-    public static ConveyorBelt createConveyerBelt(int x, int y, EntranceDirection entranceDirection) {
-        return new ConveyorBelt(x, y, entranceDirection);
-
+    public static ConveyorBelt createConveyerBelt(int x, int y, EntranceDirection entranceDirection,
+        boolean isInteractive) {
+        ConveyorBelt conveyorBelt = new ConveyorBelt();
+        conveyorBelt.xCoordinate = x;
+        conveyorBelt.yCoordinate = y;
+        conveyorBelt.entranceDirection = entranceDirection;
+        conveyorBelt.isInteractive = isInteractive;
+        return conveyorBelt;
     }
 
     @Override

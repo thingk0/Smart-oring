@@ -2,8 +2,12 @@ package info.smartfactory.domain.node.service.dto;
 
 import info.smartfactory.domain.node.entity.constant.NodeType;
 import info.smartfactory.domain.node.entity.type.ConveyorBelt;
+import lombok.Data;
 
+@Data
 public class ConveyorBeltServiceDto extends NodeServiceDto {
+
+	Boolean isInteractive = false;
 
 	public static ConveyorBeltServiceDto from(
 		ConveyorBelt conveyorBelt
@@ -19,6 +23,6 @@ public class ConveyorBeltServiceDto extends NodeServiceDto {
 
 	@Override
 	public ConveyorBelt toEntity() {
-		return ConveyorBelt.createConveyerBelt(xCoordinate, yCoordinate, entranceDirection);
+		return ConveyorBelt.createConveyerBelt(xCoordinate, yCoordinate, entranceDirection, isInteractive);
 	}
 }
