@@ -105,7 +105,7 @@ public class DashboardService {
         List<CurrentAmrInfoRedisDto> all = currentAmrRedisRepository.findAll();
 
         for (CurrentAmrInfoRedisDto amrInfo : all) {
-            if (amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
+            if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.BOTTLENECK) {
                 processingNum++;
                 System.out.println("Processing");
                 realtimeBottleneckList.add(BottleneckDto.builder()
@@ -116,14 +116,14 @@ public class DashboardService {
                                                         .bottleneckPeriod(amrInfo.getStopPeriod())
                                                         .bottleneckCreatedAt(amrInfo.getAmrHistoryCreatedAt())
                                                         .build());
-            } else if (amrInfo.getAmrStatus() == AmrStatus.ERROR) {
+            } else if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.ERROR) {
                 realtimeErrorList.add(ErrorDto.builder()
                                               .missionId(amrInfo.getMissionId())
                                               .amrId(amrInfo.getAmrId())
                                               .xCoordinate(amrInfo.getXCoordinate())
                                               .yCoordinate(amrInfo.getYCoordinate())
                                               .build());
-            } else if (amrInfo.getAmrStatus() == AmrStatus.PROCESSING) {
+            } else if (amrInfo!= null && amrInfo.getAmrStatus() == AmrStatus.PROCESSING) {
                 processingNum++;
                 System.out.println("Processing");
             }
