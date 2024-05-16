@@ -7,6 +7,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,9 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue(NodeType.CONVEYOR_BELT)
 @Table(name = "conveyor_belt")
 public class ConveyorBelt extends Node {
+
+    @NotNull
+    private Boolean isInteractive;
 
     private ConveyorBelt(Integer x, Integer y, EntranceDirection entranceDirection) {
         super(x, y, entranceDirection);

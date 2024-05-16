@@ -1,7 +1,20 @@
 package info.smartfactory.domain.mission.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.amr.repository.AmrRepository;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
@@ -26,18 +39,8 @@ import info.smartfactory.domain.node.repository.ConveyorBeltRepository;
 import info.smartfactory.domain.node.repository.DestinationRepository;
 import info.smartfactory.domain.node.repository.StorageRepository;
 import info.smartfactory.global.util.mission.MissionGenerator;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -61,7 +64,7 @@ public class MissionService {
     public void generateMission() {
 
         List<Storage> storageList = storageRepository.findAll();
-        List<ConveyorBelt> conveyerbeltList = conveyorBeltRepository.findAll();
+        List<ConveyorBelt> conveyerbeltList = conveyorBeltRepository.findByIsInteractiveTrue();
         List<Destination> destinationList = destinationRepository.findAll();
 
         int maxStopoverNum = 3;
