@@ -44,5 +44,6 @@ export function secondsToHMS(seconds: number) {
 export function convert2DTo3D(
   value: [number, number][]
 ): [number, number, number][] {
-  return value.map(e => [e[1], 1, e[0]]);
+  if (value) return value.map(e => [e[1], 1, e[0]]);
+  else return [[0, 0, 0]];
 }
