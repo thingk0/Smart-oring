@@ -144,6 +144,7 @@
       "id": "9749"
     }
   ],
+<<<<<<< HEAD
   "replay": {
     "statusCode": "OK",
     "resultMsg": "success",
@@ -27020,5 +27021,228 @@
       }
     ],
     "error": 0
+=======
+>>>>>>> 6970afc22f2c4847605de52cddb3c2573bc0f74b
+  "heatmap": {
+    "resultData": [
+      {
+        "name": "ex1",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      },
+      {
+        "name": "ex2",
+        "data": [
+          { "x": "a1", "y": 10 },
+          { "x": "b1", "y": 9 },
+          { "x": "c1", "y": 8 },
+          { "x": "d1", "y": 7 },
+          { "x": "e1", "y": 6 },
+          { "x": "f1", "y": 5 },
+          { "x": "g1", "y": 4 },
+          { "x": "h1", "y": 3 },
+          { "x": "i1", "y": 2 },
+          { "x": "j1", "y": 1 }
+        ]
+      }
+    ]
+  },
+  "dashboard": {
+    "resultData": [
+      {
+        "todayOutputGraph": [
+          25, 21, 36, 31, 23, 37, 32, 23, 30, 31, 15, 33, 36, 15, 33, 17, 20,
+          20, 26, 33, 21, 15, 32, 36
+        ],
+        "yesterdayOutputGraph": [
+          32, 13, 22, 21, 18, 22, 22, 23, 15, 10, 16, 14, 17, 31, 27, 18, 19,
+          27, 23, 35, 33, 30, 37, 31
+        ],
+        "todayTotalOutput": 21,
+        "totalUsagePercent": 70,
+        "amrUsagePercent": [
+          { "amrId": 1, "UsagePercent": 90 },
+          { "amrId": 2, "UsagePercent": 80 },
+          { "amrId": 3, "UsagePercent": 70 }
+        ],
+        "amrErrorPercent": [
+          { "amrId": 1, "ErrorPercent": 10 },
+          { "amrId": 2, "ErrorPercent": 20 },
+          { "amrId": 3, "ErrorPercent": 30 }
+        ],
+        "realtimeError": [
+          {
+            "amrId": 13,
+            "missionId": 56,
+            "xcoordinate": 30,
+            "ycoordinate": 10
+          }
+        ],
+        "realtimeBottleneck": [
+          {
+            "id": 1,
+            "amrId": 12,
+            "missionId": 12,
+            "bottleneckCreatedAt": "2024- 05-02 14:44:30",
+            "bottleneckPeriod": 3,
+            "xcoordinate": 30,
+            "ycoordinate": 10
+          }
+        ]
+      }
+    ]
+  },
+  "mission": {
+    "content": [
+      {
+        "mission_id": 101,
+        "amr_id": 201,
+        "delay_time": 45,
+        "mission_started_at": "2024-05-01T08:00:00",
+        "mission_finished_at": "2024-05-01T09:15:00"
+      },
+      {
+        "mission_id": 102,
+        "amr_id": 202,
+        "delay_time": 30,
+        "mission_started_at": "2024-05-01T10:00:00",
+        "mission_finished_at": "2024-05-01T11:00:00"
+      },
+      {
+        "mission_id": 103,
+        "amr_id": 203,
+        "delay_time": 60,
+        "mission_started_at": "2024-05-02T12:00:00",
+        "mission_finished_at": "2024-05-02T14:00:00"
+      },
+      {
+        "mission_id": 104,
+        "amr_id": 204,
+        "delay_time": 15,
+        "mission_started_at": "2024-05-02T15:00:00",
+        "mission_finished_at": "2024-05-02T15:45:00"
+      },
+      {
+        "mission_id": 105,
+        "amr_id": 205,
+        "delay_time": 25,
+        "mission_started_at": "2024-05-03T08:00:00",
+        "mission_finished_at": "2024-05-03T09:25:00"
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+      },
+      "offset": 0,
+      "pageSize": 20,
+      "pageNumber": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 1,
+    "totalElements": 5,
+    "last": true,
+    "size": 20,
+    "number": 0,
+    "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+    },
+    "numberOfElements": 5,
+    "first": true,
+    "empty": false
+  },
+  "mission_history": {
+    "missionExecutionTimeAnalysis": {
+      "amrCode": "AMR001",
+      "missionId": 12345,
+      "totalExecutionTime": 15,
+      "processingTime": 5,
+      "bottleneckTime": 3,
+      "chargingTime": 2,
+      "errorTime": 2,
+      "dischargingTime": 3
+    },
+    "amrStatusTimeline": [
+      {
+        "x": "PROCESSING",
+        "y": [1622520000000, 1622520005000]
+      },
+      {
+        "x": "BOTTLENECK",
+        "y": [1622520005000, 1622520008000]
+      },
+      {
+        "x": "CHARGING",
+        "y": [1622520008000, 1622520010000]
+      },
+      {
+        "x": "ERROR",
+        "y": [1622520010000, 1622520012000]
+      },
+      {
+        "x": "DISCHARGING",
+        "y": [1622520012000, 1622520015000]
+      }
+    ]
   }
 }

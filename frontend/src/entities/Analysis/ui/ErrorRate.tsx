@@ -1,0 +1,36 @@
+import styles from './Analysis.module.css';
+import { Typography } from '@mui/material';
+
+type ErrorRateProps = {
+  data: Array<ErrorRate>;
+};
+
+type ErrorRate = {
+  amrId: number;
+  percentage: number;
+};
+
+function ErrorRate({ data }: ErrorRateProps) {
+  return (
+    <div className={styles.component_background}>
+      <Typography variant="h2" component="h2">
+        미션 중단률 Top 3
+      </Typography>
+      <ol>
+        {data
+          .filter((amr: ErrorRate, index: number) => {
+            if (index < 3) return amr;
+          })
+          .map(({ amrId, percentage }: ErrorRate) => {
+            return (
+              <Typography variant="body1" component="li" key={amrId}>
+                AMR {amrId} : {percentage}%
+              </Typography>
+            );
+          })}
+      </ol>
+    </div>
+  );
+}
+
+export default ErrorRate;

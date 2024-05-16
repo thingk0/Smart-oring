@@ -1,0 +1,128 @@
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100%;
+  background-color: #f2f2f7;
+}
+
+.nav_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  background-color: #ffffff;
+  padding: 28px 57px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.body_margin {
+  padding: 25px 44px;
+
+  max-height: 75vh;
+  min-height: 75vh;
+}
+
+.component_background {
+  background-color: #ffffff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.component_margin {
+  margin: 20px;
+}
+
+/* Dashboard.tsx */
+.grid {
+  display: grid;
+  gap: 20px;
+
+  /* minmax 써서 반응형 해보기 */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  /* grid-template-areas:
+    'line line line donut'
+    'line line line donut'
+    '. . . .'; */
+
+  max-height: 80vh;
+}
+
+.line {
+  grid-row: 2 / 4;
+  grid-column: 1 / 4;
+}
+
+.operating {
+  grid-row: 2 / 4;
+  grid-column: 4 / 5;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter {
+  background-color: #ffffff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 10px;
+  padding: 15px 20px;
+}
+
+.margin_bottom {
+  margin-bottom: 20px;
+}
+
+/* mission.tsx */
+.mission_grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+
+  /* minmax 써서 반응형 해보기 */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mission_grid_column {
+  grid-column: 2 / 4;
+}
+
+/* RealtimeBottleneck.tsx, RealtimeError.tsx */
+.scroll {
+  height: inherit;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.sticky {
+  position: sticky;
+  top: 0px;
+  background-color: inherit;
+}
+
+.flex_notcenter {
+  display: flex;
+  gap: 20px;
+}
+
+.margin_top {
+  margin-top: 20px;
+}
