@@ -6,7 +6,7 @@ import ReactApexChart from 'react-apexcharts';
 
 function MissionHistory() {
   const history = useMissionStore(state => state.missionHistory);
-  console.log(history);
+  // console.log(history);
 
   const series = [
     history?.missionExecutionTimeAnalysis.processingTime,

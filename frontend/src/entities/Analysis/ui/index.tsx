@@ -2,8 +2,8 @@ import { Suspense, useState } from 'react';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import Dashboard from './Dashboard';
-import Heatmap from './Heatmap';
-import Mission from './Mission';
+import Heatmap from './compound/Heatmap';
+import Mission from './compound/Mission';
 
 import { LoadData } from '@shared/api';
 import styles from './Analysis.module.css';
@@ -47,9 +47,7 @@ function Analysis() {
             />
           )}
           {type === 1 && <Mission />}
-          {type === 2 && (
-            <Heatmap resource={LoadData(import.meta.env.VITE_HEATMAP_URL)} />
-          )}
+          {type === 2 && <Heatmap />}
         </Suspense>
       </div>
     </div>

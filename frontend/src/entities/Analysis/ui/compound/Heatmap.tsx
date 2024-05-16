@@ -1,14 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { Typography } from '@mui/material';
-import axios from 'axios';
 
-import styles from './Analysis.module.css';
-import Form from './Form';
+import styles from '../Analysis.module.css';
+import HeatmapFilter from './HeatmapFilter';
 
-type HeatmapProps = {};
+function Heatmap() {
+  const [coordinate, setCoordinate] = useState();
 
-function Heatmap({}: HeatmapProps) {
+  useEffect(() => {
+    console.log(coordinate);
+  }, [coordinate]);
+
   const option = {
     colors: ['#673ab7'],
     dataLabels: { enabled: true },
@@ -20,17 +23,17 @@ function Heatmap({}: HeatmapProps) {
 
   return (
     <>
-      <Form />
+      <HeatmapFilter setState={setCoordinate} />
       <div className={`${styles.component_background} ${styles.margin_top}`}>
         <Typography variant="h3" component="h2">
           병목 좌표
         </Typography>
-        {/* <ReactApexChart
-        type="heatmap"
-        series={data}
-        options={option}
-        height={500}
-      /> */}
+        <ReactApexChart
+          type="heatmap"
+          series={coordinate}
+          options={option}
+          height={500}
+        />
       </div>
     </>
   );
