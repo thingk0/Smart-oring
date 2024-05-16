@@ -115,8 +115,8 @@ public class AmrStreamsProcessor {
      */
     private static final String INSERT_SQL = """
         INSERT INTO amr_history
-        (mission_id, amr_id, battery, x_coordinate, y_coordinate, amr_history_created_at, amr_status)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        (mission_id, amr_id, battery, x_coordinate, y_coordinate, amr_history_created_at, amr_status, route_visited_for_mission, route_remaining_for_mission, current_stop_duration)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
     /**
@@ -142,6 +142,9 @@ public class AmrStreamsProcessor {
                 preparedStatement.setInt(5, record.y_coordinate());
                 preparedStatement.setTimestamp(6, Timestamp.from(instant));
                 preparedStatement.setString(7, record.amr_status().name());
+                preparedStatement.setString(8, record.routeVisitedForMission());
+                preparedStatement.setString(9, record.routeRemainingForMission());
+                preparedStatement.setInt(10, record.currentStopDuration());
             }
 
             @Override
