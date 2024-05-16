@@ -10,10 +10,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AmrHistoryRepository extends JpaRepository<AmrHistory, Long>, AmrHistoryRepositoryCustom {
-
     @Query("""
            SELECT a
            FROM AmrHistory a
+           JOIN FETCH a.amr r
+           JOIN FETCH a.mission m
            WHERE a.amrHistoryCreatedAt >= :missionStartedAt
            AND a.amrHistoryCreatedAt <= :missionFinishedAt
            """)

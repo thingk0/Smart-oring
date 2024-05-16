@@ -76,18 +76,18 @@ public class DummyDataInitializer implements CommandLineRunner {
         List<Mission> missionList = new ArrayList<>();
         List<Amr> amrList = amrRepository.findAll();
 
-        for (int i = 1; i <= 1000; i++) {
-            LocalDateTime now = LocalDateTime.now();
-            missionList.add(Mission.builder()
-                                   .amr(amrList.get(ThreadLocalRandom.current().nextInt(amrList.size())))
-                                   .missionType(MissionType.values()[ThreadLocalRandom.current().nextInt(MissionType.values().length)])
-                                   .missionStartedAt(now)
-                                   .missionFinishedAt(now.plusMinutes(ThreadLocalRandom.current().nextInt(60, 600)))
-                                   .missionEstimatedTime(ThreadLocalRandom.current().nextInt(1, 101))
-                                   .build());
-        }
-
-        batchInsertMission(missionList);
+//        for (int i = 1; i <= 1000; i++) {
+//            LocalDateTime now = LocalDateTime.now();
+//            missionList.add(Mission.builder()
+//                                   .amr(amrList.get(ThreadLocalRandom.current().nextInt(amrList.size())))
+//                                   .missionType(MissionType.values()[ThreadLocalRandom.current().nextInt(MissionType.values().length)])
+//                                   .missionStartedAt(now)
+//                                   .missionFinishedAt(now.plusMinutes(ThreadLocalRandom.current().nextInt(60, 600)))
+//                                   .missionEstimatedTime(ThreadLocalRandom.current().nextInt(1, 101))
+//                                   .build());
+//        }
+//
+//        batchInsertMission(missionList);
     }
 
     private void batchInsertAmrIfNotExists(List<Amr> amrList) {

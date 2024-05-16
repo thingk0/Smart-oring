@@ -30,9 +30,12 @@ public class RealtimeAmrDto {
 
     private Integer yCoordinate;
 
-    private long stopPeriod;
+    private Integer currentStopDuration;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime amrHistoryCreatedAt;
 
+    private List<Integer[]> routeVisitedForMission;
+
+    private List<Integer[]> routeRemainingForMission;
 }
