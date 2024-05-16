@@ -1,12 +1,6 @@
 import Destinations from './Destinations';
 import Storages from './Storages';
-import { MapData } from '../../../shared/types';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueries,
-  useQuery,
-} from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
 import Path from './Path';
 import Wall from './Wall';
@@ -15,6 +9,7 @@ import Chargers from './Chargers';
 import { getMap, getReplayData } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
 import { useLocation } from 'react-router-dom';
+import Conveyors from './Conveyors';
 
 function Map() {
   const results = useQueries({
@@ -45,7 +40,7 @@ function Map() {
         <Chargers data={results[0].data} />
         <Destinations data={results[0].data} />
         <Storages data={results[0].data} />
-        {/* <Conveyors data={data} /> */}
+        <Conveyors data={results[0].data} />
       </>
     );
   }
