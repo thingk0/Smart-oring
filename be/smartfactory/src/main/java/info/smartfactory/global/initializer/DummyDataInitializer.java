@@ -3,7 +3,6 @@ package info.smartfactory.global.initializer;
 import info.smartfactory.domain.amr.entity.Amr;
 import info.smartfactory.domain.amr.repository.AmrRepository;
 import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.mission.entity.constant.MissionType;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -41,7 +39,7 @@ public class DummyDataInitializer implements CommandLineRunner {
 
     private void amrInit() {
         List<Amr> amrList = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 24; i++) {
             String amrCode = String.format("AMR%04d", i);
             amrList.add(Amr.builder()
                            .amrCode(amrCode).build());
