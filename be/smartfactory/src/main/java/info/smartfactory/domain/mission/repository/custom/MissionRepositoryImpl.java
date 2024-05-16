@@ -46,7 +46,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                    mh.mission_finished_at
             FROM mission_history mh
                      LEFT JOIN amr_history ah ON mh.id = ah.mission_id
-                     LEFT JOIN amr ON ah.amr_id = amr.id
+                     LEFT JOIN amr ON mh.amr_id = amr.id
             """ + whereClause + """
             ORDER BY mh.mission_finished_at DESC
             LIMIT ? OFFSET ?""";
