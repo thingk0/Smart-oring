@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import info.smartfactory.domain.mission.controller.response.AssignMissionRequest;
+import info.smartfactory.domain.mission.entity.constant.MissionType;
+import info.smartfactory.domain.node.entity.Node;
+import info.smartfactory.domain.node.repository.NodeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -54,6 +58,7 @@ public class MissionService {
     private final AmrHistoryRepository amrHistoryRepository;
     private final DestinationRepository destinationRepository;
     private final ConveyorBeltRepository conveyorBeltRepository;
+    private final NodeRepository nodeRepository;
 
     private final ObjectMapper objectMapper;
     private final MissionMapper missionMapper;
@@ -215,5 +220,53 @@ public class MissionService {
                                 .build();
     }
 
+    public Mission assignMission(AssignMissionRequest assignMissionRequest) {
+        //selectedNodeList로 Node 객체 생성, Submission 생성, mission 객체 생성 -> Kafka로 생성
 
+        // 카프카로 보낼 Mission 객체 생성
+        Mission mission = Mission.createMission();
+
+        // 사용자가 선택한 노드 리스트 탐색
+        List<Integer[]> selectedNodeList = assignMissionRequest.getSelectedNodeList();
+        int order = 0;
+        for (Integer[] node : selectedNodeList) {
+            // 사용자가 선택한 목적지 노드 찾기
+            Node findNode = nodeRepository.getByXCoordinateAndYCoordinate(node[0], node[1]);
+
+            // Submission 추가
+            Submission submission = Submission.createSubmission(
+                    findNode,
+                    ++order
+            );
+
+            mission.addSubmission(submission);
+        }
+
+        // MissionType 넣기
+        Node startNode = mission.getSubmissionList().get(0).getArriveNode();
+        Node endNode = mission.getSubmissionList().get(mission.getSubmissionList().size() - 1).getArriveNode();
+        if(startNode instanceof ConveyorBelt) {
+            if(endNode instanceof Destination) {
+               mission.modifyMissionType(MissionType.CONVEYOR_TO_DESTINATION);
+            }
+        }
+        else if(startNode instanceof Storage) {
+            if(endNode instanceof Storage) {
+                mission.modifyMissionType(MissionType.STORAGE_TO_STORAGE);
+            }
+            else if(endNode instanceof ConveyorBelt){
+                mission.modifyMissionType(MissionType.STORAGE_TO_CONVEYOR);
+            }
+        }
+
+        MissionKafkaDTO missionKafkaDTO = MissionKafkaDTO.builder()
+                .id(mission.getId())
+                .build();
+
+        kafkaProducer.create(missionKafkaDTO);
+
+
+
+        return mission;
+    }
 }

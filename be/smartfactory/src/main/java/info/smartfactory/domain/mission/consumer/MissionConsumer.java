@@ -1,6 +1,5 @@
 package info.smartfactory.domain.mission.consumer;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.smartfactory.domain.mission.service.MissionService;
