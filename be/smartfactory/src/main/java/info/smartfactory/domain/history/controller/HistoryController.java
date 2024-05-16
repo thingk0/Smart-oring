@@ -53,9 +53,9 @@ public class HistoryController {
     public ResultResponse<?> getReplayBottleneck(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
-//        historyService.getBottleneckReplay(startTime, endTime);
+        List<ReplayDto> replayInfo = historyService.getBottleneckReplay(startTime, endTime);
 
-        return ResultResponse.res(HttpStatus.OK, "success");
+        return ResultResponse.res(HttpStatus.OK, "success", replayInfo);
     }
 
 }

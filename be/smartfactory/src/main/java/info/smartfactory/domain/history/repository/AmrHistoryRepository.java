@@ -13,8 +13,8 @@ public interface AmrHistoryRepository extends JpaRepository<AmrHistory, Long>, A
     @Query("""
            SELECT a
            FROM AmrHistory a
-           JOIN FETCH a.amr r
-           JOIN FETCH a.mission m
+           LEFT JOIN a.mission m
+           LEFT JOIN a.amr r
            WHERE a.amrHistoryCreatedAt >= :missionStartedAt
            AND a.amrHistoryCreatedAt <= :missionFinishedAt
            """)
