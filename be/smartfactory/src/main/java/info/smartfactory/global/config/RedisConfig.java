@@ -1,5 +1,8 @@
 package info.smartfactory.global.config;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -14,32 +17,37 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @Configuration
 @EnableRedisRepositories(
-    basePackages = "info.smartfactory.domain.history.repository.live",
-    redisTemplateRef = "liveRedisTemplate",
-    keyValueTemplateRef = "liveRedisKeyValueTemplate"
+	basePackages = "info.smartfactory.domain.history.repository.live",
+	redisTemplateRef = "liveRedisTemplate",
+	keyValueTemplateRef = "liveRedisKeyValueTemplate"
 )
 public class RedisConfig {
 
-    // 로봇 최신 상태 저장
-    @Bean
-    @Primary
-    public LettuceConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
-    }
+	@Value("${spring.data.redis.password:#{null}}")
+	private Optional<String> password;
 
-    @Bean(name = "liveRedisTemplate")
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
-        return template;
-    }
+	// 로봇 최신 상태 저장
+	@Bean
+	@Primary
+	public LettuceConnectionFactory redisConnectionFactory() {
+		RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration("localhost", 6379);
+		password.ifPresent(configuration::setPassword);
+		return new LettuceConnectionFactory(configuration);
+	}
 
-    @Bean(name = "liveRedisKeyValueTemplate")
-    public KeyValueTemplate liveRedisKeyValueTemplate() {
-        return new RedisKeyValueTemplate(
-            new RedisKeyValueAdapter(redisTemplate()),
-            new RedisMappingContext()
-        );
-    }
+	@Bean(name = "liveRedisTemplate")
+	public RedisTemplate<String, Object> redisTemplate() {
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
+		template.setConnectionFactory(redisConnectionFactory());
+		return template;
+	}
+
+	@Bean(name = "liveRedisKeyValueTemplate")
+	public KeyValueTemplate liveRedisKeyValueTemplate() {
+		return new RedisKeyValueTemplate(
+			new RedisKeyValueAdapter(redisTemplate()),
+			new RedisMappingContext()
+		);
+	}
 }
 
