@@ -42,6 +42,7 @@ export default function BasicSpeedDial() {
       name: '로봇 제어',
       onClick: () => {
         setIsControlMode(true);
+        setCurrentView('Control');
       },
     },
   ];
