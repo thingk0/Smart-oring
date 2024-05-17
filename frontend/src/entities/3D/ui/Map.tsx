@@ -15,6 +15,7 @@ import { WareBigRoof } from '../../WareHouseFrame/WareBigRoof';
 import InstancedWareBigWallsWind from '../../WareHouseFrame/InstancedWareBigWallsWind';
 import InstancedWareFrontWallsWindDoor from '../../WareHouseFrame/InstancedWareFrontWallsWindDoor';
 import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
+import { useViewStore } from '@shared/store/useViewStore';
 
 function Map() {
   const results = useQueries({
@@ -31,10 +32,13 @@ function Map() {
     ],
   });
   const { pathname } = useLocation();
+
+  const { currentView } = useViewStore();
+
   if (results[0].data) {
     return (
       <>
-        {pathname !== '/replay' && <InstancedRobot />}
+        {currentView === 'Monitoring' && <InstancedRobot />}
         {pathname === '/replay' && results[1].data && (
           <ReplayInstancedRobot replayData={results[1].data} />
         )}
