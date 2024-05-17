@@ -1,14 +1,16 @@
 import BasicSpeedDial from 'widgets/floating/BasicSpeedDial';
-import Analysis from '@entity/Analysis/ui';
 import Renderer from './bases/Renderer';
 import { createPortal } from 'react-dom';
+import CameraView from '@widgets/floating/CameraView';
+import { useViewStore } from '@shared/store/useViewStore';
 
 function App() {
+  const { isFPVStatus } = useViewStore();
   return (
     <>
       <Renderer />
       <BasicSpeedDial />
-      {/* <BasicSpeedDial /> */}
+      {isFPVStatus && createPortal(<CameraView />, document.body)}
       {/* {createPortal(<Analysis />, document.body)} */}
     </>
   );

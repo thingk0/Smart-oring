@@ -17,13 +17,17 @@ function RealTimeError({ data }: RealTimeErrorProps) {
         실시간 에러
       </Typography>
       <ul>
-        {data.map(({ amrId, missionId }) => {
-          return (
-            <Typography variant="body1" component="li" key={amrId}>
-              MISSION {missionId} - AMR {amrId}
-            </Typography>
-          );
-        })}
+        {data.length > 0 ? (
+          data.map(({ amrId, missionId }) => {
+            return (
+              <Typography variant="body1" component="li" key={amrId}>
+                MISSION {missionId} - AMR {amrId}
+              </Typography>
+            );
+          })
+        ) : (
+          <span>에러가 없습니다.</span>
+        )}
       </ul>
     </div>
   );
