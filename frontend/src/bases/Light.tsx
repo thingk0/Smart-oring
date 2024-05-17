@@ -15,9 +15,9 @@ function Light() {
     <>
       {lightQuality !== 'low' && (
         <directionalLight
-          position={[70, 9, -8]}
+          position={[70, 8, -8]}
           castShadow
-          intensity={8}
+          intensity={2}
           shadow-mapSize={2048 * 2}
           shadow-bias={-0.001}
           ref={lightRef}
@@ -29,7 +29,14 @@ function Light() {
         ></directionalLight>
       )}
       {lightQuality === 'high' && (
-        <Environment preset="warehouse" environmentIntensity={0.3} />
+        <Environment
+          environmentIntensity={0.3}
+          files={
+            'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/rural_asphalt_road_1k.hdr'
+          }
+          // background
+          ground={{ height: 55, radius: 200, scale: 200 }}
+        />
       )}
       {lightQuality === 'low' && <ambientLight intensity={1.8} />}
       {lightQuality === 'medium' && <ambientLight intensity={1} />}
