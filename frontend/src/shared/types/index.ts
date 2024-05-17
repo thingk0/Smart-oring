@@ -48,4 +48,5 @@ export type AmrStatus = {
   amrRoute: Point2D[];
   routeVisitedForMission: Point2D[];
   routeRemainingForMission: Point2D[];
+  hasStuff: boolean;
 };
