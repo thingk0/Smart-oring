@@ -196,16 +196,15 @@ const ChangeQueryParams = (querys: object) => {
 };
 
 interface ButtonProps extends ButtonOwnProps {
-  url: string;
   setState: React.Dispatch<React.SetStateAction<Array<MissionObject>>>;
 }
 
-function ButtonC({ variant, url, setState }: ButtonProps) {
-  const { querys } = useContext(FormContext);
+function ButtonC({ variant, setState }: ButtonProps) {
+  const { querys, URL } = useContext(FormContext);
 
   const onClickHandler = () => {
     axios
-      .get(url + ChangeQueryParams(querys))
+      .get(URL + ChangeQueryParams(querys))
       .then(res => setState(res.data.content));
   };
 
