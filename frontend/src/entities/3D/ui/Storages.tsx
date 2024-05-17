@@ -1,7 +1,6 @@
-import { Outlines } from '@react-three/drei';
-import { convertPosition } from '../../../shared/lib';
-import { MapData } from '../../../shared/types';
-import { Instances, Model } from './Storage';
+import { convertPosition } from '@shared/lib';
+import { MapData } from '@shared/types';
+import { Instances, Model } from './BigLogistics';
 
 function Storages({ data }: { data: MapData }) {
   const outlines = true;
