@@ -259,6 +259,10 @@ public class MissionService {
             }
         }
 
+        // DB에 저장
+        missionRepository.save(mission);
+        submissionRepository.saveAll(mission.getSubmissionList());
+
         MissionKafkaDTO missionKafkaDTO = MissionKafkaDTO.builder()
                 .id(mission.getId())
                 .build();
