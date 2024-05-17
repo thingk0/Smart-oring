@@ -9,7 +9,7 @@ export default function WareHouseFrame() {
   return (
     <group position={[width / 2, 0, height / 2]}>
       <WareBigFloor />
-      {/* <WareBigRoof /> */}
+      <WareBigRoof />
       <InstancedWareFrontWallsWindDoor />
       <InstancedWareBigWallsWind />
     </group>

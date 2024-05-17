@@ -26,6 +26,7 @@ export function WareBigFloor(props: JSX.IntrinsicElements['group']) {
       <mesh
         geometry={nodes.WareBig_Floor_1.geometry}
         material={materials.WarehouseConcrete2}
+        receiveShadow
       />
     </group>
   );

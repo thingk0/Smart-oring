@@ -56,7 +56,7 @@ export function Instances({
     [nodes]
   );
   return (
-    <Merged meshes={instances} {...props}>
+    <Merged meshes={instances} {...props} castShadow receiveShadow>
       {(instances: ContextType) => (
         <context.Provider value={instances} children={children} />
       )}
