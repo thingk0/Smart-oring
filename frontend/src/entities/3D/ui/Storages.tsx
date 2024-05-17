@@ -1,8 +1,10 @@
+import { Outlines } from '@react-three/drei';
 import { convertPosition } from '../../../shared/lib';
 import { MapData } from '../../../shared/types';
 import { Instances, Model } from './Storage';
 
 function Storages({ data }: { data: MapData }) {
+  const outlines = true;
   return (
     <>
       <Instances>

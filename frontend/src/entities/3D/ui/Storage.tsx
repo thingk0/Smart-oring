@@ -5,8 +5,15 @@ Files: ./public/models/storage.glb [2.01MB] > C:\Users\SSAFY\Documents\GitLab\S1
 */
 
 import * as THREE from 'three';
-import React, { useMemo, useContext, createContext } from 'react';
-import { useGLTF, Merged } from '@react-three/drei';
+import React, {
+  useMemo,
+  useContext,
+  createContext,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
+import { useGLTF, Merged, Outlines } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
@@ -64,17 +71,56 @@ export function Instances({
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const instances = useContext(context);
+  const thickness = 0.06;
+  const color = 'white';
+  const [hovered, setHover] = useState(false);
+  useEffect(
+    () => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'),
+    [hovered]
+  );
+  const onPointerOver = useCallback(() => setHover(true), []);
+  const onPointerOut = useCallback(() => setHover(false), []);
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      onClick={e => {
+        console.log(e);
+      }}
+      onPointerOver={onPointerOver}
+      onPointerOut={onPointerOut}
+    >
       <group scale={[1.167, 1, 1]}>
-        <instances.BigShelves />
-        <instances.BigShelves1 />
-        <instances.BigShelves2 />
-        <instances.BigShelves3 />
+        <instances.BigShelves>
+          {hovered && (
+            <Outlines thickness={thickness} angle={0} color={color} />
+          )}
+        </instances.BigShelves>
+        <instances.BigShelves1>
+          {hovered && (
+            <Outlines thickness={thickness} angle={0} color={color} />
+          )}
+        </instances.BigShelves1>
+        <instances.BigShelves2>
+          {hovered && (
+            <Outlines thickness={thickness} angle={0} color={color} />
+          )}
+        </instances.BigShelves2>
+        <instances.BigShelves3>
+          {hovered && (
+            <Outlines thickness={thickness} angle={0} color={color} />
+          )}
+        </instances.BigShelves3>
       </group>
-      <instances.BigShelvesWoodBox />
-      <instances.Cardboardbox />
-      <instances.Cardboardbox1 />
+      <instances.BigShelvesWoodBox>
+        {hovered && <Outlines thickness={thickness} angle={0} color={color} />}
+      </instances.BigShelvesWoodBox>
+      <instances.Cardboardbox>
+        {hovered && <Outlines thickness={thickness} angle={0} color={color} />}
+      </instances.Cardboardbox>
+      <instances.Cardboardbox1>
+        {hovered && <Outlines thickness={thickness} angle={0} color={color} />}
+      </instances.Cardboardbox1>
     </group>
   );
 }
