@@ -81,8 +81,13 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       dispose={null}
       onClick={e => {
         e.stopPropagation();
+        console.log(e.eventObject.position);
+        console.log(e.point);
         if (isControlMode)
-          addNodeList([e.eventObject.position.x, e.eventObject.position.z]);
+          addNodeList([
+            Math.floor(e.eventObject.position.z),
+            e.eventObject.position.x - 4,
+          ]);
       }}
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
