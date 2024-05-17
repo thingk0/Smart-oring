@@ -12,7 +12,7 @@ import { useViewStore } from '@shared/store/useViewStore';
 
 export default function BasicSpeedDial() {
   const {
-    actions: { switchCamera, setIsViewAnalysis },
+    actions: { switchCamera, setCurrentView },
   } = useViewStore();
   const actions = [
     {
@@ -34,7 +34,7 @@ export default function BasicSpeedDial() {
     {
       icon: <AnalyticsIcon />,
       name: '분석',
-      onClick: () => setIsViewAnalysis(true),
+      onClick: () => setCurrentView('Analysis'),
     },
   ];
   const navigate = useNavigate();
