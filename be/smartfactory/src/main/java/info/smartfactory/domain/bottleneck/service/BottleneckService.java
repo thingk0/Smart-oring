@@ -57,9 +57,9 @@ public class BottleneckService {
             }
         }
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 50; i++) {
             List<HeatmapDto> heatmapDtoList = new ArrayList<HeatmapDto>();
-            for (int j = 0; j < 1000; j++) {
+            for (int j = 0; j < 100; j++) {
                 heatmapDtoList.add(HeatmapDto.builder().x(j).y(0).build());
             }
             bottleneckMap.add(BottleneckMapDto.builder().name(i).data(heatmapDtoList).build());
