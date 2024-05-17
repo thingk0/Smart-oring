@@ -242,20 +242,25 @@ public class MissionService {
             mission.addSubmission(submission);
         }
 
+        mission.modifyMissionType(MissionType.STORAGE_TO_CONVEYOR);
+
         // MissionType 넣기
         Node startNode = mission.getSubmissionList().get(0).getArriveNode();
         Node endNode = mission.getSubmissionList().get(mission.getSubmissionList().size() - 1).getArriveNode();
         if(startNode instanceof ConveyorBelt) {
             if(endNode instanceof Destination) {
                mission.modifyMissionType(MissionType.CONVEYOR_TO_DESTINATION);
+                System.out.println("***************************1");
             }
         }
         else if(startNode instanceof Storage) {
             if(endNode instanceof Storage) {
                 mission.modifyMissionType(MissionType.STORAGE_TO_STORAGE);
+                System.out.println("*******************************2");
             }
             else if(endNode instanceof ConveyorBelt){
                 mission.modifyMissionType(MissionType.STORAGE_TO_CONVEYOR);
+                System.out.println("*********************3");
             }
         }
 
