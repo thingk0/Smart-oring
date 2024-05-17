@@ -53,7 +53,7 @@ export const useViewStore = create<UseViewStore>()(
       partialize: state =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !['actions', 'cameraList'].includes(key)
+            ([key]) => !['actions', 'cameraList', 'isFPVStatus'].includes(key)
           )
         ),
     }
