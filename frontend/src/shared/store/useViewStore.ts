@@ -3,7 +3,7 @@ import { create } from 'zustand'; // 변경된 부분
 import { createJSONStorage, persist } from 'zustand/middleware';
 interface UseViewStore {
   cameraIndex: number;
-  isFPV: boolean;
+  isFPVStatus: boolean;
   cameraList: {
     isTop: boolean;
     position: number[];
@@ -13,10 +13,10 @@ interface UseViewStore {
 }
 interface ViewStoreActions {
   switchCamera: () => void;
-  setIsFPV: (value: boolean) => void;
+  setIsFPVStatus: (value: boolean) => void;
 }
 const initialValue = {
-  isFPV: false,
+  isFPVStatus: false,
   cameraIndex: 0,
   cameraList: [
     { isTop: false, position: [73, 7, 34], lookAt: [0, 0, 0] },
@@ -41,9 +41,9 @@ export const useViewStore = create<UseViewStore>()(
               cameraIndex: (state.cameraIndex + 1) % state.cameraList.length,
             };
           }),
-        setIsFPV: (value: boolean) =>
+        setIsFPVStatus: (value: boolean) =>
           set({
-            isFPV: value,
+            isFPVStatus: value,
           }),
       },
     }),

@@ -7,11 +7,11 @@ import { WareBigRoof } from './WareBigRoof';
 export default function WareHouseFrame() {
   const width = 77;
   const height = 37;
-  const { cameraIndex, cameraList } = useViewStore();
+  const { isFPVStatus, cameraIndex, cameraList } = useViewStore();
   return (
     <group position={[width / 2, 0, height / 2]}>
       <WareBigFloor />
-      {!cameraList[cameraIndex].isTop && <WareBigRoof />}
+      {(!cameraList[cameraIndex].isTop || isFPVStatus) && <WareBigRoof />}
       <InstancedWareFrontWallsWindDoor />
       <InstancedWareBigWallsWind />
     </group>

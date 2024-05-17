@@ -20,11 +20,11 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     isShow,
     actions: { setIsShow, setRoute, setIndex },
   } = usePathStore();
-
   const {
-    isFPV,
-    actions: { setIsFPV },
+    isFPVStatus,
+    actions: { setIsFPVStatus },
   } = useViewStore();
+  const [isFPV, setIsFPV] = useState<boolean>(false);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
@@ -58,8 +58,14 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     <group {...props}>
       <group
         name={name}
-        onClick={() => setIsFPV(true)}
-        onPointerMissed={() => setIsFPV(false)}
+        onClick={() => {
+          setIsFPV(true);
+          setIsFPVStatus(true);
+        }}
+        onPointerMissed={() => {
+          setIsFPV(false);
+          setIsFPVStatus(false);
+        }}
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
       >

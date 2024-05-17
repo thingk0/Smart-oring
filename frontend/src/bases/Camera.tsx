@@ -4,9 +4,9 @@ import { Vector3 } from 'three';
 import { useViewStore } from '@shared/store/useViewStore';
 // set camera at this function
 function Camera() {
-  const { isFPV, cameraIndex, cameraList } = useViewStore();
+  const { isFPVStatus, cameraIndex, cameraList } = useViewStore();
   useFrame(state => {
-    if (!isFPV) {
+    if (!isFPVStatus) {
       console.log(state.camera.position);
       const location = new Vector3(...cameraList[cameraIndex].position);
       // const angle = new Vector3(...cameraList[cameraIndex].rotation);
