@@ -1,17 +1,19 @@
 package info.smartfactory.domain.mission.repository.custom;
 
-import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.util.CollectionUtils;
+
+import info.smartfactory.domain.mission.service.dto.MissionHistoryDto;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
@@ -38,7 +40,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         buildWhereClause(amrTypes, startTime, endTime, bottleneckSeconds, params, whereClause);
 
         String sql = """
-            SELECT mh.id,
+            SELECT distinct mh.id,
                    amr.id AS amrId,
                    amr.amr_code AS amrCode,
                    TIMESTAMPDIFF(SECOND, DATE_ADD(mh.mission_started_at, INTERVAL mh.mission_estimated_time SECOND), mh.mission_finished_at) AS delayTime,
