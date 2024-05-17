@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
+import { useViewStore } from '@shared/store/useViewStore';
 import { AmrStatus, TRobot } from '@shared/types';
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
@@ -19,7 +20,11 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     isShow,
     actions: { setIsShow, setRoute, setIndex },
   } = usePathStore();
-  const [isFPV, setIsFPV] = useState(false);
+  const {
+    isFPVStatus,
+    actions: { setIsFPVStatus },
+  } = useViewStore();
+  const [isFPV, setIsFPV] = useState<boolean>(false);
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();
@@ -53,8 +58,14 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     <group {...props}>
       <group
         name={name}
-        onClick={() => setIsFPV(true)}
-        onPointerMissed={() => setIsFPV(false)}
+        onClick={() => {
+          setIsFPV(true);
+          setIsFPVStatus(true);
+        }}
+        onPointerMissed={() => {
+          setIsFPV(false);
+          setIsFPVStatus(false);
+        }}
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
       >

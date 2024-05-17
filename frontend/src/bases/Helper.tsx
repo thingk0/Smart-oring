@@ -5,7 +5,7 @@ function Helpers() {
   return (
     <>
       <Perf position="top-left" />
-      <OrbitControls />
+      <OrbitControls enableRotate={false} />
       <gridHelper args={[100, 100]} />
       {/* <axesHelper args={[100]} /> */}
     </>

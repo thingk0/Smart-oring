@@ -8,9 +8,9 @@ function Mesh() {
   return (
     <>
       <Suspense fallback={null}>
-        <Center disableY>
-          <Map />
-        </Center>
+        {/* <Center disableY> */}
+        <Map />
+        {/* </Center> */}
       </Suspense>
     </>
   );
