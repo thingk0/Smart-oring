@@ -4,9 +4,11 @@ import { ButtonOwnProps } from '@mui/material/Button/Button.ts';
 import { TextFieldVariants } from '@mui/material/TextField/TextField.ts';
 import {
   Button,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
   Typography,
   TypographyOwnProps,
@@ -52,6 +54,7 @@ function Form({ URL, children }: FormProps) {
           setQuerys,
         }}
       >
+        {/* <FormControl fullWidth>{children}</FormControl> */}
         <form className={styles.flex_center}>{children}</form>
       </FormContext.Provider>
     </>
@@ -100,24 +103,27 @@ function SelectC({ children, id, label, queryParam }: SelectProps) {
 
 type OptionProps = {
   key: number;
-  valueName: string;
-  children: string | JSX.Element | JSX.Element[];
+  val: string;
+  children: string;
   queryParam: string;
 };
 
-function Option({ key, valueName, children, queryParam }: OptionProps) {
+function Option({ key, children, val, queryParam }: OptionProps) {
   const { querys, setQuerys } = useContext(FormContext);
+
+  console.log('option: ', val);
 
   return (
     <MenuItem
       key={key}
-      value={valueName}
-      onClick={(e: any) => {
-        setQuerys({
-          ...querys,
-          [queryParam]: e.target.innerText,
-        });
-      }}
+      value={val}
+      // onClick={(e: any) => {
+      //   console.log(e.target.innerText);
+      //   setQuerys({
+      //     ...querys,
+      //     [queryParam]: e.target.innerText,
+      //   });
+      // }}
     >
       {children}
     </MenuItem>
@@ -181,14 +187,14 @@ function TextFieldC({
 }
 
 const ChangeQueryParams = (querys: object) => {
-  let queryParam = '?';
+  let queryParam = '';
 
   for (const [k, v] of Object.entries(querys)) {
     if (k.includes('Time')) {
       const tmp = new Date(v.$d);
       queryParam += `${k}=${tmp.toISOString()}&`;
     } else if (v !== 'ALL') {
-      queryParam += `${k}=${v}&`;
+      queryParam += `&${k}=${v}`;
     }
   }
 
@@ -197,15 +203,18 @@ const ChangeQueryParams = (querys: object) => {
 
 interface ButtonProps extends ButtonOwnProps {
   setState: React.Dispatch<React.SetStateAction<Array<MissionObject>>>;
+  selectValue: string;
 }
 
-function ButtonC({ variant, setState }: ButtonProps) {
+function ButtonC({ variant, setState, selectValue }: ButtonProps) {
   const { querys, URL } = useContext(FormContext);
 
   const onClickHandler = () => {
-    axios.get(URL + ChangeQueryParams(querys)).then(res => {
-      setState(res.data.resultData);
-    });
+    axios
+      .get(URL + `?amrType=${selectValue}` + ChangeQueryParams(querys))
+      .then(res => {
+        setState(res.data.resultData);
+      });
   };
 
   return (
