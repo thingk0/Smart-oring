@@ -17,13 +17,17 @@ function UsageRate({ data }: UsageRateProps) {
         미션 수행률 Top 3
       </Typography>
       <ol>
-        {data.map(({ amrId, percentage }: UsageRate) => {
-          return (
-            <Typography variant="body1" component="li" key={amrId}>
-              AMR {amrId} : {percentage.toFixed(2)}%
-            </Typography>
-          );
-        })}
+        {data.length > 0 ? (
+          data.map(({ amrId, percentage }: UsageRate) => {
+            return (
+              <Typography variant="body1" component="li" key={amrId}>
+                AMR {amrId} : {percentage.toFixed(2)}%
+              </Typography>
+            );
+          })
+        ) : (
+          <span>데이터가 없습니다.</span>
+        )}
       </ol>
     </div>
   );
