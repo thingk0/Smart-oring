@@ -6,7 +6,7 @@ import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
-import { getMap, getReplayData } from '@shared/api';
+import { getMap, getReplay, getReplayData } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
 import { useLocation } from 'react-router-dom';
 import Conveyors from './Conveyors';
@@ -15,6 +15,7 @@ import { WareBigRoof } from '../../WareHouseFrame/WareBigRoof';
 import InstancedWareBigWallsWind from '../../WareHouseFrame/InstancedWareBigWallsWind';
 import InstancedWareFrontWallsWindDoor from '../../WareHouseFrame/InstancedWareFrontWallsWindDoor';
 import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
+import { useViewStore } from '@shared/store/useViewStore';
 
 function Map() {
   const results = useQueries({
@@ -26,16 +27,18 @@ function Map() {
       },
       {
         queryKey: ['replay'],
-        queryFn: getReplayData,
+        queryFn: () => getReplay(missionId),
       },
     ],
   });
-  const { pathname } = useLocation();
+
+  const { currentView, missionId } = useViewStore();
+
   if (results[0].data) {
     return (
       <>
-        {pathname !== '/replay' && <InstancedRobot />}
-        {pathname === '/replay' && results[1].data && (
+        {currentView === 'Monitoring' && <InstancedRobot />}
+        {currentView === 'Replay' && results[1].data && (
           <ReplayInstancedRobot replayData={results[1].data} />
         )}
         {/* <AGVInstance /> */}

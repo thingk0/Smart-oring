@@ -4,6 +4,8 @@ import ReactApexChart from 'react-apexcharts';
 import { MissionHistoryType } from '@entity/Analysis/store/useMissionStore';
 import styles from '../Analysis.module.css';
 import { MissionData, getDate, getTime } from './MissionList';
+import { useViewStore } from '@shared/store/useViewStore';
+import { useReplayStore } from '@shared/store';
 
 interface MissionHistoryProps {
   history: MissionHistoryType;
@@ -12,6 +14,22 @@ interface MissionHistoryProps {
 
 function MissionHistory({ history, title }: MissionHistoryProps) {
   // console.log(history);
+
+  const {
+    actions: { setCurrentView, setMissionId },
+  } = useViewStore();
+
+  const {
+    actions: {
+      setIsPlaying,
+      setTotalTime,
+      setCurrentTime,
+      increaseCurrentTime,
+      setSpeed,
+    },
+  } = useReplayStore();
+
+  const onChangeReplayHandler = () => setCurrentView('Replay');
 
   const series = [
     history.mission_execution_time_analysis?.processing_time,
@@ -66,7 +84,19 @@ function MissionHistory({ history, title }: MissionHistoryProps) {
             </Typography>
           </div>
 
-          <Button variant="contained" endIcon={<ReplayIcon />}>
+          <Button
+            variant="contained"
+            endIcon={<ReplayIcon />}
+            onClick={() => {
+              setMissionId(title.mission_id);
+              setIsPlaying(false);
+              setTotalTime(0);
+              setCurrentTime(0);
+              setSpeed(1);
+              increaseCurrentTime();
+              onChangeReplayHandler();
+            }}
+          >
             Replay
           </Button>
         </div>

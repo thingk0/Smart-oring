@@ -34,6 +34,11 @@ export const getMap = () =>
 export const getReplayData = () =>
   axios.get(mockUrl + '/replay').then(res => res.data.resultData);
 
+export const getReplay = (missionId: number) =>
+  axios
+    .get(url + `/histories/replay/${missionId}`)
+    .then(res => res.data.resultData);
+
 export function LoadData(url: string): {
   read(): Object;
 } {
