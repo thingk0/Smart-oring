@@ -34,13 +34,17 @@ function MissionList({ list, setHistory }: MissionListProps) {
         미션 리스트
       </Typography>
       <List sx={{ height: '300px', overflowY: 'scroll' }}>
-        {list?.map((mission: MissionObject) => (
-          <ListItem key={mission.mission_id} divider={true}>
-            <ListItemButton>
-              <Mission mission={mission} onClickHandler={onClickHandler} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {list.content && list.content.length > 0 ? (
+          list.content?.map((mission: MissionObject) => (
+            <ListItem key={mission.mission_id} divider={true}>
+              <ListItemButton>
+                <Mission mission={mission} onClickHandler={onClickHandler} />
+              </ListItemButton>
+            </ListItem>
+          ))
+        ) : (
+          <>데이터가 없습니다</>
+        )}
       </List>
     </aside>
   );

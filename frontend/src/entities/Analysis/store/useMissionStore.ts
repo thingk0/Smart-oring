@@ -8,12 +8,16 @@ type MissionState = {
 };
 
 export type MissionObject = {
-  mission_id: number;
-  amr_id: number;
-  amr_code: string;
-  delay_time: number;
-  mission_started_at: string;
-  mission_finished_at: string;
+  content: [
+    {
+      mission_id: number;
+      amr_id: number;
+      amr_code: string;
+      delay_time: number;
+      mission_started_at: string;
+      mission_finished_at: string;
+    },
+  ];
 };
 
 export type MissionHistoryType = {
