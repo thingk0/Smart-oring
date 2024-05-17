@@ -78,7 +78,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
             System.out.println("endIdx = " + endIdx);
 
             Submission endSubmission = Submission.createSubmission(
-                conveyorBelts.get(endIdx),
+                frontConveyorBelt.get(endIdx),
                     ++order
             );
             mission.addSubmission(endSubmission);
@@ -99,7 +99,7 @@ public class MissionGeneratorImpl implements MissionGenerator {
             int startIdx = random.nextInt(endConveyorBelt.size());
 
             Submission startSubmission = Submission.createSubmission(
-                conveyorBelts.get(startIdx),
+                endConveyorBelt.get(startIdx),
                     ++order
             );
             mission.addSubmission(startSubmission);
