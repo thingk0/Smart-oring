@@ -186,8 +186,11 @@ function TextFieldC({
   );
 }
 
-const ChangeQueryParams = (querys: object) => {
+const ChangeQueryParams = (querys: object, selectValue: string) => {
   let queryParam = '';
+
+  if (selectValue && selectValue !== 'ALL')
+    queryParam += `?amrType=${selectValue}`;
 
   for (const [k, v] of Object.entries(querys)) {
     if (k.includes('Time')) {
@@ -210,11 +213,9 @@ function ButtonC({ variant, setState, selectValue }: ButtonProps) {
   const { querys, URL } = useContext(FormContext);
 
   const onClickHandler = () => {
-    axios
-      .get(URL + `?amrType=${selectValue}` + ChangeQueryParams(querys))
-      .then(res => {
-        setState(res.data.resultData);
-      });
+    axios.get(URL + ChangeQueryParams(querys, selectValue)).then(res => {
+      setState(res.data.resultData);
+    });
   };
 
   return (
