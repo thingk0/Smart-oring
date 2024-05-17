@@ -12,6 +12,12 @@ interface MissionHistoryProps {
   title: MissionData;
 }
 
+const getColor = (status: string) => {
+  if (status === 'PROCESSING') return '#008FFB';
+  if (status === 'BOTTLENECK') return '#00E396';
+  if (status === 'ERROR') return '#FEB019';
+};
+
 function MissionHistory({ history, title }: MissionHistoryProps) {
   // console.log(history);
 
@@ -44,7 +50,22 @@ function MissionHistory({ history, title }: MissionHistoryProps) {
     ],
   };
 
-  const timelineSeries = [{ data: history?.amr_status_timeline }];
+  const timelineSeries = [
+    {
+      data: [],
+    },
+  ];
+
+  if (history.amr_status_timeline) {
+    history.amr_status_timeline.forEach(el => {
+      timelineSeries[0].data.push({
+        x: el.amr_status,
+        y: [...el.start_to_end],
+        fillColor: getColor(el.amr_status),
+      });
+    });
+  }
+
   const timelineOptions = {
     chart: {
       height: 350,
