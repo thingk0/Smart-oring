@@ -10,6 +10,11 @@ import { getMap, getReplayData } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
 import { useLocation } from 'react-router-dom';
 import Conveyors from './Conveyors';
+import { WareBigFloor } from '../../WareHouseFrame/WareBigFloor';
+import { WareBigRoof } from '../../WareHouseFrame/WareBigRoof';
+import InstancedWareBigWallsWind from '../../WareHouseFrame/InstancedWareBigWallsWind';
+import InstancedWareFrontWallsWindDoor from '../../WareHouseFrame/InstancedWareFrontWallsWindDoor';
+import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
 
 function Map() {
   const results = useQueries({
@@ -35,8 +40,9 @@ function Map() {
         )}
         {/* <AGVInstance /> */}
         <Path />
-        <Wall />
-        <Floor />
+        {/* <Wall /> */}
+        {/* <Floor /> */}
+        <WareHouseFrame />
         <Chargers data={results[0].data} />
         <Destinations data={results[0].data} />
         <Storages data={results[0].data} />
