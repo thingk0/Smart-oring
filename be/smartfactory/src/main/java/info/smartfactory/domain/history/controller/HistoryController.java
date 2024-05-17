@@ -49,10 +49,10 @@ public class HistoryController {
     }
 
     @Operation(summary = "분석웹 특정 병목 리플레이")
-    @GetMapping("/replay/bottleneck")
+    @GetMapping("/replay/bottleneck/{startTime}/{endTime}")
     public ResultResponse<?> getReplayBottleneck(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
         List<ReplayDto> replayInfo = historyService.getBottleneckReplay(startTime, endTime);
 
         return ResultResponse.res(HttpStatus.OK, "success", replayInfo);
