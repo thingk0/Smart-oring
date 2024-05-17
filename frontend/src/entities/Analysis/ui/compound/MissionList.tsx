@@ -12,13 +12,35 @@ import styles from '../Analysis.module.css';
 interface MissionListProps {
   list: MissionObject[];
   setHistory: React.Dispatch<React.SetStateAction<MissionHistoryType>>;
+  setTitle: React.Dispatch<React.SetStateAction<MissionData>>;
 }
 
-function MissionList({ list, setHistory }: MissionListProps) {
-  const onClickHandler = () => {
-    axios.get(import.meta.env.VITE_MISSION_HISTORY_URL).then(res => {
-      setHistory(res.data);
+export interface MissionData {
+  mission_id: number;
+  amr_id: number;
+  amr_code: string;
+  delay_time: number;
+  mission_started_at: string;
+  mission_finished_at: string;
+}
+
+function MissionList({ list, setHistory, setTitle }: MissionListProps) {
+  const onClickHandler = (mission: MissionData) => {
+    setTitle({
+      mission_id: mission.mission_id,
+      amr_id: mission.amr_id,
+      mission_started_at: mission.mission_started_at,
+      mission_finished_at: mission.mission_finished_at,
     });
+
+    axios
+      .get(
+        import.meta.env.VITE_MISSION_HISTORY_URL +
+          `/${mission.mission_id}/analysis`
+      )
+      .then(res => {
+        setHistory(res.data.resultData);
+      });
   };
 
   return (
@@ -27,13 +49,17 @@ function MissionList({ list, setHistory }: MissionListProps) {
         미션 리스트
       </Typography>
       <List sx={{ height: '300px', overflowY: 'scroll' }}>
-        {list?.map((mission: MissionObject) => (
-          <ListItem key={mission.mission_id} divider={true}>
-            <ListItemButton>
-              <Mission mission={mission} onClick={() => onClickHandler()} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {list.content && list.content.length > 0 ? (
+          list.content?.map((mission: MissionObject) => (
+            <ListItem key={mission.mission_id} divider={true}>
+              <ListItemButton>
+                <Mission mission={mission} onClickHandler={onClickHandler} />
+              </ListItemButton>
+            </ListItem>
+          ))
+        ) : (
+          <>데이터가 없습니다</>
+        )}
       </List>
     </aside>
   );
@@ -41,23 +67,27 @@ function MissionList({ list, setHistory }: MissionListProps) {
 
 type MissionProps = {
   mission: MissionObject;
-  onClick: React.MouseEventHandler;
+  onClickHandler: Function;
 };
 
-const getDate = (datetime: string) => {
+export const getDate = (datetime: string) => {
   const tmp = new Date(datetime);
   return tmp.toLocaleDateString();
 };
 
-const getTime = (datetime: string) => {
+export const getTime = (datetime: string) => {
   const tmp = new Date(datetime);
   return tmp.toLocaleTimeString();
 };
 
-function Mission({ mission, onClick }: MissionProps) {
+function Mission({ mission, onClickHandler }: MissionProps) {
   return (
     <>
-      <ListItemText onClick={onClick}>
+      <ListItemText
+        onClick={() => {
+          onClickHandler(mission);
+        }}
+      >
         <div>
           <Typography variant="h4" component="h3">
             AMR {mission.amr_id} | MISSION {mission.mission_id}

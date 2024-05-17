@@ -24,7 +24,7 @@ function ErrorRate({ data }: ErrorRateProps) {
           .map(({ amrId, percentage }: ErrorRate) => {
             return (
               <Typography variant="body1" component="li" key={amrId}>
-                AMR {amrId} : {percentage}%
+                AMR {amrId} : {percentage.toFixed(2)}%
               </Typography>
             );
           })}

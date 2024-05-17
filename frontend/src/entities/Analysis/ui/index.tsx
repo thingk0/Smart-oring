@@ -40,7 +40,13 @@ function Analysis() {
       </header>
 
       <div className={styles.body_margin}>
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense
+          fallback={
+            <div className={styles.center}>
+              <CircularProgress />
+            </div>
+          }
+        >
           {type === 0 && (
             <Dashboard
               resource={LoadData(import.meta.env.VITE_DASHBOARD_URL)}
