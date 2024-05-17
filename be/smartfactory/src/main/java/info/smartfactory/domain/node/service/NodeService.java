@@ -151,7 +151,6 @@ public class NodeService {
         }
     }
 
-
     /**
      * 주어진 좌표가 맵의 유효 범위 내에 있는지 확인합니다.
      *
@@ -162,7 +161,6 @@ public class NodeService {
     private boolean isNodeTypeValid(int x, int y) {
         return 0 <= x && x < MAP_HEIGHT && 0 <= y && y < MAP_WIDTH;
     }
-
 
     /**
      * 노드 타입이 유효한지 확인합니다.
@@ -176,7 +174,6 @@ public class NodeService {
                 nodeType.equals(NodeType.DESTINATION) ||
                 nodeType.equals(NodeType.CONVEYOR_BELT);
     }
-
 
     /**
      * 노드 타입에 따라 영역을 확장하고 끝 좌표를 찾습니다.
