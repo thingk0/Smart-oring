@@ -6,13 +6,13 @@ import { useViewStore } from '@shared/store/useViewStore';
 import Analysis from '@entity/Analysis/ui';
 
 function App() {
-  const { isFPVStatus, isViewAnalysis } = useViewStore();
+  const { isFPVStatus, currentView } = useViewStore();
   return (
     <>
       <Renderer />
-      <BasicSpeedDial />
       {isFPVStatus && createPortal(<CameraView />, document.body)}
-      {isViewAnalysis && createPortal(<Analysis />, document.body)}
+      {currentView === 'Monitoring' && <BasicSpeedDial />}
+      {currentView === 'Analysis' && createPortal(<Analysis />, document.body)}
     </>
   );
 }
