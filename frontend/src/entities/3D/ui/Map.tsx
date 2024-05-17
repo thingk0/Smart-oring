@@ -31,7 +31,6 @@ function Map() {
       },
     ],
   });
-  const { pathname } = useLocation();
 
   const { currentView } = useViewStore();
 
@@ -39,7 +38,7 @@ function Map() {
     return (
       <>
         {currentView === 'Monitoring' && <InstancedRobot />}
-        {pathname === '/replay' && results[1].data && (
+        {currentView === '/replay' && results[1].data && (
           <ReplayInstancedRobot replayData={results[1].data} />
         )}
         {/* <AGVInstance /> */}

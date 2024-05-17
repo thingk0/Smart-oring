@@ -19,10 +19,9 @@ export default function BasicSpeedDial() {
       icon: <SettingsIcon />,
       name: '설정',
       onClick: () => {
-        navigate('/setting');
+        setCurrentView('Setting');
       },
     },
-    { icon: <SaveIcon />, name: 'Save' },
     {
       icon: <SwitchVideoIcon />,
       name: '카메라 전환',
@@ -30,14 +29,13 @@ export default function BasicSpeedDial() {
         switchCamera();
       },
     },
-    { icon: <ShareIcon />, name: 'Share' },
     {
       icon: <AnalyticsIcon />,
       name: '분석',
       onClick: () => setCurrentView('Analysis'),
     },
   ];
-  const navigate = useNavigate();
+
   return (
     <SpeedDial
       ariaLabel="SpeedDial basic example"
