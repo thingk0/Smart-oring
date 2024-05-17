@@ -1,13 +1,16 @@
 package info.smartfactory.domain.history.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import info.smartfactory.domain.history.entity.constant.AmrStatus;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -38,4 +41,6 @@ public class RealtimeAmrDto {
     private List<Integer[]> routeVisitedForMission;
 
     private List<Integer[]> routeRemainingForMission;
+
+    private Boolean hasStuff;
 }

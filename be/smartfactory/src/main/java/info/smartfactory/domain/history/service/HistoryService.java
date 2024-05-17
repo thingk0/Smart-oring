@@ -1,15 +1,14 @@
 package info.smartfactory.domain.history.service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
-import info.smartfactory.domain.history.entity.AmrHistory;
-import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
-import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
-import info.smartfactory.domain.history.service.dto.AmrHistoryDto;
-import info.smartfactory.domain.history.service.dto.ReplayDto;
-import info.smartfactory.domain.mission.entity.Mission;
-import info.smartfactory.domain.mission.repository.MissionRepository;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,14 +17,20 @@ import org.springframework.stereotype.Service;
 import info.smartfactory.domain.bottleneck.service.BottleneckDto;
 import info.smartfactory.domain.bottleneck.service.BottleneckService;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
-import info.smartfactory.domain.history.entity.constant.AmrStatus;
-import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.dto.BatchAmrInfoRedisDto;
 import info.smartfactory.domain.history.dto.CurrentAmrInfoRedisDto;
+import info.smartfactory.domain.history.entity.AmrHistory;
+import info.smartfactory.domain.history.entity.constant.AmrStatus;
+import info.smartfactory.domain.history.repository.AmrHistoryRepository;
 import info.smartfactory.domain.history.repository.batch.BatchAmrRedisRepository;
 import info.smartfactory.domain.history.repository.live.CurrentAmrRedisRepository;
 import info.smartfactory.domain.history.service.Mapper.AmrHistoryMapper;
 import info.smartfactory.domain.history.service.Mapper.CurrentAmrMapper;
+import info.smartfactory.domain.history.service.Mapper.CurrentToRealAmrMapper;
+import info.smartfactory.domain.history.service.Mapper.RealtimeAmrMapper;
+import info.smartfactory.domain.history.service.dto.ReplayDto;
+import info.smartfactory.domain.mission.entity.Mission;
+import info.smartfactory.domain.mission.repository.MissionRepository;
 
 @Service
 public class HistoryService {
@@ -202,6 +207,7 @@ public class HistoryService {
                     .amrHistoryCreatedAt(amrHistory.getAmrHistoryCreatedAt())
                     .routeVisitedForMission(parseJsonStringToList(amrHistory.getRouteVisitedForMission()))
                     .routeRemainingForMission(parseJsonStringToList(amrHistory.getRouteRemainingForMission()))
+                .hasStuff(amrHistory.getHasStuff())
                     .build();
 //            AmrHistoryDto dto = amrHistoryMapper.toDto(amrHistory);
 

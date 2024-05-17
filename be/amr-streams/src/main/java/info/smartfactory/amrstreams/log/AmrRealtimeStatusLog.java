@@ -24,7 +24,9 @@ public record AmrRealtimeStatusLog(
 
 	List<Integer[]> routeVisitedForMission,
 	List<Integer[]> routeRemainingForMission,
-	Integer currentStopDuration
+	Integer currentStopDuration,
+
+	Boolean hasStuff
 
 ) {
 
