@@ -24,7 +24,7 @@ consumer: Consumer
 
 def get_map():
     factory_map = UseCase.get_map()
-    return FactoryMap(factory_map, 100, 50)
+    return FactoryMap(factory_map, 77, 37)
 
 
 def init_robot():
