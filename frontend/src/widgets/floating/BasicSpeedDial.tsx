@@ -2,17 +2,20 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
 import SwitchVideoIcon from '@mui/icons-material/SwitchVideo';
 import { useViewStore } from '@shared/store/useViewStore';
-
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import { useControlStore } from '@shared/store/useControlStore';
 export default function BasicSpeedDial() {
   const {
     actions: { switchCamera },
   } = useViewStore();
+  const {
+    actions: { setIsControlMode },
+  } = useControlStore();
   const actions = [
     {
       icon: <SettingsIcon />,
@@ -29,7 +32,13 @@ export default function BasicSpeedDial() {
         switchCamera();
       },
     },
-    { icon: <ShareIcon />, name: 'Share' },
+    {
+      icon: <TouchAppIcon />,
+      name: '로봇 제어',
+      onClick: () => {
+        setIsControlMode(true);
+      },
+    },
   ];
   const navigate = useNavigate();
   return (
