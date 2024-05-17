@@ -28,6 +28,11 @@ def get_map():
 
 
 def init_robot():
+    rm.add_robot(1, 14)
+    rm.add_robot(1, 16)
+    rm.add_robot(1, 18)
+    rm.add_robot(1, 20)
+    rm.add_robot(1, 22)
     rm.add_robot(1, 24)
     rm.add_robot(1, 26)
     rm.add_robot(1, 28)
@@ -47,11 +52,6 @@ def init_robot():
     rm.add_robot(1, 56)
     rm.add_robot(1, 58)
     rm.add_robot(1, 60)
-    rm.add_robot(1, 62)
-    rm.add_robot(1, 64)
-    rm.add_robot(1, 66)
-    rm.add_robot(1, 68)
-    rm.add_robot(1, 70)
 
 
 def init_kafka():
