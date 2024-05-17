@@ -5,7 +5,7 @@ import CameraView from '@widgets/floating/CameraView';
 import { useViewStore } from '@shared/store/useViewStore';
 import Analysis from '@entity/Analysis/ui';
 import { ReplayPage, SettingPage } from 'pages';
-import { ControlFAB, SendMissionFAB } from '@widgets/floating/ControlFAB';
+import { ControlFAB } from '@widgets/floating/ControlFAB';
 
 function App() {
   const { isFPVStatus, currentView } = useViewStore();
