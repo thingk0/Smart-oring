@@ -3,17 +3,22 @@ import Renderer from './bases/Renderer';
 import { createPortal } from 'react-dom';
 import CameraView from '@widgets/floating/CameraView';
 import { useViewStore } from '@shared/store/useViewStore';
+import Analysis from '@entity/Analysis/ui';
+import { ReplayPage, SettingPage } from 'pages';
 import { SendMissionFAB } from '@widgets/floating/SendMissionFAB';
 
 function App() {
-  const { isFPVStatus } = useViewStore();
+  const { isFPVStatus, currentView } = useViewStore();
   return (
     <>
       <Renderer />
-      <BasicSpeedDial />
       <SendMissionFAB />
       {isFPVStatus && createPortal(<CameraView />, document.body)}
-      {/* {createPortal(<Analysis />, document.body)} */}
+      {currentView === 'Monitoring' && <BasicSpeedDial />}
+      {currentView === 'Analysis' && createPortal(<Analysis />, document.body)}
+      {currentView === 'Setting' &&
+        createPortal(<SettingPage />, document.body)}
+      {currentView === 'Replay' && createPortal(<ReplayPage />, document.body)}
     </>
   );
 }

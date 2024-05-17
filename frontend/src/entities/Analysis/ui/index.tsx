@@ -8,9 +8,13 @@ import Mission from './compound/Mission';
 import { LoadData } from '@shared/api';
 import styles from './Analysis.module.css';
 import { Button, CircularProgress, Tab, Tabs, Typography } from '@mui/material';
+import { useViewStore } from '@shared/store/useViewStore';
 
 function Analysis() {
   const [type, setType] = useState(0);
+  const {
+    actions: { setCurrentView },
+  } = useViewStore();
 
   const onChangeHandler = (_: React.SyntheticEvent, newValue: number) => {
     setType(newValue);
@@ -34,7 +38,11 @@ function Analysis() {
             <Tab label="bottleneck coordinate" />
           </Tabs>
         </nav>
-        <Button variant="contained" endIcon={<ExitToAppIcon />}>
+        <Button
+          variant="contained"
+          endIcon={<ExitToAppIcon />}
+          onClick={() => setCurrentView('Monitoring')}
+        >
           Back to Monitoring
         </Button>
       </header>

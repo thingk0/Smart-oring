@@ -3,6 +3,7 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
 import SwitchVideoIcon from '@mui/icons-material/SwitchVideo';
@@ -11,7 +12,7 @@ import TouchAppIcon from '@mui/icons-material/TouchApp';
 import { useControlStore } from '@shared/store/useControlStore';
 export default function BasicSpeedDial() {
   const {
-    actions: { switchCamera },
+    actions: { switchCamera, setCurrentView },
   } = useViewStore();
   const {
     actions: { setIsControlMode },
@@ -21,16 +22,20 @@ export default function BasicSpeedDial() {
       icon: <SettingsIcon />,
       name: '설정',
       onClick: () => {
-        navigate('/setting');
+        setCurrentView('Setting');
       },
     },
-    { icon: <SaveIcon />, name: 'Save' },
     {
       icon: <SwitchVideoIcon />,
       name: '카메라 전환',
       onClick: () => {
         switchCamera();
       },
+    },
+    {
+      icon: <AnalyticsIcon />,
+      name: '분석',
+      onClick: () => setCurrentView('Analysis'),
     },
     {
       icon: <TouchAppIcon />,
@@ -40,7 +45,7 @@ export default function BasicSpeedDial() {
       },
     },
   ];
-  const navigate = useNavigate();
+
   return (
     <SpeedDial
       ariaLabel="SpeedDial basic example"
