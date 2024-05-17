@@ -15,10 +15,17 @@ interface MissionListProps {
 }
 
 function MissionList({ list, setHistory }: MissionListProps) {
-  const onClickHandler = () => {
-    axios.get(import.meta.env.VITE_MISSION_HISTORY_URL).then(res => {
-      setHistory(res.data);
-    });
+  // /{missionsId}/analysis"
+
+  const onClickHandler = (missionId: number) => {
+    console.log(import.meta.env.VITE_MISSION_HISTORY_URL);
+
+    axios
+      .get(import.meta.env.VITE_MISSION_HISTORY_URL + `/${missionId}/analysis`)
+      .then(res => {
+        // console.log(res.data.resultData);
+        setHistory(res.data.resultData);
+      });
   };
 
   return (
@@ -30,7 +37,7 @@ function MissionList({ list, setHistory }: MissionListProps) {
         {list?.map((mission: MissionObject) => (
           <ListItem key={mission.mission_id} divider={true}>
             <ListItemButton>
-              <Mission mission={mission} onClick={() => onClickHandler()} />
+              <Mission mission={mission} onClickHandler={onClickHandler} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -41,7 +48,7 @@ function MissionList({ list, setHistory }: MissionListProps) {
 
 type MissionProps = {
   mission: MissionObject;
-  onClick: React.MouseEventHandler;
+  onClickHandler: Function;
 };
 
 const getDate = (datetime: string) => {
@@ -54,10 +61,14 @@ const getTime = (datetime: string) => {
   return tmp.toLocaleTimeString();
 };
 
-function Mission({ mission, onClick }: MissionProps) {
+function Mission({ mission, onClickHandler }: MissionProps) {
   return (
     <>
-      <ListItemText onClick={onClick}>
+      <ListItemText
+        onClick={() => {
+          onClickHandler(mission.mission_id);
+        }}
+      >
         <div>
           <Typography variant="h4" component="h3">
             AMR {mission.amr_id} | MISSION {mission.mission_id}

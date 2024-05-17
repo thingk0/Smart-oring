@@ -40,7 +40,7 @@ function MissionFilter({ setList }: MissionFilterProps) {
 
   return (
     <div className={styles.filter}>
-      <Form URL={import.meta.env.VITE_MISSION_HISTORY_URL}>
+      <Form URL={import.meta.env.VITE_MISSION_URL}>
         <Form.Title variant="h3" component="h2">
           검색 조건
         </Form.Title>
@@ -74,11 +74,7 @@ function MissionFilter({ setList }: MissionFilterProps) {
           variant="standard"
           queryParam="bottleneckSeconds"
         />
-        <Form.Button
-          variant="contained"
-          url={import.meta.env.VITE_MISSION_URL}
-          setState={setList}
-        >
+        <Form.Button variant="contained" setState={setList}>
           검색
         </Form.Button>
       </Form>

@@ -17,20 +17,20 @@ export type MissionObject = {
 };
 
 export type MissionHistoryType = {
-  missionExecutionTimeAnalysis: {
-    amrCode: string;
-    missionId: number;
-    totalExecutionTime: number;
-    processingTime: number;
-    bottleneckTime: number;
-    chargingTime: number;
-    errorTime: number;
-    dischargingTime: number;
+  mission_execution_time_analysis: {
+    amr_code: string;
+    mission_id: number;
+    total_execution_time: number;
+    processing_time: number;
+    bottleneck_time: number;
+    charging_time: number;
+    error_time: number;
+    discharging_time: number;
   };
-  amrStatusTimeline: [
+  amr_status_timeline: [
     {
-      amrStatus: string;
-      startToEnd: Array<number>;
+      amr_status: string;
+      start_to_end: Array<number>;
     },
   ];
 };

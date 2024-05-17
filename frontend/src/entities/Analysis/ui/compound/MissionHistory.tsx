@@ -9,22 +9,22 @@ interface MissionHistoryProps {
 }
 
 function MissionHistory({ history }: MissionHistoryProps) {
-  console.log(history);
+  // console.log(history);
 
   const series = [
-    history.missionExecutionTimeAnalysis?.processingTime,
-    history.missionExecutionTimeAnalysis?.bottleneckTime,
-    history.missionExecutionTimeAnalysis?.errorTime,
+    history.mission_execution_time_analysis?.processing_time,
+    history.mission_execution_time_analysis?.bottleneck_time,
+    history.mission_execution_time_analysis?.error_time,
   ];
   const options = {
     labels: [
-      `Processing ${history.missionExecutionTimeAnalysis?.processingTime}s`,
-      `Stopped ${history.missionExecutionTimeAnalysis?.bottleneckTime}s`,
-      `Error ${history.missionExecutionTimeAnalysis?.errorTime}s`,
+      `Processing ${history.mission_execution_time_analysis?.processing_time}s`,
+      `Stopped ${history.mission_execution_time_analysis?.bottleneck_time}s`,
+      `Error ${history.mission_execution_time_analysis?.error_time}s`,
     ],
   };
 
-  const timelineSeries = [{ data: history?.amrStatusTimeline }];
+  const timelineSeries = [{ data: history?.amr_status_timeline }];
   const timelineOptions = {
     chart: {
       height: 350,
@@ -48,8 +48,8 @@ function MissionHistory({ history }: MissionHistoryProps) {
         <div className={`${styles.flex_center} ${styles.margin_bottom}`}>
           <div>
             <Typography component="h3" variant="h3">
-              {history.missionExecutionTimeAnalysis.amrCode} | Mission{' '}
-              {history.missionExecutionTimeAnalysis.missionId}
+              {history.mission_execution_time_analysis?.amr_code} | Mission{' '}
+              {history.mission_execution_time_analysis?.mission_id}
             </Typography>
             <Typography component="p" variant="body2">
               대충 시작 시간과 종료 시간
