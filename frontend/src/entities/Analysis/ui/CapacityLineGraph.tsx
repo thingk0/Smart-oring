@@ -88,7 +88,11 @@ function CapacityLineGraph({
   return (
     <div className={`${styles.component_background} ${styles.line}`}>
       <Typography component="h2" variant="h2">
-        생산량 비교 - 오늘 생산량 : {total}
+        생산량 비교
+      </Typography>
+      <Typography component="span" variant="body1">
+        오늘 생산량 : {total} | 어제 생산량 :{' '}
+        {yesterday.reduce((pre, cur) => pre + cur)}
       </Typography>
       <ReactApexCharts
         type="line"

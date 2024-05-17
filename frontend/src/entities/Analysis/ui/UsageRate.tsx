@@ -20,7 +20,7 @@ function UsageRate({ data }: UsageRateProps) {
         {data.map(({ amrId, percentage }: UsageRate) => {
           return (
             <Typography variant="body1" component="li" key={amrId}>
-              AMR {amrId} : {percentage}%
+              AMR {amrId} : {percentage.toFixed(2)}%
             </Typography>
           );
         })}

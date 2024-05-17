@@ -10,7 +10,6 @@ function App() {
     <>
       <Renderer />
       <BasicSpeedDial />
-      {/* <BasicSpeedDial /> */}
       {isFPVStatus && createPortal(<CameraView />, document.body)}
       {/* {createPortal(<Analysis />, document.body)} */}
     </>

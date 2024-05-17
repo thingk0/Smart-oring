@@ -15,7 +15,6 @@ type DashboardProps = {
 
 function Dashboard({ resource }: DashboardProps) {
   const data: DashboardData = resource.read();
-  console.log(data);
 
   // 실시간 병목, 에러 = 1초마다 생성되거나 없어짐
   // 따라서 tanstack-query 써야할 것 같은데

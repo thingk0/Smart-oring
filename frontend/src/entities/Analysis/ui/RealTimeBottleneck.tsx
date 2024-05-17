@@ -18,13 +18,17 @@ function RealTimeBottleneck({ data }: RealTimeBottleneck) {
         실시간 병목
       </Typography>
       <ul>
-        {data.map(({ amrId, xcoordinate, ycoordinate }) => {
-          return (
-            <Typography variant="body1" component="li" key={amrId}>
-              ({xcoordinate}, {ycoordinate}) Coordinate - AMR {amrId}
-            </Typography>
-          );
-        })}
+        {data.length > 0 ? (
+          data.map(({ amrId, xcoordinate, ycoordinate }) => {
+            return (
+              <Typography variant="body1" component="li" key={amrId}>
+                ({xcoordinate}, {ycoordinate}) Coordinate - AMR {amrId}
+              </Typography>
+            );
+          })
+        ) : (
+          <span>병목이 없습니다.</span>
+        )}
       </ul>
     </div>
   );

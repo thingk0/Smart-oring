@@ -8,29 +8,33 @@ type MissionState = {
 };
 
 export type MissionObject = {
-  mission_id: number;
-  amr_id: number;
-  amr_code: string;
-  delay_time: number;
-  mission_started_at: string;
-  mission_finished_at: string;
+  content: [
+    {
+      mission_id: number;
+      amr_id: number;
+      amr_code: string;
+      delay_time: number;
+      mission_started_at: string;
+      mission_finished_at: string;
+    },
+  ];
 };
 
 export type MissionHistoryType = {
-  missionExecutionTimeAnalysis: {
-    amrCode: string;
-    missionId: number;
-    totalExecutionTime: number;
-    processingTime: number;
-    bottleneckTime: number;
-    chargingTime: number;
-    errorTime: number;
-    dischargingTime: number;
+  mission_execution_time_analysis: {
+    amr_code: string;
+    mission_id: number;
+    total_execution_time: number;
+    processing_time: number;
+    bottleneck_time: number;
+    charging_time: number;
+    error_time: number;
+    discharging_time: number;
   };
-  amrStatusTimeline: [
+  amr_status_timeline: [
     {
-      amrStatus: string;
-      startToEnd: Array<number>;
+      amr_status: string;
+      start_to_end: Array<number>;
     },
   ];
 };

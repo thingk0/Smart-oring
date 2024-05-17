@@ -11,13 +11,14 @@ import {
 function Mission() {
   const [list, setList] = useState<MissionObject[]>([]);
   const [history, setHistory] = useState<MissionHistoryType>({});
+  const [title, setTitle] = useState<object>({});
 
   return (
     <div>
       <MissionFilter setList={setList} />
       <div className={styles.mission_grid}>
-        <MissionList list={list} setHistory={setHistory} />
-        <MissionHistory history={history} />
+        <MissionList list={list} setHistory={setHistory} setTitle={setTitle} />
+        <MissionHistory history={history} title={title} />
       </div>
     </div>
   );
