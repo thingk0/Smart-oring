@@ -14,7 +14,7 @@ const initialValue = {
   isControlMode: false,
   nodeList: [],
 };
-export const usePathStore = create<UseControlStore>()((set, _get) => ({
+export const useControlStore = create<UseControlStore>()((set, _get) => ({
   ...initialValue,
   actions: {
     setIsControlMode: (value: boolean) => set({ isControlMode: value }),

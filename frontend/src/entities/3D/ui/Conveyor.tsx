@@ -5,9 +5,17 @@ Files: ./public/models/conveyor.glb [298.94KB] > /Users/yizhi/vscode/SSAFY/S10P3
 */
 
 import * as THREE from 'three';
-import React, { useMemo, useContext, createContext } from 'react';
-import { useGLTF, Merged } from '@react-three/drei';
+import React, {
+  useMemo,
+  useContext,
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
+import { useGLTF, Merged, Outlines } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { useControlStore } from '@shared/store/useControlStore';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -52,11 +60,48 @@ export function Instances({
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const instances = useContext(context);
+  const thickness = 0.06;
+  const color = 'white';
+  const [hovered, setHover] = useState(false);
+  useEffect(
+    () =>
+      void (document.body.style.cursor =
+        hovered && isControlMode ? 'pointer' : 'auto'),
+    [hovered]
+  );
+  const onPointerOver = useCallback(() => setHover(true), []);
+  const onPointerOut = useCallback(() => setHover(false), []);
+  const {
+    isControlMode,
+    actions: { addNodeList },
+  } = useControlStore();
   return (
-    <group {...props} dispose={null}>
-      <instances.AlertOrange position={[-0.391, 2.632, -0.646]} />
-      <instances.PaletArrow position={[-0.453, 0.816, 0.101]} />
-      <instances.Pc position={[-0.187, 1, 0.101]} />
+    <group
+      {...props}
+      dispose={null}
+      onClick={e => {
+        e.stopPropagation();
+        if (isControlMode)
+          addNodeList([e.eventObject.position.x, e.eventObject.position.z]);
+      }}
+      onPointerOver={onPointerOver}
+      onPointerOut={onPointerOut}
+    >
+      <instances.AlertOrange position={[-0.391, 2.632, -0.646]}>
+        {hovered && isControlMode && (
+          <Outlines thickness={thickness} angle={0} color={color} />
+        )}
+      </instances.AlertOrange>
+      <instances.PaletArrow position={[-0.453, 0.816, 0.101]}>
+        {hovered && isControlMode && (
+          <Outlines thickness={thickness} angle={0} color={color} />
+        )}
+      </instances.PaletArrow>
+      <instances.Pc position={[-0.187, 1, 0.101]}>
+        {hovered && isControlMode && (
+          <Outlines thickness={thickness} angle={0} color={color} />
+        )}
+      </instances.Pc>
     </group>
   );
 }
