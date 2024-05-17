@@ -17,57 +17,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class MissionGeneratorImpl implements MissionGenerator {
-
-//    private static final int RANDOM_STORAGE_NUM = 3; // 중간 자재창고 경유지 랜덤 개수 (해당 수의 미만 개만큼 생성)
-
-//    @Override
-//    public Mission generateRandomMission(int submissionNum, List<Destination> destinations, List<Storage> storages) {
-//        //nodes들 중 랜덤으로 submissionNum 개수만큼 생성해줌
-//        HashSet<Integer> set = new HashSet<>();
-//        for (int i = 0; i < submissionNum; i++) { //필요한 만큼 서브미션 생성
-//            while (true) {
-//                Random random = new Random();
-//                random.setSeed(System.currentTimeMillis());
-//                int randomIdx = random.nextInt(storages.size()); // 창고 랜덤 인덱스 생성
-//                if (set.add(randomIdx)) break; // 저장되어 있지 않은 창고라면 추가
-//            }
-//        }
-//
-//        // set 제대로 숫자가 뽑혔는지 확인 코드
-//        Iterator<Integer> iterator = set.iterator();
-//        while (iterator.hasNext()) {
-//            System.out.println("set : " + iterator.next());
-//        }
-//
-//        // 위에서 뽑힌 창고 인덱스 순서대로 submission을 만들어줌
-//        Mission mission = Mission.createMission();
-//
-//        int order = 0;
-//        for (int index : set) {
-//            // submission 개수만큼 랜덤으로 갈 곳 생성했으니 객체 생성해줌
-//            Submission submission = Submission.createSubmission(
-//                    storages.get(index),
-//                    ++order
-//            );
-//            mission.addSubmission(submission);
-//        }
-//
-//
-//        // 마지막으로 도착지를 랜덤으로 생성
-//        Random random = new Random();
-//        random.setSeed(System.currentTimeMillis());
-//        int randomIdx = random.nextInt(destinations.size()); // 도착지 랜덤 인덱스 생성
-//
-//        // 도착지 노드 생성
-//        Submission destSubmission = Submission.createSubmission(
-//                destinations.get(randomIdx),
-//                submissionNum + 1
-//        );
-//        mission.addSubmission(destSubmission);
-//
-//        return mission;
-//    }
-
     @Override
     public Mission generateRandomMission(int stopoverNum, List<Storage> storages, List<ConveyorBelt> conveyorBelts,
         List<Destination> destinations) {
