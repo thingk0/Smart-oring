@@ -1,3 +1,4 @@
+import { Box } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
@@ -6,6 +7,7 @@ import { AmrStatus, TRobot } from '@shared/types';
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { AGVToolTip } from 'widgets/agv/ui/index';
+import { CardboardBox } from './CardboardBox';
 // props
 type RobotModelProps = {
   instances: TRobot;
@@ -73,6 +75,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
           <pointLight color="#00afff" intensity={10} />
         )}
         <AGVToolTip status={status} hovered={hovered} />
+        {status?.hasStuff && <CardboardBox position={[0, 0.4, 0]} />}
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
