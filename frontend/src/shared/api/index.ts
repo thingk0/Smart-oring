@@ -55,3 +55,8 @@ export function LoadData(url: string): {
     },
   };
 }
+export function postMission(selectedNodeList: [number, number][]) {
+  return axios.post(url + '/missions/assignment', {
+    selectedNodeList: selectedNodeList,
+  });
+}

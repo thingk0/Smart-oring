@@ -7,7 +7,6 @@ function Camera() {
   const { isFPVStatus, cameraIndex, cameraList } = useViewStore();
   useFrame(state => {
     if (!isFPVStatus) {
-      console.log(state.camera.position);
       const location = new Vector3(...cameraList[cameraIndex].position);
       // const angle = new Vector3(...cameraList[cameraIndex].rotation);
       state.camera.position.copy(location);

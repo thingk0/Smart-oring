@@ -3,6 +3,7 @@ import { MapData } from '@shared/types';
 import { Instances, Model } from './BigLogistics';
 
 function Storages({ data }: { data: MapData }) {
+  const outlines = true;
   return (
     <>
       <Instances>
