@@ -3,12 +3,14 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import ReactApexChart from 'react-apexcharts';
 import { MissionHistoryType } from '@entity/Analysis/store/useMissionStore';
 import styles from '../Analysis.module.css';
+import { MissionData, getDate, getTime } from './MissionList';
 
 interface MissionHistoryProps {
   history: MissionHistoryType;
+  title: MissionData;
 }
 
-function MissionHistory({ history }: MissionHistoryProps) {
+function MissionHistory({ history, title }: MissionHistoryProps) {
   // console.log(history);
 
   const series = [
@@ -48,11 +50,19 @@ function MissionHistory({ history }: MissionHistoryProps) {
         <div className={`${styles.flex_center} ${styles.margin_bottom}`}>
           <div>
             <Typography component="h3" variant="h3">
-              {history.mission_execution_time_analysis?.amr_code} | Mission{' '}
-              {history.mission_execution_time_analysis?.mission_id}
+              AMR {title.amr_id} | Mission {title.mission_id}
             </Typography>
             <Typography component="p" variant="body2">
-              대충 시작 시간과 종료 시간
+              미션 시작 :{' '}
+              {getDate(title.mission_started_at) +
+                ' ' +
+                getTime(title.mission_started_at)}
+            </Typography>
+            <Typography component="p" variant="body2">
+              미션 종료 :{' '}
+              {getDate(title.mission_finished_at) +
+                ' ' +
+                getTime(title.mission_finished_at)}
             </Typography>
           </div>
 
@@ -61,29 +71,38 @@ function MissionHistory({ history }: MissionHistoryProps) {
           </Button>
         </div>
         <div className={styles.flex_notcenter}>
-          <div>
-            <Typography component="p" variant="h2">
-              AMR Usage Rate
-            </Typography>
-            <ReactApexChart
-              type="donut"
-              series={series}
-              options={options}
-              width={350}
-            />
-          </div>
-          <div>
-            <Typography component="p" variant="h2">
-              Mission Process Timeline
-            </Typography>
-            <ReactApexChart
-              type="rangeBar"
-              series={timelineSeries}
-              options={timelineOptions}
-              width={450}
-              height={200}
-            />
-          </div>
+          {history.mission_execution_time_analysis &&
+          Object.keys(history.mission_execution_time_analysis).length > 0 ? (
+            <div>
+              <Typography component="p" variant="h2">
+                AMR Usage Rate
+              </Typography>
+              <ReactApexChart
+                type="donut"
+                series={series}
+                options={options}
+                width={350}
+              />
+            </div>
+          ) : (
+            <span>History 데이터가 없습니다.</span>
+          )}
+          {history.amr_status_timeline.length > 0 ? (
+            <div>
+              <Typography component="p" variant="h2">
+                Mission Process Timeline
+              </Typography>
+              <ReactApexChart
+                type="rangeBar"
+                series={timelineSeries}
+                options={timelineOptions}
+                width={450}
+                height={200}
+              />
+            </div>
+          ) : (
+            <span>Timeline 데이터가 없습니다.</span>
+          )}
         </div>
       </div>
     )

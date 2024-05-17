@@ -12,18 +12,33 @@ import styles from '../Analysis.module.css';
 interface MissionListProps {
   list: MissionObject[];
   setHistory: React.Dispatch<React.SetStateAction<MissionHistoryType>>;
+  setTitle: React.Dispatch<React.SetStateAction<MissionData>>;
 }
 
-function MissionList({ list, setHistory }: MissionListProps) {
-  // /{missionsId}/analysis"
+export interface MissionData {
+  mission_id: number;
+  amr_id: number;
+  amr_code: string;
+  delay_time: number;
+  mission_started_at: string;
+  mission_finished_at: string;
+}
 
-  const onClickHandler = (missionId: number) => {
-    console.log(import.meta.env.VITE_MISSION_HISTORY_URL);
+function MissionList({ list, setHistory, setTitle }: MissionListProps) {
+  const onClickHandler = (mission: MissionData) => {
+    setTitle({
+      mission_id: mission.mission_id,
+      amr_id: mission.amr_id,
+      mission_started_at: mission.mission_started_at,
+      mission_finished_at: mission.mission_finished_at,
+    });
 
     axios
-      .get(import.meta.env.VITE_MISSION_HISTORY_URL + `/${missionId}/analysis`)
+      .get(
+        import.meta.env.VITE_MISSION_HISTORY_URL +
+          `/${mission.mission_id}/analysis`
+      )
       .then(res => {
-        // console.log(res.data.resultData);
         setHistory(res.data.resultData);
       });
   };
@@ -55,12 +70,12 @@ type MissionProps = {
   onClickHandler: Function;
 };
 
-const getDate = (datetime: string) => {
+export const getDate = (datetime: string) => {
   const tmp = new Date(datetime);
   return tmp.toLocaleDateString();
 };
 
-const getTime = (datetime: string) => {
+export const getTime = (datetime: string) => {
   const tmp = new Date(datetime);
   return tmp.toLocaleTimeString();
 };
@@ -70,7 +85,7 @@ function Mission({ mission, onClickHandler }: MissionProps) {
     <>
       <ListItemText
         onClick={() => {
-          onClickHandler(mission.mission_id);
+          onClickHandler(mission);
         }}
       >
         <div>
