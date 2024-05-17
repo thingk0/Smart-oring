@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
+import { useViewStore } from '@shared/store/useViewStore';
 import { AmrStatus, TRobot } from '@shared/types';
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
@@ -19,7 +20,11 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     isShow,
     actions: { setIsShow, setRoute, setIndex },
   } = usePathStore();
-  const [isFPV, setIsFPV] = useState(false);
+
+  const {
+    isFPV,
+    actions: { setIsFPV },
+  } = useViewStore();
   useFrame(state => {
     if (!isFPV) return;
     const target = new THREE.Vector3();

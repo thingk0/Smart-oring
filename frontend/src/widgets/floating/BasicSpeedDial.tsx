@@ -6,16 +6,29 @@ import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
+import SwitchVideoIcon from '@mui/icons-material/SwitchVideo';
+import { useViewStore } from '@shared/store/useViewStore';
 
 export default function BasicSpeedDial() {
+  const {
+    actions: { switchCamera },
+  } = useViewStore();
   const actions = [
     {
       icon: <SettingsIcon />,
       name: '설정',
-      onClick: () => navigate('/setting'),
+      onClick: () => {
+        navigate('/setting');
+      },
     },
     { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
+    {
+      icon: <SwitchVideoIcon />,
+      name: '카메라 전환',
+      onClick: () => {
+        switchCamera();
+      },
+    },
     { icon: <ShareIcon />, name: 'Share' },
   ];
   const navigate = useNavigate();

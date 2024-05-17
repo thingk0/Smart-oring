@@ -20,7 +20,7 @@ function Path() {
           <Line
             points={convert2DTo3D(data[index].routeRemainingForMission)}
             lineWidth={10}
-            color="grey"
+            color="#FEE59A"
           />
         )}
         {isShow && data[index]?.routeVisitedForMission?.length > 0 && (
