@@ -126,6 +126,7 @@ def send_robot_stat(current_time, current_time_utc):
             "routeRemainingForMission": [[e.x, e.y] for e in robot.get_next_nodes()] if robot.current_mission else None,
             "routeVisitedForMission": [[e.x, e.y] for e in
                                        robot.visited_node_until_mission_complete] if robot.current_mission else None,
+            "hasStuff": get_has_stuff(robot),
         }
 
         producer.produce("amr-history-log", key=str(robot.robot_id),
@@ -144,6 +145,11 @@ def send_robot_stat(current_time, current_time_utc):
                              value=json.dumps(complete_msg, default=asdict).encode('utf-8'), )
 
         producer.flush()
+
+
+def get_has_stuff(robot):
+    has_stuff = robot.current_mission and robot.processing_submission_idx is not None and robot.processing_submission_idx > 0
+    return True if has_stuff else False
 
 
 def get_current_mission_id(robot):
