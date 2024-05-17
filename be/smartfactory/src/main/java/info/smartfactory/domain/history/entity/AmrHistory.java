@@ -7,7 +7,18 @@ import info.smartfactory.domain.common.BaseTimeEntity;
 import info.smartfactory.domain.history.dto.AmrHistoryLog;
 import info.smartfactory.domain.history.entity.constant.AmrStatus;
 import info.smartfactory.domain.mission.entity.Mission;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -62,6 +73,9 @@ public class AmrHistory extends BaseTimeEntity {
 
     @Column(name = "current_stop_duration")
     private Integer currentStopDuration;
+
+    @Column(name = "has_stuff", nullable = false)
+    private Boolean hasStuff;
 
 
     public static AmrHistory of(AmrHistoryLog historyLog, Mission mission, Amr amr) {

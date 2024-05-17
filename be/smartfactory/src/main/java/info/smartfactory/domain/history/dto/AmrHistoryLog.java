@@ -31,7 +31,9 @@ public record AmrHistoryLog(
 
 	List<Integer[]> routeRemainingForMission,
 	List<Integer[]> routeVisitedForMission,
-	Integer currentStopDuration
+	Integer currentStopDuration,
+
+	Boolean hasStuff
 
 ) {
 

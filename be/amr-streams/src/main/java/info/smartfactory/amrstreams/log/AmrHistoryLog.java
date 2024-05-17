@@ -15,7 +15,8 @@ public record AmrHistoryLog(
 
 	String routeVisitedForMission,
 	String routeRemainingForMission,
-	Integer currentStopDuration
+	Integer currentStopDuration,
+	Boolean hasStuff
 ) {
 
 }
