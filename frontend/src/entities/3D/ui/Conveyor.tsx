@@ -16,6 +16,7 @@ import React, {
 import { useGLTF, Merged, Outlines } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useControlStore } from '@shared/store/useControlStore';
+import { useViewStore } from '@shared/store/useViewStore';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -66,15 +67,15 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   useEffect(
     () =>
       void (document.body.style.cursor =
-        hovered && isControlMode ? 'pointer' : 'auto'),
+        hovered && currentView === 'Control' ? 'pointer' : 'auto'),
     [hovered]
   );
   const onPointerOver = useCallback(() => setHover(true), []);
   const onPointerOut = useCallback(() => setHover(false), []);
   const {
-    isControlMode,
     actions: { addNodeList },
   } = useControlStore();
+  const { currentView } = useViewStore();
   return (
     <group
       {...props}
@@ -83,7 +84,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
         e.stopPropagation();
         console.log(e.eventObject.position);
         console.log(e.point);
-        if (isControlMode)
+        if (currentView)
           addNodeList([
             Math.floor(e.eventObject.position.z),
             e.eventObject.position.x - 4,
@@ -93,17 +94,17 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       onPointerOut={onPointerOut}
     >
       <instances.AlertOrange position={[-0.391, 2.632, -0.646]}>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.AlertOrange>
       <instances.PaletArrow position={[-0.453, 0.816, 0.101]}>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.PaletArrow>
       <instances.Pc position={[-0.187, 1, 0.101]}>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.Pc>
