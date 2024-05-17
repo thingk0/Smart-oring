@@ -33,6 +33,9 @@ class Robot:
             return False
         route = mission_processor.process_mission(mission, self.factory_map.to_zero_one_array(), self.current_point,
                                                   road=[0])
+        if not route:
+            return False
+
         self.current_mission = mission
         self.next_points = route
         self.robot_status = RobotStatus.PROCESSING
