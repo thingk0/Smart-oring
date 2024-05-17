@@ -203,9 +203,9 @@ function ButtonC({ variant, setState }: ButtonProps) {
   const { querys, URL } = useContext(FormContext);
 
   const onClickHandler = () => {
-    axios
-      .get(URL + ChangeQueryParams(querys))
-      .then(res => setState(res.data.content));
+    axios.get(URL + ChangeQueryParams(querys)).then(res => {
+      setState(res.data.resultData);
+    });
   };
 
   return (

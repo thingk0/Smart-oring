@@ -3,7 +3,7 @@ import styles from '../Analysis.module.css';
 import Form from './Form';
 
 interface HeatmapFilterProps {
-  setState: React.Dispatch<React.SetStateAction<object>>;
+  setState: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 function HeatmapFilter({ setState }: HeatmapFilterProps) {
@@ -35,11 +35,7 @@ function HeatmapFilter({ setState }: HeatmapFilterProps) {
           variant="standard"
           queryParam="bottleneckSeconds"
         />
-        <Form.Button
-          variant="contained"
-          url={import.meta.env.VITE_MISSION_URL}
-          setState={setState}
-        >
+        <Form.Button variant="contained" setState={setState}>
           검색
         </Form.Button>
       </Form>
