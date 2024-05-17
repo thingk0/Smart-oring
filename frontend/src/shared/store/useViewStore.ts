@@ -1,10 +1,10 @@
 import { create } from 'zustand'; // 변경된 부분
-
 import { createJSONStorage, persist } from 'zustand/middleware';
+
 interface UseViewStore {
   cameraIndex: number;
   isFPVStatus: boolean;
-  isViewAnalysis: boolean;
+  currentView: string;
   cameraList: {
     isTop: boolean;
     position: number[];
@@ -12,15 +12,16 @@ interface UseViewStore {
   }[];
   actions: ViewStoreActions;
 }
+
 interface ViewStoreActions {
   switchCamera: () => void;
   setIsFPVStatus: (value: boolean) => void;
-  setIsViewAnalysis: (value: boolean) => void;
+  setCurrentView: (value: string) => void;
 }
 
 const initialValue = {
   isFPVStatus: false,
-  isViewAnalysis: false,
+  currentView: 'Monitoring',
   cameraIndex: 0,
   cameraList: [
     { isTop: false, position: [73, 7, 34], lookAt: [0, 0, 0] },
@@ -50,9 +51,8 @@ export const useViewStore = create<UseViewStore>()(
           set({
             isFPVStatus: value,
           }),
-        setIsViewAnalysis: (value: boolean) => {
-          console.log(value);
-          return set({ isViewAnalysis: value });
+        setCurrentView: (value: string) => {
+          return set({ currentView: value });
         },
       },
     }),

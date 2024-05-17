@@ -13,7 +13,7 @@ import { useViewStore } from '@shared/store/useViewStore';
 function Analysis() {
   const [type, setType] = useState(0);
   const {
-    actions: { setIsViewAnalysis },
+    actions: { setCurrentView },
   } = useViewStore();
 
   const onChangeHandler = (_: React.SyntheticEvent, newValue: number) => {
@@ -41,7 +41,7 @@ function Analysis() {
         <Button
           variant="contained"
           endIcon={<ExitToAppIcon />}
-          onClick={() => setIsViewAnalysis(false)}
+          onClick={() => setCurrentView('Monitoring')}
         >
           Back to Monitoring
         </Button>
