@@ -5,6 +5,7 @@ interface UseViewStore {
   cameraIndex: number;
   isFPVStatus: boolean;
   currentView: string;
+  missionId: number;
   cameraList: {
     isTop: boolean;
     position: number[];
@@ -17,9 +18,11 @@ interface ViewStoreActions {
   switchCamera: () => void;
   setIsFPVStatus: (value: boolean) => void;
   setCurrentView: (value: string) => void;
+  setMissionId: (value: number) => void;
 }
 
 const initialValue = {
+  missionId: -1,
   isFPVStatus: false,
   currentView: 'Monitoring',
   cameraIndex: 0,
@@ -40,6 +43,7 @@ export const useViewStore = create<UseViewStore>()(
     (set, get) => ({
       ...initialValue,
       actions: {
+        setMissionId: (value: number) => set({ missionId: value }),
         switchCamera: () =>
           set(state => {
             console.log((state.cameraIndex + 1) % state.cameraList.length);

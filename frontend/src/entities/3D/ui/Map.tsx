@@ -6,7 +6,7 @@ import Path from './Path';
 import Wall from './Wall';
 import Floor from './Floor';
 import Chargers from './Chargers';
-import { getMap, getReplayData } from '@shared/api';
+import { getMap, getReplay, getReplayData } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
 import { useLocation } from 'react-router-dom';
 import Conveyors from './Conveyors';
@@ -27,18 +27,18 @@ function Map() {
       },
       {
         queryKey: ['replay'],
-        queryFn: getReplayData,
+        queryFn: () => getReplay(missionId),
       },
     ],
   });
 
-  const { currentView } = useViewStore();
+  const { currentView, missionId } = useViewStore();
 
   if (results[0].data) {
     return (
       <>
         {currentView === 'Monitoring' && <InstancedRobot />}
-        {currentView === '/replay' && results[1].data && (
+        {currentView === 'Replay' && results[1].data && (
           <ReplayInstancedRobot replayData={results[1].data} />
         )}
         {/* <AGVInstance /> */}
