@@ -28,10 +28,12 @@ class Robot:
         self.estimated_time_when_mission_first_set = 0
         self.last_mission: Mission | None = None
 
-    def assign_mission(self, mission, current_time=None):
+    def assign_mission(self, mission, locked_nodes, current_time=None):
         if self.robot_status != RobotStatus.CHARGING:
             return False
-        route = mission_processor.process_mission(mission, self.factory_map.to_zero_one_array(), self.current_point,
+        route = mission_processor.process_mission(mission,
+                                                  self.get_map_with_locked_nodes(locked_nodes),
+                                                  self.current_point,
                                                   road=[0])
         if not route:
             return False

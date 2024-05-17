@@ -54,7 +54,7 @@ def a_star(array, start: Point, dest: Point, path):
             continue
         parent[x][y] = parent_point
         if x == dest.x and y == dest.y:
-            break
+            return find_path(parent=parent, start=dest)
 
         for i in range(4):
             nx = x + dx[i]
@@ -68,9 +68,9 @@ def a_star(array, start: Point, dest: Point, path):
                 continue
             distance[nx][ny] = current_distance + 1
             heapq.heappush(heap, (heuristic_cost[nx][ny], current_distance + 1, Point(nx, ny), Point(x, y)))
+    print("points = ", start, dest)
 
-    path = find_path(parent=parent, start=dest)
-    return path
+    return None
 
 
 def find_path(parent, start: Point):

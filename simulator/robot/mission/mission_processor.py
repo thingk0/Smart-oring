@@ -1,8 +1,6 @@
 from collections import deque
 from typing import List
 
-import numpy as np
-
 from domain.node import Node, EntranceDirection
 from robot.mission.entity.mission import Mission, Submission
 from robot.mission.path.path_finder import find_path
@@ -27,6 +25,8 @@ def process_mission(mission: Mission, factory_map, start_point: Point, road):
         point = Point(*front_node)
         points.append(point)
     path = find_path(points, factory_map, road=road)
+    if not path:
+        return None
     path.popleft()
     return path
 
@@ -41,6 +41,8 @@ def get_route_to_structure(nodes: List[Node], factory_map, start_point: Point, r
         point = Point(*front_node)
         points.append(point)
     path = find_path(points, factory_map, road=road)
+    if not path:
+        return None
     path.popleft()
     return path
 
@@ -50,6 +52,8 @@ def get_route_point_to_point(factory_map, current_point: Point, target_point: Po
         road = [0]
     points = [current_point, target_point]
     path = find_path(points, factory_map, road=road)
+    if not path:
+        return None
     path.popleft()
     return path
 
@@ -59,21 +63,34 @@ if __name__ == '__main__':
     orders_per_mission = 4
 
     mission = Mission(id=1, submission_list=[
+        #         15,43,2024-05-18 01:19:26.051795,238,2024-05-18 01:19:26.051795,STORAGE,SOUTH
+        # 22,35,2024-05-18 01:19:26.072731,248,2024-05-18 01:19:26.072731,STORAGE,NORTH
+        # 7,54,2024-05-18 01:19:26.210159,329,2024-05-18 01:19:26.210159,CONVEYOR_BELT,WEST
         Submission(
             mission_order_id=1,
-            arrive_node=Node(9, 14, EntranceDirection.NORTH),
+            arrive_node=Node(15, 43, EntranceDirection.NORTH),
             mission_order=1
         ),
         Submission(
             mission_order_id=1,
-            arrive_node=Node(9, 43, EntranceDirection.NORTH),
+            arrive_node=Node(22, 35, EntranceDirection.NORTH),
             mission_order=1
         ),
         Submission(
             mission_order_id=1,
-            arrive_node=Node(19, 26, EntranceDirection.SOUTH),
+            arrive_node=Node(7, 54, EntranceDirection.NORTH),
             mission_order=1
-        )
+        ),
+        # Submission(
+        #     mission_order_id=1,
+        #     arrive_node=Node(9, 43, EntranceDirection.NORTH),
+        #     mission_order=1
+        # ),
+        # Submission(
+        #     mission_order_id=1,
+        #     arrive_node=Node(19, 26, EntranceDirection.SOUTH),
+        #     mission_order=1
+        # )
     ])
     # for target_node in _generator():
     #     order = Submission(
@@ -82,372 +99,27 @@ if __name__ == '__main__':
     #         mission_order=1
     #     )
     #     mission.add_order(order)
-    arr = [[0] * 110 for _ in range(60)]
-    arr[2][1] = 1
-    arr[4][1] = 1
-    arr[6][1] = 1
-    arr[8][1] = 1
-    arr[10][1] = 1
-    arr[12][1] = 1
-    arr[14][1] = 1
-    arr[16][1] = 1
-    arr[18][1] = 1
-    arr[20][1] = 1
-    arr[22][1] = 1
-    arr[24][1] = 1
-    arr[26][1] = 1
-    arr[28][1] = 1
-    arr[30][1] = 1
-    arr[32][1] = 1
-    arr[34][1] = 1
-    arr[36][1] = 1
-    arr[38][1] = 1
-    arr[40][1] = 1
-    arr[42][1] = 1
-    arr[44][1] = 1
-    arr[46][1] = 1
-    arr[48][1] = 1
-    arr[9][13] = 1
-    arr[9][14] = 1
-    arr[9][15] = 1
-    arr[9][16] = 1
-    arr[9][17] = 1
-    arr[9][18] = 1
-    arr[9][19] = 1
-    arr[9][20] = 1
-    arr[9][21] = 1
-    arr[9][22] = 1
-    arr[10][13] = 1
-    arr[10][14] = 1
-    arr[10][15] = 1
-    arr[10][16] = 1
-    arr[10][17] = 1
-    arr[10][18] = 1
-    arr[10][19] = 1
-    arr[10][20] = 1
-    arr[10][21] = 1
-    arr[10][22] = 1
-    arr[18][13] = 1
-    arr[18][14] = 1
-    arr[18][15] = 1
-    arr[18][16] = 1
-    arr[18][17] = 1
-    arr[18][18] = 1
-    arr[18][19] = 1
-    arr[18][20] = 1
-    arr[18][21] = 1
-    arr[18][22] = 1
-    arr[19][13] = 1
-    arr[19][14] = 1
-    arr[19][15] = 1
-    arr[19][16] = 1
-    arr[19][17] = 1
-    arr[19][18] = 1
-    arr[19][19] = 1
-    arr[19][20] = 1
-    arr[19][21] = 1
-    arr[19][22] = 1
-    arr[27][13] = 1
-    arr[27][14] = 1
-    arr[27][15] = 1
-    arr[27][16] = 1
-    arr[27][17] = 1
-    arr[27][18] = 1
-    arr[27][19] = 1
-    arr[27][20] = 1
-    arr[27][21] = 1
-    arr[27][22] = 1
-    arr[28][13] = 1
-    arr[28][14] = 1
-    arr[28][15] = 1
-    arr[28][16] = 1
-    arr[28][17] = 1
-    arr[28][18] = 1
-    arr[28][19] = 1
-    arr[28][20] = 1
-    arr[28][21] = 1
-    arr[28][22] = 1
-    arr[36][13] = 1
-    arr[36][14] = 1
-    arr[36][15] = 1
-    arr[36][16] = 1
-    arr[36][17] = 1
-    arr[36][18] = 1
-    arr[36][19] = 1
-    arr[36][20] = 1
-    arr[36][21] = 1
-    arr[36][22] = 1
-    arr[37][13] = 1
-    arr[37][14] = 1
-    arr[37][15] = 1
-    arr[37][16] = 1
-    arr[37][17] = 1
-    arr[37][18] = 1
-    arr[37][19] = 1
-    arr[37][20] = 1
-    arr[37][21] = 1
-    arr[37][22] = 1
-    arr[9][26] = 1
-    arr[9][27] = 1
-    arr[9][28] = 1
-    arr[9][29] = 1
-    arr[9][30] = 1
-    arr[9][31] = 1
-    arr[9][32] = 1
-    arr[9][33] = 1
-    arr[9][34] = 1
-    arr[9][35] = 1
-    arr[10][26] = 1
-    arr[10][27] = 1
-    arr[10][28] = 1
-    arr[10][29] = 1
-    arr[10][30] = 1
-    arr[10][31] = 1
-    arr[10][32] = 1
-    arr[10][33] = 1
-    arr[10][34] = 1
-    arr[10][35] = 1
-    arr[18][26] = 1
-    arr[18][27] = 1
-    arr[18][28] = 1
-    arr[18][29] = 1
-    arr[18][30] = 1
-    arr[18][31] = 1
-    arr[18][32] = 1
-    arr[18][33] = 1
-    arr[18][34] = 1
-    arr[18][35] = 1
-    arr[19][26] = 1
-    arr[19][27] = 1
-    arr[19][28] = 1
-    arr[19][29] = 1
-    arr[19][30] = 1
-    arr[19][31] = 1
-    arr[19][32] = 1
-    arr[19][33] = 1
-    arr[19][34] = 1
-    arr[19][35] = 1
-    arr[27][26] = 1
-    arr[27][27] = 1
-    arr[27][28] = 1
-    arr[27][29] = 1
-    arr[27][30] = 1
-    arr[27][31] = 1
-    arr[27][32] = 1
-    arr[27][33] = 1
-    arr[27][34] = 1
-    arr[27][35] = 1
-    arr[28][26] = 1
-    arr[28][27] = 1
-    arr[28][28] = 1
-    arr[28][29] = 1
-    arr[28][30] = 1
-    arr[28][31] = 1
-    arr[28][32] = 1
-    arr[28][33] = 1
-    arr[28][34] = 1
-    arr[28][35] = 1
-    arr[36][26] = 1
-    arr[36][27] = 1
-    arr[36][28] = 1
-    arr[36][29] = 1
-    arr[36][30] = 1
-    arr[36][31] = 1
-    arr[36][32] = 1
-    arr[36][33] = 1
-    arr[36][34] = 1
-    arr[36][35] = 1
-    arr[37][26] = 1
-    arr[37][27] = 1
-    arr[37][28] = 1
-    arr[37][29] = 1
-    arr[37][30] = 1
-    arr[37][31] = 1
-    arr[37][32] = 1
-    arr[37][33] = 1
-    arr[37][34] = 1
-    arr[37][35] = 1
-    arr[9][39] = 1
-    arr[9][40] = 1
-    arr[9][41] = 1
-    arr[9][42] = 1
-    arr[9][43] = 1
-    arr[9][44] = 1
-    arr[9][45] = 1
-    arr[9][46] = 1
-    arr[9][47] = 1
-    arr[9][48] = 1
-    arr[10][39] = 1
-    arr[10][40] = 1
-    arr[10][41] = 1
-    arr[10][42] = 1
-    arr[10][43] = 1
-    arr[10][44] = 1
-    arr[10][45] = 1
-    arr[10][46] = 1
-    arr[10][47] = 1
-    arr[10][48] = 1
-    arr[18][39] = 1
-    arr[18][40] = 1
-    arr[18][41] = 1
-    arr[18][42] = 1
-    arr[18][43] = 1
-    arr[18][44] = 1
-    arr[18][45] = 1
-    arr[18][46] = 1
-    arr[18][47] = 1
-    arr[18][48] = 1
-    arr[19][39] = 1
-    arr[19][40] = 1
-    arr[19][41] = 1
-    arr[19][42] = 1
-    arr[19][43] = 1
-    arr[19][44] = 1
-    arr[19][45] = 1
-    arr[19][46] = 1
-    arr[19][47] = 1
-    arr[19][48] = 1
-    arr[27][39] = 1
-    arr[27][40] = 1
-    arr[27][41] = 1
-    arr[27][42] = 1
-    arr[27][43] = 1
-    arr[27][44] = 1
-    arr[27][45] = 1
-    arr[27][46] = 1
-    arr[27][47] = 1
-    arr[27][48] = 1
-    arr[28][39] = 1
-    arr[28][40] = 1
-    arr[28][41] = 1
-    arr[28][42] = 1
-    arr[28][43] = 1
-    arr[28][44] = 1
-    arr[28][45] = 1
-    arr[28][46] = 1
-    arr[28][47] = 1
-    arr[28][48] = 1
-    arr[36][39] = 1
-    arr[36][40] = 1
-    arr[36][41] = 1
-    arr[36][42] = 1
-    arr[36][43] = 1
-    arr[36][44] = 1
-    arr[36][45] = 1
-    arr[36][46] = 1
-    arr[36][47] = 1
-    arr[36][48] = 1
-    arr[37][39] = 1
-    arr[37][40] = 1
-    arr[37][41] = 1
-    arr[37][42] = 1
-    arr[37][43] = 1
-    arr[37][44] = 1
-    arr[37][45] = 1
-    arr[37][46] = 1
-    arr[37][47] = 1
-    arr[37][48] = 1
-    arr[9][52] = 1
-    arr[9][53] = 1
-    arr[9][54] = 1
-    arr[9][55] = 1
-    arr[9][56] = 1
-    arr[9][57] = 1
-    arr[9][58] = 1
-    arr[9][59] = 1
-    arr[9][60] = 1
-    arr[9][61] = 1
-    arr[10][52] = 1
-    arr[10][53] = 1
-    arr[10][54] = 1
-    arr[10][55] = 1
-    arr[10][56] = 1
-    arr[10][57] = 1
-    arr[10][58] = 1
-    arr[10][59] = 1
-    arr[10][60] = 1
-    arr[10][61] = 1
-    arr[18][52] = 1
-    arr[18][53] = 1
-    arr[18][54] = 1
-    arr[18][55] = 1
-    arr[18][56] = 1
-    arr[18][57] = 1
-    arr[18][58] = 1
-    arr[18][59] = 1
-    arr[18][60] = 1
-    arr[18][61] = 1
-    arr[19][52] = 1
-    arr[19][53] = 1
-    arr[19][54] = 1
-    arr[19][55] = 1
-    arr[19][56] = 1
-    arr[19][57] = 1
-    arr[19][58] = 1
-    arr[19][59] = 1
-    arr[19][60] = 1
-    arr[19][61] = 1
-    arr[27][52] = 1
-    arr[27][53] = 1
-    arr[27][54] = 1
-    arr[27][55] = 1
-    arr[27][56] = 1
-    arr[27][57] = 1
-    arr[27][58] = 1
-    arr[27][59] = 1
-    arr[27][60] = 1
-    arr[27][61] = 1
-    arr[28][52] = 1
-    arr[28][53] = 1
-    arr[28][54] = 1
-    arr[28][55] = 1
-    arr[28][56] = 1
-    arr[28][57] = 1
-    arr[28][58] = 1
-    arr[28][59] = 1
-    arr[28][60] = 1
-    arr[28][61] = 1
-    arr[36][52] = 1
-    arr[36][53] = 1
-    arr[36][54] = 1
-    arr[36][55] = 1
-    arr[36][56] = 1
-    arr[36][57] = 1
-    arr[36][58] = 1
-    arr[36][59] = 1
-    arr[36][60] = 1
-    arr[36][61] = 1
-    arr[37][52] = 1
-    arr[37][53] = 1
-    arr[37][54] = 1
-    arr[37][55] = 1
-    arr[37][56] = 1
-    arr[37][57] = 1
-    arr[37][58] = 1
-    arr[37][59] = 1
-    arr[37][60] = 1
-    arr[37][61] = 1
-    arr[6][70] = 1
-    arr[7][70] = 1
-    arr[8][70] = 1
-    arr[13][70] = 1
-    arr[14][70] = 1
-    arr[15][70] = 1
-    arr[20][70] = 1
-    arr[21][70] = 1
-    arr[22][70] = 1
-    arr[27][70] = 1
-    arr[28][70] = 1
-    arr[29][70] = 1
-    arr[34][70] = 1
-    arr[35][70] = 1
-    arr[36][70] = 1
-    arr[41][70] = 1
-    arr[42][70] = 1
-    arr[43][70] = 1
-    factory_map = [[0] * 6 for _ in range(6)]
-    np.set_printoptions(threshold=np.inf, linewidth=np.inf)
-    factory_map = np.array(arr)
+    factory_map = [[0] * 100 for _ in range(100)]
+    factory_map[1][1] = 1
+    factory_map[1][2] = 1
+    factory_map[1][3] = 1
 
+    factory_map[2][1] = 1
+    factory_map[2][2] = 1
+    factory_map[2][3] = 1
+
+    factory_map[3][1] = 1
+    factory_map[3][2] = 1
+    factory_map[21][35] = 1
+
+    # print factoru_map
+    for row in factory_map:
+        print(row)
+    #         15,43,2024-05-18 01:19:26.051795,238,2024-05-18 01:19:26.051795,STORAGE,SOUTH
+    # 22,35,2024-05-18 01:19:26.072731,248,2024-05-18 01:19:26.072731,STORAGE,NORTH
+    # 7,54,2024-05-18 01:19:26.210159,329,2024-05-18 01:19:26.210159,CONVEYOR_BELT,WEST
+
+    # path = process_mission(mission, factory_map=factory_map, start_point=Point(0, 0), road=[0])
     path = process_mission(mission, factory_map=factory_map, start_point=Point(0, 0), road=[0])
+    # path = get_route_to_structure([Node(2, 2, EntranceDirection.NORTH)], factory_map, start_point=Point(0, 0), road=[0])
     print(path)

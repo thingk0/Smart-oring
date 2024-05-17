@@ -6,10 +6,13 @@ from robot.mission.path.algorithm import a_star
 from robot.mission.path.point import Point
 
 
-def find_path(points, array, road) -> deque[Point]:
+def find_path(points, array, road) -> deque[Point] | None:
     final_path = deque()
+    print(points)
     for i in range(len(points) - 1):
         path = a_star(array=array, start=points[i], dest=points[i + 1], path=road)
+        if not path:
+            return None
         path.pop()
         final_path.extend(path)
     final_path.append(points[-1])

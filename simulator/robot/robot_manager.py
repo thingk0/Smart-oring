@@ -30,9 +30,11 @@ class RobotManager:
         self.robots.append(robot)
 
     def assign_mission(self, mission, current_time) -> bool:
+        locked_nodes = self.get_locked_nodes()
         for robot in self.robots:
-            result = robot.assign_mission(mission, current_time=current_time)
+            result = robot.assign_mission(mission, current_time=current_time, locked_nodes=locked_nodes)
             if result:
+                print(f"robot {robot.robot_id} get mission {robot.current_mission.mission_id}")
                 return True
         return False
 
@@ -45,10 +47,7 @@ class RobotManager:
     def process_robots(self):
 
         for robot in self.robots:
-            locked_nodes = set()
-
-            for other_robot in self.robots:
-                locked_nodes.add(other_robot.current_point)
+            locked_nodes = self.get_locked_nodes()
             robot.process(locked_nodes, self.factory_map)
 
         # for robot in self.working_robots:
@@ -66,6 +65,12 @@ class RobotManager:
         #             continue
         #         self.working_robots.remove(robot)
         #         self.idle_robots.append(robot)
+
+    def get_locked_nodes(self):
+        locked_nodes = set()
+        for other_robot in self.robots:
+            locked_nodes.add(other_robot.current_point)
+        return locked_nodes
 
     def print_factory_map(self):
 
