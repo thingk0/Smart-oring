@@ -82,7 +82,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(6, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(6, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(6, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(6, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(6, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(7, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(7, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(7, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -90,7 +90,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(7, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(7, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(7, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(7, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(7, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(8, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(8, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(8, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -98,7 +98,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(8, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(8, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(8, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(8, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(8, 59, EAST, ConveyorBeltType.END));
 
 		dtos.add(createConveyorBeltDto(14, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(14, 53, WEST, ConveyorBeltType.MIDDLE));
@@ -107,7 +107,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(14, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(14, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(14, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(14, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(14, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(15, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(15, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(15, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -115,7 +115,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(15, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(15, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(15, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(15, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(15, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(16, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(16, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(16, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -123,7 +123,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(16, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(16, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(16, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(16, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(16, 59, EAST, ConveyorBeltType.END));
 
 		dtos.add(createConveyorBeltDto(22, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(22, 53, WEST, ConveyorBeltType.MIDDLE));
@@ -132,7 +132,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(22, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(22, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(22, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(22, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(22, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(23, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(23, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(23, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -140,7 +140,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(23, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(23, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(23, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(23, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(23, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(24, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(24, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(24, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -148,7 +148,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(24, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(24, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(24, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(24, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(24, 59, EAST, ConveyorBeltType.END));
 
 		dtos.add(createConveyorBeltDto(30, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(30, 53, WEST, ConveyorBeltType.MIDDLE));
@@ -157,7 +157,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(30, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(30, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(30, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(30, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(30, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(31, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(31, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(31, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -165,7 +165,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(31, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(31, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(31, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(31, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(31, 59, EAST, ConveyorBeltType.END));
 		dtos.add(createConveyorBeltDto(32, 52, WEST, ConveyorBeltType.FRONT));
 		dtos.add(createConveyorBeltDto(32, 53, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(32, 54, WEST, ConveyorBeltType.MIDDLE));
@@ -173,7 +173,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 		dtos.add(createConveyorBeltDto(32, 56, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(32, 57, WEST, ConveyorBeltType.MIDDLE));
 		dtos.add(createConveyorBeltDto(32, 58, WEST, ConveyorBeltType.MIDDLE));
-		dtos.add(createConveyorBeltDto(32, 59, WEST, ConveyorBeltType.END));
+		dtos.add(createConveyorBeltDto(32, 59, EAST, ConveyorBeltType.END));
 
 		nodeService.addNodes(dtos);
 	}
