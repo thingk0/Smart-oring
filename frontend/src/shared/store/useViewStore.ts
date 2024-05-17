@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 interface UseViewStore {
   cameraIndex: number;
   isFPVStatus: boolean;
+  isViewAnalysis: boolean;
   cameraList: {
     isTop: boolean;
     position: number[];
@@ -14,9 +15,12 @@ interface UseViewStore {
 interface ViewStoreActions {
   switchCamera: () => void;
   setIsFPVStatus: (value: boolean) => void;
+  setIsViewAnalysis: (value: boolean) => void;
 }
+
 const initialValue = {
   isFPVStatus: false,
+  isViewAnalysis: false,
   cameraIndex: 0,
   cameraList: [
     { isTop: false, position: [73, 7, 34], lookAt: [0, 0, 0] },
@@ -29,6 +33,7 @@ const initialValue = {
     },
   ],
 };
+
 export const useViewStore = create<UseViewStore>()(
   persist(
     (set, get) => ({
@@ -45,6 +50,10 @@ export const useViewStore = create<UseViewStore>()(
           set({
             isFPVStatus: value,
           }),
+        setIsViewAnalysis: (value: boolean) => {
+          console.log(value);
+          return set({ isViewAnalysis: value });
+        },
       },
     }),
     {
