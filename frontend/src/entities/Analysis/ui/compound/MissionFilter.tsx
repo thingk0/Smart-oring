@@ -59,7 +59,7 @@ function MissionFilter({ setList }: MissionFilterProps) {
         >
           {AMRs.map((info: string, index: number) => {
             return (
-              <MenuItem key={index} value={info}>
+              <MenuItem key={index} value={'AMR00' + info.split('AMR')[1]}>
                 {info}
               </MenuItem>
             );

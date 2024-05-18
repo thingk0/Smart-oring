@@ -189,7 +189,7 @@ function TextFieldC({
 const ChangeQueryParams = (querys: object, selectValue: string) => {
   let queryParam = '';
 
-  if (selectValue && selectValue !== 'ALL')
+  if (selectValue && selectValue !== 'AMR00undefined')
     queryParam += `?amrType=${selectValue}`;
 
   for (const [k, v] of Object.entries(querys)) {
