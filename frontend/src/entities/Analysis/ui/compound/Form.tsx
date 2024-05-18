@@ -4,11 +4,9 @@ import { ButtonOwnProps } from '@mui/material/Button/Button.ts';
 import { TextFieldVariants } from '@mui/material/TextField/TextField.ts';
 import {
   Button,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   TextField,
   Typography,
   TypographyOwnProps,
@@ -89,6 +87,9 @@ type SelectProps = {
   queryParam: string;
 };
 
+/**
+ * @deprecated [Bug] onChange가 발생하지 않음.
+ */
 function SelectC({ children, id, label, queryParam }: SelectProps) {
   const { querys } = useContext(FormContext);
 
@@ -108,6 +109,9 @@ type OptionProps = {
   queryParam: string;
 };
 
+/**
+ * @deprecated [Bug] onChange가 발생하지 않음.
+ */
 function Option({ key, children, val, queryParam }: OptionProps) {
   const { querys, setQuerys } = useContext(FormContext);
 
@@ -165,6 +169,13 @@ type TextFieldProps = {
   queryParam: string;
 };
 
+/**
+ * @warning 잠재적인 유용성 문제로 인해 텍스트 필드에 type="number"를 사용하지 않는 것이 좋습니다.
+ * 숫자가 아닌 특정 문자('e', '+', '-', '.')를 허용하고 다른 문자는 자동으로 삭제합니다.
+ * 숫자를 증가/감소시키는 스크롤 기능으로 인해 실수로 눈에 띄기 어려운 변경이 발생할 수 있습니다.
+ * 기타 – <input type="number">의 제한 사항에 대한 자세한 설명은 GOV.UK 디자인 시스템 팀이 숫자 입력 유형을 변경한 이유를 참조하세요.
+ */
+
 function TextFieldC({
   type,
   defaultValue,
@@ -182,6 +193,7 @@ function TextFieldC({
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setQuerys({ ...querys, [queryParam]: e.target.value })
       }
+      // minLength={0}
     />
   );
 }
