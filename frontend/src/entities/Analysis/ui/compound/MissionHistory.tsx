@@ -26,6 +26,7 @@ function MissionHistory({ history, title }: MissionHistoryProps) {
       setCurrentTime,
       increaseCurrentTime,
       setSpeed,
+      setAmrId,
     },
   } = useReplayStore();
 
@@ -89,6 +90,7 @@ function MissionHistory({ history, title }: MissionHistoryProps) {
             endIcon={<ReplayIcon />}
             onClick={() => {
               setMissionId(title.mission_id);
+              setAmrId(title.amr_id);
               setIsPlaying(false);
               setTotalTime(0);
               setCurrentTime(0);
