@@ -7,6 +7,7 @@ interface UseReplayStore {
   totalTime: number;
   actions: ReplayStoreActions;
   speed: number;
+  amrId: number;
 }
 interface ReplayStoreActions {
   setIsPlaying: (value: boolean) => void;
@@ -14,12 +15,14 @@ interface ReplayStoreActions {
   setTotalTime: (value: number) => void;
   increaseCurrentTime: () => void;
   setSpeed: (value: number) => void;
+  setAmrId: (value: number) => void;
 }
 const initialValue = {
   isPlaying: false,
   currentTime: 0,
   totalTime: 110,
   speed: 1.0,
+  amrId: 1,
 };
 export const useReplayStore = create<UseReplayStore>()(
   persist(
@@ -29,6 +32,7 @@ export const useReplayStore = create<UseReplayStore>()(
         setIsPlaying: (value: boolean) => set({ isPlaying: value }),
         setTotalTime: (value: number) => set({ totalTime: value }),
         setCurrentTime: (value: number) => set({ currentTime: value }),
+        setAmrId: (value: number) => set({ amrId: value }),
         increaseCurrentTime: () =>
           set(state => {
             let newCurrentTime = state.currentTime;
