@@ -91,8 +91,9 @@ def start():
     while True:
         time.sleep(1)
         # rm.print_factory_map()
-        current_time = datetime.datetime.now().isoformat()
-        current_time_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        now = datetime.datetime.now()
+        current_time = now.isoformat()
+        current_time_utc = now.astimezone(datetime.timezone.utc).isoformat()
         rm.process_robots()
         send_robot_stat(current_time=current_time, current_time_utc=current_time_utc)
         get_mission()
