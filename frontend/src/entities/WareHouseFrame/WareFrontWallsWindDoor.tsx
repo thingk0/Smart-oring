@@ -71,7 +71,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       <instances.Object />
       <instances.Object1 />
       <instances.WareFrontWind />
-      <instances.WareFrontWindglasse />
+      {/* <instances.WareFrontWindglasse /> */}
       <instances.WareFrontWallsWindDoor />
       <instances.WareFrontWallsWindDoor1 />
       <instances.WareFrontWallsWindDoor2 />
