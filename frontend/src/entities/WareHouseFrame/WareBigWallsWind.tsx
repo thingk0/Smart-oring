@@ -75,7 +75,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       <instances.WareBigColumn />
       <instances.WareBigW />
       <instances.WareBigWind />
-      <instances.WareBigWindglass />
+      {/* <instances.WareBigWindglass /> */}
       <instances.WareBigWallsWind />
       <instances.WareBigWallsWind1 />
       <instances.WareBigWallsWind2 />
