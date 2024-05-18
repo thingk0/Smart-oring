@@ -1,6 +1,6 @@
 import Destinations from './Destinations';
 import Storages from './Storages';
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
 import Path from './Path';
 import Wall from './Wall';
@@ -18,38 +18,27 @@ import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
 import { useViewStore } from '@shared/store/useViewStore';
 
 function Map() {
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ['map'],
-        // queryFn: getRobotPosition, : mocking api
-        queryFn: getMap,
-      },
-      {
-        queryKey: ['replay'],
-        queryFn: () => getReplay(missionId),
-      },
-    ],
+  const { data } = useQuery({
+    queryKey: ['map'],
+    queryFn: getMap,
   });
 
-  const { currentView, missionId } = useViewStore();
+  const { currentView } = useViewStore();
 
-  if (results[0].data) {
+  if (data) {
     return (
       <>
         {currentView === 'Monitoring' && <InstancedRobot />}
-        {currentView === 'Replay' && results[1].data && (
-          <ReplayInstancedRobot replayData={results[1].data} />
-        )}
+        {currentView === 'Replay' && <ReplayInstancedRobot />}
         {/* <AGVInstance /> */}
         <Path />
         {/* <Wall /> */}
         {/* <Floor /> */}
         <WareHouseFrame />
-        <Chargers data={results[0].data} />
-        <Destinations data={results[0].data} />
-        <Storages data={results[0].data} />
-        <Conveyors data={results[0].data} />
+        <Chargers data={data} />
+        <Destinations data={data} />
+        <Storages data={data} />
+        <Conveyors data={data} />
       </>
     );
   }
