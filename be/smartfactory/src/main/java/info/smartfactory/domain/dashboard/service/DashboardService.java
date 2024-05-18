@@ -58,6 +58,8 @@ public class DashboardService {
         LocalDateTime yesterdayStart = today.minusDays(1).atStartOfDay();
         LocalDateTime now = LocalDateTime.now();
 
+        System.out.println("yesterday start: " + yesterdayStart);
+
         List<MissionStatusDto> missionList = missionRepository.getCompleteMissions(yesterdayStart, now);
 
         for(MissionStatusDto mission: missionList){
