@@ -46,6 +46,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
     setHover(true);
     setIndex(Number(name.substring(5)));
+    console.log(name.substring(5));
   };
   const onPointerOut = () => {
     setHover(false);

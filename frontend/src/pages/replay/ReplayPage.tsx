@@ -1,9 +1,7 @@
-import { Container } from '@mui/material';
 import { ReplayBar } from '@entity/index.ts';
 import { useQuery } from '@tanstack/react-query';
-import { getReplay, getReplayData, useReplayStore } from '@shared/index.ts';
+import { getReplay, useReplayStore } from '@shared/index.ts';
 import { useEffect, useState } from 'react';
-import Renderer from '@base/Renderer';
 import { Mark } from '@mui/base/useSlider';
 import CustomLoader from '@entity/Loading/ui';
 import CloseIcon from '@mui/icons-material/Close';

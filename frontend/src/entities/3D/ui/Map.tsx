@@ -1,21 +1,15 @@
 import Destinations from './Destinations';
 import Storages from './Storages';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
 import Path from './Path';
-import Wall from './Wall';
-import Floor from './Floor';
 import Chargers from './Chargers';
-import { getMap, getReplay, getReplayData } from '@shared/api';
+import { getMap } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
-import { useLocation } from 'react-router-dom';
 import Conveyors from './Conveyors';
-import { WareBigFloor } from '../../WareHouseFrame/WareBigFloor';
-import { WareBigRoof } from '../../WareHouseFrame/WareBigRoof';
-import InstancedWareBigWallsWind from '../../WareHouseFrame/InstancedWareBigWallsWind';
-import InstancedWareFrontWallsWindDoor from '../../WareHouseFrame/InstancedWareFrontWallsWindDoor';
 import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
 import { useViewStore } from '@shared/store/useViewStore';
+import ReplayPath from './ReplayPath';
 
 function Map() {
   const { data } = useQuery({
@@ -31,7 +25,8 @@ function Map() {
         {currentView === 'Monitoring' && <InstancedRobot />}
         {currentView === 'Replay' && <ReplayInstancedRobot />}
         {/* <AGVInstance /> */}
-        <Path />
+        {currentView === 'Monitoring' && <Path />}
+        {currentView === 'Replay' && <ReplayPath />}
         {/* <Wall /> */}
         {/* <Floor /> */}
         <WareHouseFrame />
