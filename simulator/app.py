@@ -128,6 +128,7 @@ def send_robot_stat(current_time, current_time_utc):
             "routeVisitedForMission": [[e.x, e.y] for e in
                                        robot.visited_node_until_mission_complete] if robot.current_mission else None,
             "hasStuff": get_has_stuff(robot),
+            "processing_submission_idx": robot.processing_submission_idx,
         }
 
         producer.produce("amr-history-log", key=str(robot.robot_id),

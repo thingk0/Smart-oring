@@ -103,8 +103,9 @@ class Robot:
     def move_to_complete_mission(self):
         self.visited_node_until_mission_complete.append(self.current_point)
 
-        have_to_go_node = self.current_mission.submissions[self.processing_submission_idx].arrive_node
-        if self.current_point == Point(have_to_go_node.x_coordinate, have_to_go_node.y_coordinate):
+        have_to_go_tuple = StructureUtil.get_front_entrance_from_node(
+            self.current_mission.submissions[self.processing_submission_idx].arrive_node)
+        if self.current_point == Point(*have_to_go_tuple):
             self.processing_submission_idx += 1
 
         self.last_event = RobotEvent.MOVE_FOR_MISSION
@@ -121,15 +122,13 @@ class Robot:
                                                          self.current_point)
         if route:
             self.next_points = route
-
-    def set_new_route_for_charge(self, locked_points):
-        nodes = [submission.arrive_node for submission in
-                 self.current_mission.submissions[self.processing_submission_idx:]]
-        factory_map = self.get_map_with_locked_nodes(locked_points)
-        route = mission_processor.get_route_to_structure(nodes, factory_map,
-                                                         self.current_point)
-        if route:
-            self.next_points = route
+        elif self.cant_move_duration > 20:
+            charger = self.get_charger()
+            array = self.get_map_with_locked_nodes(locked_points)
+            route = mission_processor.get_route_to_structure([charger], array, self.current_point)
+            if route:
+                for r in route:
+                    self.next_points.appendleft(route)
 
     def cant_move_for_mission(self, locked_points):
         self.cant_move_duration += 1
