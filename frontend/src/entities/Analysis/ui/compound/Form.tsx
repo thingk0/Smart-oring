@@ -191,6 +191,7 @@ const ChangeQueryParams = (querys: object, selectValue: string) => {
 
   if (selectValue && selectValue !== 'AMR00undefined')
     queryParam += `?amrType=${selectValue}`;
+  else queryParam += '?';
 
   for (const [k, v] of Object.entries(querys)) {
     if (k.includes('Time')) {
