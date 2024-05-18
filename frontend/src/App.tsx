@@ -5,14 +5,14 @@ import CameraView from '@widgets/floating/CameraView';
 import { useViewStore } from '@shared/store/useViewStore';
 import Analysis from '@entity/Analysis/ui';
 import { ReplayPage, SettingPage } from 'pages';
-import { SendMissionFAB } from '@widgets/floating/SendMissionFAB';
+import { ControlFAB } from '@widgets/floating/ControlFAB';
 
 function App() {
   const { isFPVStatus, currentView } = useViewStore();
   return (
     <>
       <Renderer />
-      <SendMissionFAB />
+      {currentView === 'Control' && <ControlFAB />}
       {isFPVStatus && createPortal(<CameraView />, document.body)}
       {currentView === 'Monitoring' && <BasicSpeedDial />}
       {currentView === 'Analysis' && createPortal(<Analysis />, document.body)}

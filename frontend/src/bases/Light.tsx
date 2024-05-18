@@ -30,7 +30,7 @@ function Light() {
       )}
       {lightQuality === 'high' && (
         <Environment
-          environmentIntensity={0.3}
+          environmentIntensity={1}
           files={
             'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/rural_asphalt_road_1k.hdr'
           }

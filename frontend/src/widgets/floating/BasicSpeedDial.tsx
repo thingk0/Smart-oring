@@ -1,11 +1,8 @@
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SaveIcon from '@mui/icons-material/Save';
-import ShareIcon from '@mui/icons-material/Share';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useNavigate } from 'react-router-dom';
 import SwitchVideoIcon from '@mui/icons-material/SwitchVideo';
 import { useViewStore } from '@shared/store/useViewStore';
 import TouchAppIcon from '@mui/icons-material/TouchApp';
@@ -42,6 +39,7 @@ export default function BasicSpeedDial() {
       name: '로봇 제어',
       onClick: () => {
         setIsControlMode(true);
+        setCurrentView('Control');
       },
     },
   ];

@@ -5,8 +5,7 @@ Files: ./public/models/BigLogistics.glb [3.07MB] > /Users/yizhi/vscode/SSAFY/S10
 */
 
 import * as THREE from 'three';
-import React, {
-  useRef,
+import {
   useMemo,
   useContext,
   createContext,
@@ -17,6 +16,7 @@ import React, {
 import { useGLTF, Merged, Outlines } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useControlStore } from '@shared/store/useControlStore';
+import { useViewStore } from '@shared/store/useViewStore';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -60,7 +60,7 @@ export function Instances({
     [nodes]
   );
   return (
-    <Merged meshes={instances} {...props}>
+    <Merged meshes={instances} {...props} castShadow receiveShadow>
       {(instances: ContextType) => (
         <context.Provider value={instances} children={children} />
       )}
@@ -75,15 +75,15 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   useEffect(
     () =>
       void (document.body.style.cursor =
-        hovered && isControlMode ? 'pointer' : 'auto'),
+        hovered && currentView === 'Control' ? 'pointer' : 'auto'),
     [hovered]
   );
   const onPointerOver = useCallback(() => setHover(true), []);
   const onPointerOut = useCallback(() => setHover(false), []);
   const {
-    isControlMode,
     actions: { addNodeList },
   } = useControlStore();
+  const { currentView } = useViewStore();
   const instances = useContext(context);
 
   return (
@@ -92,7 +92,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       dispose={null}
       onClick={e => {
         e.stopPropagation();
-        if (isControlMode)
+        if (currentView === 'Control')
           addNodeList([
             Math.round(e.eventObject.position.z),
             Math.round(e.eventObject.position.x),
@@ -102,37 +102,37 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       onPointerOut={onPointerOut}
     >
       <instances.BigShelvesWoodBox>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BigShelvesWoodBox>
       <instances.BoxPallet>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BoxPallet>
       <instances.BoxPallet1>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BoxPallet1>
       <instances.BigShelves>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BigShelves>
       <instances.BigShelves1>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BigShelves1>
       <instances.BigShelves2>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BigShelves2>
       <instances.BigShelves3>
-        {hovered && isControlMode && (
+        {hovered && currentView === 'Control' && (
           <Outlines thickness={thickness} angle={0} color={color} />
         )}
       </instances.BigShelves3>

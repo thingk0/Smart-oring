@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 interface UseViewStore {
   cameraIndex: number;
   isFPVStatus: boolean;
-  currentView: string;
+  currentView: View;
   missionId: number;
   cameraList: {
     isTop: boolean;
@@ -13,11 +13,12 @@ interface UseViewStore {
   }[];
   actions: ViewStoreActions;
 }
+type View = 'Monitoring' | 'Analysis' | 'Setting' | 'Replay' | 'Control';
 
 interface ViewStoreActions {
   switchCamera: () => void;
   setIsFPVStatus: (value: boolean) => void;
-  setCurrentView: (value: string) => void;
+  setCurrentView: (value: View) => void;
   setMissionId: (value: number) => void;
 }
 
@@ -55,7 +56,7 @@ export const useViewStore = create<UseViewStore>()(
           set({
             isFPVStatus: value,
           }),
-        setCurrentView: (value: string) => {
+        setCurrentView: (value: View) => {
           return set({ currentView: value });
         },
       },
