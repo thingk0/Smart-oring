@@ -52,6 +52,7 @@ function Form({ URL, children }: FormProps) {
           setQuerys,
         }}
       >
+        {/* <FormControl fullWidth>{children}</FormControl> */}
         <form className={styles.flex_center}>{children}</form>
       </FormContext.Provider>
     </>
@@ -86,6 +87,9 @@ type SelectProps = {
   queryParam: string;
 };
 
+/**
+ * @deprecated [Bug] onChange가 발생하지 않음.
+ */
 function SelectC({ children, id, label, queryParam }: SelectProps) {
   const { querys } = useContext(FormContext);
 
@@ -100,24 +104,30 @@ function SelectC({ children, id, label, queryParam }: SelectProps) {
 
 type OptionProps = {
   key: number;
-  valueName: string;
-  children: string | JSX.Element | JSX.Element[];
+  val: string;
+  children: string;
   queryParam: string;
 };
 
-function Option({ key, valueName, children, queryParam }: OptionProps) {
+/**
+ * @deprecated [Bug] onChange가 발생하지 않음.
+ */
+function Option({ key, children, val, queryParam }: OptionProps) {
   const { querys, setQuerys } = useContext(FormContext);
+
+  console.log('option: ', val);
 
   return (
     <MenuItem
       key={key}
-      value={valueName}
-      onClick={(e: any) => {
-        setQuerys({
-          ...querys,
-          [queryParam]: e.target.innerText,
-        });
-      }}
+      value={val}
+      // onClick={(e: any) => {
+      //   console.log(e.target.innerText);
+      //   setQuerys({
+      //     ...querys,
+      //     [queryParam]: e.target.innerText,
+      //   });
+      // }}
     >
       {children}
     </MenuItem>
@@ -159,6 +169,13 @@ type TextFieldProps = {
   queryParam: string;
 };
 
+/**
+ * @warning 잠재적인 유용성 문제로 인해 텍스트 필드에 type="number"를 사용하지 않는 것이 좋습니다.
+ * 숫자가 아닌 특정 문자('e', '+', '-', '.')를 허용하고 다른 문자는 자동으로 삭제합니다.
+ * 숫자를 증가/감소시키는 스크롤 기능으로 인해 실수로 눈에 띄기 어려운 변경이 발생할 수 있습니다.
+ * 기타 – <input type="number">의 제한 사항에 대한 자세한 설명은 GOV.UK 디자인 시스템 팀이 숫자 입력 유형을 변경한 이유를 참조하세요.
+ */
+
 function TextFieldC({
   type,
   defaultValue,
@@ -176,19 +193,24 @@ function TextFieldC({
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setQuerys({ ...querys, [queryParam]: e.target.value })
       }
+      // minLength={0}
     />
   );
 }
 
-const ChangeQueryParams = (querys: object) => {
-  let queryParam = '?';
+const ChangeQueryParams = (querys: object, selectValue: string) => {
+  let queryParam = '';
+
+  if (selectValue && selectValue !== 'AMR00undefined')
+    queryParam += `?amrType=${selectValue}`;
+  else queryParam += '?';
 
   for (const [k, v] of Object.entries(querys)) {
     if (k.includes('Time')) {
       const tmp = new Date(v.$d);
       queryParam += `${k}=${tmp.toISOString()}&`;
     } else if (v !== 'ALL') {
-      queryParam += `${k}=${v}&`;
+      queryParam += `&${k}=${v}`;
     }
   }
 
@@ -197,13 +219,14 @@ const ChangeQueryParams = (querys: object) => {
 
 interface ButtonProps extends ButtonOwnProps {
   setState: React.Dispatch<React.SetStateAction<Array<MissionObject>>>;
+  selectValue: string;
 }
 
-function ButtonC({ variant, setState }: ButtonProps) {
+function ButtonC({ variant, setState, selectValue }: ButtonProps) {
   const { querys, URL } = useContext(FormContext);
 
   const onClickHandler = () => {
-    axios.get(URL + ChangeQueryParams(querys)).then(res => {
+    axios.get(URL + ChangeQueryParams(querys, selectValue)).then(res => {
       setState(res.data.resultData);
     });
   };

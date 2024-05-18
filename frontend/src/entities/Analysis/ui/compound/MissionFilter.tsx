@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import styles from '../Analysis.module.css';
 import Form from './Form';
 import { MissionObject } from '@entity/Analysis/store/useMissionStore';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { useState } from 'react';
 
 const AMRs = [
   'ALL',
@@ -38,22 +40,42 @@ interface MissionFilterProps {
 function MissionFilter({ setList }: MissionFilterProps) {
   const date = dayjs(Date.now());
 
+  const [type, setType] = useState('');
+
   return (
     <div className={styles.filter}>
       <Form URL={import.meta.env.VITE_MISSION_URL}>
         <Form.Title variant="h3" component="h2">
           검색 조건
         </Form.Title>
-        <Form.Label id="AMRtype-label">AMR Type</Form.Label>
-        <Form.Select id="AMRtype-label" label="AMR type" queryParam="amrType">
+        <Form.Label id="amrtype">AMR Type</Form.Label>
+
+        {/* 되는 코드 */}
+        <Select
+          labelId="amrtype"
+          id="type"
+          value={type}
+          onChange={(event: SelectChangeEvent) => setType(event.target.value)}
+        >
           {AMRs.map((info: string, index: number) => {
             return (
-              <Form.Option key={index} valueName={info} queryParam="amrType">
+              <MenuItem key={index} value={'AMR00' + info.split('AMR')[1]}>
+                {info}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        {/* 안되는 코드 */}
+        {/* <Form.Select id="amrtype" label="AMR type" queryParam="amrType">
+          {AMRs.map((info: string, index: number) => {
+            return (
+              <Form.Option key={index} queryParam="amrType" val={info}>
                 {info}
               </Form.Option>
             );
           })}
-        </Form.Select>
+        </Form.Select> */}
         <Form.Label id="analysis_start_range">분석시간 범위</Form.Label>
         <Form.DatepickerProvider>
           <Form.Datepicker
@@ -74,7 +96,7 @@ function MissionFilter({ setList }: MissionFilterProps) {
           variant="standard"
           queryParam="bottleneckSeconds"
         />
-        <Form.Button variant="contained" setState={setList}>
+        <Form.Button variant="contained" setState={setList} selectValue={type}>
           검색
         </Form.Button>
       </Form>

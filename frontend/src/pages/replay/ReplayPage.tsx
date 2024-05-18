@@ -27,21 +27,22 @@ export function ReplayPage() {
   const [marks, setMarks] = useState<Mark[]>([]);
 
   useEffect(() => {
-    setTotalTime(data?.length - 1);
-    if (!data) return;
-    const bottleneckTimeList = [];
-    for (let i = 0; i < data.length - 1; i++) {
-      for (let j = 0; j < data[i].amrHistoryDtoList.length - 1; j++) {
-        const hasBottleneck =
-          data[i].amrHistoryDtoList[j]['amrStatus'] === 'BOTTLENECK';
-        if (hasBottleneck) {
-          bottleneckTimeList.push({ value: i });
-          continue;
+    if (data && data.length > 0) {
+      setTotalTime(data?.length - 1);
+      const bottleneckTimeList = [];
+      for (let i = 0; i < data.length - 1; i++) {
+        for (let j = 0; j < data[i].amrHistoryDtoList.length - 1; j++) {
+          const hasBottleneck =
+            data[i].amrHistoryDtoList[j]['amrStatus'] === 'BOTTLENECK';
+          if (hasBottleneck) {
+            bottleneckTimeList.push({ value: i });
+            continue;
+          }
         }
       }
+      console.log(bottleneckTimeList);
+      setMarks(bottleneckTimeList);
     }
-    console.log(bottleneckTimeList);
-    setMarks(bottleneckTimeList);
   }, [data]);
 
   const {
@@ -66,7 +67,7 @@ export function ReplayPage() {
         }}
         fontSize="large"
       />
-      <ReplayBar marks={marks} />
+      {data.length > 0 ? <ReplayBar marks={marks} /> : <></>}
     </>
   );
 }

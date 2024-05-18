@@ -1,6 +1,6 @@
 import { convertPosition } from '@shared/lib';
 import { MapData } from '@shared/types';
-import { Instances, Model } from './BigLogistics';
+import { Instances, Model } from './Storage';
 
 function Storages({ data }: { data: MapData }) {
   const outlines = true;

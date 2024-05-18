@@ -30,20 +30,22 @@ function InstancedRobot() {
         if (before && data[index]) {
           const [y, x, radian] = getRotationIndex(before, data[index]);
 
-          const nx = data[index].ycoordinate + x + 0.8;
-          const nz = data[index].xcoordinate + y + 0.5;
-          // move AGVs position
-          gsap.to(AGVs.current?.children[index].position, {
-            duration: 1,
-            ease: 'none',
-            x: nx,
-            z: nz,
-            onComplete: () => {
-              // rotate AGVs
-              AGVs.current.children[index].rotation.y = radian;
-              console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
-            },
-          });
+          if (x + y !== 0) {
+            const nx = data[index].ycoordinate + x + 0.8;
+            const nz = data[index].xcoordinate + y + 0.5;
+
+            gsap.to(AGVs.current?.children[index].position, {
+              duration: 1,
+              ease: 'none',
+              x: nx,
+              z: nz,
+              onComplete: () => {
+                // rotate AGVs
+                AGVs.current.children[index].rotation.y = radian;
+                // console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
+              },
+            });
+          }
         } else {
           const date = new Date();
           console.log('로봇 null 들어옴 ', date);
