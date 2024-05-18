@@ -28,7 +28,21 @@ public interface BottleneckRepository extends JpaRepository<Bottleneck, Long> {
     @Query("""
         SELECT b
         FROM Bottleneck b
-        WHERE b.mission.missionType = :missionType
+        WHERE b.bottleneckCreatedAt >= :startDate
+        """)
+    List<Bottleneck> findAllByBottleneckFromStartDate(@Param("startDate") LocalDateTime startDate);
+
+    @Query("""
+        SELECT b
+        FROM Bottleneck b
+        WHERE b.bottleneckCreatedAt <= :endDate
+        """)
+    List<Bottleneck> findAllByBottleneckBeforeEndDate(@Param("endDate") LocalDateTime endDate);
+
+    @Query("""
+        SELECT b
+        FROM Bottleneck b
+        WHERE (select m.missionType from Mission m where b.mission.id = m.id) = :missionType
         """)
     List<Bottleneck> findBottltneckByMissionType(@Param("missionType") MissionType missionType);
 
@@ -36,8 +50,24 @@ public interface BottleneckRepository extends JpaRepository<Bottleneck, Long> {
         SELECT b
         FROM Bottleneck b
         WHERE b.bottleneckCreatedAt >= :startDate AND b.bottleneckCreatedAt <= :endDate
-        AND b.mission.missionType = :missionType
+        AND (select m.missionType from Mission m where b.mission.id = m.id) = :missionType
         """)
     List<Bottleneck> findByMissionTypeAndDateBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("missionType") MissionType missionType);
+
+    @Query("""
+        SELECT b
+        FROM Bottleneck b
+        WHERE b.bottleneckCreatedAt >= :startDate
+        AND (select m.missionType from Mission m where b.mission.id = m.id) = :missionType
+        """)
+    List<Bottleneck> findByMissionTypeAndAfterStartDate(@Param("startDate") LocalDateTime startDate, @Param("missionType") MissionType missionType);
+
+    @Query("""
+        SELECT b
+        FROM Bottleneck b
+        WHERE b.bottleneckCreatedAt <= :endDate
+        AND (select m.missionType from Mission m where b.mission.id = m.id) = :missionType
+        """)
+    List<Bottleneck> findByMissionTypeAndBeforeEndDate( @Param("endDate") LocalDateTime endDate, @Param("missionType") MissionType missionType);
 
 }

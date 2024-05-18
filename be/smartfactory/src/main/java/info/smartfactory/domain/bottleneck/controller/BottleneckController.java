@@ -33,12 +33,11 @@ public class BottleneckController {
 
     @GetMapping("/bottleneck/map")
     public ResponseEntity<?> bottleneckMapData(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
             @RequestParam(required = false) String missionType
             ) {
-        BottleneckMapRequest request =  new BottleneckMapRequest(startTime, endTime, missionType);
-
+        BottleneckMapRequest request =  new BottleneckMapRequest(startDate, endDate, missionType);
         List<BottleneckMapDto> data = bottleneckService.getBottleneckMapData(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), data));
     }

@@ -21,6 +21,14 @@ public interface MissionRepository extends JpaRepository<Mission, Long>, Mission
 
     @Query("""
             SELECT m
+            FROM Mission m 
+            WHERE m.id = :missionId
+            """)
+    Mission findMissionById(Long missionId);
+
+
+    @Query("""
+            SELECT m
             FROM Mission m
             JOIN FETCH m.submissionList s
             JOIN FETCH s.arriveNode n

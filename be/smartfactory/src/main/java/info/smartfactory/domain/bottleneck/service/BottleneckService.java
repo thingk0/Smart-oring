@@ -4,12 +4,15 @@ import info.smartfactory.domain.bottleneck.dto.request.AddBottleneckRequest;
 import info.smartfactory.domain.bottleneck.dto.request.BottleneckMapRequest;
 import info.smartfactory.domain.bottleneck.entity.Bottleneck;
 import info.smartfactory.domain.bottleneck.repository.BottleneckRepository;
+import info.smartfactory.domain.mission.entity.Mission;
 import info.smartfactory.domain.mission.entity.constant.MissionType;
+import info.smartfactory.domain.mission.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static info.smartfactory.domain.mission.entity.constant.MissionType.STORAGE_TO_CONVEYOR;
 
@@ -17,6 +20,7 @@ import static info.smartfactory.domain.mission.entity.constant.MissionType.STORA
 @RequiredArgsConstructor
 public class BottleneckService {
     private final BottleneckRepository bottleneckRepository;
+    private final MissionRepository missionRepository;
 
     public List<Bottleneck> getBottleneckData(){
         List<Bottleneck> bottlenecks = bottleneckRepository.findAll();
@@ -25,12 +29,18 @@ public class BottleneckService {
 
     public List<BottleneckMapDto> getBottleneckMapData(BottleneckMapRequest request) {
 
+        System.out.println("endTime"+request.getEndDate());
+
         List<BottleneckMapDto> bottleneckMap = new ArrayList<>();
         List<Bottleneck> bottleneckList;
 
         if(request.getMissionType() == null){
             if(request.getStartDate() == null && request.getEndDate() == null){
                 bottleneckList = bottleneckRepository.findAll();
+            }else if(request.getEndDate() == null){
+                bottleneckList = bottleneckRepository.findAllByBottleneckFromStartDate(request.getStartDate());
+            }else if(request.getStartDate() == null){
+                bottleneckList = bottleneckRepository.findAllByBottleneckBeforeEndDate(request.getEndDate());
             }else{
                 bottleneckList = bottleneckRepository.findAllByBottleneckCreatedAtBetween(request.getStartDate(), request.getEndDate());
             }
@@ -52,9 +62,18 @@ public class BottleneckService {
 
             if(request.getStartDate() == null && request.getEndDate() == null){
                 bottleneckList = bottleneckRepository.findBottltneckByMissionType(type);
+            }else if(request.getEndDate() == null){
+                bottleneckList = bottleneckRepository.findByMissionTypeAndAfterStartDate(request.getStartDate(), type);
+            }else if(request.getStartDate() == null){
+                bottleneckList = bottleneckRepository.findByMissionTypeAndBeforeEndDate(request.getEndDate(), type);
             }else{
                 bottleneckList = bottleneckRepository.findByMissionTypeAndDateBetween(request.getStartDate(), request.getEndDate(), type);
             }
+        }
+
+
+        for (Bottleneck bottleneck : bottleneckList) {
+            System.out.println("Bottleneck Created At: " + bottleneck.getBottleneckCreatedAt());
         }
 
         for (int i = 0; i < 50; i++) {
@@ -74,9 +93,12 @@ public class BottleneckService {
     }
 
     public void addBottleneckData(BottleneckDto bottleneckDto) {
-         Bottleneck bottleneck = Bottleneck.builder()
+        Mission mission = missionRepository.findMissionById(bottleneckDto.getMissionId());
+
+        Bottleneck bottleneck = Bottleneck.builder()
                 .xCoordinate(bottleneckDto.getXCoordinate())
                 .yCoordinate(bottleneckDto.getYCoordinate())
+                .mission(mission)
                 .bottleneckPeriod(bottleneckDto.getBottleneckPeriod())
                 .bottleneckCreatedAt(bottleneckDto.getBottleneckCreatedAt())
                 .build();

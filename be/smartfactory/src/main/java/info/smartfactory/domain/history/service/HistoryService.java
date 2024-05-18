@@ -77,7 +77,7 @@ public class HistoryService {
 
             if (!(amrHistoryLog.amrStatus() == AmrStatus.BOTTLENECK) && previousAmrInfo.getCurrentStopDuration() != null && previousAmrInfo.getCurrentStopDuration() > 0L) {
                 bottleneckService.addBottleneckData(BottleneckDto.builder()
-                                                                 .missionId(amrHistoryLog.missionId())
+                                                                 .missionId(previousAmrInfo.getMissionId())
                                                                  .amrId(amrHistoryLog.amrId())
                                                                  .xCoordinate(amrHistoryLog.xCoordinate())
                                                                  .yCoordinate(amrHistoryLog.yCoordinate())
