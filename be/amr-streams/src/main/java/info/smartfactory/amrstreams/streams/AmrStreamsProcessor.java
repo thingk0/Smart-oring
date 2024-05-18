@@ -71,7 +71,8 @@ public class AmrStreamsProcessor {
 
               // 레코드를 mission_id 를 기준으로 그룹화합니다.
               // 키(key)는 Long 타입, 값(value)은 AmrHistoryLog 타입으로 설정합니다.
-            .groupBy((key, value) -> value.amr_id(), Grouped.with(Serdes.Long(), amrHistorySerde))
+            .groupBy((key, value) -> value.amr_history_created_at().toString(),
+                Grouped.with(Serdes.String(), amrHistorySerde))
 
               // 1분 단위의 타임 윈도우를 적용합니다.
               .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(15)))
@@ -84,7 +85,7 @@ public class AmrStreamsProcessor {
                       aggregate.add(value);
                       return aggregate;
                   },
-                  Materialized.with(Serdes.Long(), amrHistoryListSerde))
+                  Materialized.with(Serdes.String(), amrHistoryListSerde))
 
               // 집계된 결과를 다시 스트림으로 변환합니다.
               // 키(key)는 원래 mission_id 값, 값(value)은 AmrHistoryLog 객체 리스트입니다.
