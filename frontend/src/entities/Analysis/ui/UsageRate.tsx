@@ -14,7 +14,7 @@ function UsageRate({ data }: UsageRateProps) {
   return (
     <div className={styles.component_background}>
       <Typography variant="h2" component="h2">
-        미션 수행률 Top 3
+        미션 수행률 Worst 3
       </Typography>
       <ol>
         {data.length > 0 ? (
