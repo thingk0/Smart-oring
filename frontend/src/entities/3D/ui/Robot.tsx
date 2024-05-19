@@ -4,8 +4,8 @@ import { useGLTF } from '@react-three/drei';
 import { Vector3 } from 'three';
 import gsap from 'gsap';
 
-import { BackendRobotPosition, getRobotPosition } from '../../../shared/api';
-import { Point2D, robotData } from '../../../shared/types';
+import { BackendRobotPosition, getRobotPosition } from '@shared/api';
+import { Point2D, robotData } from '@shared/types';
 
 // utils
 const convertPosition = (position: Point2D): Vector3 => {

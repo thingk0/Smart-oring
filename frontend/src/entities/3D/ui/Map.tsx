@@ -1,51 +1,39 @@
 import Destinations from './Destinations';
 import Storages from './Storages';
-import { MapData } from '../../../shared/types';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueries,
-  useQuery,
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import InstancedRobot from './InstancedRobot';
 import Path from './Path';
-import Wall from './Wall';
-import Floor from './Floor';
 import Chargers from './Chargers';
-import { getMap, getReplayData } from '@shared/api';
+import { getMap } from '@shared/api';
 import ReplayInstancedRobot from './ReplayInstancedRobot';
-import { useLocation } from 'react-router-dom';
+import Conveyors from './Conveyors';
+import WareHouseFrame from '@entity/WareHouseFrame/WareHouseFrame';
+import { useViewStore } from '@shared/store/useViewStore';
+import ReplayPath from './ReplayPath';
 
 function Map() {
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ['map'],
-        // queryFn: getRobotPosition, : mocking api
-        queryFn: getMap,
-      },
-      {
-        queryKey: ['replay'],
-        queryFn: getReplayData,
-      },
-    ],
+  const { data } = useQuery({
+    queryKey: ['map'],
+    queryFn: getMap,
   });
-  const { pathname } = useLocation();
-  if (results[0].data) {
+
+  const { currentView } = useViewStore();
+
+  if (data) {
     return (
       <>
-        {pathname !== '/replay' && <InstancedRobot />}
-        {pathname === '/replay' && results[1].data && (
-          <ReplayInstancedRobot replayData={results[1].data} />
-        )}
+        {currentView === 'Monitoring' && <InstancedRobot />}
+        {currentView === 'Replay' && <ReplayInstancedRobot />}
         {/* <AGVInstance /> */}
-        <Path />
-        <Wall />
-        <Floor />
-        <Chargers data={results[0].data} />
-        <Destinations data={results[0].data} />
-        <Storages data={results[0].data} />
-        {/* <Conveyors data={data} /> */}
+        {currentView === 'Monitoring' && <Path />}
+        {currentView === 'Replay' && <ReplayPath />}
+        {/* <Wall /> */}
+        {/* <Floor /> */}
+        <WareHouseFrame />
+        <Chargers data={data} />
+        <Destinations data={data} />
+        <Storages data={data} />
+        <Conveyors data={data} />
       </>
     );
   }

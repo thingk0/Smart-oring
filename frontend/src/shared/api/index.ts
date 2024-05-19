@@ -24,7 +24,7 @@ export const getRobotPosition = () =>
   instanceAPI.get(`http://localhost:3001/robot`).then(res => res.data);
 
 export const BackendRobotPosition = () =>
-  axios.get(url + '/amr/state').then(res => {
+  axios.get(url + '/histories/amr/state').then(res => {
     return res.data.resultData;
   });
 
@@ -33,3 +33,30 @@ export const getMap = () =>
 
 export const getReplayData = () =>
   axios.get(mockUrl + '/replay').then(res => res.data.resultData);
+
+export const getReplay = (missionId: number) =>
+  axios
+    .get(url + `/histories/replay/${missionId}`)
+    .then(res => res.data.resultData);
+
+export function LoadData(url: string): {
+  read(): Object;
+} {
+  let data: Object | null = null;
+
+  const suspender = axios.get(url).then(res => {
+    data = res.data.resultData;
+  });
+
+  return {
+    read() {
+      if (data === null) throw suspender;
+      return data;
+    },
+  };
+}
+export function postMission(selectedNodeList: [number, number][]) {
+  return axios.post(url + '/missions/assignment', {
+    selectedNodeList: selectedNodeList,
+  });
+}

@@ -3,7 +3,7 @@ import { Environment, useHelper } from '@react-three/drei';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { useRef } from 'react';
 import { DirectionalLightHelper, DirectionalLight } from 'three';
-
+import * as THREE from 'three';
 // set light at this function
 const lightColor = 'white';
 
@@ -14,17 +14,24 @@ function Light() {
   return (
     <>
       {lightQuality === 'high' && (
-        <Environment preset="warehouse" environmentIntensity={0.3} />
+        <Environment
+          environmentIntensity={0.2}
+          files={
+            'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/rural_asphalt_road_1k.hdr'
+          }
+          // background
+          ground={{ height: 55, radius: 200, scale: 200 }}
+        />
       )}
       {lightQuality === 'low' && <ambientLight intensity={1.8} />}
       {lightQuality === 'medium' && <ambientLight intensity={1} />}
       {lightQuality !== 'low' && (
         <directionalLight
           ref={lightRef}
-          position={[0, 10, 0]}
+          position={[60, 15, -10]}
           color={lightColor}
-          intensity={0.8}
-          target-position={[0, 0, 0]}
+          intensity={0.3}
+          target-position={[50, 0, 0]}
           castShadow
           shadow-camera-top={100}
           shadow-camera-bottom={-100}

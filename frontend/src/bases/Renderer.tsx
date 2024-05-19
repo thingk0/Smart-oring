@@ -21,7 +21,7 @@ function Renderer() {
     <>
       <Canvas
         shadows={shadowDetail !== 'off' ? true : false}
-        camera={{ fov: fov }}
+        camera={{ fov: fov, position: [73, 7, 34] }}
         dpr={calcDpr()}
       >
         <Helpers />

@@ -6,17 +6,26 @@ interface UseReplayStore {
   currentTime: number;
   totalTime: number;
   actions: ReplayStoreActions;
+  speed: number;
+  amrId: number;
+  isOverlayOn: boolean;
 }
 interface ReplayStoreActions {
   setIsPlaying: (value: boolean) => void;
   setCurrentTime: (value: number) => void;
   setTotalTime: (value: number) => void;
   increaseCurrentTime: () => void;
+  setSpeed: (value: number) => void;
+  setAmrId: (value: number) => void;
+  setIsOverlayOn: (value: boolean) => void;
 }
 const initialValue = {
   isPlaying: false,
   currentTime: 0,
   totalTime: 110,
+  speed: 1.0,
+  amrId: 1,
+  isOverlayOn: true,
 };
 export const useReplayStore = create<UseReplayStore>()(
   persist(
@@ -26,6 +35,8 @@ export const useReplayStore = create<UseReplayStore>()(
         setIsPlaying: (value: boolean) => set({ isPlaying: value }),
         setTotalTime: (value: number) => set({ totalTime: value }),
         setCurrentTime: (value: number) => set({ currentTime: value }),
+        setAmrId: (value: number) => set({ amrId: value }),
+        setIsOverlayOn: (value: boolean) => set({ isOverlayOn: value }),
         increaseCurrentTime: () =>
           set(state => {
             let newCurrentTime = state.currentTime;
@@ -40,6 +51,7 @@ export const useReplayStore = create<UseReplayStore>()(
               isPlaying: newIsPlaying,
             };
           }),
+        setSpeed: (value: number) => set({ speed: value }),
       },
     }),
     {

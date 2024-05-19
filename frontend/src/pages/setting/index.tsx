@@ -22,7 +22,7 @@ import {
 import { useState } from 'react';
 import classes from './index.module.css';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import { Link } from 'react-router-dom';
+import { useViewStore } from '@shared/store/useViewStore';
 
 export function SettingPage() {
   const {
@@ -58,12 +58,18 @@ export function SettingPage() {
     }
   };
 
+  const {
+    actions: { setCurrentView },
+  } = useViewStore();
+
+  const onChangeViewHandler = () => {
+    setCurrentView('Monitoring');
+  };
+
   return (
     <main className={classes.main}>
       <header>
-        <Link to="/">
-          <HomeRoundedIcon fontSize="large" />
-        </Link>
+        <HomeRoundedIcon fontSize="large" onClick={onChangeViewHandler} />
         <h1>환경설정</h1>
       </header>
       <h2>그래픽</h2>
@@ -265,7 +271,10 @@ export function SettingPage() {
             <Grid item>
               <Button
                 variant="contained"
-                onClick={() => setOption(optionState)}
+                onClick={() => {
+                  setOption(optionState);
+                  onChangeViewHandler();
+                }}
               >
                 저장
               </Button>

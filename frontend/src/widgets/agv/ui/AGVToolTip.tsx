@@ -12,7 +12,7 @@ export function AGVToolTip({ hovered, status }: AGVToolTipProps) {
     amrId,
     missionId,
     amrStatus,
-    stopPeriod,
+    currentStopDuration,
     amrHistoryCreatedAt,
     ycoordinate,
     xcoordinate,
@@ -30,7 +30,7 @@ export function AGVToolTip({ hovered, status }: AGVToolTipProps) {
               <br />
               상태 : {amrStatus}
               <br />
-              정체 시간(초) : {stopPeriod}
+              정차한지 {currentStopDuration}초 째
               <br />
               데이터 생성 시간 : {amrHistoryCreatedAt}
               <br />
