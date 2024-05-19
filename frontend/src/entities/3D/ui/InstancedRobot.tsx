@@ -22,6 +22,15 @@ function InstancedRobot() {
   const AGVs = useRef<Group<Object3DEventMap>>(null!);
 
   useEffect(() => {
+    data?.forEach((_: any, index: number) => {
+      gsap.to(AGVs.current?.children[index].position, {
+        x: data[index].ycoordinate,
+        z: data[index].xcoordinate,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
     if (data && data[0] !== null) {
       // console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
 

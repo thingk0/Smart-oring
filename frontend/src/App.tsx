@@ -13,7 +13,9 @@ function App() {
     <>
       <Renderer />
       {currentView === 'Control' && <ControlFAB />}
-      {isFPVStatus && createPortal(<CameraView />, document.body)}
+      {isFPVStatus &&
+        (currentView === 'Monitoring' || currentView === 'Replay') &&
+        createPortal(<CameraView />, document.body)}
       {currentView === 'Monitoring' && <BasicSpeedDial />}
       {currentView === 'Analysis' && createPortal(<Analysis />, document.body)}
       {currentView === 'Setting' &&

@@ -26,8 +26,6 @@ function ReplayInstancedRobot() {
     queryFn: () => getReplay(missionId),
   });
 
-  console.log(data);
-
   const { currentTime } = useReplayStore();
   const [beforePositions, setBeforePositions] = useState<robotData[]>([]);
   const AGVs = useRef<Group<Object3DEventMap>>(null!);
@@ -61,7 +59,6 @@ function ReplayInstancedRobot() {
             onComplete: () => {
               // rotate AGVs
               AGVs.current.children[index].rotation.y = radian;
-              console.log(data[0].ycoordinate + ', ' + data[0].xcoordinate);
             },
           });
           // gsap.to(AGVs.current?.children[index].rotation, {

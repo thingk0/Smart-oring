@@ -1,0 +1,24 @@
+.content {
+  background: #3262ff;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  user-select: none;
+  font-weight: 600;
+}
+.point {
+  background-color: rgb(214, 81, 40);
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  user-select: none;
+  font-weight: 600;
+}
