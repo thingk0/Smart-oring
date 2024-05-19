@@ -10,6 +10,7 @@ import { AGVToolTip } from 'widgets/agv/ui/index';
 import { CardboardBox } from './CardboardBox';
 import { GeoMarker } from './Geomarker';
 import { useReplayStore } from '@shared/store';
+import ReplayOverlay from '@widgets/agv/ui/ReplayOverlay';
 // props
 type RobotModelProps = {
   instances: TRobot;
@@ -29,7 +30,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     actions: { setIsFPVStatus },
   } = useViewStore();
   const { currentView } = useViewStore();
-  const { amrId } = useReplayStore();
+  const { amrId, isOverlayOn } = useReplayStore();
   const [isFPV, setIsFPV] = useState<boolean>(false);
   useFrame(state => {
     if (!isFPV) return;
@@ -84,6 +85,7 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
         {currentView === 'Replay' && status.amrId == amrId && (
           <GeoMarker position={[0, 2, 0]} />
         )}
+        {isOverlayOn && <ReplayOverlay amrId={status.amrId} />}
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
