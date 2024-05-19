@@ -68,7 +68,8 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
           setIsFPV(true);
           setIsFPVStatus(true);
         }}
-        onPointerMissed={() => {
+        onPointerMissed={e => {
+          if (e.button !== 0) return;
           setIsFPV(false);
           setIsFPVStatus(false);
         }}
