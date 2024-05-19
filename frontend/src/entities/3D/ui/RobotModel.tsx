@@ -1,4 +1,4 @@
-import { Box } from '@react-three/drei';
+import { Box, Outlines, Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import useGraphicsQualityStore from '@shared/store/useGraphicsQualityStore';
 import { usePathStore } from '@shared/store/usePathStore';
@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { AGVToolTip } from 'widgets/agv/ui/index';
 import { CardboardBox } from './CardboardBox';
+import { GeoMarker } from './Geomarker';
+import { useReplayStore } from '@shared/store';
+import ReplayOverlay from '@widgets/agv/ui/ReplayOverlay';
 // props
 type RobotModelProps = {
   instances: TRobot;
@@ -26,6 +29,8 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     isFPVStatus,
     actions: { setIsFPVStatus },
   } = useViewStore();
+  const { currentView } = useViewStore();
+  const { amrId, isOverlayOn } = useReplayStore();
   const [isFPV, setIsFPV] = useState<boolean>(false);
   useFrame(state => {
     if (!isFPV) return;
@@ -46,7 +51,6 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
     setRoute(status.routeVisitedForMission, status.routeRemainingForMission);
     setHover(true);
     setIndex(Number(name.substring(5)));
-    console.log(name.substring(5));
   };
   const onPointerOut = () => {
     setHover(false);
@@ -65,7 +69,8 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
           setIsFPV(true);
           setIsFPVStatus(true);
         }}
-        onPointerMissed={() => {
+        onPointerMissed={e => {
+          if (e.button !== 0) return;
           setIsFPV(false);
           setIsFPVStatus(false);
         }}
@@ -77,13 +82,19 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
         )}
         <AGVToolTip status={status} hovered={hovered} />
         {status?.hasStuff && <CardboardBox position={[0, 0.4, 0]} />}
+        {currentView === 'Replay' && status.amrId == amrId && (
+          <GeoMarker position={[0, 2, 0]} />
+        )}
+        {isOverlayOn && currentView === 'Replay' && (
+          <ReplayOverlay amrId={status.amrId} />
+        )}
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
         <instances.geo_black_smoke_glass_8 />
         <instances.geo_light_cyan_1 />
         <instances.geo_orange_1 />
-        <instances.geo_rubber_6 />
+        {/* <instances.geo_rubber_6 /> */}
       </group>
     </group>
   );
