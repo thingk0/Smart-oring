@@ -1,5 +1,5 @@
 import { convertPosition } from '../../../shared/lib';
-import { MapData } from '../../../shared/types';
+import { MapData, Point2D } from '../../../shared/types';
 import { Instances, Model } from './Destination';
 
 function Destinations({ data }: { data: MapData }) {
@@ -7,13 +7,10 @@ function Destinations({ data }: { data: MapData }) {
     <>
       <Instances>
         {data.destination.map((d, i) => {
-          console.log(convertPosition(d.start, d.end, 0.2));
-          console.log('start', d.start);
-          console.log('end', d.end);
+          const end: Point2D = [d.start[0] + 3, d.start[1] + 3];
           return (
             <Model
-              position={convertPosition(d.start, d.end)}
-              scale={[d.end[0] - d.start[0], 2, d.end[1] - d.start[1]]}
+              position={convertPosition(d.start, end)}
               rotation={[0, Math.PI / 2, 0]}
               key={i}
             ></Model>
