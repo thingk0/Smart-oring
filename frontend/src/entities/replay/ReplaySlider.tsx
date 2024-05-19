@@ -57,8 +57,8 @@ export function ReplaySlider({ marks }: { marks: Mark[] }) {
         '& .MuiSlider-mark': {
           height: 8,
           width: 'calc(1%)',
-          color: 'yellow',
-          backgroundColor: 'yellow',
+          color: '#ff8b00',
+          backgroundColor: '#ff8b00',
         },
       }}
     />
