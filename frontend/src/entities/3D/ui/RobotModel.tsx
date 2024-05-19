@@ -85,14 +85,16 @@ function RobotModel({ instances, name, status, ...props }: RobotModelProps) {
         {currentView === 'Replay' && status.amrId == amrId && (
           <GeoMarker position={[0, 2, 0]} />
         )}
-        {isOverlayOn && <ReplayOverlay amrId={status.amrId} />}
+        {isOverlayOn && currentView === 'Replay' && (
+          <ReplayOverlay amrId={status.amrId} />
+        )}
         <instances.geo_aluminium_3 />
         <instances.geo_black_7 />
         <instances.geo_black_matte_1 />
         <instances.geo_black_smoke_glass_8 />
         <instances.geo_light_cyan_1 />
         <instances.geo_orange_1 />
-        <instances.geo_rubber_6 />
+        {/* <instances.geo_rubber_6 /> */}
       </group>
     </group>
   );
