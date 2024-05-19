@@ -74,14 +74,33 @@ function CapacityLineGraph({
   today,
   total,
 }: CapacityLineGraphProps) {
+  // const series: any[] = [
+  //   {
+  //     name: 'Yesterday',
+  //     data: yesterday,
+  //   },
+  //   {
+  //     name: 'Today',
+  //     data: today,
+  //   },
+  // ];
+
   const series: any[] = [
     {
       name: 'Yesterday',
-      data: yesterday,
+      data: [
+        1, 2, 2, 3, 3, 4, 4, 4, 4, 10, 12, 13, 19, 19, 27, 28, 28, 29, 30, 32,
+        36, 42, 42, 44, 46, 52, 52, 53, 55, 55, 57, 62, 62, 67, 72, 73, 74, 75,
+        75, 75, 75, 76, 78, 80, 80, 86, 95, 97,
+      ],
     },
     {
       name: 'Today',
-      data: today,
+      data: [
+        0, 1, 2, 4, 4, 10, 20, 20, 25, 25, 27, 27, 27, 27, 29, 32, 42, 42, 43,
+        47, 47, 49, 49, 50, 51, 54, 56, 57, 66, 66, 67, 67, 69, 72, 75, 77, 78,
+        78, 79, 81, 81, 85, 90, 91, 93, 94, 98, 100,
+      ],
     },
   ];
 
@@ -91,8 +110,9 @@ function CapacityLineGraph({
         생산량 비교
       </Typography>
       <Typography component="span" variant="body1">
-        오늘 생산량 : {total} | 어제 생산량 :{' '}
-        {yesterday.reduce((pre, cur) => pre + cur)}
+        {/* 오늘 생산량 : {total} | 어제 생산량 :{' '}
+        {yesterday.reduce((pre, cur) => pre + cur)} */}
+        오늘 생산량 : 100 | 어제 생산량 : 97
       </Typography>
       <ReactApexCharts
         type="line"

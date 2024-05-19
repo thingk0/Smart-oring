@@ -10,7 +10,24 @@ type UsageRate = {
   percentage: number;
 };
 
-function UsageRate({ data }: UsageRateProps) {
+// { data }: UsageRateProps
+
+function UsageRate() {
+  const data = [
+    {
+      amrId: 3,
+      percentage: 9.2,
+    },
+    {
+      amrId: 19,
+      percentage: 8.3,
+    },
+    {
+      amrId: 14,
+      percentage: 8.1,
+    },
+  ];
+
   return (
     <div className={styles.component_background}>
       <Typography variant="h2" component="h2">
@@ -21,7 +38,7 @@ function UsageRate({ data }: UsageRateProps) {
           data.map(({ amrId, percentage }: UsageRate) => {
             return (
               <Typography variant="body1" component="li" key={amrId}>
-                AMR {amrId} : {percentage.toFixed(2)}%
+                AMR {amrId} : {percentage.toFixed(1)}%
               </Typography>
             );
           })
