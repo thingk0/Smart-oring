@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { DirectionalLightHelper, DirectionalLight } from 'three';
 import * as THREE from 'three';
 // set light at this function
-const lightColor = 'white';
+const lightColor = '#dbc3a8';
 
 function Light() {
   const { shadowDetail, lightQuality } = useGraphicsQualityStore();
