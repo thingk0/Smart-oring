@@ -10,7 +10,19 @@ type RealTimeErrorProps = {
   ];
 };
 
-function RealTimeError({ data }: RealTimeErrorProps) {
+// { data }: RealTimeErrorProps
+function RealTimeError() {
+  const data = [
+    {
+      amrId: 7,
+      missionId: 53,
+    },
+    {
+      amrId: 11,
+      missionId: 102,
+    },
+  ];
+
   return (
     <div className={`${styles.component_background} ${styles.scroll}`}>
       <Typography variant="h2" component="h2">

@@ -5,12 +5,12 @@ import { useRef } from 'react';
 import { DirectionalLightHelper, DirectionalLight } from 'three';
 import * as THREE from 'three';
 // set light at this function
-const lightColor = 'white';
+const lightColor = '#dbc3a8';
 
 function Light() {
   const { shadowDetail, lightQuality } = useGraphicsQualityStore();
-  const lightRef = useRef<DirectionalLight>(null!);
-  useHelper(lightRef, DirectionalLightHelper, 3, 'red');
+  // const lightRef = useRef<DirectionalLight>(null!);
+  // useHelper(lightRef, DirectionalLightHelper, 3, 'red');
   return (
     <>
       {lightQuality === 'high' && (
@@ -27,7 +27,7 @@ function Light() {
       {lightQuality === 'medium' && <ambientLight intensity={1} />}
       {lightQuality !== 'low' && (
         <directionalLight
-          ref={lightRef}
+          // ref={lightRef}
           position={[60, 15, -10]}
           color={lightColor}
           intensity={0.3}
