@@ -1,0 +1,72 @@
+.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  overflow: auto;
+  padding: 1.5rem;
+  header {
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 1rem;
+
+    a {
+      background: none;
+      padding: 0;
+      border: none;
+      display: flex;
+      color: black;
+    }
+  }
+  h2,
+  h3 {
+    padding-left: 40px;
+  }
+  ul {
+    width: 50%;
+  }
+  ul li {
+    min-width: 307px;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    align-items: center;
+    margin: 0.2rem;
+    padding: 2%;
+    height: 3rem;
+    border-radius: 5px;
+  }
+  .fovslider {
+    width: 300px;
+  }
+}
+.main::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(/img/screenshoot.png);
+  background-size: cover;
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+  transform: scale(1.2);
+  z-index: -1;
+  content: '';
+}
+.white {
+  color: white;
+}

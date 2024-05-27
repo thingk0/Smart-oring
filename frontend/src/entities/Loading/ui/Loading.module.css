@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrap {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+
+  background-color: black;
+}
+
+.container {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.gear {
+  position: absolute;
+}
+
+.gear:nth-child(1) {
+  top: 90px;
+  left: 50px;
+  animation: gear 4s linear infinite;
+}
+
+.gear:nth-child(2) {
+  top: 50px;
+  left: 110px;
+  animation: gear2 2s linear infinite;
+}
+
+.gear:nth-child(3) {
+  top: 83px;
+  left: 153px;
+  animation: gear 1s linear infinite;
+}
+
+/* animation keyframes */
+@keyframes gear {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gear2 {
+  from {
+    transform: rotate(22deg);
+  }
+  to {
+    transform: rotate(-338deg);
+  }
+}
+
+/* text styles */
+
+.text {
+  position: absolute;
+  left: 60px;
+  bottom: 0px;
+
+  color: white;
+
+  font-family: -apple-system, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
