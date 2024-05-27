@@ -1,0 +1,177 @@
+version: '3.8'
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mariadb-data:
+  kafka-logs:
+  kafka_data0:
+  kafka_data1:
+  kafka_data2:
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MARIADB_DATABASE}
+      MYSQL_USER: ${MARIADB_USER}
+      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - backend
+    depends_on:
+      - redis
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  redis_batch:
+    container_name: redis_batch
+    image: redis:latest
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
+  broker-1:
+    container_name: broker-1
+    image: 'bitnami/kafka:3.6.1'
+    ports:
+      - '10000:9094'
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-1:9092,EXTERNAL://127.0.0.1:10000
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data0:/bitnami/kafka"
+    networks:
+      - backend
+
+  broker-2:
+    container_name: broker-2
+    image: 'bitnami/kafka:3.6.1'
+    ports:
+      - '10001:9094'
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-2:9092,EXTERNAL://127.0.0.1:10001
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data1:/bitnami/kafka"
+    networks:
+      - backend
+
+  broker-3:
+    container_name: broker-3
+    image: 'bitnami/kafka:3.6.1'
+    ports:
+      - '10002:9094'
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=2
+      - KAFKA_KRAFT_CLUSTER_ID=${CLUSTER_ID}
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@broker-1:9093,1@broker-2:9093,2@broker-3:9093
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker-3:9092,EXTERNAL://127.0.0.1:10002
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      # Clustering
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=2
+    volumes:
+      - "kafka_data2:/bitnami/kafka"
+    networks:
+      - backend
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8989:8080"
+    restart: always
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=smart-factory-cluster-0
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker-1:9092,broker-2:9092,broker-3:9092
+    networks:
+      - backend
+
+  kafka-init:
+    container_name: kafka-init
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+    command: >
+      bash -c 'echo Waiting for Kafka to be ready... && 
+               cub kafka-ready -b broker-1:9092 1 60 && 
+               echo Deleting existing topics... && 
+               kafka-topics --delete --topic amr-history-log --bootstrap-server broker-1:9092 || true && 
+               kafka-topics --delete --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-repartition --bootstrap-server broker-2:9092 || true && 
+               kafka-topics --delete --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-changelog --bootstrap-server broker-2:9092 || true && 
+               kafka-topics --delete --topic mission --bootstrap-server broker-3:9092 || true && 
+               kafka-topics --delete --topic mission-complete --bootstrap-server broker-1:9092 || true && 
+               echo Creating new topics... && 
+               kafka-topics --create --topic amr-history-log --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092 && 
+               kafka-topics --create --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-repartition --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-2:9092 && 
+               kafka-topics --create --topic amr-history-streams-group-KSTREAM-AGGREGATE-STATE-STORE-0000000004-changelog --partitions 5 --replication-factor 2 --if-not-exists --bootstrap-server broker-2:9092 && 
+               kafka-topics --create --topic mission --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-3:9092 && 
+               kafka-topics --create --topic mission-complete --partitions 3 --replication-factor 2 --if-not-exists --bootstrap-server broker-1:9092'
+    networks:
+      - backend

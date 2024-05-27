@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: smartfactory
+  profiles:
+    include:
+      - db
+      - kafka
+      - redis
+      - actuator
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+    open-in-view: false
+  config:
+    import: "configserver:http://${CLOUD_CONFIG_HOST_NAME:localhost}:8888"
+  cloud:
+    config:
+      label: master

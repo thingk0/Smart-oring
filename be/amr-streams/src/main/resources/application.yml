@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: smartfactory
+  profiles:
+    include:
+      - db
+      - kafka
+  config:
+    import: "configserver:http://${CLOUD_CONFIG_HOST_NAME:localhost}:8888"
+  cloud:
+    config:
+      label: master
