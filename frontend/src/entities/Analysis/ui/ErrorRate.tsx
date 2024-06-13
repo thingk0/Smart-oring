@@ -9,23 +9,8 @@ type ErrorRate = {
   amrId: number;
   percentage: number;
 };
-// { data }: ErrorRateProps
 
-function ErrorRate() {
-  const data = [
-    {
-      amrId: 7,
-      percentage: 12.4,
-    },
-    {
-      amrId: 11,
-      percentage: 9.7,
-    },
-    {
-      amrId: 2,
-      percentage: 8.8,
-    },
-  ];
+function ErrorRate({ data }: ErrorRateProps) {
 
   return (
     <div className={styles.component_background}>

@@ -10,23 +10,9 @@ type UsageRate = {
   percentage: number;
 };
 
-// { data }: UsageRateProps
 
-function UsageRate() {
-  const data = [
-    {
-      amrId: 3,
-      percentage: 9.2,
-    },
-    {
-      amrId: 19,
-      percentage: 8.3,
-    },
-    {
-      amrId: 14,
-      percentage: 8.1,
-    },
-  ];
+
+function UsageRate({ data }: UsageRateProps) {
 
   return (
     <div className={styles.component_background}>
