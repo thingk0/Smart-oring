@@ -10,18 +10,8 @@ type RealTimeErrorProps = {
   ];
 };
 
-// { data }: RealTimeErrorProps
-function RealTimeError() {
-  const data = [
-    {
-      amrId: 7,
-      missionId: 53,
-    },
-    {
-      amrId: 11,
-      missionId: 102,
-    },
-  ];
+
+function RealTimeError({ data }: RealTimeErrorProps) {
 
   return (
     <div className={`${styles.component_background} ${styles.scroll}`}>

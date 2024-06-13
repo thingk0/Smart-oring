@@ -38,8 +38,7 @@ function OperatingRate({ data }: OperatingRateProps) {
       </Typography>
       <ReactApexChart
         type="radialBar"
-        // series={[data]}
-        series={[90]}
+        series={[data]}
         options={option}
         // width={300}
       />

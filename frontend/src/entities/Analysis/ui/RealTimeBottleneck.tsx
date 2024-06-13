@@ -11,25 +11,8 @@ type RealTimeBottleneck = {
   ];
 };
 
-// { data }: RealTimeBottleneck
-function RealTimeBottleneck() {
-  const data = [
-    {
-      amrId: 8,
-      xcoordinate: 43,
-      ycoordinate: 16,
-    },
-    {
-      amrId: 24,
-      xcoordinate: 65,
-      ycoordinate: 13,
-    },
-    {
-      amrId: 1,
-      xcoordinate: 32,
-      ycoordinate: 27,
-    },
-  ];
+
+function RealTimeBottleneck({ data }: RealTimeBottleneck) {
 
   return (
     <div className={`${styles.component_background} ${styles.scroll}`}>

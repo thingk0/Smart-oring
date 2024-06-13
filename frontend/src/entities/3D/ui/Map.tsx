@@ -22,7 +22,9 @@ function Map() {
   if (data) {
     return (
       <>
-        {currentView === 'Monitoring' && <InstancedRobot />}
+        {(currentView === 'Monitoring' || currentView === 'Setting') && (
+          <InstancedRobot />
+        )}
         {currentView === 'Replay' && <ReplayInstancedRobot />}
         {/* <AGVInstance /> */}
         {currentView === 'Monitoring' && <Path />}
